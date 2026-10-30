@@ -165,7 +165,7 @@ dialog label.ck{display:flex;gap:10px;align-items:flex-start;margin:14px 0}.hp{p
 <div class="row"><button class="btn" type="submit" data-t="r_s"></button><button class="btn ghost" type="button" id="rx" data-t="r_x"></button></div>
 </form></dialog>
 <script>
-const T={fr:{g_p:"Inscrivez-vous gratuitement pour accéder à cette démonstration.",g_b:"S’inscrire pour accéder",r_h:"Créer mon accès",r_p:"Inscription gratuite, en 20 secondes. Vos informations servent à sécuriser ce site et à vous recontacter.",r_n:"Nom complet",r_e:"E-mail",r_t:"Téléphone (facultatif)",r_o:"Entreprise ou organisation (facultatif)",r_c:"J’accepte pouvoir decouvrir cette technologie.",r_s:"Valider l’inscription",r_x:"Annuler",r_err:"Indiquez votre nom, un e-mail valide et cochez la case d’accord.",r_net:"L’envoi a échoué. Réessayez dans un instant.",n1:"Automatisation",n2:"Laboratoire",n3:"Projets",n4:"Expertises",n5:"Contact",status:"Disponible pour des collaborations",
+const T={fr:{g_p:"Inscrivez-vous gratuitement pour accéder à cette démonstration.",g_b:"S’inscrire pour accéder",r_h:"Créer mon accès",r_p:"Inscription gratuite, en 20 secondes. Vos informations servent à sécuriser ce site et à vous recontacter.",r_n:"Nom complet",r_e:"E-mail",r_t:"Téléphone (facultatif)",r_o:"Entreprise ou organisation (facultatif)",r_c:"J’accepte pouvoir decouvrir cette technologie.",r_s:"Valider l’inscription",r_sending:"Envoi en cours…",r_x:"Annuler",r_err:"Indiquez votre nom, un e-mail valide et cochez la case d’accord.",r_net:"L’envoi a échoué. Réessayez dans un instant.",n1:"Automatisation",n2:"Laboratoire",n3:"Projets",n4:"Expertises",n5:"Contact",status:"Disponible pour des collaborations",
 lead:"Ingénieur en sécurité informatique au Niger. J’automatise ce qui se répète et je protège ce qui compte.",cta1:"Collaborons",cta2:"Voir l’automatisation en action",
 a_h:"Une attaque détectée, bloquée et signalée sans intervention",a_p:"Voici le type de chaîne que je construis : les journaux sont analysés, une règle décide, le pare-feu agit et je suis prévenu. Lancez la simulation.",a_run:"Lancer la simulation",a_note:"Simulation : l’adresse utilisée est fictive.",
 a1:"Journaux",a1s:"Collecte SSH",a2:"Détection",a2s:"Règle de seuil",a3:"Blocage",a3s:"Pare-feu",a4:"Alerte",a4s:"WhatsApp / e-mail",a5:"Rapport",a5s:"Archivage",
@@ -184,7 +184,7 @@ h_stack:"Linux · Bash · Réseaux · Pare-feu · Docker · IA · Création de c
 w:"Bienvenue. Tapez help ou touchez une commande ci-dessous.",pwe:"Entropie",pwt:"Temps estimé pour la casser",pw0:"Saisissez un mot de passe pour l’évaluer.",
 lg:["Journaux : 412 échecs de connexion SSH depuis 203.0.113.42 en 60 s","Détection : seuil de 5 échecs/minute dépassé, source classée hostile","Blocage : iptables -A INPUT -s 203.0.113.42 -j DROP appliqué","Alerte : message envoyé à l’administrateur avec l’IP et l’horodatage","Rapport : incident archivé, adresse ajoutée à la liste de blocage"],
 done:"Incident traité en moins de 2 secondes, sans intervention humaine.",cn:["Adresse réseau","Masque","Diffusion","Plage utilisable","Hôtes utilisables"],bad:"Réseau invalide. Exemple : 10.0.0.0/16"},
-en:{g_p:"Sign up for free to access this demo.",g_b:"Sign up to access",r_h:"Create my access",r_p:"Free sign-up, 20 seconds. Your details are used to secure this site and to contact you back.",r_n:"Full name",r_e:"Email",r_t:"Phone (optional)",r_o:"Company or organisation (optional)",r_c:"I agree that my name, email and technical details of my visit (language, time zone, browser, referring page) are stored to secure the site and to be contacted.",r_s:"Complete sign-up",r_x:"Cancel",r_err:"Enter your name, a valid email and tick the consent box.",r_net:"Sending failed. Please try again shortly.",n1:"Automation",n2:"Lab",n3:"Projects",n4:"Expertise",n5:"Contact",status:"Available for collaborations",
+en:{g_p:"Sign up for free to access this demo.",g_b:"Sign up to access",r_h:"Create my access",r_p:"Free sign-up, 20 seconds. Your details are used to secure this site and to contact you back.",r_n:"Full name",r_e:"Email",r_t:"Phone (optional)",r_o:"Company or organisation (optional)",r_c:"I agree that my name, email and technical details of my visit (language, time zone, browser, referring page) are stored to secure the site and to be contacted.",r_s:"Complete sign-up",r_sending:"Sending…",r_x:"Cancel",r_err:"Enter your name, a valid email and tick the consent box.",r_net:"Sending failed. Please try again shortly.",n1:"Automation",n2:"Lab",n3:"Projects",n4:"Expertise",n5:"Contact",status:"Available for collaborations",
 lead:"Cybersecurity engineer based in Niger. I automate what repeats and protect what matters.",cta1:"Let’s collaborate",cta2:"See automation in action",
 a_h:"An attack detected, blocked and reported with no manual step",a_p:"This is the kind of pipeline I build: logs are analysed, a rule decides, the firewall acts and I get notified. Run the simulation.",a_run:"Run the simulation",a_note:"Simulation: the address used is fictional.",
 a1:"Logs",a1s:"SSH collection",a2:"Detection",a2s:"Threshold rule",a3:"Blocking",a3s:"Firewall",a4:"Alert",a4s:"WhatsApp / email",a5:"Report",a5s:"Archiving",
@@ -242,20 +242,42 @@ const c=t("cn");T2.innerHTML=[[c[0],f(nw)+"/"+p],[c[1],f(mask)],[c[2],f(bc)],[c[
 $("#pw").oninput=pw;$("#cidr").oninput=net;
 document.querySelectorAll("[data-copy]").forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText(b.dataset.copy);b.textContent=t("copied");setTimeout(()=>b.textContent=t("copy"),1500)}catch(e){}});
 $("#lang").onclick=()=>{L=L==="fr"?"en":"fr";paint()};
-const CFG={email:"anarouachamsoudine010@gmail.com"};/* adresse qui reçoit les inscriptions */
 let reg=false;try{reg=localStorage.getItem("ca_reg")==="1"}catch(e){}
 document.querySelectorAll(".lk").forEach(e=>e.insertAdjacentHTML("beforeend",'<div class="gate"><p data-t="g_p"></p><button class="btn" type="button" data-open data-t="g_b"></button></div>'));
 function lock(){document.querySelectorAll(".lk").forEach(e=>{e.classList.toggle("locked",!reg);[...e.children].forEach(c=>{if(!c.classList.contains("gate"))c.inert=!reg})})}
 const dlg=$("#dlg");
 document.addEventListener("click",e=>{if(e.target.closest("[data-open]"))dlg.showModal()});
 $("#rx").onclick=()=>dlg.close();
-$("#rf").addEventListener("submit",async e=>{e.preventDefault();const f=e.target,m=$("#rm"),v=n=>f.elements[n].value.trim();m.textContent="";
+$("#rf").addEventListener("submit",async e=>{
+e.preventDefault();
+const f=e.target,m=$("#rm"),v=n=>f.elements[n].value.trim(),submit=f.querySelector('[type="submit"]');
+m.textContent="";
 if(f.elements.website.value)return;
 if(v("name").length<2||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))||!$("#rc").checked){m.textContent=t("r_err");return}
-const row={name:v("name"),email:v("email").toLowerCase(),phone:v("phone")||null,organization:v("org")||null,consent:true,lang:L,timezone:Intl.DateTimeFormat().resolvedOptions().timeZone,user_agent:navigator.userAgent.slice(0,300),referrer:document.referrer.slice(0,200)||null};
-if(CFG.email){try{const r=await fetch("https://formsubmit.co/ajax/"+CFG.email,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({_subject:"Nouvelle inscription portfolio : "+row.name,_captcha:"false",_template:"table",...row})});if(!r.ok)throw 0}catch(x){m.textContent=t("r_net");return}}
+const row={name:v("name"),email:v("email").toLowerCase(),phone:v("phone")||null,organization:v("org")||null,consent:true,lang:L,timezone:Intl.DateTimeFormat().resolvedOptions().timeZone,user_agent:navigator.userAgent.slice(0,300),referrer:document.referrer.slice(0,200)||null,website:v("website")};
+submit.disabled=true;
+submit.textContent=t("r_sending");
+try{
+const r=await fetch("/api/inscription",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(row)});
+let result;
+try{result=await r.json()}catch(error){console.error("Registration API returned an invalid response",error)}
+if(!r.ok||!result||result.success!==true){
+console.error("Registration submission failed",{status:r.status,error:result&&result.error});
+m.textContent=t("r_net");
+submit.disabled=false;
+submit.textContent=t("r_s");
+return;
+}
+}catch(error){
+console.error("Registration request could not reach the Vercel API",error);
+m.textContent=t("r_net");
+submit.disabled=false;
+submit.textContent=t("r_s");
+return;
+}
 reg=true;try{localStorage.setItem("ca_reg","1")}catch(x){}
-lock();dlg.close()});
+lock();dlg.close()
+});
 lock();
 $("#yr").textContent=new Date().getFullYear();paint();say(t("w"),"d");
 </script>

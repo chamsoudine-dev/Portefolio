@@ -1,14 +1,26 @@
 PORTFOLIO — INSCRIPTIONS PAR E-MAIL
 
-Chaque inscription est envoyée à : anarouachamsoudine010@gmail.com
-(service gratuit FormSubmit, sans compte ni base de données).
+Chaque inscription est envoyée à anarouachamsoudine010@gmail.com via FormSubmit.
+Le navigateur appelle /api/inscription, une fonction serveur Vercel qui transmet
+la demande à FormSubmit sans exposer l'appel inter-origine au navigateur.
 
-ACTIVATION (une seule fois, obligatoire) :
-1. Publiez index.html (Netlify, Vercel, GitHub Pages...).
-2. Inscrivez-vous vous-même sur le site avec un test.
-3. Ouvrez l'e-mail "Activate FormSubmit" reçu dans Gmail (vérifiez aussi les
-   spams) et cliquez sur le bouton d'activation.
-4. Refaites un test : chaque inscription arrive ensuite par e-mail.
+DÉPLOIEMENT
+1. Déployer le dossier du projet à la racine du projet Vercel. Le dossier api/
+   et index.html doivent être dans ce même dossier.
+2. Vercel détecte automatiquement api/inscription.js comme fonction serveur.
+3. Après le déploiement, ouvrir le site en HTTPS et faire une inscription de test
+   avec ses propres coordonnées.
+4. Pour une première inscription, FormSubmit peut demander l'activation :
+   ouvrir l'e-mail "Activate FormSubmit" reçu par l'adresse destinataire
+   (vérifier les spams), cliquer sur le lien, puis refaire un test.
+5. Vérifier la réception des e-mails de test avant d'annoncer le formulaire
+   comme opérationnel.
 
-Pour changer l'adresse de réception : modifiez const CFG={email:"..."} dans
-index.html, puis refaites l'activation.
+L'adresse destinataire est configurée dans api/inscription.js. Si elle change,
+modifier RECIPIENT puis redéployer et refaire l'activation FormSubmit.
+
+Si l'envoi échoue, consulter les journaux de la fonction inscription dans
+Vercel > Logs. La fonction journalise uniquement le statut/état de l'erreur,
+pas le contenu personnel de l'inscription. Une erreur FormSubmit (notamment
+HTTP 521) doit être résolue par le service FormSubmit ; le relais Vercel ne peut
+pas corriger une panne de leur côté.
