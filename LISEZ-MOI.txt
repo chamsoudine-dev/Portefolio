@@ -1,26 +1,20 @@
 PORTFOLIO — INSCRIPTIONS PAR E-MAIL
 
 Chaque inscription est envoyée à anarouachamsoudine010@gmail.com via FormSubmit.
-Le navigateur appelle /api/inscription, une fonction serveur Vercel qui transmet
-la demande à FormSubmit sans exposer l'appel inter-origine au navigateur.
+Le navigateur appelle /api/inscription, une fonction Netlify
+(netlify/functions/inscription.mts) qui transmet la demande à FormSubmit.
 
-DÉPLOIEMENT
-1. Déployer le dossier du projet à la racine du projet Vercel. Le dossier api/
-   et index.html doivent être dans ce même dossier.
-2. Vercel détecte automatiquement api/inscription.js comme fonction serveur.
-3. Après le déploiement, ouvrir le site en HTTPS et faire une inscription de test
-   avec ses propres coordonnées.
-4. Pour une première inscription, FormSubmit peut demander l'activation :
+DÉPLOIEMENT (Netlify)
+1. Pousser le projet sur la branche main : Netlify déploie automatiquement
+   le site et la fonction.
+2. Ouvrir https://chamsoudine.netlify.app et faire une inscription de test.
+3. Pour la toute première inscription, FormSubmit demande une activation :
    ouvrir l'e-mail "Activate FormSubmit" reçu par l'adresse destinataire
    (vérifier les spams), cliquer sur le lien, puis refaire un test.
-5. Vérifier la réception des e-mails de test avant d'annoncer le formulaire
-   comme opérationnel.
+4. Vérifier la réception de l'e-mail de test.
 
-L'adresse destinataire est configurée dans api/inscription.js. Si elle change,
-modifier RECIPIENT puis redéployer et refaire l'activation FormSubmit.
+L'adresse destinataire est configurée dans netlify/functions/inscription.mts
+(constante RECIPIENT). Si elle change, redéployer et refaire l'activation.
 
-Si l'envoi échoue, consulter les journaux de la fonction inscription dans
-Vercel > Logs. La fonction journalise uniquement le statut/état de l'erreur,
-pas le contenu personnel de l'inscription. Une erreur FormSubmit (notamment
-HTTP 521) doit être résolue par le service FormSubmit ; le relais Vercel ne peut
-pas corriger une panne de leur côté.
+En cas d'échec, consulter Netlify > Logs > Functions > inscription. La fonction
+journalise uniquement le statut de l'erreur, pas les données personnelles.
