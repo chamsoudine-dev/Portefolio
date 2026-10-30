@@ -1,0 +1,14 @@
+PORTFOLIO — INSCRIPTIONS PAR E-MAIL
+
+Chaque inscription est envoyée à : anarouachamsoudine010@gmail.com
+(service gratuit FormSubmit, sans compte ni base de données).
+
+ACTIVATION (une seule fois, obligatoire) :
+1. Publiez index.html (Netlify, Vercel, GitHub Pages...).
+2. Inscrivez-vous vous-même sur le site avec un test.
+3. Ouvrez l'e-mail "Activate FormSubmit" reçu dans Gmail (vérifiez aussi les
+   spams) et cliquez sur le bouton d'activation.
+4. Refaites un test : chaque inscription arrive ensuite par e-mail.
+
+Pour changer l'adresse de réception : modifiez const CFG={email:"..."} dans
+index.html, puis refaites l'activation.
