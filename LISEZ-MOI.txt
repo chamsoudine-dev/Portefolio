@@ -1,26 +1,14 @@
-PORTFOLIO — INSCRIPTIONS PAR E-MAIL
+PORTFOLIO — INSCRIPTIONS (Netlify Forms)
 
-Chaque inscription est envoyée à anarouachamsoudine010@gmail.com via FormSubmit.
-Le navigateur appelle /api/inscription, une fonction serveur Vercel qui transmet
-la demande à FormSubmit sans exposer l'appel inter-origine au navigateur.
+Le formulaire d'inscription utilise Netlify Forms (formulaire "inscription").
+Aucun service externe : chaque inscription est enregistrée par Netlify.
 
-DÉPLOIEMENT
-1. Déployer le dossier du projet à la racine du projet Vercel. Le dossier api/
-   et index.html doivent être dans ce même dossier.
-2. Vercel détecte automatiquement api/inscription.js comme fonction serveur.
-3. Après le déploiement, ouvrir le site en HTTPS et faire une inscription de test
-   avec ses propres coordonnées.
-4. Pour une première inscription, FormSubmit peut demander l'activation :
-   ouvrir l'e-mail "Activate FormSubmit" reçu par l'adresse destinataire
-   (vérifier les spams), cliquer sur le lien, puis refaire un test.
-5. Vérifier la réception des e-mails de test avant d'annoncer le formulaire
-   comme opérationnel.
+VOIR LES INSCRIPTIONS
+Netlify > projet chamsoudine > Forms > inscription.
+Vérifier aussi l'onglet "Spam" : un test avec de fausses données peut y arriver.
 
-L'adresse destinataire est configurée dans api/inscription.js. Si elle change,
-modifier RECIPIENT puis redéployer et refaire l'activation FormSubmit.
-
-Si l'envoi échoue, consulter les journaux de la fonction inscription dans
-Vercel > Logs. La fonction journalise uniquement le statut/état de l'erreur,
-pas le contenu personnel de l'inscription. Une erreur FormSubmit (notamment
-HTTP 521) doit être résolue par le service FormSubmit ; le relais Vercel ne peut
-pas corriger une panne de leur côté.
+RECEVOIR UN E-MAIL À CHAQUE INSCRIPTION (à faire une seule fois)
+Netlify > Project configuration > Notifications > Emails and webhooks >
+Form submission notifications > Add notification > Email notification.
+Événement : "New form submission", formulaire : "inscription",
+e-mail : anarouachamsoudine010@gmail.com.
