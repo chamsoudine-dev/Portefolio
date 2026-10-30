@@ -1,56 +1,55 @@
 const RECIPIENT = "anarouachamsoudine010@gmail.com";
 const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
-function sendJson(res, status, body) {
-  res.status(status).setHeader("Content-Type", "application/json; charset=utf-8");
-  res.end(JSON.stringify(body));
+function sendJson(status, body, headers = {}) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json; charset=utf-8", ...headers }
+  });
 }
 
 function clean(value, maxLength) {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
 }
 
-module.exports = async function handler(req, res) {
+export default async (req) => {
   if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return sendJson(res, 405, { error: "method_not_allowed" });
+    return sendJson(405, { error: "method_not_allowed" }, { Allow: "POST" });
   }
 
-  const origin = req.headers.origin;
-  const host = req.headers.host;
+  const origin = req.headers.get("origin");
+  const host = req.headers.get("host") || new URL(req.url).host;
   if (!origin || !host) {
-    return sendJson(res, 403, { error: "invalid_origin" });
+    return sendJson(403, { error: "invalid_origin" });
   }
 
   try {
     if (new URL(origin).host.toLowerCase() !== host.toLowerCase()) {
-      return sendJson(res, 403, { error: "invalid_origin" });
+      return sendJson(403, { error: "invalid_origin" });
     }
   } catch {
-    return sendJson(res, 403, { error: "invalid_origin" });
+    return sendJson(403, { error: "invalid_origin" });
   }
 
-  let data = req.body;
-  if (typeof data === "string") {
-    try {
-      data = JSON.parse(data);
-    } catch {
-      return sendJson(res, 400, { error: "invalid_json" });
-    }
+  let data;
+  try {
+    data = await req.json();
+  } catch {
+    return sendJson(400, { error: "invalid_json" });
   }
 
   if (!data || typeof data !== "object" || Array.isArray(data)) {
-    return sendJson(res, 400, { error: "invalid_submission" });
+    return sendJson(400, { error: "invalid_submission" });
   }
 
   if (clean(data.website, 200)) {
-    return sendJson(res, 200, { success: true });
+    return sendJson(200, { success: true });
   }
 
   const name = clean(data.name, 80);
   const email = clean(data.email, 120).toLowerCase();
   if (name.length < 2 || !EMAIL_PATTERN.test(email) || data.consent !== true) {
-    return sendJson(res, 400, { error: "invalid_submission" });
+    return sendJson(400, { error: "invalid_submission" });
   }
 
   const submission = {
@@ -65,15 +64,15 @@ module.exports = async function handler(req, res) {
     referrer: clean(data.referrer, 200) || null
   };
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 12000);
-
   try {
     const upstream = await fetch(`https://formsubmit.co/ajax/${RECIPIENT}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json"
+        Accept: "application/json",
+        // FormSubmit rejects AJAX requests that don't come from a web page.
+        Origin: origin,
+        Referer: `${origin}/`
       },
       body: JSON.stringify({
         _subject: `Nouvelle inscription portfolio : ${submission.name}`,
@@ -81,12 +80,12 @@ module.exports = async function handler(req, res) {
         _template: "table",
         ...submission
       }),
-      signal: controller.signal
+      signal: AbortSignal.timeout(12000)
     });
 
     if (!upstream.ok) {
       console.error("FormSubmit returned HTTP", upstream.status);
-      return sendJson(res, 502, {
+      return sendJson(502, {
         error: "email_service_unavailable",
         upstreamStatus: upstream.status
       });
@@ -98,22 +97,24 @@ module.exports = async function handler(req, res) {
       responseData = JSON.parse(responseText);
     } catch {
       console.error("FormSubmit returned a non-JSON success response");
-      return sendJson(res, 502, { error: "invalid_email_service_response" });
+      return sendJson(502, { error: "invalid_email_service_response" });
     }
 
     if (responseData.success !== true && responseData.success !== "true") {
-      console.error("FormSubmit reported that it did not accept the submission");
-      return sendJson(res, 502, { error: "email_service_rejected_submission" });
+      console.error("FormSubmit reported that it did not accept the submission:", responseData.message);
+      return sendJson(502, { error: "email_service_rejected_submission" });
     }
 
-    return sendJson(res, 200, { success: true });
+    return sendJson(200, { success: true });
   } catch (error) {
-    const timedOut = error && error.name === "AbortError";
+    const timedOut = error && (error.name === "TimeoutError" || error.name === "AbortError");
     console.error(timedOut ? "FormSubmit request timed out" : "FormSubmit request failed");
-    return sendJson(res, 502, {
+    return sendJson(502, {
       error: timedOut ? "email_service_timeout" : "email_service_unavailable"
     });
-  } finally {
-    clearTimeout(timeout);
   }
+};
+
+export const config = {
+  path: "/api/inscription"
 };
