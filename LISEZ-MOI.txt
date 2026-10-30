@@ -1,20 +1,14 @@
-PORTFOLIO — INSCRIPTIONS PAR E-MAIL
+PORTFOLIO — INSCRIPTIONS (Netlify Forms)
 
-Chaque inscription est envoyée à anarouachamsoudine010@gmail.com via FormSubmit.
-Le navigateur appelle /api/inscription, une fonction Netlify
-(netlify/functions/inscription.mts) qui transmet la demande à FormSubmit.
+Le formulaire d'inscription utilise Netlify Forms (formulaire "inscription").
+Aucun service externe : chaque inscription est enregistrée par Netlify.
 
-DÉPLOIEMENT (Netlify)
-1. Pousser le projet sur la branche main : Netlify déploie automatiquement
-   le site et la fonction.
-2. Ouvrir https://chamsoudine.netlify.app et faire une inscription de test.
-3. Pour la toute première inscription, FormSubmit demande une activation :
-   ouvrir l'e-mail "Activate FormSubmit" reçu par l'adresse destinataire
-   (vérifier les spams), cliquer sur le lien, puis refaire un test.
-4. Vérifier la réception de l'e-mail de test.
+VOIR LES INSCRIPTIONS
+Netlify > projet chamsoudine > Forms > inscription.
+Vérifier aussi l'onglet "Spam" : un test avec de fausses données peut y arriver.
 
-L'adresse destinataire est configurée dans netlify/functions/inscription.mts
-(constante RECIPIENT). Si elle change, redéployer et refaire l'activation.
-
-En cas d'échec, consulter Netlify > Logs > Functions > inscription. La fonction
-journalise uniquement le statut de l'erreur, pas les données personnelles.
+RECEVOIR UN E-MAIL À CHAQUE INSCRIPTION (à faire une seule fois)
+Netlify > Project configuration > Notifications > Emails and webhooks >
+Form submission notifications > Add notification > Email notification.
+Événement : "New form submission", formulaire : "inscription",
+e-mail : anarouachamsoudine010@gmail.com.

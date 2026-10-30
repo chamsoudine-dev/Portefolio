@@ -153,14 +153,17 @@ dialog label.ck{display:flex;gap:10px;align-items:flex-start;margin:14px 0}.hp{p
 </div></section>
 </main>
 <footer><div class="wrap"><span>© <span id="yr"></span> Chamsoudine Anaroua</span><span data-t="foot"></span></div></footer>
-<dialog id="dlg"><form id="rf" novalidate>
+<dialog id="dlg"><form id="rf" name="inscription" method="POST" data-netlify="true" netlify-honeypot="website" novalidate>
+<input type="hidden" name="form-name" value="inscription">
+<input type="hidden" name="subject" value="Nouvelle inscription portfolio (%{submissionId})">
 <h3 data-t="r_h"></h3><p data-t="r_p"></p>
 <label for="rn" data-t="r_n"></label><input id="rn" name="name" required maxlength="80" autocomplete="name">
 <label for="re" data-t="r_e"></label><input id="re" name="email" type="email" required maxlength="120" autocomplete="email">
 <label for="rt" data-t="r_t"></label><input id="rt" name="phone" type="tel" maxlength="30" autocomplete="tel">
 <label for="ro" data-t="r_o"></label><input id="ro" name="org" maxlength="100" autocomplete="organization">
+<input type="hidden" name="lang" value="fr">
 <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-<label class="ck"><input type="checkbox" id="rc"><span data-t="r_c"></span></label>
+<label class="ck"><input type="checkbox" id="rc" name="consent" value="oui"><span data-t="r_c"></span></label>
 <div class="msg" id="rm" role="alert"></div>
 <div class="row"><button class="btn" type="submit" data-t="r_s"></button><button class="btn ghost" type="button" id="rx" data-t="r_x"></button></div>
 </form></dialog>
@@ -254,15 +257,13 @@ const f=e.target,m=$("#rm"),v=n=>f.elements[n].value.trim(),submit=f.querySelect
 m.textContent="";
 if(f.elements.website.value)return;
 if(v("name").length<2||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))||!$("#rc").checked){m.textContent=t("r_err");return}
-const row={name:v("name"),email:v("email").toLowerCase(),phone:v("phone")||null,organization:v("org")||null,consent:true,lang:L,timezone:Intl.DateTimeFormat().resolvedOptions().timeZone,user_agent:navigator.userAgent.slice(0,300),referrer:document.referrer.slice(0,200)||null,website:v("website")};
+const fd=new FormData(f);fd.set("email",v("email").toLowerCase());fd.set("lang",L);
 submit.disabled=true;
 submit.textContent=t("r_sending");
 try{
-const r=await fetch("/api/inscription",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(row)});
-let result;
-try{result=await r.json()}catch(error){console.error("Registration API returned an invalid response",error)}
-if(!r.ok||!result||result.success!==true){
-console.error("Registration submission failed",{status:r.status,error:result&&result.error});
+const r=await fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(fd).toString()});
+if(!r.ok){
+console.error("Registration submission failed",{status:r.status});
 m.textContent=t("r_net");
 submit.disabled=false;
 submit.textContent=t("r_s");
