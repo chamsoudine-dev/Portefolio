@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Administration | C.A</title>
+<style>
+:root{color-scheme:dark;--bg:#0c1116;--panel:#141b22;--line:#24303a;--text:#eeebe3;--muted:#a7b0b8;--gold:#dcb96e;--ok:#6fd3a0;--bad:#ff8a7a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0)}
+@media(prefers-color-scheme:light){:root{color-scheme:light;--bg:#f6f4ef;--panel:#fff;--line:#d9d4c8;--text:#181b1f;--muted:#566069;--gold:#8a6514;--ok:#0f7a4d;--bad:#b3261e}}
+*{box-sizing:inherit}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,sans-serif}
+.w{width:min(1100px,92%);margin:auto;padding:24px 0 60px}h1,h2{font-family:Georgia,serif;margin:0}h2{font-size:22px;margin:28px 0 12px}
+.btn,select,input,textarea{font:inherit;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--text);padding:8px 12px}
+.btn{background:var(--gold);color:#14110a;border-color:var(--gold);font-weight:600;cursor:pointer}.btn.g{background:none;color:var(--gold)}.btn.d{background:none;color:var(--bad);border-color:var(--bad)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}.card b{display:block;font-size:26px;color:var(--gold)}.card span{color:var(--muted);font-size:13px}
+.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{color:var(--muted);font-weight:500}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.row input{flex:1;min-width:140px}.done{text-decoration:line-through;color:var(--muted)}
+#login{max-width:360px;margin:12vh auto}#login input{width:100%;margin:12px 0}.err{color:var(--bad);min-height:22px;font-size:13px}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}}
+</style></head><body><div class="w">
+<div id="login" class="card"><h1>Administration</h1><p style="color:var(--muted)">Accès réservé.</p>
+<input id="pw" type="password" placeholder="Mot de passe" autocomplete="current-password" aria-label="Mot de passe"><div class="err" id="le" role="alert"></div><button class="btn" id="lb" style="width:100%">Se connecter</button></div>
+<div id="app" hidden>
+<div class="top"><h1>Tableau de bord</h1><div class="row" style="margin:0"><button class="btn g" id="rf">Actualiser</button><button class="btn g" id="ex">Exporter CSV</button><button class="btn g" id="lo">Déconnexion</button></div></div>
+<div class="stats" id="st"></div><div class="err" id="ae" role="alert"></div>
+<h2>Tâches</h2><form class="row" id="tf"><input id="tt" placeholder="Nouvelle tâche (ex : rappeler Awa)" maxlength="200" required><input id="td" type="date" aria-label="Échéance"><select id="tl" aria-label="Inscrit lié"><option value="">Aucun inscrit</option></select><button class="btn">Ajouter</button></form>
+<div class="scroll"><table id="tb"></table></div>
+<h2>Inscriptions</h2><div class="row"><input id="q" placeholder="Rechercher nom, e-mail, organisation…"><select id="sf"><option value="">Tous statuts</option></select></div>
+<div class="scroll"><table id="lt"></table></div></div></div>
+<script>
+const $=s=>document.querySelector(s),ST=[["nouveau","Nouveau"],["contacte","Contacté"],["qualifie","Qualifié"],["archive","Archivé"]];let D={leads:[],tasks:[]};
+const e=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+async function api(a,x={}){const r=await fetch("/api/admin",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:a,...x})});let j={};try{j=await r.json()}catch{}
+if(r.status===401&&a!=="login"){show(false);throw new Error("session")}if(!r.ok)throw Object.assign(new Error(j.error||"erreur"),{code:j.error});return j}
+function show(v){$("#login").hidden=v;$("#app").hidden=!v}
+const msg={admin_not_configured:"Admin non configuré (ADMIN_PASSWORD / SESSION_SECRET manquants sur Vercel).",bad_credentials:"Mot de passe incorrect.",db_not_configured:"Base non configurée (SUPABASE_URL / SUPABASE_SERVICE_KEY).",db_error:"Erreur base de données : vérifiez schema.sql."};
+async function load(){try{D=await api("list");$("#ae").textContent="";draw();show(true)}catch(x){if(x.message!=="session"){$("#ae").textContent=msg[x.code]||"Erreur de chargement.";show(x.code&&x.code!=="unauthorized")}}}
+function draw(){const L=D.leads,T=D.tasks,od=T.filter(t=>!t.done&&t.due&&t.due<new Date().toISOString().slice(0,10)).length;
+$("#st").innerHTML=[["Inscrits",L.length],["Nouveaux",L.filter(l=>l.status==="nouveau").length],["Tâches ouvertes",T.filter(t=>!t.done).length],["En retard",od]].map(([a,b])=>`<div class="card"><b>${b}</b><span>${a}</span></div>`).join("");
+$("#tl").innerHTML='<option value="">Aucun inscrit</option>'+L.map(l=>`<option value="${l.id}">${e(l.name)}</option>`).join("");
+const nm=id=>(L.find(l=>l.id===id)||{}).name||"";
+$("#tb").innerHTML="<tr><th></th><th>Tâche</th><th>Échéance</th><th>Inscrit</th><th></th></tr>"+(T.map(t=>`<tr><td><input type="checkbox" data-tg="${t.id}" ${t.done?"checked":""} aria-label="Terminée"></td><td class="${t.done?"done":""}">${e(t.title)}</td><td>${e(t.due||"—")}</td><td>${e(nm(t.lead_id))}</td><td><button class="btn d" data-td="${t.id}">Suppr.</button></td></tr>`).join("")||'<tr><td colspan="5" style="color:var(--muted)">Aucune tâche.</td></tr>');
+const q=$("#q").value.toLowerCase(),sf=$("#sf").value,F=L.filter(l=>(!sf||l.status===sf)&&(!q||[l.name,l.email,l.organization,l.phone].join(" ").toLowerCase().includes(q)));
+$("#lt").innerHTML="<tr><th>Date</th><th>Contact</th><th>Statut</th><th>Notes</th><th></th></tr>"+(F.map(l=>`<tr><td>${e(new Date(l.created_at).toLocaleDateString("fr-FR"))}</td><td><b>${e(l.name)}</b><br><a href="mailto:${e(l.email)}" style="color:var(--gold)">${e(l.email)}</a><br>${e(l.phone||"")} ${e(l.organization||"")}</td><td><select data-st="${l.id}">${ST.map(([v,n])=>`<option value="${v}" ${l.status===v?"selected":""}>${n}</option>`).join("")}</select></td><td><textarea data-nt="${l.id}" rows="2" maxlength="2000" style="width:100%;min-width:160px">${e(l.notes)}</textarea></td><td><button class="btn d" data-ld="${l.id}">Suppr.</button></td></tr>`).join("")||'<tr><td colspan="5" style="color:var(--muted)">Aucun inscrit.</td></tr>')}
+async function run(f){try{await f();await load()}catch(x){if(x.message!=="session")$("#ae").textContent="Action impossible : "+(msg[x.code]||x.message)}}
+$("#sf").innerHTML+=ST.map(([v,n])=>`<option value="${v}">${n}</option>`).join("");
+$("#lb").onclick=async()=>{$("#le").textContent="";try{await api("login",{password:$("#pw").value});$("#pw").value="";load()}catch(x){$("#le").textContent=msg[x.code]||"Connexion impossible."}};
+$("#pw").onkeydown=x=>{if(x.key==="Enter")$("#lb").click()};$("#rf").onclick=load;$("#q").oninput=draw;$("#sf").onchange=draw;
+$("#lo").onclick=async()=>{await api("logout").catch(()=>{});show(false)};
+$("#tf").onsubmit=x=>{x.preventDefault();run(async()=>{await api("task_add",{title:$("#tt").value,due:$("#td").value,lead_id:$("#tl").value});$("#tf").reset()})};
+document.addEventListener("change",x=>{const t=x.target;if(t.dataset.tg)run(()=>api("task_toggle",{id:t.dataset.tg,done:t.checked}));if(t.dataset.st)run(()=>api("lead_update",{id:t.dataset.st,status:t.value}));if(t.dataset.nt)run(()=>api("lead_update",{id:t.dataset.nt,notes:t.value}))});
+document.addEventListener("click",x=>{const t=x.target;if(t.dataset.td&&confirm("Supprimer cette tâche ?"))run(()=>api("task_delete",{id:t.dataset.td}));if(t.dataset.ld&&confirm("Supprimer cet inscrit ?"))run(()=>api("lead_delete",{id:t.dataset.ld}))});
+$("#ex").onclick=()=>{const c=v=>`"${String(v??"").replace(/"/g,'""').replace(/^([=+\-@])/,"'$1")}"`,r=[["date","nom","email","telephone","organisation","statut","notes"],...D.leads.map(l=>[l.created_at,l.name,l.email,l.phone,l.organization,l.status,l.notes])];
+const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+r.map(x=>x.map(c).join(",")).join("\n")],{type:"text/csv"}));a.download="inscrits.csv";a.click()};
+load();
+</script></body></html>
