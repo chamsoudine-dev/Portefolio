@@ -6,7 +6,12 @@ const sameOrigin = req => { try { return !!req.headers.origin && new URL(req.hea
 
 // Base de données : Supabase via REST (aucune dépendance npm)
 async function db(path, { method = "GET", data, prefer } = {}) {
-  const url = process.env.SUPABASE_URL || "https://xeztwmpmnxmmuxzfqmph.supabase.co", key = process.env.SUPABASE_SERVICE_KEY;
+  const url = process.env.SUPABASE_URL
+    || process.env.NEXT_PUBLIC_SUPABASE_URL
+    || "https://xeztwmpmnxmmuxzfqmph.supabase.co";
+  const key = process.env.SUPABASE_SERVICE_KEY
+    || process.env.SUPABASE_SERVICE_ROLE_KEY
+    || process.env.SUPABASE_SECRET_KEY;
   if (!url || !key) throw Object.assign(new Error("db_not_configured"), { code: "db_not_configured" });
   const r = await fetch(`${url.replace(/\/$/, "")}/rest/v1/${path}`, {
     method, headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: prefer || "return=representation" },
