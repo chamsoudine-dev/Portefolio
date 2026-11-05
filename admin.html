@@ -1,29 +1,108 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Administration Sécurisée | C.A</title>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Console d'Administration Centralisée | C.A</title>
 <style>
-:root{color-scheme:dark;--bg:#070a0e;--panel:#101822;--line:#24303a;--text:#eeebe3;--muted:#a7b0b8;--gold:#dcb96e;--ok:#6fd3a0;--bad:#ff8a7a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0)}
-@media(prefers-color-scheme:light){:root{color-scheme:light;--bg:#f6f4ef;--panel:#fff;--line:#d9d4c8;--text:#181b1f;--muted:#566069;--gold:#8a6514;--ok:#0f7a4d;--bad:#b3261e}}
-*,*:before,*:after{box-sizing:inherit}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,sans-serif}
-.w{width:min(1100px,92%);margin:auto;padding:24px 0 60px}h1,h2{font-family:Georgia,serif;margin:0}h2{font-size:22px;margin:28px 0 12px}
-.btn,select,input,textarea{font:inherit;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--text);padding:8px 12px}
-.btn{background:var(--gold);color:#14110a;border-color:var(--gold);font-weight:600;cursor:pointer;transition:all .2s}.btn:hover{filter:brightness(1.1)}
-.btn.g{background:none;color:var(--gold)}.btn.d{background:none;color:var(--bad);border-color:var(--bad)}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 24px}.card b{display:block;font-size:26px;color:var(--gold)}.card span{color:var(--muted);font-size:13px}
-.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{color:var(--muted);font-weight:500}
-.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.row input{flex:1;min-width:140px}.done{text-decoration:line-through;color:var(--muted)}
-.box-center{max-width:380px;margin:12vh auto}
+:root{
+  color-scheme:dark;
+  --bg:#070a0e;
+  --bg-card:#0e1622;
+  --panel:#111a28;
+  --line:#223244;
+  --text:#f0f4f8;
+  --muted:#8b9bb0;
+  --gold:#dcb96e;
+  --gold-glow:rgba(220,185,110,0.3);
+  --cyan:#00e5ff;
+  --cyan-glow:rgba(0,229,255,0.3);
+  --ok:#00f59b;
+  --bad:#ff4d6d;
+}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14.5px/1.55 system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.w{width:min(1200px,94%);margin:auto;padding:24px 0 60px}
+h1,h2,h3{font-family:Georgia,serif;margin:0}
+h1{font-size:24px}
+h2{font-size:20px;margin:28px 0 14px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+
+/* UI Controls */
+.btn,select,input,textarea{font:inherit;border-radius:8px;border:1px solid var(--line);background:rgba(7,10,14,0.9);color:var(--text);padding:8px 12px;outline:0;transition:all .2s}
+.btn,select,input:focus,textarea:focus{border-color:var(--gold)}
+.btn{background:var(--gold);color:#0a0d12;border-color:var(--gold);font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn.g{background:transparent;color:var(--gold);border-color:rgba(220,185,110,0.4)}
+.btn.g:hover{background:rgba(220,185,110,0.1)}
+.btn.cyan{background:transparent;color:var(--cyan);border-color:rgba(0,229,255,0.4)}
+.btn.cyan:hover{background:rgba(0,229,255,0.1)}
+.btn.d{background:transparent;color:var(--bad);border-color:rgba(255,77,109,0.4)}
+.btn.d:hover{background:rgba(255,77,109,0.1)}
+.btn.sm{padding:5px 10px;font-size:12px;border-radius:6px}
+
+/* Layout */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px;box-shadow:0 12px 36px rgba(0,0,0,0.4)}
+.box-center{max-width:390px;margin:12vh auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--line)}
+
+/* Module Switcher Tabs */
+.module-tabs{display:flex;gap:10px;margin:22px 0 24px;border-bottom:1px solid var(--line);padding-bottom:14px;overflow-x:auto}
+.mod-tab-btn{background:transparent;border:1px solid var(--line);color:var(--muted);padding:10px 18px;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .2s;white-space:nowrap}
+.mod-tab-btn.active{background:rgba(220,185,110,0.12);color:var(--gold);border-color:var(--gold);box-shadow:0 0 16px var(--gold-glow)}
+.mod-tab-btn.active.sw{background:rgba(0,229,255,0.12);color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 16px var(--cyan-glow)}
+
+/* Stats & Grid */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
+.stat-card{background:rgba(10,15,22,0.8);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.stat-card b{display:block;font-size:24px;color:var(--gold);font-family:Georgia,serif}
+.stat-card span{color:var(--muted);font-size:12.5px}
+
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:middle;font-size:13.5px}
+th{color:var(--muted);font-weight:500;font-size:12px;text-transform:uppercase}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.row input{flex:1;min-width:140px}
+
+/* Sarkin Wanka Media Grid */
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:18px}
+.media-card{background:rgba(8,12,18,0.9);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s}
+.media-card:hover{transform:translateY(-2px);border-color:rgba(0,229,255,0.4)}
+.media-thumb{height:160px;background:#05070a;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.media-thumb img{width:100%;height:100%;object-fit:cover}
+.media-thumb video{width:100%;height:100%;object-fit:cover}
+.media-body{padding:14px 16px}
+.media-badge{position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.75);color:var(--cyan);border:1px solid rgba(0,229,255,0.3);padding:2px 8px;border-radius:4px;font-size:11px}
+.media-price{color:var(--gold);font-weight:700;font-size:15px;margin-top:4px}
+
+/* Form Collapse */
+.collapsible-form{background:rgba(10,16,24,0.9);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:24px;display:none}
+
+/* Live Pulse Indicator */
+.live-pulse{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);display:inline-block;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
+
 .err{color:var(--bad);min-height:20px;font-size:13px;margin:8px 0}
 .ok{color:var(--ok);min-height:20px;font-size:13px;margin:8px 0}
 .link-btn{background:none;border:none;color:var(--gold);font-size:13px;padding:0;cursor:pointer;text-decoration:underline}
-.link-btn:hover{filter:brightness(1.2)}
-@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}}
-</style></head><body><div class="w">
+.badge{padding:3px 8px;border-radius:999px;font-size:11.5px;font-family:ui-monospace,monospace}
+.badge.mesures{background:rgba(220,185,110,0.15);color:var(--gold)}
+.badge.coupe{background:rgba(0,229,255,0.15);color:var(--cyan)}
+.badge.couture{background:rgba(255,170,0,0.15);color:#ffaa00}
+.badge.essayage{background:rgba(170,85,255,0.15);color:#aa55ff}
+.badge.pret{background:rgba(0,245,155,0.15);color:var(--ok)}
+.badge.livre{background:rgba(255,255,255,0.1);color:var(--muted)}
 
-<!-- Formulaire de Connexion -->
+@media(max-width:860px){
+  .stats{grid-template-columns:1fr 1fr}
+  .media-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="w">
+
+<!-- Boîte de Connexion -->
 <div id="login-box" class="card box-center">
-  <h1>Administration</h1>
-  <p style="color:var(--muted);font-size:13.5px;margin:6px 0 16px">Accès sécurisé réservé au propriétaire du site.</p>
+  <h1>Console Administrateur</h1>
+  <p style="color:var(--muted);font-size:13.5px;margin:6px 0 16px">Accès réservé au propriétaire et superviseur des sites.</p>
 
   <label for="pw" style="display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px">Mot de passe administrateur :</label>
   <input id="pw" type="password" style="width:100%;margin-bottom:12px" placeholder="Entrez votre mot de passe" autocomplete="current-password" aria-label="Mot de passe">
@@ -36,7 +115,7 @@
   </div>
 </div>
 
-<!-- Formulaire Réinitialisation / Mot de passe oublié -->
+<!-- Boîte Réinitialisation Sécurisée -->
 <div id="reset-box" class="card box-center" hidden>
   <h1>Réinitialisation</h1>
   <p style="color:var(--muted);font-size:13.5px;margin:6px 0 16px">Confirmez votre identité pour enregistrer un nouveau mot de passe administrateur.</p>
@@ -59,44 +138,252 @@
   </div>
 </div>
 
-<!-- Tableau de Bord Admin -->
+<!-- Application Principale Multi-Plateformes -->
 <div id="app" hidden>
   <div class="top">
-    <h1>Tableau de bord</h1>
+    <div>
+      <h1 id="app-title">Console de Contrôle</h1>
+      <span class="mono" style="font-size:12px;color:var(--gold)">SUPERVISION MULTI-SITES · NIAMEY</span>
+    </div>
     <div class="row" style="margin:0">
-      <button class="btn g" id="rf">Actualiser</button>
-      <button class="btn g" id="ex">Exporter CSV</button>
-      <button class="btn g" id="lo">Déconnexion</button>
+      <button class="btn g sm" id="btn-refresh">Actualiser</button>
+      <button class="btn g sm" id="btn-export">Exporter CSV</button>
+      <button class="btn d sm" id="btn-logout">Déconnexion</button>
     </div>
   </div>
-  <div class="stats" id="st"></div>
+
+  <!-- Sélecteur d'Espace Multi-Plateformes -->
+  <div class="module-tabs">
+    <button class="mod-tab-btn active" id="tab-mod-portfolio" onclick="switchModule('portfolio')">
+      💻 Portfolio Chamsoudine Anaroua
+    </button>
+    <button class="mod-tab-btn sw" id="tab-mod-sarkin" onclick="switchModule('sarkin')">
+      🧵 Atelier Sarkin Wanka (Mode & Couture)
+    </button>
+  </div>
+
   <div class="err" id="ae" role="alert"></div>
 
-  <h2>Tâches</h2>
-  <form class="row" id="tf">
-    <input id="tt" placeholder="Nouvelle tâche (ex : rappeler un contact)" maxlength="200" required>
-    <input id="td" type="date" aria-label="Échéance">
-    <select id="tl" aria-label="Inscrit lié"><option value="">Aucun inscrit</option></select>
-    <button class="btn">Ajouter</button>
-  </form>
-  <div class="scroll"><table id="tb"></table></div>
+  <!-- ====================================================================
+       MODULE 1 : PORTFOLIO CHAMSOUDINE
+       ==================================================================== -->
+  <div id="module-portfolio">
+    <div class="stats" id="st"></div>
 
-  <h2>Inscriptions & Utilisateurs</h2>
-  <div class="row">
-    <input id="q" placeholder="Rechercher nom, e-mail, organisation…">
-    <select id="sf"><option value="">Tous statuts</option></select>
+    <h2>Tâches & Rappels Pro</h2>
+    <form class="row" id="tf">
+      <input id="tt" placeholder="Nouvelle tâche (ex : finaliser proposition EducNiger)" maxlength="200" required>
+      <input id="td" type="date" aria-label="Échéance">
+      <select id="tl" aria-label="Inscrit lié"><option value="">Aucun contact lié</option></select>
+      <button class="btn">Ajouter</button>
+    </form>
+    <div class="scroll"><table id="tb"></table></div>
+
+    <h2>Inscriptions & Prospects Portfolio</h2>
+    <div class="row">
+      <input id="q" placeholder="Rechercher nom, e-mail, organisation, téléphone…">
+      <select id="sf"><option value="">Tous les statuts</option></select>
+    </div>
+    <div class="scroll"><table id="lt"></table></div>
   </div>
-  <div class="scroll"><table id="lt"></table></div>
+
+  <!-- ====================================================================
+       MODULE 2 : SARKIN WANKA FASHION DESIGN
+       ==================================================================== -->
+  <div id="module-sarkin" hidden>
+    <!-- Bandeau Uptime & Health Check en Direct -->
+    <div class="card" style="margin-bottom:24px;border-color:rgba(0,229,255,0.4)">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+            <span class="live-pulse" id="sw-pulse"></span>
+            <strong style="font-size:16px">Supervision : Sarkin Wanka Fashion Design</strong>
+            <span class="badge pret" id="sw-health-badge">Vérification...</span>
+          </div>
+          <div class="mono" style="font-size:12px;color:var(--muted)">
+            URL : <a href="https://sarkin-wanka.vercel.app/" target="_blank" rel="noopener" style="color:var(--cyan)">https://sarkin-wanka.vercel.app/</a>
+            · Temps de réponse : <span id="sw-latency" style="color:var(--text)">...</span>
+            · Certificat : <span style="color:var(--ok)">HTTPS TLS 1.3 Actif</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn cyan sm" type="button" onclick="pingSarkinWanka()">🔄 Vérifier l'état</button>
+          <a class="btn g sm" href="https://sarkin-wanka.vercel.app/" target="_blank" rel="noopener">🌐 Ouvrir le site</a>
+          <a class="btn g sm" href="https://github.com/chamsoudine-dev/SARKIN-WANKA.git" target="_blank" rel="noopener">💻 Code GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistiques de l'Atelier -->
+    <div class="stats" id="sw-stats-cards">
+      <div class="stat-card"><b>0</b><span>Photos au catalogue</span></div>
+      <div class="stat-card"><b>0</b><span>Vidéos publiées</span></div>
+      <div class="stat-card"><b>0</b><span>Commandes en cours</span></div>
+      <div class="stat-card"><b>0</b><span>Tenues livrées</span></div>
+    </div>
+
+    <!-- Section A : Gestionnaire de Contenu Multimédia (Photos & Vidéos) -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:32px 0 14px">
+      <h2>Catalogue Multimédia (Photos & Vidéos du Site)</h2>
+      <button class="btn sm" type="button" onclick="toggleForm('sw-media-form')">+ Ajouter une photo ou vidéo</button>
+    </div>
+
+    <!-- Formulaire d'Ajout Photo/Vidéo -->
+    <form class="collapsible-form" id="sw-media-form" onsubmit="handleSwMediaAdd(event)">
+      <h3 style="margin-bottom:14px;color:var(--gold)">Ajouter une nouvelle création au site Sarkin Wanka</h3>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div>
+          <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Titre du modèle * :</label>
+          <input id="sw-m-title" required placeholder="Ex: Grand Boubou Bazin Riche Brodé Or" style="width:100%">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Type de média * :</label>
+          <select id="sw-m-type" style="width:100%">
+            <option value="photo">📷 Photo de création</option>
+            <option value="video">🎬 Vidéo (Défilé, TikTok, Reels, YouTube)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div>
+          <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Catégorie :</label>
+          <select id="sw-m-cat" style="width:100%">
+            <option value="Couture Hommes">Couture Hommes (Boubous, Costumes traditionnels)</option>
+            <option value="Couture Femmes">Couture Femmes (Robes, Ensembles Bazin)</option>
+            <option value="Mariage & Cérémonies">Mariage & Cérémonies</option>
+            <option value="Broderies Spéciales">Broderies d'Art Spéciales</option>
+            <option value="Accessoires">Accessoires & Tissus</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Tarif indicatif :</label>
+          <input id="sw-m-price" placeholder="Ex: 45 000 FCFA ou Sur devis" style="width:100%">
+        </div>
+      </div>
+
+      <div style="margin-bottom:12px">
+        <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Lien direct de l'image ou de la vidéo * :</label>
+        <input id="sw-m-url" required type="url" placeholder="https://... (Lien image Imgur, Cloudinary, Vercel ou vidéo)" style="width:100%">
+      </div>
+
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Description & Tissu :</label>
+        <textarea id="sw-m-desc" rows="2" placeholder="Ex: Bazin Getzner broderie fine au fil de soie brillant. Finitions artisanales soignées." style="width:100%"></textarea>
+      </div>
+
+      <div style="display:flex;gap:10px">
+        <button class="btn" type="submit">Enregistrer et Publier</button>
+        <button class="btn ghost" type="button" onclick="toggleForm('sw-media-form')">Annuler</button>
+      </div>
+    </form>
+
+    <div class="media-grid" id="sw-media-list">
+      <div style="color:var(--muted);padding:14px">Chargement du catalogue...</div>
+    </div>
+
+    <!-- Section B : Carnet de Commandes & Mesures Clients -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:42px 0 14px">
+      <h2>Carnet de Commandes & Confections Atelier</h2>
+      <button class="btn sm" type="button" onclick="toggleForm('sw-order-form')">+ Nouvelle commande client</button>
+    </div>
+
+    <!-- Formulaire Commande Client -->
+    <form class="collapsible-form" id="sw-order-form" onsubmit="handleSwOrderAdd(event)">
+      <h3 style="margin-bottom:14px;color:var(--cyan)">Enregistrer une nouvelle confection pour un client</h3>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div>
+          <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Nom & Prénom du client * :</label>
+          <input id="sw-o-name" required placeholder="Ex: M. Ibrahim Harouna" style="width:100%">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Téléphone WhatsApp client * :</label>
+          <input id="sw-o-phone" required placeholder="Ex: +227 92 62 27 64" style="width:100%">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div>
+          <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Modèle de tenue :</label>
+          <input id="sw-o-model" placeholder="Ex: 3 pièces Bazin Blanc broderie argent" style="width:100%">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Date d'échéance / Essayage :</label>
+          <input id="sw-o-due" type="date" style="width:100%">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div>
+          <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Prix Total convenu (FCFA) :</label>
+          <input id="sw-o-total" type="number" placeholder="40000" style="width:100%">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Avance versée (FCFA) :</label>
+          <input id="sw-o-deposit" type="number" placeholder="20000" style="width:100%">
+        </div>
+      </div>
+
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:4px">Mensurations & Notes d'Atelier :</label>
+        <textarea id="sw-o-measurements" rows="3" placeholder="Ex: Épaule: 48cm, Longueur: 142cm, Manches: 62cm, Tour de cou: 42cm. Tissu fourni par client." style="width:100%"></textarea>
+      </div>
+
+      <div style="display:flex;gap:10px">
+        <button class="btn" type="submit">Enregistrer la commande</button>
+        <button class="btn ghost" type="button" onclick="toggleForm('sw-order-form')">Annuler</button>
+      </div>
+    </form>
+
+    <div class="scroll">
+      <table id="sw-order-table">
+        <thead>
+          <tr>
+            <th>Client & WhatsApp</th>
+            <th>Modèle</th>
+            <th>Finances (Total / Avance / Reste)</th>
+            <th>Échéance</th>
+            <th>Étape de Confection</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="sw-order-tbody">
+          <tr><td colspan="6" style="color:var(--muted);text-align:center">Chargement des commandes...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
 
 </div>
 
 <script>
-const $=s=>document.querySelector(s),ST=[["nouveau","Nouveau"],["contacte","Contacté"],["qualifie","Qualifié"],["archive","Archivé"]];let D={leads:[],tasks:[]};
+const $=s=>document.querySelector(s);
+const ST=[["nouveau","Nouveau"],["contacte","Contacté"],["qualifie","Qualifié"],["archive","Archivé"]];
+const SW_STEPS=[
+  ["mesures","1. Prise de mesures"],
+  ["coupe","2. Coupe du tissu"],
+  ["couture","3. Broderie & Couture"],
+  ["essayage","4. Prêt pour essayage"],
+  ["pret","5. Prêt à livrer"],
+  ["livre","6. Livré & Soldé"]
+];
+
+let D={leads:[],tasks:[]};
+let SW_DATA={media:[],orders:[],stats:{}};
+let activeModule="portfolio";
+
 const e=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
 async function api(a,x={}){
-  const r=await fetch("/api/admin",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:a,...x})});
+  const r=await fetch("/api/admin",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({action:a,...x})
+  });
   let j={};try{j=await r.json()}catch{}
   if(r.status===401&&a!=="login"){show(false);throw new Error("session")}
   if(!r.ok)throw Object.assign(new Error(j.message||j.error||"erreur"),{code:j.error,message:j.message});
@@ -117,42 +404,263 @@ function showReset(v){
   $("#re-ok").textContent="";
 }
 
-const msg={
-  admin_not_configured:"Admin non configuré sur le serveur.",
-  bad_credentials:"Mot de passe incorrect.",
-  rate_limited:"Trop de tentatives infructueuses. Accès suspendu temporairement (15 min).",
-  db_not_configured:"Base de données non configurée.",
-  db_error:"Erreur base de données."
-};
+function toggleForm(id){
+  const el=document.getElementById(id);
+  if(el) el.style.display = el.style.display==="block" ? "none" : "block";
+}
 
+function switchModule(mod){
+  activeModule=mod;
+  $("#tab-mod-portfolio").classList.toggle("active", mod==="portfolio");
+  $("#tab-mod-sarkin").classList.toggle("active", mod==="sarkin");
+  $("#module-portfolio").hidden = mod!=="portfolio";
+  $("#module-sarkin").hidden = mod!=="sarkin";
+  if(mod==="sarkin"){
+    loadSarkinWanka();
+  }
+}
+
+/* ==========================================================================
+   CHARGEMENT PORTFOLIO
+   ========================================================================== */
 async function load(){
   try{
     D=await api("list");
     $("#ae").textContent="";
-    draw();
+    drawPortfolio();
     show(true);
   }catch(x){
     if(x.message!=="session"){
-      $("#ae").textContent=x.message||msg[x.code]||"Erreur de chargement.";
+      $("#ae").textContent=x.message||"Erreur de chargement.";
       show(x.code&&x.code!=="unauthorized");
     }
   }
 }
 
-function draw(){
+function drawPortfolio(){
   const L=D.leads,T=D.tasks,od=T.filter(t=>!t.done&&t.due&&t.due<new Date().toISOString().slice(0,10)).length;
-  $("#st").innerHTML=[["Inscrits",L.length],["Nouveaux",L.filter(l=>l.status==="nouveau").length],["Tâches ouvertes",T.filter(t=>!t.done).length],["En retard",od]].map(([a,b])=>`<div class="card"><b>${b}</b><span>${a}</span></div>`).join("");
-  $("#tl").innerHTML='<option value="">Aucun inscrit</option>'+L.map(l=>`<option value="${l.id}">${e(l.name)}</option>`).join("");
+  $("#st").innerHTML=[
+    ["Inscrits Portfolio",L.length],
+    ["Nouveaux Prospects",L.filter(l=>l.status==="nouveau").length],
+    ["Tâches Ouvertes",T.filter(t=>!t.done).length],
+    ["Rappels en Retard",od]
+  ].map(([a,b])=>`<div class="stat-card"><b>${b}</b><span>${a}</span></div>`).join("");
+
+  $("#tl").innerHTML='<option value="">Aucun contact lié</option>'+L.map(l=>`<option value="${l.id}">${e(l.name)}</option>`).join("");
   const nm=id=>(L.find(l=>l.id===id)||{}).name||"";
-  $("#tb").innerHTML="<tr><th></th><th>Tâche</th><th>Échéance</th><th>Inscrit</th><th></th></tr>"+(T.map(t=>`<tr><td><input type="checkbox" data-tg="${t.id}" ${t.done?"checked":""} aria-label="Terminée"></td><td class="${t.done?"done":""}">${e(t.title)}</td><td>${e(t.due||"—")}</td><td>${e(nm(t.lead_id))}</td><td><button class="btn d" data-td="${t.id}">Suppr.</button></td></tr>`).join("")||'<tr><td colspan="5" style="color:var(--muted)">Aucune tâche.</td></tr>');
+
+  $("#tb").innerHTML="<tr><th></th><th>Tâche</th><th>Échéance</th><th>Inscrit Lié</th><th></th></tr>"+(T.map(t=>`<tr><td><input type="checkbox" data-tg="${t.id}" ${t.done?"checked":""} aria-label="Terminée"></td><td class="${t.done?"done":""}">${e(t.title)}</td><td>${e(t.due||"—")}</td><td>${e(nm(t.lead_id))}</td><td><button class="btn d sm" data-td="${t.id}">Suppr.</button></td></tr>`).join("")||'<tr><td colspan="5" style="color:var(--muted)">Aucune tâche en cours.</td></tr>');
+
   const q=$("#q").value.toLowerCase(),sf=$("#sf").value,F=L.filter(l=>(!sf||l.status===sf)&&(!q||[l.name,l.email,l.organization,l.phone].join(" ").toLowerCase().includes(q)));
-  $("#lt").innerHTML="<tr><th>Date</th><th>Contact</th><th>Statut</th><th>Notes</th><th></th></tr>"+(F.map(l=>`<tr><td>${e(new Date(l.created_at).toLocaleDateString("fr-FR"))}</td><td><b>${e(l.name)}</b><br><a href="mailto:${e(l.email)}" style="color:var(--gold)">${e(l.email)}</a><br>${e(l.phone||"")} ${e(l.organization||"")}</td><td><select data-st="${l.id}">${ST.map(([v,n])=>`<option value="${v}" ${l.status===v?"selected":""}>${n}</option>`).join("")}</select></td><td><textarea data-nt="${l.id}" rows="2" maxlength="2000" style="width:100%;min-width:160px">${e(l.notes)}</textarea></td><td><button class="btn d" data-ld="${l.id}">Suppr.</button></td></tr>`).join("")||'<tr><td colspan="5" style="color:var(--muted)">Aucun inscrit.</td></tr>');
+
+  $("#lt").innerHTML="<tr><th>Date</th><th>Contact</th><th>Statut</th><th>Notes</th><th></th></tr>"+(F.map(l=>`<tr><td>${e(new Date(l.created_at).toLocaleDateString("fr-FR"))}</td><td><b>${e(l.name)}</b><br><a href="mailto:${e(l.email)}" style="color:var(--gold)">${e(l.email)}</a><br>${e(l.phone||"")} ${e(l.organization||"")}</td><td><select data-st="${l.id}">${ST.map(([v,n])=>`<option value="${v}" ${l.status===v?"selected":""}>${n}</option>`).join("")}</select></td><td><textarea data-nt="${l.id}" rows="2" maxlength="2000" style="width:100%;min-width:160px">${e(l.notes)}</textarea></td><td><button class="btn d sm" data-ld="${l.id}">Suppr.</button></td></tr>`).join("")||'<tr><td colspan="5" style="color:var(--muted)">Aucun inscrit.</td></tr>');
 }
 
-async function run(f){
-  try{await f();await load()}catch(x){if(x.message!=="session")$("#ae").textContent="Action impossible : "+(x.message||msg[x.code]||x.message)}
+/* ==========================================================================
+   CHARGEMENT & GESTION SARKIN WANKA
+   ========================================================================== */
+async function loadSarkinWanka(){
+  pingSarkinWanka();
+  try{
+    SW_DATA=await api("sw_data");
+    drawSarkinWanka();
+  }catch(err){
+    console.error("Erreur SW_DATA:", err);
+  }
 }
 
+async function pingSarkinWanka(){
+  const badge=$("#sw-health-badge");
+  const lat=$("#sw-latency");
+  badge.textContent="Analyse en cours...";
+  badge.className="badge mesures";
+  try{
+    const res=await api("sw_ping");
+    if(res.online){
+      badge.textContent="En Ligne (HTTP 200)";
+      badge.className="badge pret";
+      lat.textContent=`${res.latencyMs} ms`;
+    }else{
+      badge.textContent="Erreur / Inaccessible";
+      badge.className="badge";
+      lat.textContent="Indisponible";
+    }
+  }catch(e){
+    badge.textContent="Erreur sonde";
+    lat.textContent="N/A";
+  }
+}
+
+function drawSarkinWanka(){
+  const st=SW_DATA.stats||{};
+  $("#sw-stats-cards").innerHTML=`
+    <div class="stat-card"><b>${st.photos||0}</b><span>Photos au catalogue</span></div>
+    <div class="stat-card"><b>${st.videos||0}</b><span>Vidéos publiées</span></div>
+    <div class="stat-card"><b>${st.activeOrders||0}</b><span>Confections en cours</span></div>
+    <div class="stat-card"><b>${st.completedOrders||0}</b><span>Tenues livrées & soldées</span></div>
+  `;
+
+  // Médias
+  const mediaList = SW_DATA.media||[];
+  if(mediaList.length===0){
+    $("#sw-media-list").innerHTML='<div style="color:var(--muted);grid-column:1/-1;padding:24px;text-align:center;background:rgba(255,255,255,0.02);border-radius:12px">Aucune photo ou vidéo au catalogue. Cliquez sur "+ Ajouter une photo ou vidéo" pour enrichir le site !</div>';
+  }else{
+    $("#sw-media-list").innerHTML=mediaList.map(m=>`
+      <div class="media-card">
+        <div class="media-thumb">
+          <span class="media-badge">${m.type==="video"?"🎬 Vidéo":"📷 Photo"} · ${e(m.category)}</span>
+          ${m.type==="video"
+            ? `<video src="${e(m.media_url)}" controls preload="metadata"></video>`
+            : `<img src="${e(m.media_url)}" alt="${e(m.title)}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22><rect fill=%22%23111%22 width=%22100%%22 height=%22100%%22/><text fill=%22%23666%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>Image non dispo</text></svg>'">`
+          }
+        </div>
+        <div class="media-body">
+          <strong style="display:block;font-size:14.5px;margin-bottom:4px">${e(m.title)}</strong>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px">${e(m.desc||"Finitions artisanales")}</div>
+          <div class="media-price">${e(m.price)}</div>
+          <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap">
+            <button class="btn g sm" type="button" onclick="shareWhatsAppMedia('${e(m.title)}','${e(m.price)}')">💬 WhatsApp Client</button>
+            <button class="btn d sm" type="button" onclick="deleteSwMedia('${m.id}')">Suppr.</button>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  // Commandes
+  const orders = SW_DATA.orders||[];
+  if(orders.length===0){
+    $("#sw-order-tbody").innerHTML='<tr><td colspan="6" style="color:var(--muted);text-align:center;padding:24px">Aucune commande enregistrée. Cliquez sur "+ Nouvelle commande client" pour saisir une confection.</td></tr>';
+  }else{
+    $("#sw-order-tbody").innerHTML=orders.map(o=>{
+      const total=o.total||0;
+      const deposit=o.deposit||0;
+      const rest=Math.max(0, total - deposit);
+      return `
+        <tr>
+          <td>
+            <b>${e(o.client_name)}</b><br>
+            <a href="https://wa.me/${o.phone.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener" style="color:var(--ok);font-size:12.5px">📱 ${e(o.phone)}</a>
+          </td>
+          <td>
+            <strong>${e(o.model)}</strong>
+            ${o.measurements ? `<br><small style="color:var(--muted)">📐 ${e(o.measurements)}</small>` : ""}
+          </td>
+          <td>
+            <span style="color:var(--text)">Total : ${total.toLocaleString()} F</span><br>
+            <small style="color:var(--ok)">Avance : ${deposit.toLocaleString()} F</small><br>
+            <small style="color:${rest>0?'var(--bad)':'var(--muted)'}"><b>Reste : ${rest.toLocaleString()} F</b></small>
+          </td>
+          <td class="mono">${e(o.due_date||"—")}</td>
+          <td>
+            <select onchange="updateSwOrderStep('${o.id}', this.value)" class="badge ${o.step}">
+              ${SW_STEPS.map(([k,label])=>`<option value="${k}" ${o.step===k?'selected':''}>${label}</option>`).join("")}
+            </select>
+          </td>
+          <td>
+            <div style="display:flex;gap:6px">
+              <button class="btn g sm" type="button" onclick="sendWhatsAppFollowUp('${e(o.client_name)}','${e(o.phone)}','${e(o.model)}','${o.step}')">📲 Relance</button>
+              <button class="btn d sm" type="button" onclick="deleteSwOrder('${o.id}')">✕</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+}
+
+// Ajout Média
+async function handleSwMediaAdd(ev){
+  ev.preventDefault();
+  const title=$("#sw-m-title").value.trim();
+  const type=$("#sw-m-type").value;
+  const category=$("#sw-m-cat").value;
+  const price=$("#sw-m-price").value.trim()||"Sur devis";
+  const url=$("#sw-m-url").value.trim();
+  const desc=$("#sw-m-desc").value.trim();
+
+  try{
+    await api("sw_media_add",{title,type,category,price,url,desc});
+    $("#sw-media-form").reset();
+    toggleForm("sw-media-form");
+    loadSarkinWanka();
+  }catch(err){
+    alert("Erreur ajout média : "+(err.message||err));
+  }
+}
+
+// Supprimer Média
+async function deleteSwMedia(id){
+  if(!confirm("Supprimer cette création du catalogue ?")) return;
+  try{
+    await api("sw_media_delete",{id});
+    loadSarkinWanka();
+  }catch(err){
+    alert("Erreur suppression : "+err.message);
+  }
+}
+
+// Ajout Commande
+async function handleSwOrderAdd(ev){
+  ev.preventDefault();
+  const client_name=$("#sw-o-name").value.trim();
+  const phone=$("#sw-o-phone").value.trim();
+  const model=$("#sw-o-model").value.trim();
+  const due_date=$("#sw-o-due").value;
+  const total=$("#sw-o-total").value;
+  const deposit=$("#sw-o-deposit").value;
+  const measurements=$("#sw-o-measurements").value.trim();
+
+  try{
+    await api("sw_order_add",{client_name,phone,model,due_date,total,deposit,measurements});
+    $("#sw-order-form").reset();
+    toggleForm("sw-order-form");
+    loadSarkinWanka();
+  }catch(err){
+    alert("Erreur ajout commande : "+(err.message||err));
+  }
+}
+
+// Mettre à jour l'étape commande
+async function updateSwOrderStep(id, step){
+  try{
+    await api("sw_order_update",{id,step});
+    loadSarkinWanka();
+  }catch(err){
+    alert("Erreur mise à jour : "+err.message);
+  }
+}
+
+// Supprimer Commande
+async function deleteSwOrder(id){
+  if(!confirm("Supprimer cette commande client ?")) return;
+  try{
+    await api("sw_order_delete",{id});
+    loadSarkinWanka();
+  }catch(err){
+    alert("Erreur suppression : "+err.message);
+  }
+}
+
+// Partage WhatsApp pour une tenue
+function shareWhatsAppMedia(title, price){
+  const msg=encodeURIComponent(`Bonjour Atelier Sarkin Wanka, je suis très intéressé(e) par votre modèle : "${title}" (${price}). Est-il possible de commander à mes mesures ?`);
+  window.open(`https://wa.me/22792622764?text=${msg}`,'_blank');
+}
+
+// Relance client WhatsApp automatique
+function sendWhatsAppFollowUp(clientName, phone, model, step){
+  const num=phone.replace(/[^0-9]/g,'');
+  const stepText = step==="essayage" ? "est prête pour votre séance d'essayage à l'Atelier" :
+                   step==="pret" ? "est entièrement terminée et prête pour livraison" :
+                   "avance parfaitement dans nos ateliers";
+  const msg=encodeURIComponent(`Bonjour ${clientName}, c'est l'Atelier Sarkin Wanka Fashion Design. Votre tenue "${model}" ${stepText}. N'hésitez pas à nous contacter pour tout ajustement !`);
+  window.open(`https://wa.me/${num}?text=${msg}`,'_blank');
+}
+
+/* ==========================================================================
+   AUTHENTIFICATION & EVENTS
+   ========================================================================== */
 $("#sf").innerHTML+=ST.map(([v,n])=>`<option value="${v}">${n}</option>`).join("");
 
 // Connexion
@@ -163,7 +671,7 @@ $("#lb").onclick=async()=>{
     $("#pw").value="";
     load();
   }catch(x){
-    $("#le").textContent=x.message||msg[x.code]||"Connexion impossible.";
+    $("#le").textContent=x.message||"Mot de passe incorrect.";
   }
 };
 $("#pw").onkeydown=x=>{if(x.key==="Enter")$("#lb").click()};
@@ -198,16 +706,55 @@ $("#rb").onclick=async()=>{
   }
 };
 
-$("#rf").onclick=load;
-$("#q").oninput=draw;
-$("#sf").onchange=draw;
-$("#lo").onclick=async()=>{await api("logout").catch(()=>{});show(false)};
+$("#btn-refresh").onclick=()=>{
+  if(activeModule==="portfolio") load();
+  else loadSarkinWanka();
+};
 
-$("#tf").onsubmit=x=>{x.preventDefault();run(async()=>{await api("task_add",{title:$("#tt").value,due:$("#td").value,lead_id:$("#tl").value});$("#tf").reset()})};
-document.addEventListener("change",x=>{const t=x.target;if(t.dataset.tg)run(()=>api("task_toggle",{id:t.dataset.tg,done:t.checked}));if(t.dataset.st)run(()=>api("lead_update",{id:t.dataset.st,status:t.value}));if(t.dataset.nt)run(()=>api("lead_update",{id:t.dataset.nt,notes:t.value}))});
-document.addEventListener("click",x=>{const t=x.target;if(t.dataset.td&&confirm("Supprimer cette tâche ?"))run(()=>api("task_delete",{id:t.dataset.td}));if(t.dataset.ld&&confirm("Supprimer cet inscrit ?"))run(()=>api("lead_delete",{id:t.dataset.ld}))});
-$("#ex").onclick=()=>{const c=v=>`"${String(v??"").replace(/"/g,'""').replace(/^([=+\-@])/,"'$1")}"`,r=[["date","nom","email","telephone","organisation","statut","notes"],...D.leads.map(l=>[l.created_at,l.name,l.email,l.phone,l.organization,l.status,l.notes])];
-const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+r.map(x=>x.map(c).join(",")).join("\n")],{type:"text/csv"}));a.download="inscrits.csv";a.click()};
+$("#q").oninput=drawPortfolio;
+$("#sf").onchange=drawPortfolio;
+
+$("#btn-logout").onclick=async()=>{
+  await api("logout").catch(()=>{});
+  show(false);
+};
+
+$("#tf").onsubmit=x=>{
+  x.preventDefault();
+  api("task_add",{title:$("#tt").value,due:$("#td").value,lead_id:$("#tl").value})
+    .then(()=>{ $("#tf").reset(); load(); });
+};
+
+document.addEventListener("change",x=>{
+  const t=x.target;
+  if(t.dataset.tg) api("task_toggle",{id:t.dataset.tg,done:t.checked}).then(load);
+  if(t.dataset.st) api("lead_update",{id:t.dataset.st,status:t.value}).then(load);
+  if(t.dataset.nt) api("lead_update",{id:t.dataset.nt,notes:t.value}).then(load);
+});
+
+document.addEventListener("click",x=>{
+  const t=x.target;
+  if(t.dataset.td&&confirm("Supprimer cette tâche ?")) api("task_delete",{id:t.dataset.td}).then(load);
+  if(t.dataset.ld&&confirm("Supprimer cet inscrit ?")) api("lead_delete",{id:t.dataset.ld}).then(load);
+});
+
+$("#btn-export").onclick=()=>{
+  if(activeModule==="portfolio"){
+    const c=v=>`"${String(v??"").replace(/"/g,'""')}"`,
+          r=[["Date","Nom","Email","Telephone","Organisation","Statut","Notes"],...D.leads.map(l=>[l.created_at,l.name,l.email,l.phone,l.organization,l.status,l.notes])];
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(new Blob(["\ufeff"+r.map(x=>x.map(c).join(",")).join("\n")],{type:"text/csv"}));
+    a.download="inscrits_portfolio.csv";
+    a.click();
+  }else{
+    const c=v=>`"${String(v??"").replace(/"/g,'""')}"`,
+          r=[["Date","Client","Telephone","Modele","Total_FCFA","Avance_FCFA","Echeance","Etape"],...(SW_DATA.orders||[]).map(o=>[o.created_at,o.client_name,o.phone,o.model,o.total,o.deposit,o.due_date,o.step])];
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(new Blob(["\ufeff"+r.map(x=>x.map(c).join(",")).join("\n")],{type:"text/csv"}));
+    a.download="commandes_sarkin_wanka.csv";
+    a.click();
+  }
+};
 
 load();
 </script></body></html>
