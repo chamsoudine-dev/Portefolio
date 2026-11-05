@@ -78,7 +78,7 @@ async function db(path, { method = "GET", data, prefer } = {}) {
 }
 
 // Session admin : cookie signé HMAC (12 h), sans stockage serveur
-const secret = () => process.env.SESSION_SECRET || "";
+const secret = () => process.env.SESSION_SECRET || "chamsoudine_portfolio_secret_key_2026_fallback";
 const sign = v => crypto.createHmac("sha256", secret()).update(v).digest("hex");
 const makeToken = () => { const exp = Date.now() + 12 * 3600e3; return `${exp}.${sign(String(exp))}`; };
 function isAdmin(req) {

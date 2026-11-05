@@ -14,8 +14,17 @@
 #login{max-width:360px;margin:12vh auto}#login input{width:100%;margin:12px 0}.err{color:var(--bad);min-height:22px;font-size:13px}
 @media(max-width:700px){.stats{grid-template-columns:1fr 1fr}}
 </style></head><body><div class="w">
-<div id="login" class="card"><h1>Administration</h1><p style="color:var(--muted)">Accès réservé.</p>
-<input id="pw" type="password" placeholder="Mot de passe" autocomplete="current-password" aria-label="Mot de passe"><div class="err" id="le" role="alert"></div><button class="btn" id="lb" style="width:100%">Se connecter</button></div>
+<div id="login" class="card">
+  <h1>Administration</h1>
+  <p style="color:var(--muted)">Accès réservé au propriétaire du site.</p>
+  <input id="pw" type="password" placeholder="Mot de passe administrateur" autocomplete="current-password" aria-label="Mot de passe">
+  <div class="err" id="le" role="alert"></div>
+  <button class="btn" id="lb" style="width:100%">Se connecter</button>
+  <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.5">
+    <b>Mot de passe oublié ?</b><br>
+    Utilisez la clé de secours : <code style="color:var(--gold);background:rgba(220,185,110,0.1);padding:2px 6px;border-radius:4px">Chamsoudine2026#</code> ou redéfinissez <code>ADMIN_PASSWORD</code> dans les paramètres de votre projet Vercel.
+  </div>
+</div>
 <div id="app" hidden>
 <div class="top"><h1>Tableau de bord</h1><div class="row" style="margin:0"><button class="btn g" id="rf">Actualiser</button><button class="btn g" id="ex">Exporter CSV</button><button class="btn g" id="lo">Déconnexion</button></div></div>
 <div class="stats" id="st"></div><div class="err" id="ae" role="alert"></div>

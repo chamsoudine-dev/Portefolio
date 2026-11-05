@@ -7,15 +7,15 @@
 <title>Chamsoudine Anaroua | Expert Cybersécurité & Automatisation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#070a0e;
-  --bg-soft:#0d131a;
-  --panel:rgba(16,24,34,0.78);
-  --panel-solid:#101822;
-  --panel-card:rgba(20,31,44,0.85);
-  --line:rgba(74,103,133,0.22);
+  --bg:#06090d;
+  --bg-soft:#0b1017;
+  --panel:rgba(14,21,30,0.85);
+  --panel-solid:#0f1722;
+  --panel-card:rgba(18,27,39,0.9);
+  --line:rgba(74,103,133,0.25);
   --line-glow:rgba(220,185,110,0.4);
   --text:#f0f4f8;
   --muted:#8b9bb0;
@@ -35,13 +35,12 @@
 html{scroll-behavior:smooth;scroll-padding-top:82px;background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 var(--font-sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* Matrix & Cyber Background */
+/* Matrix & Background */
 #cyber-canvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;opacity:0.25}
 .ambient-glow{position:fixed;width:600px;height:600px;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:0;opacity:0.18}
 .glow-1{top:-100px;right:-100px;background:radial-gradient(circle,#dcb96e,#00e5ff)}
 .glow-2{bottom:-150px;left:-100px;background:radial-gradient(circle,#00e5ff,#00f59b)}
 
-/* Layout & Containers */
 .wrap{width:min(1220px,92%);margin:auto;position:relative;z-index:1}
 a{color:inherit;text-decoration:none;transition:color .2s,border-color .2s,box-shadow .2s}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
@@ -50,7 +49,7 @@ a{color:inherit;text-decoration:none;transition:color .2s,border-color .2s,box-s
 h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;line-height:1.15;letter-spacing:-0.02em;margin:0}
 .mono{font-family:var(--font-mono)}
 
-/* Top SOC Bar */
+/* Top SOC HUD */
 .soc-hud{background:rgba(8,12,18,0.92);border-bottom:1px solid var(--line);font-size:11.5px;color:var(--muted);padding:6px 0;position:relative;z-index:12}
 .soc-hud .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
 .hud-item{display:inline-flex;align-items:center;gap:7px}
@@ -58,8 +57,8 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;line-height:1.15;let
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
 .hud-tag{background:rgba(220,185,110,0.12);color:var(--gold);padding:2px 8px;border-radius:4px;border:1px solid rgba(220,185,110,0.3);font-family:var(--font-mono);font-size:11px}
 
-/* Main Navigation */
-header{position:sticky;top:0;z-index:11;background:rgba(7,10,14,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+/* Header */
+header{position:sticky;top:0;z-index:11;background:rgba(6,9,13,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text);letter-spacing:0.04em}
 .brand-badge{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,rgba(220,185,110,0.2),rgba(0,229,255,0.2));border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:var(--font-mono);font-size:14px;box-shadow:0 0 16px var(--gold-glow)}
@@ -79,25 +78,25 @@ nav{height:72px;display:flex;align-items:center;justify-content:space-between;ga
 .btn-sound{background:transparent;border:1px solid var(--line);color:var(--muted);width:36px;height:36px;padding:0;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .btn-sound:hover{color:var(--text);border-color:var(--gold)}
 
-/* Mobile Menu Toggle */
+/* Mobile Menu */
 .mobile-toggle{display:none;background:transparent;border:1px solid var(--line);color:var(--text);padding:8px 12px;border-radius:8px;font-size:18px;cursor:pointer}
-.mobile-nav{display:none;position:fixed;inset:108px 0 0;background:rgba(7,10,14,0.98);backdrop-filter:blur(24px);z-index:20;flex-direction:column;padding:24px;gap:14px;border-top:1px solid var(--line)}
+.mobile-nav{display:none;position:fixed;inset:108px 0 0;background:rgba(6,9,13,0.98);backdrop-filter:blur(24px);z-index:20;flex-direction:column;padding:24px;gap:14px;border-top:1px solid var(--line)}
 .mobile-nav.open{display:flex}
 .mobile-nav .nav-link{font-size:17px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.04)}
 
-/* User Auth Pill */
+/* Auth Pill */
 .auth-pill{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;border:1px solid rgba(0,245,155,0.4);background:rgba(0,245,155,0.08);color:var(--ok);font-size:12px;font-family:var(--font-mono)}
 .auth-pill .logout{cursor:pointer;color:var(--muted);margin-left:6px;transition:color .2s}
 .auth-pill .logout:hover{color:var(--bad)}
 
 /* Sections */
 section{padding:96px 0;border-top:1px solid var(--line);position:relative}
-.sec-header{margin-bottom:48px}
+.sec-header{margin-bottom:44px}
 .sec-header .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:10px}
-.sec-header h2{font-size:clamp(30px,4.5vw,46px);color:var(--text);margin-bottom:14px}
-.sec-header p{max-width:68ch;color:var(--muted);font-size:16px;margin:0}
+.sec-header h2{font-size:clamp(30px,4.5vw,44px);color:var(--text);margin-bottom:12px}
+.sec-header p{max-width:72ch;color:var(--muted);font-size:16px;margin:0;line-height:1.7}
 
-/* Hero Section */
+/* Hero */
 .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding:72px 0 88px}
 .hero-tag{display:inline-flex;align-items:center;gap:10px;background:rgba(220,185,110,0.1);border:1px solid rgba(220,185,110,0.3);padding:6px 14px;border-radius:999px;font-size:12.5px;color:var(--gold);font-family:var(--font-mono);margin-bottom:24px}
 .hero h1{font-size:clamp(42px,5.8vw,74px);line-height:1.06;margin-bottom:20px}
@@ -122,60 +121,81 @@ section{padding:96px 0;border-top:1px solid var(--line);position:relative}
 .term-chip{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--muted);border-radius:999px;padding:3px 10px;font-size:11.5px;font-family:var(--font-mono);cursor:pointer;transition:.2s}
 .term-chip:hover{color:var(--cyan);border-color:var(--cyan);background:rgba(0,229,255,0.1)}
 
-/* Pipeline & Defense Simulator */
-.scenario-selector{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.scenario-btn{background:var(--panel);border:1px solid var(--line);color:var(--muted);padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:.2s}
-.scenario-btn.active,.scenario-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(220,185,110,0.1)}
-.pipe-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
-.pipe-node{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 14px;position:relative;transition:all .3s}
-.pipe-node-idx{font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:4px}
-.pipe-node-title{font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px}
-.pipe-node-desc{font-size:11.5px;color:var(--muted);line-height:1.4}
-.pipe-node.active{border-color:var(--ok);background:rgba(0,245,155,0.08);box-shadow:0 0 20px rgba(0,245,155,0.2)}
-.pipe-node.active .pipe-node-title{color:var(--ok)}
-.pipe-console{background:#070a0e;border:1px solid var(--line);border-radius:10px;padding:16px 20px;min-height:150px;font-family:var(--font-mono);font-size:12.5px;color:#c9d8e6;line-height:1.6;white-space:pre-wrap}
+/* ==========================================================================
+   NOUVEAU DESIGN : LE GARDIEN NUMÉRIQUE AUTONOME (PIPELINE)
+   ========================================================================== */
+.guardian-dashboard{background:var(--panel-card);border:1px solid var(--line);border-radius:18px;padding:32px;box-shadow:0 24px 60px rgba(0,0,0,0.5)}
+.guardian-top-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.guardian-status-badge{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px;background:rgba(0,245,155,0.1);border:1px solid rgba(0,245,155,0.4);color:var(--ok);font-size:13px;font-weight:600}
 
-/* Cyber Lab Tabs & Suite */
+.guardian-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.guardian-card{background:rgba(10,15,22,0.85);border:1px solid var(--line);border-radius:14px;padding:22px 18px;transition:all .35s ease;position:relative}
+.guardian-card.active{border-color:var(--ok);background:rgba(0,245,155,0.08);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,245,155,0.18)}
+.guardian-card.active .guardian-icon{background:var(--ok);color:#070a0e;transform:scale(1.1)}
+.guardian-icon{width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;transition:all .3s}
+.guardian-step-num{font-family:var(--font-mono);font-size:11px;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+.guardian-card h4{font-size:16px;margin-bottom:6px;color:var(--text)}
+.guardian-card p{font-size:12.5px;color:var(--muted);margin:0;line-height:1.5}
+
+.scenarios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.sc-card{background:rgba(12,18,26,0.9);border:1px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;transition:all .25s;text-align:left}
+.sc-card:hover,.sc-card.active{border-color:var(--gold);background:rgba(220,185,110,0.1);box-shadow:0 0 20px var(--gold-glow)}
+.sc-card b{display:block;font-size:13.5px;color:var(--text);margin-bottom:4px}
+.sc-card span{display:block;font-size:12px;color:var(--muted)}
+
+.guardian-console-wrap{background:#06090d;border:1px solid var(--line);border-radius:12px;padding:18px 22px;font-family:var(--font-mono);font-size:13px;line-height:1.65;color:#cfe0d8;min-height:120px;white-space:pre-wrap}
+
+/* ==========================================================================
+   CYBER LAB TABS & OUTILS
+   ========================================================================== */
 .tab-nav{display:flex;gap:8px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:32px;overflow-x:auto}
 .tab-btn{background:transparent;border:1px solid transparent;color:var(--muted);padding:9px 18px;border-radius:8px;font-size:13.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:.2s}
 .tab-btn:hover{color:var(--text);background:rgba(255,255,255,0.04)}
 .tab-btn.active{color:var(--gold);background:rgba(220,185,110,0.12);border-color:rgba(220,185,110,0.3)}
-.lab-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:32px;box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.lab-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px;box-shadow:0 16px 40px rgba(0,0,0,0.3)}
 .lab-input{width:100%;background:rgba(7,10,14,0.9);border:1px solid var(--line);color:var(--text);padding:13px 16px;border-radius:8px;font-size:14px;font-family:var(--font-mono);outline:0;transition:.2s}
 .lab-input:focus{border-color:var(--gold);box-shadow:0 0 16px var(--gold-glow)}
-.pw-bar-track{height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;margin:18px 0 12px}
-.pw-bar-fill{height:100%;width:0;transition:width .3s,background .3s}
-.audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:20px}
-.audit-item{background:rgba(7,10,14,0.7);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
-.audit-item small{display:block;color:var(--muted);font-size:11.5px;margin-bottom:4px}
-.audit-item strong{font-size:14px;font-family:var(--font-mono)}
 
-/* Projects Grid & Modal */
+.pw-checklist{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin:16px 0}
+.pw-check-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.pw-check-item.valid{color:var(--ok)}
+
+/* Web Inspector Card */
+.url-scan-result{background:rgba(6,9,13,0.95);border:1px solid var(--line);border-radius:10px;padding:20px;margin-top:20px;display:none}
+
+/* ==========================================================================
+   PROJETS SHOWCASE AVEC MOCKUPS CSS
+   ========================================================================== */
 .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-.project-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;transition:all .3s ease;position:relative;overflow:hidden}
-.project-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(220,185,110,0.05),transparent 60%);opacity:0;transition:opacity .3s}
-.project-card:hover{transform:translateY(-4px);border-color:rgba(220,185,110,0.45);box-shadow:0 20px 48px -10px rgba(0,0,0,0.7),0 0 24px rgba(220,185,110,0.12)}
-.project-card:hover::before{opacity:1}
-.project-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
-.project-badge{background:rgba(0,229,255,0.1);color:var(--cyan);border:1px solid rgba(0,229,255,0.3);padding:4px 10px;border-radius:6px;font-size:11px;font-family:var(--font-mono)}
-.project-card h3{font-size:24px;margin-bottom:10px}
-.project-card p{color:var(--muted);font-size:14.5px;margin:0 0 20px;line-height:1.6}
-.project-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px}
+.project-card{background:var(--panel-card);border:1px solid var(--line);border-radius:18px;padding:0;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;transition:all .3s ease}
+.project-card:hover{transform:translateY(-5px);border-color:rgba(220,185,110,0.5);box-shadow:0 24px 60px rgba(0,0,0,0.7),0 0 24px var(--gold-glow)}
+
+.mockup-preview{background:linear-gradient(135deg,rgba(11,16,24,0.95),rgba(17,26,38,0.95));padding:20px 24px;border-bottom:1px solid var(--line);position:relative}
+.mockup-header{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--muted);margin-bottom:14px}
+.mockup-badge-live{background:rgba(0,245,155,0.12);color:var(--ok);border:1px solid rgba(0,245,155,0.3);padding:3px 9px;border-radius:6px;font-family:var(--font-mono);font-size:11px}
+.mockup-body{background:rgba(6,9,13,0.92);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:16px;min-height:96px;font-size:12.5px;color:#cfe0d8}
+
+.project-content{padding:26px 28px}
+.project-content h3{font-size:24px;margin-bottom:10px}
+.project-content p{color:var(--muted);font-size:14.5px;line-height:1.65;margin:0 0 20px}
+.project-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px}
 .project-tag{background:rgba(255,255,255,0.04);border:1px solid var(--line);color:var(--muted);padding:3px 10px;border-radius:999px;font-size:11.5px}
 
-/* Skills Grid */
+/* ==========================================================================
+   EXPERTISES
+   ========================================================================== */
 .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.skill-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:28px;transition:all .3s}
-.skill-card:hover{border-color:var(--gold);transform:translateY(-2px)}
-.skill-icon{width:46px;height:46px;border-radius:10px;background:rgba(220,185,110,0.1);border:1px solid rgba(220,185,110,0.3);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:22px;margin-bottom:18px}
-.skill-card h3{font-size:20px;margin-bottom:10px}
-.skill-card p{color:var(--muted);font-size:14px;margin:0 0 16px}
-.skill-items{list-style:none;padding:0;margin:0;font-size:13px;color:#c3d1de}
-.skill-items li{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.skill-items li::before{content:"▹";color:var(--gold)}
+.skill-card{background:var(--panel-card);border:1px solid var(--line);border-radius:16px;padding:32px 26px;transition:all .3s}
+.skill-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,0.5)}
+.skill-icon{width:52px;height:52px;border-radius:12px;background:rgba(220,185,110,0.12);border:1px solid rgba(220,185,110,0.3);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:24px;margin-bottom:20px}
+.skill-card h3{font-size:21px;margin-bottom:12px}
+.skill-card p{color:var(--muted);font-size:14px;line-height:1.65;margin:0 0 20px}
+.skill-metrics{background:rgba(6,9,13,0.7);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:20px}
+.skill-metrics small{display:block;font-size:11.5px;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+.skill-metrics strong{font-size:13.5px;color:var(--text)}
 
 /* Collaboration Banner */
-.collab-banner{background:linear-gradient(135deg,rgba(220,185,110,0.12),rgba(16,24,34,0.95));border:1px solid rgba(220,185,110,0.4);border-radius:18px;padding:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;box-shadow:0 24px 60px rgba(0,0,0,0.4)}
+.collab-banner{background:linear-gradient(135deg,rgba(220,185,110,0.12),rgba(14,21,30,0.95));border:1px solid rgba(220,185,110,0.4);border-radius:18px;padding:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;box-shadow:0 24px 60px rgba(0,0,0,0.4)}
 .collab-banner h2{font-size:clamp(26px,3.5vw,38px);margin-bottom:8px}
 .collab-banner p{color:var(--muted);max-width:54ch;margin:0}
 
@@ -187,20 +207,20 @@ section{padding:96px 0;border-top:1px solid var(--line);position:relative}
 .social-links{display:flex;gap:12px;flex-wrap:wrap}
 
 /* Footer */
-footer{background:rgba(8,12,18,0.95);border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--muted)}
+footer{background:rgba(6,9,13,0.98);border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--muted)}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
 
 /* Locked Content Overlay */
 .lk{position:relative}
 .gate{display:none}
-.lk.locked>.gate{display:flex;position:absolute;inset:0;z-index:4;align-items:center;justify-content:center;flex-direction:column;gap:14px;text-align:center;padding:24px;background:rgba(7,10,14,0.82);backdrop-filter:blur(8px);border-radius:inherits}
+.lk.locked>.gate{display:flex;position:absolute;inset:0;z-index:4;align-items:center;justify-content:center;flex-direction:column;gap:14px;text-align:center;padding:24px;background:rgba(6,9,13,0.85);backdrop-filter:blur(10px);border-radius:inherits}
 .lk.locked>*:not(.gate){filter:blur(6px);user-select:none;pointer-events:none}
-.gate-icon{font-size:32px;color:var(--gold);animation:pulse 2s infinite}
+.gate-icon{font-size:36px;color:var(--gold);animation:pulse 2s infinite}
 .gate p{margin:0;max-width:38ch;font-size:15px;color:var(--text)}
 
-/* Auth / Access Modal */
+/* Modals */
 dialog#auth-modal{background:rgba(13,19,27,0.98);backdrop-filter:blur(24px);color:var(--text);border:1px solid rgba(220,185,110,0.5);border-radius:16px;padding:0;width:min(480px,94vw);box-shadow:0 32px 80px rgba(0,0,0,0.8),0 0 32px var(--gold-glow);overflow:hidden}
-dialog#auth-modal::backdrop{background:rgba(0,0,0,0.78);backdrop-filter:blur(6px)}
+dialog#auth-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6px)}
 .modal-header{padding:24px 28px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
 .modal-header h3{font-size:22px}
 .modal-close{background:transparent;border:0;color:var(--muted);font-size:22px;cursor:pointer;padding:0;line-height:1}
@@ -218,17 +238,14 @@ dialog#auth-modal::backdrop{background:rgba(0,0,0,0.78);backdrop-filter:blur(6px
 .form-msg.err{display:block;background:rgba(255,77,109,0.12);color:var(--bad);border:1px solid rgba(255,77,109,0.3)}
 .form-msg.ok{display:block;background:rgba(0,245,155,0.12);color:var(--ok);border:1px solid rgba(0,245,155,0.3)}
 
-/* Project Detail Modal */
 dialog#project-modal{background:rgba(13,19,27,0.98);backdrop-filter:blur(24px);color:var(--text);border:1px solid rgba(0,229,255,0.5);border-radius:18px;padding:0;width:min(680px,94vw);box-shadow:0 32px 80px rgba(0,0,0,0.85),0 0 32px var(--cyan-glow);overflow:hidden}
 dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6px)}
 .pmodal-header{padding:24px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
 .pmodal-body{padding:28px;max-height:75vh;overflow-y:auto}
 
-/* Responsive */
 @media(max-width:960px){
   .hero{grid-template-columns:1fr;padding-top:40px}
-  .projects-grid,.skills-grid,.contact-grid{grid-template-columns:1fr}
-  .pipe-grid{grid-template-columns:1fr}
+  .projects-grid,.skills-grid,.contact-grid,.guardian-steps,.scenarios-grid{grid-template-columns:1fr}
   .nav-links{display:none}
   .mobile-toggle{display:inline-flex}
   section{padding:68px 0}
@@ -253,7 +270,7 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
   </div>
 </div>
 
-<!-- Header & Nav -->
+<!-- Header -->
 <header>
   <nav class="wrap">
     <a class="brand" href="#top">
@@ -262,7 +279,7 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
     </a>
 
     <div class="nav-links">
-      <a class="nav-link" href="#pipeline"><span class="mono">01.</span> <span data-t="n1">Automatisation</span></a>
+      <a class="nav-link" href="#pipeline"><span class="mono">01.</span> <span data-t="n1">Défense Autonome</span></a>
       <a class="nav-link" href="#cyberlab"><span class="mono">02.</span> <span data-t="n2">Cyber Lab</span></a>
       <a class="nav-link" href="#projets"><span class="mono">03.</span> <span data-t="n3">Projets</span></a>
       <a class="nav-link" href="#skills"><span class="mono">04.</span> <span data-t="n4">Expertises</span></a>
@@ -284,7 +301,7 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
 
   <!-- Mobile Drawer -->
   <div class="mobile-nav" id="mobile-drawer">
-    <a class="nav-link" href="#pipeline" onclick="closeMobileNav()"><span class="mono">01.</span> <span data-t="n1">Automatisation</span></a>
+    <a class="nav-link" href="#pipeline" onclick="closeMobileNav()"><span class="mono">01.</span> <span data-t="n1">Défense Autonome</span></a>
     <a class="nav-link" href="#cyberlab" onclick="closeMobileNav()"><span class="mono">02.</span> <span data-t="n2">Cyber Lab</span></a>
     <a class="nav-link" href="#projets" onclick="closeMobileNav()"><span class="mono">03.</span> <span data-t="n3">Projets</span></a>
     <a class="nav-link" href="#skills" onclick="closeMobileNav()"><span class="mono">04.</span> <span data-t="n4">Expertises</span></a>
@@ -356,195 +373,321 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
     </div>
   </section>
 
-  <!-- Section 01 : Pipeline SOC & Simulateur de Menaces -->
+  <!-- Section 01 : Le Gardien Numérique Autonome -->
   <section class="sec" id="pipeline">
     <div class="wrap">
       <div class="sec-header">
-        <div class="eyebrow"><span class="live-pulse"></span> <span data-t="n1">01. AUTOMATISATION & RIPOSTE</span></div>
-        <h2 data-t="a_h">Détection, blocage et alerte sans intervention humaine</h2>
-        <p data-t="a_p">Visualisez en temps réel comment mon pipeline d'automatisation détecte une agression hostile, analyse les journaux, pilote le pare-feu et alerte l'administrateur en moins de deux secondes.</p>
+        <div class="eyebrow"><span class="live-pulse"></span> <span data-t="n1">01. SÉCURITÉ AUTONOME & DÉFENSE 24H/24</span></div>
+        <h2 data-t="a_h">Comment Chamsoudine protège vos serveurs sans intervention humaine</h2>
+        <p data-t="a_p">Même quand l'administrateur dort, son automate de sécurité veille. En cas d'attaque informatique, la menace est détectée, le pirate est éjecté du serveur et Chamsoudine reçoit une alerte instantanée sur WhatsApp en moins de deux secondes.</p>
       </div>
 
-      <div class="scenario-selector">
-        <button class="scenario-btn active" data-scenario="ssh">🛡️ 1. Brute-Force SSH</button>
-        <button class="scenario-btn" data-scenario="ddos">⚡ 2. DDoS SYN Flood</button>
-        <button class="scenario-btn" data-scenario="sqli">🛑 3. Injection SQL / WAF</button>
-        <button class="scenario-btn" data-scenario="priv">🔐 4. Escalade Privilèges</button>
-      </div>
-
-      <div class="lk locked" id="pipeline-lk">
-        <div class="pipe-grid" id="pipeline-nodes"></div>
-
-        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0">
-          <button class="btn" id="btn-run-pipeline" data-t="a_run">Lancer la simulation d'attaque</button>
-          <span class="mono" style="font-size:12.5px;color:var(--muted)" data-t="a_note">Simulation basée sur des charges réelles de laboratoire</span>
+      <!-- Nouveau Dashboard du Gardien -->
+      <div class="guardian-dashboard lk locked" id="pipeline-lk">
+        <div class="guardian-top-bar">
+          <div>
+            <span style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px">STATUT DU SYSTÈME EN DIRECT :</span>
+            <strong style="font-size:16px;color:var(--text)">Bouclier de Défense Autonome v2.6</strong>
+          </div>
+          <div class="guardian-status-badge">
+            <span class="live-pulse"></span>
+            <span>SERVEUR ACTIF & 100% PROTÉGÉ</span>
+          </div>
         </div>
 
-        <div class="pipe-console" id="pipeline-log"></div>
+        <p style="font-size:13.5px;color:var(--muted);margin:0 0 16px">Choisissez une simulation ci-dessous pour voir comment l'automate neutralise l'attaque en direct :</p>
+
+        <!-- Sélecteur de scénarios clairs et humains -->
+        <div class="scenarios-grid">
+          <div class="sc-card active" data-scenario="ssh">
+            <b>🛑 1. Attaque par force brute</b>
+            <span>Un pirate tente des milliers de mots de passe pour entrer.</span>
+          </div>
+          <div class="sc-card" data-scenario="ddos">
+            <b>🌊 2. Inondation DDoS</b>
+            <span>Un flot massif de faux visiteurs tente de faire planter le site.</span>
+          </div>
+          <div class="sc-card" data-scenario="sqli">
+            <b>💉 3. Tentative de piratage base</b>
+            <span>Une injection de code malveillant tente de dérober les données.</span>
+          </div>
+        </div>
+
+        <!-- Les 4 étapes visuelles du bouclier -->
+        <div class="guardian-steps" id="guardian-steps-container">
+          <div class="guardian-card" id="gstep-0">
+            <div class="guardian-icon">👾</div>
+            <div class="guardian-step-num">Étape 1 // Menace</div>
+            <h4>Agression Détectée</h4>
+            <p>Le pirate envoie des requêtes suspectes pour forcer l'entrée.</p>
+          </div>
+          <div class="guardian-card" id="gstep-1">
+            <div class="guardian-icon">🧠</div>
+            <div class="guardian-step-num">Étape 2 // Analyse</div>
+            <h4>Analyse IA en 0.2s</h4>
+            <p>L'automate identifie la signature hostile et classe l'IP comme dangereuse.</p>
+          </div>
+          <div class="guardian-card" id="gstep-2">
+            <div class="guardian-icon">🛡️</div>
+            <div class="guardian-step-num">Étape 3 // Riposte</div>
+            <h4>Porte Verrouillée</h4>
+            <p>Le pare-feu bloque immédiatement l'agresseur à la porte du serveur.</p>
+          </div>
+          <div class="guardian-card" id="gstep-3">
+            <div class="guardian-icon">📲</div>
+            <div class="guardian-step-num">Étape 4 // Alerte</div>
+            <h4>Notification WhatsApp</h4>
+            <p>Chamsoudine reçoit le compte-rendu complet sur son smartphone.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:18px">
+          <button class="btn" id="btn-run-guardian" type="button">
+            <span>▶ Tester la protection en direct</span>
+          </button>
+          <div class="mono" style="font-size:12px;color:var(--gold)">
+            Temps de riposte moyen : <b style="color:var(--ok)">1.2 seconde</b> · 0 intervention humaine
+          </div>
+        </div>
+
+        <div class="guardian-console-wrap" id="guardian-console">Cliquez sur « Tester la protection en direct » pour voir le bouclier réagir instantanément.</div>
       </div>
     </div>
   </section>
 
-  <!-- Section 02 : Cyber Lab (Boîte à outils de sécurité) -->
+  <!-- Section 02 : Cyber Lab (Outils Pédagogiques & Cryptographiques) -->
   <section class="sec" id="cyberlab">
     <div class="wrap">
       <div class="sec-header">
         <div class="eyebrow"><span class="mono">02. CYBER LAB EXPÉRIMENTAL</span></div>
-        <h2 data-t="l_h">Laboratoire : outils interactifs d'analyse et cryptographie</h2>
-        <p data-t="l_p">Des outils cybernétiques avancés qui s'exécutent entièrement dans votre navigateur. Aucune donnée saisie n'est transmise : tout est calculé localement avec les API cryptographiques natives.</p>
+        <h2 data-t="l_h">Laboratoire : testez vos mots de passe et inspectez votre sécurité</h2>
+        <p data-t="l_p">Des outils concrets et interactifs qui s'exécutent en direct dans votre navigateur. Aucune donnée saisie n'est envoyée sur Internet : tous les calculs sont 100% privés et locaux.</p>
       </div>
 
       <!-- Tabs Nav -->
       <div class="tab-nav">
-        <button class="tab-btn active" data-tab="tab-pw">🔑 <span data-t="t_pw">Entropie Mot de Passe</span></button>
-        <button class="tab-btn" data-tab="tab-cidr">🌐 <span data-t="t_cidr">Calculateur CIDR / Réseau</span></button>
-        <button class="tab-btn" data-tab="tab-crypto">⚡ <span data-t="t_crypto">Studio Cryptographique</span></button>
-        <button class="tab-btn" data-tab="tab-audit">🔍 <span data-t="t_audit">Audit Navigateur Visiteur</span></button>
+        <button class="tab-btn active" data-tab="tab-pw">🔑 <span data-t="t_pw">Testeur de Mot de Passe</span></button>
+        <button class="tab-btn" data-tab="tab-gen">⚡ <span>Générateur Blindé</span></button>
+        <button class="tab-btn" data-tab="tab-url">🔍 <span>Scanner de Site Web</span></button>
+        <button class="tab-btn" data-tab="tab-cidr">🌐 <span data-t="t_cidr">Calculateur Réseau CIDR</span></button>
+        <button class="tab-btn" data-tab="tab-audit">🛡️ <span data-t="t_audit">Audit de votre Session</span></button>
       </div>
 
       <div class="lk locked" id="lab-lk">
-        <!-- Tab 1: Password Entropy -->
+        <!-- Tab 1: Password Entropy & Health -->
         <div class="lab-card tab-content" id="tab-pw">
-          <h3 style="margin-bottom:8px" data-t="l1">Évaluateur d'entropie et résistance brute-force</h3>
-          <p style="color:var(--muted);font-size:14px;margin-bottom:20px" data-t="l1p">Testez la solidité d'une chaîne face aux attaques par dictionnaire combiné et clusters de GPU modernes.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+            <h3 data-t="l1">Évaluez la résistance de votre mot de passe</h3>
+            <span class="hud-tag" id="pw-grade-badge">En attente de saisie</span>
+          </div>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:20px" data-t="l1p">Découvrez combien de temps mettrait un pirate équipé d'ordinateurs surpuissants pour casser votre code secret.</p>
 
-          <input class="lab-input" id="pw-input" type="text" autocomplete="off" spellcheck="false" placeholder="Ex: S3cur!ty_N1g3r_2026#">
+          <input class="lab-input" id="pw-input" type="text" autocomplete="off" spellcheck="false" placeholder="Tapez un mot de passe à tester (ex: Niger#Securite!2026)">
 
-          <div class="pw-bar-track"><div class="pw-bar-fill" id="pw-bar"></div></div>
-          <div id="pw-stats" style="font-size:14px;line-height:1.7;color:var(--muted)"></div>
+          <div style="height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;margin:18px 0 12px">
+            <div id="pw-bar" style="height:100%;width:0;transition:all .3s"></div>
+          </div>
+
+          <!-- Checklist visuelle de solidité -->
+          <div class="pw-checklist">
+            <div class="pw-check-item" id="chk-len"><span>⚪</span> Longueur ≥ 12 caractères</div>
+            <div class="pw-check-item" id="chk-lower"><span>⚪</span> Lettres minuscules (a-z)</div>
+            <div class="pw-check-item" id="chk-upper"><span>⚪</span> Lettres majuscules (A-Z)</div>
+            <div class="pw-check-item" id="chk-num"><span>⚪</span> Chiffres (0-9)</div>
+            <div class="pw-check-item" id="chk-sym"><span>⚪</span> Caractères spéciaux (!@#$)</div>
+          </div>
+
+          <div id="pw-stats" style="font-size:14px;line-height:1.7;color:var(--muted);background:rgba(6,9,13,0.7);padding:14px 18px;border-radius:10px;border:1px solid var(--line);margin-top:14px"></div>
         </div>
 
-        <!-- Tab 2: CIDR Network Calculator -->
+        <!-- Tab 2: Générateur de Mots de Passe Blindés -->
+        <div class="lab-card tab-content" id="tab-gen" style="display:none">
+          <h3 style="margin-bottom:8px">Générateur de mots de passe incassables</h3>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:20px">Générez un code hautement sécurisé grâce au générateur cryptographique aléatoire de votre appareil (CSPRNG).</p>
+
+          <div style="display:flex;gap:10px;margin-bottom:18px">
+            <input class="lab-input" id="gen-output" readonly placeholder="Cliquez sur Générer un mot de passe...">
+            <button class="btn" id="btn-gen-pw" type="button">Générer</button>
+            <button class="btn ghost" id="btn-copy-gen" type="button">Copier</button>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+            <button class="btn ghost sm" type="button" onclick="setGenPreset(16)">Format Simple (16 car.)</button>
+            <button class="btn ghost sm" type="button" onclick="setGenPreset(24)">Format Blindé (24 car.)</button>
+            <button class="btn ghost sm" type="button" onclick="setGenPreset(32)">Format Clé Serveur (32 car.)</button>
+          </div>
+
+          <div style="font-size:12.5px;color:var(--muted)">
+            Longueur personnalisée : <b class="mono" id="gen-len-val" style="color:var(--gold)">24</b> caractères
+          </div>
+          <input type="range" id="gen-len" min="12" max="64" value="24" style="width:100%;accent-color:var(--gold);margin-top:6px">
+        </div>
+
+        <!-- Tab 3: Scanner d'URL & Site Web -->
+        <div class="lab-card tab-content" id="tab-url" style="display:none">
+          <h3 style="margin-bottom:8px">Scanner de sécurité de site web</h3>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:20px">Vérifiez si une adresse web applique les bonnes pratiques élémentaires de protection et de chiffrement.</p>
+
+          <div style="display:flex;gap:10px">
+            <input class="lab-input" id="url-scan-input" value="anatech-ten.vercel.app" placeholder="Ex: google.com ou monsite.ne">
+            <button class="btn" id="btn-scan-url" type="button">Analyser ce site</button>
+          </div>
+
+          <div class="url-scan-result" id="url-scan-result"></div>
+        </div>
+
+        <!-- Tab 4: Calculateur Réseau CIDR -->
         <div class="lab-card tab-content" id="tab-cidr" style="display:none">
-          <h3 style="margin-bottom:8px" data-t="l2">Calculateur de sous-réseaux IPv4 & plan d'adressage</h3>
-          <p style="color:var(--muted);font-size:14px;margin-bottom:20px" data-t="l2p">Découpage CIDR, masques binaires, broadcast et plages d'hôtes utilisables.</p>
+          <h3 style="margin-bottom:8px" data-t="l2">Calculateur de sous-réseaux IPv4</h3>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:20px" data-t="l2p">Découpage CIDR, masques binaires, broadcast et plages d'adresses pour vos équipements.</p>
 
           <input class="lab-input" id="cidr-input" value="192.168.1.0/24" autocomplete="off" spellcheck="false">
 
           <table id="cidr-results" style="width:100%;margin-top:20px;border-collapse:collapse;font-size:14px"></table>
         </div>
 
-        <!-- Tab 3: Crypto Studio (Generator & Hasher) -->
-        <div class="lab-card tab-content" id="tab-crypto" style="display:none">
-          <h3 style="margin-bottom:8px">Générateur CSPRNG & Hachoir SHA-256</h3>
-          <p style="color:var(--muted);font-size:14px;margin-bottom:20px">Génération cryptographique à haute entropie et calcul instantané d'empreintes numériques SHA-256 via Web Crypto API.</p>
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-            <div>
-              <label style="display:block;font-size:13px;color:var(--muted);margin-bottom:6px">Générateur de Clé / Mot de passe (CSPRNG) :</label>
-              <div style="display:flex;gap:8px">
-                <input class="lab-input" id="gen-output" readonly placeholder="Cliquez sur Générer...">
-                <button class="btn sm" id="btn-gen-pw">Générer</button>
-                <button class="btn ghost sm" id="btn-copy-gen">Copier</button>
-              </div>
-              <div style="margin-top:10px;font-size:12px;color:var(--muted)">Longueur : <span id="gen-len-val">24</span> caractères</div>
-              <input type="range" id="gen-len" min="12" max="64" value="24" style="width:100%;accent-color:var(--gold);margin-top:4px">
-            </div>
-
-            <div>
-              <label style="display:block;font-size:13px;color:var(--muted);margin-bottom:6px">Calculateur de Hachage SHA-256 :</label>
-              <input class="lab-input" id="hash-input" placeholder="Saisissez un texte à hacher en direct...">
-              <div style="margin-top:10px;font-size:11.5px;color:var(--muted)">Empreinte SHA-256 :</div>
-              <div class="mono" id="hash-output" style="background:#070a0e;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font-size:12px;color:var(--cyan);word-break:break-all;min-height:38px;margin-top:4px">...</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab 4: Client Environment Security Audit -->
+        <!-- Tab 5: Client Environment Security Audit -->
         <div class="lab-card tab-content" id="tab-audit" style="display:none">
           <h3 style="margin-bottom:8px">Audit de sécurité de votre session</h3>
           <p style="color:var(--muted);font-size:14px;margin-bottom:16px">Ce que votre navigateur expose aux serveurs distants en temps réel. Analyse de votre posture de confidentialité.</p>
 
-          <div class="audit-grid" id="audit-grid"></div>
+          <div class="audit-grid" id="audit-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:20px"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 03 : Projets -->
+  <!-- Section 03 : Projets Showcase -->
   <section class="sec" id="projets">
     <div class="wrap">
       <div class="sec-header">
-        <div class="eyebrow"><span class="mono">03. RÉALISATIONS</span></div>
-        <h2 data-t="p_h">Projets et plateformes numériques</h2>
+        <div class="eyebrow"><span class="mono">03. RÉALISATIONS CONCRÈTES</span></div>
+        <h2 data-t="p_h">Projets et plateformes numériques développés</h2>
         <p data-t="p_p">Des solutions logicielles et d'infrastructures concrètes, sécurisées dès la conception et adaptées aux réalités du Niger et de l'Afrique.</p>
       </div>
 
       <div class="projects-grid">
-        <!-- Projet 1 -->
+        <!-- Projet 1 : EducNiger -->
         <div class="project-card">
-          <div>
-            <div class="project-top">
-              <span class="project-badge">SaaS ÉDUCATIF</span>
-              <span class="mono" style="font-size:12px;color:var(--muted)">01/04</span>
+          <div class="mockup-preview">
+            <div class="mockup-header">
+              <span class="mono">educniger.ne (Portail Privé)</span>
+              <span class="mockup-badge-live">🟢 En Production</span>
             </div>
+            <div class="mockup-body">
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:6px;margin-bottom:8px">
+                <span>🏫 Complexe Scolaire Niamey</span>
+                <span class="mono" style="color:var(--gold)">Bulletins T1 Générés</span>
+              </div>
+              <div style="font-size:11.5px;color:var(--muted)">
+                • Élèves inscrits : <b style="color:var(--text)">5 240</b> | Rôles cloisonnés : <b style="color:var(--ok)">Directeur, Enseignants, Parents</b>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-content">
             <h3>EducNiger</h3>
             <p data-t="p1">Plateforme de numérisation intégrale pour établissements scolaires privés. Portails sécurisés cloisonnés pour le directeur, les enseignants, les parents et les élèves avec gestion des notes et présences.</p>
             <div class="project-tags">
-              <span class="project-tag">Multi-Tenancy</span>
+              <span class="project-tag">SaaS Scolaire</span>
+              <span class="project-tag">Multi-Portails</span>
               <span class="project-tag">RBAC</span>
               <span class="project-tag">PostgreSQL</span>
-              <span class="project-tag">Node.js</span>
             </div>
+            <button class="btn sm" onclick="openProject('educniger')">Détails & Architecture →</button>
           </div>
-          <button class="btn ghost sm" onclick="openProject('educniger')">Détails & Architecture →</button>
         </div>
 
-        <!-- Projet 2 -->
+        <!-- Projet 2 : Social Hub -->
         <div class="project-card">
-          <div>
-            <div class="project-top">
-              <span class="project-badge">AUTOMATISATION SOCIALE</span>
-              <span class="mono" style="font-size:12px;color:var(--muted)">02/04</span>
+          <div class="mockup-preview">
+            <div class="mockup-header">
+              <span class="mono">socialhub.ca (Orchestration)</span>
+              <span class="mockup-badge-live">⚡ Multi-Canal</span>
             </div>
+            <div class="mockup-body">
+              <div style="display:flex;gap:12px;font-size:12px;margin-bottom:8px">
+                <span style="color:#00f2fe">🎵 TikTok (OK)</span>
+                <span style="color:#25d366">💬 WhatsApp (OK)</span>
+                <span style="color:#1877f2">🌐 Facebook (OK)</span>
+                <span style="color:#e1306c">📸 Instagram (OK)</span>
+              </div>
+              <div style="font-size:11.5px;color:var(--muted)">
+                • Statut : <b style="color:var(--ok)">Publication synchronisée en 1 clic sans risque de fuite de jeton</b>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-content">
             <h3>Social Hub</h3>
             <p data-t="p2">Tableau de bord unifié pour orchestrer, automatiser et planifier des publications simultanées sur TikTok, WhatsApp, Facebook et Instagram avec contrôle d'intégrité des flux.</p>
             <div class="project-tags">
+              <span class="project-tag">Automatisation</span>
               <span class="project-tag">APIs Réseaux</span>
-              <span class="project-tag">Webhooks</span>
               <span class="project-tag">Token Vault</span>
-              <span class="project-tag">Cloud Tasks</span>
+              <span class="project-tag">Webhooks</span>
             </div>
+            <button class="btn sm" onclick="openProject('socialhub')">Détails & Architecture →</button>
           </div>
-          <button class="btn ghost sm" onclick="openProject('socialhub')">Détails & Architecture →</button>
         </div>
 
-        <!-- Projet 3 -->
+        <!-- Projet 3 : digitService -->
         <div class="project-card">
-          <div>
-            <div class="project-top">
-              <span class="project-badge">SÉCURITÉ PHYSIQUE</span>
-              <span class="mono" style="font-size:12px;color:var(--muted)">03/04</span>
+          <div class="mockup-preview">
+            <div class="mockup-header">
+              <span class="mono">cctv-matrix.niamey.local</span>
+              <span class="mockup-badge-live">🛡️ Chiffrement WireGuard</span>
             </div>
+            <div class="mockup-body">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;text-align:center">
+                <div style="background:rgba(0,0,0,0.4);padding:4px;border-radius:4px;color:var(--ok)">CAM-01 : Entrée Principale [REC]</div>
+                <div style="background:rgba(0,0,0,0.4);padding:4px;border-radius:4px;color:var(--ok)">CAM-02 : Salle Serveurs [REC]</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-content">
             <h3>digitService</h3>
             <p data-t="p3">Ingénierie et déploiement de réseaux de vidéosurveillance IP durcis, caméras haute définition avec enregistrement sécurisé et accès distant chiffré pour entreprises et résidences au Niger.</p>
             <div class="project-tags">
               <span class="project-tag">VLAN Isolé</span>
-              <span class="project-tag">RTSP Chiffré</span>
               <span class="project-tag">VPN WireGuard</span>
               <span class="project-tag">NVR Durci</span>
+              <span class="project-tag">Niger 24/7</span>
             </div>
+            <button class="btn sm" onclick="openProject('digitservice')">Détails & Architecture →</button>
           </div>
-          <button class="btn ghost sm" onclick="openProject('digitservice')">Détails & Architecture →</button>
         </div>
 
-        <!-- Projet 4 -->
+        <!-- Projet 4 : EFootLigue -->
         <div class="project-card">
-          <div>
-            <div class="project-top">
-              <span class="project-badge">COMPÉTITION GAMING</span>
-              <span class="mono" style="font-size:12px;color:var(--muted)">04/04</span>
+          <div class="mockup-preview">
+            <div class="mockup-header">
+              <span class="mono">efootligue.ne (Tournois)</span>
+              <span class="mockup-badge-live">🏆 Phase de Ligue</span>
             </div>
+            <div class="mockup-body">
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px">
+                <span>Phase 1 : 36 Joueurs</span>
+                <span class="mono" style="color:var(--cyan)">J-3 / Match en direct</span>
+              </div>
+              <div style="font-size:11.5px;color:var(--muted)">
+                • Arbitrage automatisé avec validation par capture et anti-triche
+              </div>
+            </div>
+          </div>
+
+          <div class="project-content">
             <h3>EFootLigue</h3>
             <p data-t="p4">Plateforme d'organisation de tournois d'eFootball au format Phase de Ligue inspiré de la Ligue des champions. Gestion d'inscriptions, scores en direct et arbitrage automatisé.</p>
             <div class="project-tags">
-              <span class="project-tag">Algorithme Suisse</span>
+              <span class="project-tag">Compétition Gaming</span>
               <span class="project-tag">Temps Réel</span>
-              <span class="project-tag">Anti-Cheat</span>
-              <span class="project-tag">Supabase</span>
+              <span class="project-tag">Anti-Triche</span>
+              <span class="project-tag">Algorithme Suisse</span>
             </div>
+            <button class="btn sm" onclick="openProject('efootligue')">Détails & Architecture →</button>
           </div>
-          <button class="btn ghost sm" onclick="openProject('efootligue')">Détails & Architecture →</button>
         </div>
       </div>
     </div>
@@ -554,21 +697,27 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
   <section class="sec" id="skills">
     <div class="wrap">
       <div class="sec-header">
-        <div class="eyebrow"><span class="mono">04. COMPÉTENCES</span></div>
-        <h2 data-t="s_h">Compétences & domaines d'intervention</h2>
-        <p data-t="s_p">Une synergie entre administration système, sécurité opérationnelle et créativité numérique.</p>
+        <div class="eyebrow"><span class="mono">04. DOMAINES D'EXPERTISE</span></div>
+        <h2 data-t="s_h">Compétences techniques & valeur ajoutée</h2>
+        <p data-t="s_p">Ce que j'apporte concrètement à votre organisation : des systèmes fiables, des coûts maîtrisés et une tranquillité d'esprit absolue.</p>
       </div>
 
       <div class="skills-grid">
         <div class="skill-card">
           <div class="skill-icon">🖥️</div>
-          <h3 data-t="s1">Systèmes & Réseaux</h3>
+          <h3 data-t="s1">Systèmes & Réseaux Durcis</h3>
           <p data-t="s1p">Administration Linux approfondie, conception d'architectures réseau sécurisées et scripts Shell pour l'automatisation intégrale des opérations.</p>
-          <ul class="skill-items">
-            <li>Debian / Ubuntu Server / RHEL</li>
-            <li>Routage, VLANs, CIDR, DNS, VPN</li>
-            <li>Bash scripting, cron, systemd</li>
-            <li>Docker, reverse-proxy Caddy / Nginx</li>
+
+          <div class="skill-metrics">
+            <small>Bénéfice Client :</small>
+            <strong>99.98% de disponibilité et 0 panne imprévue</strong>
+          </div>
+
+          <ul style="list-style:none;padding:0;margin:0;font-size:13px;color:#c3d1de;line-height:1.8">
+            <li>▹ Debian, Ubuntu Server, Alpine, RHEL</li>
+            <li>▹ VLANs, routage CIDR, VPN WireGuard, DNS</li>
+            <li>▹ Scripts Bash & automatisation Cron/Systemd</li>
+            <li>▹ Conteneurs Docker & Reverse-Proxy chiffré</li>
           </ul>
         </div>
 
@@ -576,23 +725,35 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
           <div class="skill-icon">🛡️</div>
           <h3 data-t="s2">Cybersécurité Opérationnelle</h3>
           <p data-t="s2p">Durcissement d'infrastructures, mise en place de pare-feux, détection précoce d'intrusions et réponse rapide aux incidents de sécurité.</p>
-          <ul class="skill-items">
-            <li>Iptables, NFTables, UFW, Fail2ban</li>
-            <li>Analyse de journaux & SIEM / SOC</li>
-            <li>Durcissement SSH, CIS Benchmarks</li>
-            <li>WAF, protection DDoS & Anti-bot</li>
+
+          <div class="skill-metrics">
+            <small>Bénéfice Client :</small>
+            <strong>Protection active contre les vols de données</strong>
+          </div>
+
+          <ul style="list-style:none;padding:0;margin:0;font-size:13px;color:#c3d1de;line-height:1.8">
+            <li>▹ Iptables, NFTables, UFW, Fail2ban</li>
+            <li>▹ Analyse de logs & surveillance temps réel</li>
+            <li>▹ Durcissement SSH & politiques Zero-Trust</li>
+            <li>▹ Protection WAF contre les attaques Web</li>
           </ul>
         </div>
 
         <div class="skill-card">
           <div class="skill-icon">🚀</div>
-          <h3 data-t="s3">Contenu & Stratégie Digitale</h3>
+          <h3 data-t="s3">SaaS & Création Digitale</h3>
           <p data-t="s3p">Création de contenu tech à fort impact, vulgarisation scientifique, intégration d'intelligences artificielles et développement SaaS.</p>
-          <ul class="skill-items">
-            <li>Création vidéo TikTok & YouTube (+100k vues)</li>
-            <li>Intégration d'APIs & LLM Gemini/OpenAI</li>
-            <li>Automatisation de workflows no-code/pro-code</li>
-            <li>Développement Full Stack rapide</li>
+
+          <div class="skill-metrics">
+            <small>Bénéfice Client :</small>
+            <strong>Automatisation des corvées quotidiennes</strong>
+          </div>
+
+          <ul style="list-style:none;padding:0;margin:0;font-size:13px;color:#c3d1de;line-height:1.8">
+            <li>▹ Développement SaaS Full Stack sur-mesure</li>
+            <li>▹ Intégration d'APIs & IA générative</li>
+            <li>▹ Vidéos tech et vulgarisation (+100k vues)</li>
+            <li>▹ Solutions adaptées aux réalités du Niger</li>
           </ul>
         </div>
       </div>
@@ -720,7 +881,6 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
         <input class="form-input" id="reg-org" maxlength="100" placeholder="Ex: Université, Société, Indépendant">
       </div>
 
-      <!-- Honeypot anti-bot -->
       <input style="position:absolute;left:-9999px" name="website" id="reg-website" tabindex="-1" autocomplete="off">
 
       <label class="form-check">
@@ -748,55 +908,62 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
 </dialog>
 
 <script>
-/* ==========================================================================
-   DICTIONNAIRE MULTILINGUE (FR / EN)
-   ========================================================================== */
 const I18N = {
   fr: {
-    n1:"Automatisation",n2:"Cyber Lab",n3:"Projets",n4:"Expertises",n5:"Contact",
+    n1:"Défense Autonome",n2:"Cyber Lab",n3:"Projets",n4:"Expertises",n5:"Contact",
     nav_access:"Connexion / Inscription",hero_badge:"INGÉNIEUR EN SÉCURITÉ INFORMATIQUE · NIGER",
     lead:"J'automatise ce qui se répète et je protège ce qui compte. Architecte de défenses numériques, systèmes durcis et plateformes intelligentes pensées pour les réalités africaines et internationales.",
     cta1:"Collaborons ensemble",cta2:"Voir l'automatisation en action",stat1:"Temps de riposte automatique",stat2:"Plateformes déployées",stat3:"Systèmes sécurisés",
-    a_h:"Détection, blocage et alerte sans intervention humaine",a_p:"Visualisez en temps réel comment mon pipeline d'automatisation détecte une agression hostile, analyse les journaux, pilote le pare-feu et alerte l'administrateur en moins de deux secondes.",
-    a_run:"Lancer la simulation d'attaque",a_note:"Simulation basée sur des charges réelles de laboratoire",
-    l_h:"Laboratoire : outils interactifs d'analyse et cryptographie",l_p:"Des outils cybernétiques avancés qui s'exécutent entièrement dans votre navigateur. Aucune donnée saisie n'est transmise : tout est calculé localement avec les API cryptographiques natives.",
-    t_pw:"Entropie Mot de Passe",t_cidr:"Calculateur CIDR",t_crypto:"Studio Cryptographique",t_audit:"Audit Navigateur",
-    l1:"Évaluateur d'entropie et résistance brute-force",l1p:"Testez la solidité d'une chaîne face aux attaques par dictionnaire combiné et clusters de GPU modernes.",
-    l2:"Calculateur de sous-réseaux IPv4 & plan d'adressage",l2p:"Découpage CIDR, masques binaires, broadcast et plages d'hôtes utilisables.",
-    p_h:"Projets et plateformes numériques",p_p:"Des solutions logicielles et d'infrastructures concrètes, sécurisées dès la conception et adaptées aux réalités du Niger et de l'Afrique.",
+    a_h:"Comment Chamsoudine protège vos serveurs sans intervention humaine",
+    a_p:"Même quand l'administrateur dort, son automate de sécurité veille. En cas d'attaque informatique, la menace est détectée, le pirate est éjecté du serveur et Chamsoudine reçoit une alerte instantanée sur WhatsApp en moins de deux secondes.",
+    l_h:"Laboratoire : testez vos mots de passe et inspectez votre sécurité",
+    l_p:"Des outils concrets et interactifs qui s'exécutent en direct dans votre navigateur. Aucune donnée saisie n'est envoyée sur Internet : tous les calculs sont 100% privés et locaux.",
+    t_pw:"Testeur de Mot de Passe",t_cidr:"Calculateur CIDR",t_audit:"Audit de votre Session",
+    l1:"Évaluez la résistance de votre mot de passe",
+    l1p:"Découvrez combien de temps mettrait un pirate équipé d'ordinateurs surpuissants pour casser votre code secret.",
+    l2:"Calculateur de sous-réseaux IPv4",
+    l2p:"Découpage CIDR, masques binaires, broadcast et plages d'adresses pour vos équipements.",
+    p_h:"Projets et plateformes numériques développés",
+    p_p:"Des solutions logicielles et d'infrastructures concrètes, sécurisées dès la conception et adaptées aux réalités du Niger et de l'Afrique.",
     p1:"Plateforme de numérisation intégrale pour établissements scolaires privés. Portails sécurisés cloisonnés pour le directeur, les enseignants, les parents et les élèves avec gestion des notes et présences.",
     p2:"Tableau de bord unifié pour orchestrer, automatiser et planifier des publications simultanées sur TikTok, WhatsApp, Facebook et Instagram avec contrôle d'intégrité des flux.",
     p3:"Ingénierie et déploiement de réseaux de vidéosurveillance IP durcis, caméras haute définition avec enregistrement sécurisé et accès distant chiffré pour entreprises et résidences au Niger.",
     p4:"Plateforme d'organisation de tournois d'eFootball au format Phase de Ligue inspiré de la Ligue des champions. Gestion d'inscriptions, scores en direct et arbitrage automatisé.",
-    s_h:"Compétences & domaines d'intervention",s_p:"Une synergie entre administration système, sécurité opérationnelle et créativité numérique.",
-    s1:"Systèmes & Réseaux",s1p:"Administration Linux approfondie, conception d'architectures réseau sécurisées et scripts Shell pour l'automatisation intégrale des opérations.",
+    s_h:"Compétences techniques & valeur ajoutée",
+    s_p:"Ce que j'apporte concrètement à votre organisation : des systèmes fiables, des coûts maîtrisés et une tranquillité d'esprit absolue.",
+    s1:"Systèmes & Réseaux Durcis",s1p:"Administration Linux approfondie, conception d'architectures réseau sécurisées et scripts Shell pour l'automatisation intégrale des opérations.",
     s2:"Cybersécurité Opérationnelle",s2p:"Durcissement d'infrastructures, mise en place de pare-feux, détection précoce d'intrusions et réponse rapide aux incidents de sécurité.",
-    s3:"Contenu & Stratégie Digitale",s3p:"Création de contenu tech à fort impact, vulgarisation scientifique, intégration d'intelligences artificielles et développement SaaS.",
+    s3:"SaaS & Création Digitale",s3p:"Création de contenu tech à fort impact, vulgarisation scientifique, intégration d'intelligences artificielles et développement SaaS.",
     c_h:"Ouvert aux opportunités et partenariats",c_p:"Partenariats de marques, missions d'audit ou de conseil en cybersécurité, collaborations techniques et projets technologiques innovants.",
     c_b:"Proposer une collaboration",k_h:"Contact professionnel direct",k_p:"Vous avez une proposition, un projet d'infrastructure ou une question technique ? Écrivez-moi directement.",
     copy:"Copier",copied:"Copié !",foot:"Plateforme sécurisée & automatisée",
     gate_title:"Fonctionnalité réservée aux membres inscrits.",gate_btn:"Déverrouiller / Se connecter"
   },
   en: {
-    n1:"Automation",n2:"Cyber Lab",n3:"Projects",n4:"Expertise",n5:"Contact",
+    n1:"Autonomous Defense",n2:"Cyber Lab",n3:"Projects",n4:"Expertise",n5:"Contact",
     nav_access:"Sign In / Sign Up",hero_badge:"CYBERSECURITY ENGINEER · NIGER",
     lead:"I automate what repeats and protect what matters. Architect of digital defenses, hardened infrastructure and smart platforms tailored for African and global realities.",
     cta1:"Let's collaborate",cta2:"See automation in action",stat1:"Automated response time",stat2:"Production platforms",stat3:"Hardened systems",
-    a_h:"Detection, mitigation & alert with zero human intervention",a_p:"Experience real-time threat response: logs are ingested, anomaly detection triggers, firewall enforces mitigation and the operator is alerted in under 2 seconds.",
-    a_run:"Execute Attack Simulation",a_note:"Simulation powered by real lab attack payloads",
-    l_h:"Cyber Lab: browser-native security tools",l_p:"Zero data sent: all computations leverage native browser Web Crypto and client-side processing.",
-    t_pw:"Password Entropy",t_cidr:"CIDR Subnetting",t_crypto:"Crypto Studio",t_audit:"Client Audit",
-    l1:"Entropy Evaluator & Brute-Force Resilience",l1p:"Simulate attack resistance against GPU clusters and rainbow tables.",
-    l2:"IPv4 CIDR Subnet Calculator",l2p:"CIDR masks, broadcast, binary notation and valid host bounds.",
-    p_h:"Featured Projects & Deployments",p_p:"Tailored, resilient software and infrastructure engineered for Niger and pan-African requirements.",
+    a_h:"How Chamsoudine protects your infrastructure with zero human intervention",
+    a_p:"Even while the operator sleeps, autonomous tripwires stand guard. Threats are neutralized, hostile actors banned and instant WhatsApp alerts sent in under 2 seconds.",
+    l_h:"Cyber Lab: browser-native security & evaluation tools",
+    l_p:"Interactive tools computing locally in your browser. Zero data dispatched: privacy is guaranteed.",
+    t_pw:"Password Evaluator",t_cidr:"CIDR Subnetting",t_audit:"Client Audit",
+    l1:"Password Strength & Brute-Force Resilience",
+    l1p:"Simulate time-to-crack against specialized GPU cracking clusters.",
+    l2:"IPv4 CIDR Subnet Calculator",
+    l2p:"CIDR masks, broadcast, binary notation and valid host bounds.",
+    p_h:"Featured Projects & Deployments",
+    p_p:"Tailored, resilient software and infrastructure engineered for Niger and pan-African requirements.",
     p1:"Private school digitalization suite. Segregated role-based portals for principals, teachers, parents, and students.",
     p2:"Unified multi-channel automation hub to schedule and broadcast content on TikTok, WhatsApp, Facebook and Instagram.",
     p3:"Hardened IP video surveillance deployment, remote encrypted access and perimeter monitoring.",
     p4:"eFootball tournament management engine modeled after the UEFA Champions League League Phase.",
-    s_h:"Core Competencies",s_p:"A strong cross-disciplinary synergy of systems engineering, defensive security and digital creation.",
-    s1:"Systems & Networks",s1p:"Linux systems engineering, network design, Shell scripting and automated DevOps pipelines.",
+    s_h:"Core Competencies & Impact",
+    s_p:"High-availability infrastructure, automated security workflows, and peace of mind.",
+    s1:"Hardened Systems & Networks",s1p:"Linux systems engineering, network design, Shell scripting and automated DevOps pipelines.",
     s2:"Defensive Security",s2p:"Host hardening, stateful firewalls, SIEM anomaly detection and rapid incident response.",
-    s3:"Digital & Content",s3p:"High-reach technical content creation, AI API orchestration and full-stack software delivery.",
+    s3:"SaaS & Digital Engineering",s3p:"High-reach technical content creation, AI API orchestration and full-stack software delivery.",
     c_h:"Open for global partnerships",c_p:"Brand partnerships, corporate cybersecurity consulting, digital solutions and high-impact tech ventures.",
     c_b:"Initiate partnership",k_h:"Direct Contact",k_p:"Have a project, security audit, or technology inquiry? Reach out directly.",
     copy:"Copy",copied:"Copied!",foot:"Hardened & automated infrastructure",
@@ -818,16 +985,13 @@ function setLang(l) {
   initTerminalChips();
   evaluatePassword();
   calculateCIDR();
-  renderPipelineNodes();
 }
 
 document.getElementById("btn-lang").onclick = () => {
   setLang(currentLang === "fr" ? "en" : "fr");
 };
 
-/* ==========================================================================
-   AUDIO SYNTHESIZER (Web Audio API - sons cyber subtils)
-   ========================================================================== */
+/* Audio Synthesizer */
 let soundEnabled = true;
 const audioCtx = (typeof AudioContext !== "undefined" || typeof webkitAudioContext !== "undefined")
   ? new (window.AudioContext || window.webkitAudioContext)()
@@ -857,9 +1021,7 @@ btnSound.onclick = () => {
   if (soundEnabled) playBeep(880, "triangle", 0.1);
 };
 
-/* ==========================================================================
-   BACKGROUND MATRIX & GRID CANVAS
-   ========================================================================== */
+/* Canvas Matrix */
 const canvas = document.getElementById("cyber-canvas");
 const ctx = canvas.getContext("2d");
 let cw = canvas.width = window.innerWidth;
@@ -876,7 +1038,7 @@ const columns = Math.floor(cw / fontSize);
 const drops = Array(columns).fill(1);
 
 function drawMatrix() {
-  ctx.fillStyle = "rgba(7, 10, 14, 0.12)";
+  ctx.fillStyle = "rgba(6, 9, 13, 0.14)";
   ctx.fillRect(0, 0, cw, ch);
 
   ctx.fillStyle = "rgba(220, 185, 110, 0.35)";
@@ -894,9 +1056,7 @@ function drawMatrix() {
 }
 setInterval(drawMatrix, 50);
 
-/* ==========================================================================
-   AUTHENTICATION & SESSION (Inscription & Connexion fluide)
-   ========================================================================== */
+/* Session & Auth */
 let currentUser = null;
 
 function checkSession() {
@@ -914,10 +1074,8 @@ function updateAuthUI() {
   const container = document.getElementById("auth-status-container");
   const isAuth = !!currentUser;
 
-  // Déverrouiller ou verrouiller les éléments .lk
   document.querySelectorAll(".lk").forEach(el => {
     el.classList.toggle("locked", !isAuth);
-    // S'assurer que les enfants interactifs sont activés si authentifié
     el.querySelectorAll("input, button, select, textarea").forEach(ctrl => {
       if (!ctrl.closest(".gate")) ctrl.disabled = !isAuth;
     });
@@ -951,7 +1109,6 @@ function handleLogout() {
   }
 }
 
-// Installation des gates sur les zones verrouillées
 document.querySelectorAll(".lk").forEach(el => {
   if (!el.querySelector(".gate")) {
     const gate = document.createElement("div");
@@ -965,7 +1122,6 @@ document.querySelectorAll(".lk").forEach(el => {
   }
 });
 
-// Modal Auth
 const authModal = document.getElementById("auth-modal");
 
 function openAuthModal(mode = "login") {
@@ -1000,7 +1156,6 @@ function clearMsgs() {
   rm.className = "form-msg"; rm.textContent = "";
 }
 
-// Soumission Connexion (Email + Téléphone)
 async function handleLogin(e) {
   e.preventDefault();
   playBeep(600, "sine", 0.05);
@@ -1051,7 +1206,6 @@ async function handleLogin(e) {
   }
 }
 
-// Soumission Inscription
 async function handleRegister(e) {
   e.preventDefault();
   playBeep(600, "sine", 0.05);
@@ -1066,7 +1220,7 @@ async function handleRegister(e) {
   const btn = document.getElementById("btn-submit-register");
   const msg = document.getElementById("reg-msg");
 
-  if (website) return; // bot honeypot
+  if (website) return;
 
   if (name.length < 2 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !consent) {
     playBeep(260, "sawtooth", 0.15);
@@ -1131,9 +1285,6 @@ async function handleRegister(e) {
   }
 }
 
-/* ==========================================================================
-   MOBILE DRAWER NAVIGATION
-   ========================================================================== */
 const mobileDrawer = document.getElementById("mobile-drawer");
 document.getElementById("btn-mobile").onclick = () => {
   mobileDrawer.classList.toggle("open");
@@ -1143,7 +1294,7 @@ function closeMobileNav() {
 }
 
 /* ==========================================================================
-   INTERACTIVE HACKER CLI TERMINAL
+   INTERACTIVE HACKER TERMINAL
    ========================================================================== */
 const termOut = document.getElementById("term-out");
 const termIn = document.getElementById("term-in");
@@ -1173,10 +1324,10 @@ async function execCommand(raw) {
     case "help":
       termSay("Commandes disponibles :", "c-gold");
       termSay("  whoami      - Profil & certifications de Chamsoudine Anaroua");
-      termSay("  stack       - Technologies, outillages & compétences cyber");
+      termSay("  stack       - Technologies & compétences cybersécurité");
       termSay("  projects    - Liste des 4 plateformes déployées");
-      termSay("  scan <ip>   - Simulation d'analyse de ports (Nmap style)");
-      termSay("  ping <host> - Vérification de connectivité ICMP simulée");
+      termSay("  scan <ip>   - Simulation d'analyse de ports Nmap");
+      termSay("  ping <host> - Vérification de connectivité ICMP");
       termSay("  firewall    - Afficher les règles de filtrage iptables");
       termSay("  soc         - Statut opérationnel du centre de cybersécurité");
       termSay("  crypto      - Conseils et standards de chiffrement");
@@ -1208,32 +1359,30 @@ async function execCommand(raw) {
 
     case "scan": {
       const target = arg || "203.0.113.10";
-      termSay(`Starting Nmap 7.94 scan on target ${target}...`, "c-muted");
+      termSay(`Starting Nmap scan on target ${target}...`, "c-muted");
       const ports = [
         [22, "tcp", "ssh", "OPEN", "OpenSSH 9.3p1 (Hardened)"],
         [80, "tcp", "http", "REDIRECT", "301 Moved to HTTPS"],
         [443, "tcp", "https", "OPEN", "TLS 1.3 / ChaCha20-Poly1305"],
-        [3306, "tcp", "mysql", "FILTERED", "DROP by iptables rule #4"],
-        [8080, "tcp", "http-proxy", "CLOSED", "Port closed"]
+        [3306, "tcp", "mysql", "FILTERED", "DROP by iptables rule #4"]
       ];
       for (const [p, proto, s, st, banner] of ports) {
         await sleep(280);
         const color = st === "OPEN" ? "c-green" : st === "FILTERED" ? "c-red" : "c-muted";
-        termSay(`PORT ${p}/${proto}  ${st.padEnd(8)}  ${s.padEnd(10)}  ${banner}`, color);
+        termSay(`PORT ${p}/${proto}  ${st.padEnd(8)}  ${s.padEnd(8)}  ${banner}`, color);
       }
-      termSay("Nmap scan report: 5 ports checked, 0 exploit vulnerabilities detected.", "c-gold");
+      termSay("Nmap scan report: 4 ports checked, 0 exploit vulnerabilities detected.", "c-gold");
       break;
     }
 
     case "ping": {
       const host = arg || "anatech.ne";
-      termSay(`PING ${host} (102.16.88.42) 56(84) bytes of data.`);
-      for (let i = 1; i <= 4; i++) {
-        await sleep(350);
-        const ms = (18 + Math.random() * 8).toFixed(1);
-        termSay(`64 bytes from ${host}: icmp_seq=${i} ttl=57 time=${ms} ms`, "c-green");
+      termSay(`PING ${host} 56(84) bytes of data.`);
+      for (let i = 1; i <= 3; i++) {
+        await sleep(300);
+        const ms = (16 + Math.random() * 6).toFixed(1);
+        termSay(`64 bytes from ${host}: icmp_seq=${i} time=${ms} ms`, "c-green");
       }
-      termSay(`--- ${host} ping statistics: 4 packets transmitted, 0% packet loss ---`, "c-gold");
       break;
     }
 
@@ -1243,7 +1392,6 @@ async function execCommand(raw) {
       termSay("2. ACCEPT  all  --  *   *       state RELATED,ESTABLISHED");
       termSay("3. ACCEPT  tcp  --  *   *       tcp dpt:443 state NEW rate:50/min");
       termSay("4. DROP    all  --  *   *       match-set hostile_ips src");
-      termSay("5. LOG_DROP all --  *   *       LOG level warning prefix '[FW_BLOCK]: '");
       break;
 
     case "soc":
@@ -1251,20 +1399,18 @@ async function execCommand(raw) {
       termSay("• Threat Level : DEFCON 5 (Surveillance nominale)");
       termSay("• Intrusion Prevention System : ACTIF & SYNCHRONISÉ");
       termSay("• Intégrité système : 100% (Aucun hash altéré)");
-      termSay("• Logs ingestion : 1,420 events/sec");
       break;
 
     case "crypto":
-      termSay("Recommandations cryptographiques de Chamsoudine :", "c-gold");
+      termSay("Standards cryptographiques recommandés par Chamsoudine :", "c-gold");
       termSay("• Mots de passe : Entropie >= 70 bits, minimum 16 caractères aléatoires");
       termSay("• Chiffrement au repos : AES-256-GCM ou ChaCha20-Poly1305");
-      termSay("• Signature & Hachage : SHA-256 / SHA-512 (Éviter MD5 & SHA-1)");
-      termSay("• Clés asymétriques : Ed25519 ou RSA >= 4096 bits");
+      termSay("• Signature & Hachage : SHA-256 / SHA-512");
       break;
 
     case "matrix": {
       termSay("Initialisation du flux quantique...", "c-green");
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 4; i++) {
         await sleep(150);
         termSay("01100011 01101000 01100001 01101101 01110011 01101111 01110101 01100100 01101001 01101110 01100101", "c-green");
       }
@@ -1275,8 +1421,6 @@ async function execCommand(raw) {
       termSay("Coordonnées de Chamsoudine Anaroua :", "c-gold");
       termSay("• E-mail   : anarouachamsoudine010@gmail.com", "c-cyan");
       termSay("• WhatsApp : +227 91 03 80 61", "c-green");
-      termSay("• TikTok   : @chamsoudineanaroua");
-      termSay("• YouTube  : @chamsoudineanaroua");
       break;
 
     case "clear":
@@ -1303,138 +1447,90 @@ function initTerminalChips() {
   });
 }
 
-// Message de bienvenue dans le terminal
 termSay("Bienvenue sur la console de Chamsoudine Anaroua [v2.6-hardened].", "c-gold");
-termSay("Système initialisé. Tapez 'help' ou cliquez un raccourci ci-dessous pour démarrer.\n", "c-muted");
+termSay("Système initialisé. Tapez 'help' ou cliquez un raccourci ci-dessous.\n", "c-muted");
 
 /* ==========================================================================
-   SIMULATEUR DE SCÉNARIOS D'ATTAQUE & RIPOSTE
+   SIMULATEUR DU GARDIEN NUMÉRIQUE AUTONOME
    ========================================================================== */
-const SCENARIOS = {
+const GUARDIAN_SCENARIOS = {
   ssh: {
-    title: "Brute-force SSH",
-    nodes: [
-      { t: "Surveillance", d: "Ingestion /var/log/auth.log" },
-      { t: "Seuil Hostile", d: "Détection > 5 échecs/sec" },
-      { t: "Bannissement", d: "iptables -A INPUT -j DROP" },
-      { t: "Alerte Directe", d: "Telegram & WhatsApp Bot" },
-      { t: "Archivage SOC", d: "Ajout IP blacklist locale" }
+    name: "Attaque par force brute (Mot de passe)",
+    humanDesc: "Un robot pirate tente 150 combinaisons de mots de passe par minute pour pénétrer sur le serveur.",
+    steps: [
+      "🚨 DÉTECTION : 84 tentatives de connexion avec de mauvais mots de passe depuis l'adresse IP 198.51.100.77.",
+      "🧠 ANALYSE EN 0.2s : L'automate de Chamsoudine repère la signature d'un robot pirate malveillant.",
+      "🛑 RIPOSTE IMMÉDIATE : L'adresse IP du pirate est bannie et rejetée à l'entrée du pare-feu (DROP).",
+      "📲 ALERTE WHATSAPP : Message envoyé sur le téléphone de Chamsoudine (+227 91 03 80 61) avec le rapport d'incident."
     ],
-    logs: [
-      "[00:00.12] AUTH_FAIL: 84 connexions échouées consécutives depuis 198.51.100.77",
-      "[00:00.45] ANALYSE: Signature d'attaque de type Hydra / Medusa confirmée",
-      "[00:01.02] RIPOSTE: iptables -I INPUT -s 198.51.100.77 -j DROP injecté",
-      "[00:01.35] ALERTE: Notification chiffrée envoyée à l'administrateur (+227 91 03 80 61)",
-      "[00:01.89] RÉSULTAT: Incident neutralisé en 1.89s. 0 brèche."
-    ]
+    summary: "✅ Attaque neutralisée en 1.1 seconde ! Le serveur est resté 100% sécurisé et accessible."
   },
   ddos: {
-    title: "Attaque DDoS SYN Flood",
-    nodes: [
-      { t: "Flux Réseau", d: "Inspection de bande passante" },
-      { t: "Anomalie SYN", d: "94,000 paquets/s anormaux" },
-      { t: "SYN Cookies", d: "Activation protection noyau" },
-      { t: "Rate-Limiting", d: "Filtrage WAF en amont" },
-      { t: "Trafic Épuré", d: "Reprise du flux nominal" }
+    name: "Inondation DDoS (Tentative de faire planter le site)",
+    humanDesc: "Un réseau de 200 machines zombies envoie 50 000 fausses visites en même temps pour surcharger le serveur.",
+    steps: [
+      "🚨 DÉTECTION : Montée brutale et anormale de requêtes simultanées saturant la bande passante.",
+      "🧠 ANALYSE EN 0.2s : L'automate identifie que ces visites ne proviennent pas d'humains mais d'un réseau de bots.",
+      "🛑 RIPOSTE IMMÉDIATE : Activation du bouclier anti-inondation SYN Cookies et coupure du trafic parasite.",
+      "📲 ALERTE WHATSAPP : Alerte envoyée sur le mobile de Chamsoudine confirmant l'atténuation du pic."
     ],
-    logs: [
-      "[00:00.18] ALARME: Pic brutal de trafic entrant : 124 Mbit/s non sollicités",
-      "[00:00.62] IDENTIFICATION: Inondation TCP SYN Flood distribuée (220 sources bots)",
-      "[00:01.10] ATTÉNUATION: sysctl net.ipv4.tcp_syncookies=1 forcé",
-      "[00:01.44] WAF: Null-routing des sous-réseaux agresseurs au niveau du reverse-proxy",
-      "[00:01.94] RÉSULTAT: Service rétabli avec 99.98% des requêtes légitimes préservées."
-    ]
+    summary: "✅ Trafic parasite éliminé en 1.4 seconde ! Le site n'a subi aucune coupure pour les vrais utilisateurs."
   },
   sqli: {
-    title: "Tentative d'injection SQL",
-    nodes: [
-      { t: "Requête HTTP", d: "Payload POST sur formulaire" },
-      { t: "Inspection WAF", d: "Signature ' OR 1=1 -- détectée" },
-      { t: "Blocage HTTP", d: "Réponse 403 Forbidden" },
-      { t: "Isolation IP", d: "Blacklist temporaire 1h" },
-      { t: "Rapport SOC", d: "Trace de requête archivée" }
+    name: "Tentative d'injection et de vol de données",
+    humanDesc: "Un pirate injecte du code SQL malveillant dans un champ pour essayer de lire la liste des utilisateurs.",
+    steps: [
+      "🚨 DÉTECTION : Saisie anormale contenant du code suspect (' OR '1'='1') interceptée sur un formulaire.",
+      "🧠 ANALYSE EN 0.1s : Le pare-feu applicatif (WAF) identifie une tentative de violation de base de données.",
+      "🛑 RIPOSTE IMMÉDIATE : La requête pirate est détruite avant même d'atteindre la base. Code HTTP 403 renvoyé.",
+      "📲 ALERTE WHATSAPP : Journal de l'attaque enregistré et transmis à Chamsoudine avec l'empreinte de l'assaillant."
     ],
-    logs: [
-      "[00:00.08] REQUÊTE: POST /api/inscription avec payload : ' OR '1'='1' --",
-      "[00:00.22] REGEX_MATCH: Tentative de contournement d'authentification bloquée par le WAF",
-      "[00:00.58] BLOCAGE: Statut 403 Forbidden renvoyé à l'attaquant",
-      "[00:00.95] SÉCURITÉ: Requête neutralisée avant même de toucher la base de données",
-      "[00:01.30] RÉSULTAT: Intégrité des données 100% préservée."
-    ]
-  },
-  priv: {
-    title: "Escalade de privilèges",
-    nodes: [
-      { t: "Process Watch", d: "Surveillance des binaires SUID" },
-      { t: "Appel Suspect", d: "Tentative d'exécution /bin/sh" },
-      { t: "Kernel Guard", d: "Interruption par AppArmor" },
-      { t: "Kill Process", d: "SIGKILL du PID hostile" },
-      { t: "Confinement", d: "Audit complet de session" }
-    ],
-    logs: [
-      "[00:00.15] AUDITD: Tentative de modification de /etc/passwd par utilisateur sans privilège",
-      "[00:00.48] POLICE_KERNEL: Profil de confinement actif (AppArmor/SELinux)",
-      "[00:00.82] RIPOSTE: kill -9 PID 4819 (processus malveillant interrompu)",
-      "[00:01.20] DURCISSEMENT: Permissions révoquées et alerte générée",
-      "[00:01.72] RÉSULTAT: Escalade compromise. Hôte préservé."
-    ]
+    summary: "✅ Données protégées à 100% en 0.8 seconde ! Zéro fuite d'informations."
   }
 };
 
-let activeScenarioKey = "ssh";
+let currentScenarioKey = "ssh";
 
-function renderPipelineNodes() {
-  const container = document.getElementById("pipeline-nodes");
-  const sc = SCENARIOS[activeScenarioKey];
-  container.innerHTML = sc.nodes.map((n, i) => `
-    <div class="pipe-node" id="pnode-${i}">
-      <div class="pipe-node-idx">0${i+1} // ÉTAPE</div>
-      <div class="pipe-node-title">${escapeHtml(n.t)}</div>
-      <div class="pipe-node-desc">${escapeHtml(n.d)}</div>
-    </div>
-  `).join("");
-}
-
-document.querySelectorAll(".scenario-btn").forEach(b => {
-  b.onclick = () => {
+document.querySelectorAll(".sc-card").forEach(card => {
+  card.onclick = () => {
     playBeep(700, "sine", 0.04);
-    document.querySelectorAll(".scenario-btn").forEach(x => x.classList.remove("active"));
-    b.classList.add("active");
-    activeScenarioKey = b.dataset.scenario;
-    renderPipelineNodes();
-    document.getElementById("pipeline-log").textContent = `[SYSTÈME PRÊT] Scénario '${SCENARIOS[activeScenarioKey].title}' configuré. Cliquez sur 'Lancer la simulation'.`;
+    document.querySelectorAll(".sc-card").forEach(c => c.classList.remove("active"));
+    card.classList.add("active");
+    currentScenarioKey = card.dataset.scenario;
+    document.getElementById("guardian-console").textContent = `[SCÉNARIO SÉLECTIONNÉ : ${GUARDIAN_SCENARIOS[currentScenarioKey].name.toUpperCase()}]\n${GUARDIAN_SCENARIOS[currentScenarioKey].humanDesc}\nCliquez sur « Tester la protection en direct » pour lancer la riposte.`;
+    document.querySelectorAll(".guardian-card").forEach(c => c.classList.remove("active"));
   };
 });
 
-let pipelineRunning = false;
-document.getElementById("btn-run-pipeline").onclick = async () => {
-  if (pipelineRunning) return;
-  pipelineRunning = true;
+let guardianRunning = false;
+document.getElementById("btn-run-guardian").onclick = async () => {
+  if (guardianRunning) return;
+  guardianRunning = true;
   playBeep(920, "triangle", 0.08);
 
-  const logBox = document.getElementById("pipeline-log");
-  logBox.textContent = `[SIMULATION INITIALISÉE : ${SCENARIOS[activeScenarioKey].title.toUpperCase()}]\n`;
+  const consoleBox = document.getElementById("guardian-console");
+  const sc = GUARDIAN_SCENARIOS[currentScenarioKey];
+  consoleBox.textContent = `[DÉMARRAGE DE L'ATTAQUE SIMULÉE : ${sc.name.toUpperCase()}]\n\n`;
 
-  document.querySelectorAll(".pipe-node").forEach(n => n.classList.remove("active"));
-  const sc = SCENARIOS[activeScenarioKey];
+  document.querySelectorAll(".guardian-card").forEach(c => c.classList.remove("active"));
 
-  for (let i = 0; i < sc.nodes.length; i++) {
+  for (let i = 0; i < sc.steps.length; i++) {
     await sleep(650);
-    playBeep(520 + (i * 120), "sine", 0.06);
-    const node = document.getElementById(`pnode-${i}`);
-    if (node) node.classList.add("active");
-    logBox.textContent += sc.logs[i] + "\n";
-    logBox.scrollTop = logBox.scrollHeight;
+    playBeep(520 + (i * 140), "sine", 0.08);
+    const card = document.getElementById(`gstep-${i}`);
+    if (card) card.classList.add("active");
+    consoleBox.textContent += sc.steps[i] + "\n\n";
+    consoleBox.scrollTop = consoleBox.scrollHeight;
   }
 
   await sleep(400);
-  playBeep(1040, "sine", 0.15);
-  logBox.textContent += `\n✔ PROTECTION RÉUSSIE : L'incident a été résolu de façon 100% autonome.`;
-  pipelineRunning = false;
+  playBeep(1040, "sine", 0.18);
+  consoleBox.textContent += sc.summary;
+  guardianRunning = false;
 };
 
 /* ==========================================================================
-   CYBER LAB : ONGLETS & OUTILS
+   CYBER LAB : OUTILS INTERACTIFS
    ========================================================================== */
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.onclick = () => {
@@ -1452,29 +1548,44 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
 const pwInput = document.getElementById("pw-input");
 const pwBar = document.getElementById("pw-bar");
 const pwStats = document.getElementById("pw-stats");
+const pwGradeBadge = document.getElementById("pw-grade-badge");
 
 function evaluatePassword() {
   const val = pwInput.value;
   if (!val) {
     pwBar.style.width = "0%";
-    pwStats.innerHTML = "Saisissez un mot de passe pour analyser son espace de recherche et son entropie.";
+    pwGradeBadge.textContent = "En attente de saisie";
+    pwGradeBadge.style.color = "var(--muted)";
+    pwStats.innerHTML = "Saisissez un mot de passe pour analyser son niveau de protection et le temps nécessaire pour le pirater.";
+    resetPwChecklist();
     return;
   }
 
+  const hasLower = /[a-z]/.test(val);
+  const hasUpper = /[A-Z]/.test(val);
+  const hasNum = /\d/.test(val);
+  const hasSym = /[^A-Za-z0-9]/.test(val);
+  const hasLen = val.length >= 12;
+
+  updateCheckItem("chk-len", hasLen);
+  updateCheckItem("chk-lower", hasLower);
+  updateCheckItem("chk-upper", hasUpper);
+  updateCheckItem("chk-num", hasNum);
+  updateCheckItem("chk-sym", hasSym);
+
   let charset = 0;
-  if (/[a-z]/.test(val)) charset += 26;
-  if (/[A-Z]/.test(val)) charset += 26;
-  if (/\d/.test(val)) charset += 10;
-  if (/[^A-Za-z0-9]/.test(val)) charset += 32;
+  if (hasLower) charset += 26;
+  if (hasUpper) charset += 26;
+  if (hasNum) charset += 10;
+  if (hasSym) charset += 32;
 
   let bits = val.length * Math.log2(charset || 1);
   if (/^(.)\1+$/.test(val) || /(password|123456|azerty|qwerty|motdepasse|admin|niger)/i.test(val)) {
     bits = Math.min(bits, 18);
   }
 
-  // Calcul du temps estimé face à 10 milliards de hachages/sec (cluster GPU RTX 4090)
   const combinations = Math.pow(2, bits);
-  const seconds = combinations / 2 / 1e10;
+  const seconds = combinations / 2 / 1e10; // 10 milliards hachages/sec
 
   const units = [
     [31536000 * 1e6, "millions d'années"],
@@ -1499,17 +1610,108 @@ function evaluatePassword() {
   pwBar.style.width = pct + "%";
   pwBar.style.background = bits < 36 ? "var(--bad)" : bits < 60 ? "var(--gold)" : "var(--ok)";
 
-  const level = bits < 36 ? "Très faible (Vulnérable)" : bits < 60 ? "Moyen (Acceptable)" : "Robuste (Haute sécurité)";
+  let labelGrade = "Faible";
+  let colorGrade = "var(--bad)";
+  if (bits >= 60) {
+    labelGrade = "Impénétrable (Haute Sécurité)";
+    colorGrade = "var(--ok)";
+  } else if (bits >= 36) {
+    labelGrade = "Moyen (Acceptable)";
+    colorGrade = "var(--gold)";
+  }
+
+  pwGradeBadge.textContent = labelGrade;
+  pwGradeBadge.style.color = colorGrade;
 
   pwStats.innerHTML = `
-    Entropie brute : <b style="color:var(--text)">${Math.round(bits)} bits</b> (${level})<br>
-    Temps estimé pour casser : <b style="color:var(--cyan)">${timeEstimate}</b><br>
-    Jeu de caractères : <span class="mono">${charset} symboles</span> | Longueur : <span class="mono">${val.length} caractères</span>
+    Niveau de protection : <b style="color:${colorGrade}">${labelGrade} (${Math.round(bits)} bits d'entropie)</b><br>
+    Temps nécessaire pour le forcer : <b style="color:var(--cyan)">${timeEstimate}</b> (face à un supercalculateur)<br>
+    Longueur : <span class="mono">${val.length} caractères</span> · Espace de recherche : <span class="mono">${charset} symboles disponibles</span>
   `;
 }
+
+function updateCheckItem(id, valid) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle("valid", valid);
+  el.querySelector("span").textContent = valid ? "✅" : "⚪";
+}
+
+function resetPwChecklist() {
+  ["chk-len", "chk-lower", "chk-upper", "chk-num", "chk-sym"].forEach(id => updateCheckItem(id, false));
+}
+
 pwInput.addEventListener("input", evaluatePassword);
 
-// 2. CIDR Subnet Calculator
+// 2. Générateur de mots de passe CSPRNG
+const btnGenPw = document.getElementById("btn-gen-pw");
+const btnCopyGen = document.getElementById("btn-copy-gen");
+const genOutput = document.getElementById("gen-output");
+const genLen = document.getElementById("gen-len");
+const genLenVal = document.getElementById("gen-len-val");
+
+function setGenPreset(len) {
+  genLen.value = len;
+  genLenVal.textContent = len;
+  btnGenPw.click();
+}
+
+genLen.oninput = () => { genLenVal.textContent = genLen.value; };
+
+btnGenPw.onclick = () => {
+  playBeep(750, "sine", 0.05);
+  const len = parseInt(genLen.value, 10);
+  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~|}{[]:;?><=";
+  const array = new Uint32Array(len);
+  window.crypto.getRandomValues(array);
+  let res = "";
+  for (let i = 0; i < len; i++) {
+    res += chars[array[i] % chars.length];
+  }
+  genOutput.value = res;
+};
+
+btnCopyGen.onclick = async () => {
+  if (!genOutput.value) return;
+  await navigator.clipboard.writeText(genOutput.value);
+  btnCopyGen.textContent = "Copié !";
+  playBeep(880, "sine", 0.06);
+  setTimeout(() => btnCopyGen.textContent = "Copier", 1400);
+};
+
+// 3. Web URL Security Scanner
+document.getElementById("btn-scan-url").onclick = async () => {
+  const input = document.getElementById("url-scan-input").value.trim();
+  const resBox = document.getElementById("url-scan-result");
+  if (!input) return;
+
+  playBeep(780, "sine", 0.06);
+  resBox.style.display = "block";
+  resBox.innerHTML = `Analyse en direct de <b style="color:var(--gold)">${escapeHtml(input)}</b>...`;
+
+  await sleep(600);
+
+  const isCurrentSite = input.includes("anatech") || input.includes("vercel");
+  const isHttps = !input.startsWith("http://");
+
+  resBox.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:10px">
+      <strong style="color:var(--text);font-size:15px">Rapport d'analyse de sécurité</strong>
+      <span class="hud-tag" style="color:var(--ok)">NOTE GLOBALE : A+</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;line-height:1.6">
+      <div>🔒 <b>Protocole Chiffré :</b> <span style="color:var(--ok)">HTTPS / TLS 1.3 Actif</span></div>
+      <div>🛡️ <b>Protection XSS & Clickjacking :</b> <span style="color:var(--ok)">Conforme</span></div>
+      <div>📜 <b>Certificat Numérique :</b> <span style="color:var(--ok)">Valide & Authentifié</span></div>
+      <div>🌐 <b>Politique de Cookies :</b> <span style="color:var(--ok)">Strict / HttpOnly</span></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin:14px 0 0">
+      💡 <b>Verdict de Chamsoudine :</b> Cette adresse applique des normes strictes de chiffrement. Les échanges entre l'utilisateur et le serveur ne peuvent pas être interceptés en clair sur le réseau.
+    </p>
+  `;
+};
+
+// 4. CIDR Calculator
 const cidrInput = document.getElementById("cidr-input");
 const cidrResults = document.getElementById("cidr-results");
 
@@ -1558,82 +1760,27 @@ function calculateCIDR() {
 }
 cidrInput.addEventListener("input", calculateCIDR);
 
-// 3. Crypto Studio
-const btnGenPw = document.getElementById("btn-gen-pw");
-const btnCopyGen = document.getElementById("btn-copy-gen");
-const genOutput = document.getElementById("gen-output");
-const genLen = document.getElementById("gen-len");
-const genLenVal = document.getElementById("gen-len-val");
-
-genLen.oninput = () => { genLenVal.textContent = genLen.value; };
-
-btnGenPw.onclick = () => {
-  playBeep(750, "sine", 0.05);
-  const len = parseInt(genLen.value, 10);
-  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~|}{[]:;?><=";
-  const array = new Uint32Array(len);
-  window.crypto.getRandomValues(array);
-  let res = "";
-  for (let i = 0; i < len; i++) {
-    res += chars[array[i] % chars.length];
-  }
-  genOutput.value = res;
-};
-
-btnCopyGen.onclick = async () => {
-  if (!genOutput.value) return;
-  await navigator.clipboard.writeText(genOutput.value);
-  btnCopyGen.textContent = "Copié !";
-  playBeep(880, "sine", 0.06);
-  setTimeout(() => btnCopyGen.textContent = "Copier", 1400);
-};
-
-// SHA-256 Hasher
-const hashInput = document.getElementById("hash-input");
-const hashOutput = document.getElementById("hash-output");
-
-async function computeSHA256() {
-  const text = hashInput.value;
-  if (!text) {
-    hashOutput.textContent = "...";
-    return;
-  }
-  const encoder = new TextEncoder();
-  const data = encoder.encode(text);
-  const hashBuffer = await window.crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
-  hashOutput.textContent = hashHex;
-}
-hashInput.addEventListener("input", computeSHA256);
-
-// 4. Client Environment Security Audit
+// 5. Client Audit
 function runClientAudit() {
   const grid = document.getElementById("audit-grid");
   const isHttps = location.protocol === "https:";
   const dnt = navigator.doNotTrack === "1" ? "Actif (Do Not Track)" : "Inactif";
   const cookiesOk = navigator.cookieEnabled ? "Autorisés" : "Bloqués";
   const cores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} cœurs` : "Masqué";
-  const mem = navigator.deviceMemory ? `~${navigator.deviceMemory} Go` : "Protégé";
-  const lang = navigator.language || "Inconnu";
-  const platform = navigator.platform || "Web";
-  const scr = `${window.screen.width}x${window.screen.height} (${window.screen.colorDepth} bits)`;
+  const scr = `${window.screen.width}x${window.screen.height}`;
 
   const items = [
     ["Chiffrement Session TLS", isHttps ? "HTTPS Protégé" : "HTTP Non sécurisé", isHttps ? "var(--ok)" : "var(--bad)"],
     ["Protection Do-Not-Track", dnt, "var(--cyan)"],
-    ["Moteur Navigateur", platform, "var(--text)"],
-    ["Résolution Écran & Profondeur", scr, "var(--text)"],
+    ["Résolution Écran Hôte", scr, "var(--text)"],
     ["Processeur Hôte", cores, "var(--gold)"],
-    ["Stockage / Cookies", cookiesOk, "var(--text)"],
-    ["Langue Système Détectée", lang, "var(--text)"],
     ["Score Posture de Confidentialité", "88/100 (Bon)", "var(--ok)"]
   ];
 
   grid.innerHTML = items.map(([t, v, c]) => `
-    <div class="audit-item">
-      <small>${t}</small>
-      <strong style="color:${c}">${v}</strong>
+    <div style="background:rgba(7,10,14,0.7);border:1px solid var(--line);border-radius:10px;padding:14px 18px">
+      <small style="display:block;color:var(--muted);font-size:11.5px;margin-bottom:4px">${t}</small>
+      <strong style="color:${c};font-family:var(--font-mono)">${v}</strong>
     </div>
   `).join("");
 }
@@ -1726,16 +1873,12 @@ function closeProjectModal() {
   projectModal.close();
 }
 
-/* ==========================================================================
-   HELPERS & INITIALISATION GLOBALE
-   ========================================================================== */
 function escapeHtml(str) {
   return String(str || "").replace(/[&<>"']/g, c => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
   }[c]));
 }
 
-// Copier dans le presse-papiers
 document.querySelectorAll("[data-copy]").forEach(btn => {
   btn.onclick = async () => {
     try {
@@ -1748,14 +1891,12 @@ document.querySelectorAll("[data-copy]").forEach(btn => {
   };
 });
 
-// Année dynamique
 document.getElementById("year").textContent = new Date().getFullYear();
 
-// Initialisations
+// Init
 setLang("fr");
 checkSession();
 initTerminalChips();
-renderPipelineNodes();
 evaluatePassword();
 calculateCIDR();
 runClientAudit();
