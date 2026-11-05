@@ -18,25 +18,36 @@ function getSupabaseKey() {
   return k.trim();
 }
 
-function getSupabaseUrl() {
-  const u = process.env.SUPABASE_URL
-    || process.env.NEXT_PUBLIC_SUPABASE_URL
-    || "https://xeztwmpmnxmmuxzfqmph.supabase.co";
-  return (u || "").trim().replace(/\/$/, "");
-}
-
-function getKeyRole(rawKey) {
-  if (!rawKey) return "none";
-  if (rawKey.startsWith("sb_secret_")) return "service_role (new format)";
-  if (rawKey.startsWith("sb_publishable_")) return "anon (new format)";
+function getKeyDetails(rawKey) {
+  if (!rawKey) return { role: "none", ref: null };
+  if (rawKey.startsWith("sb_secret_")) return { role: "service_role (new format)", ref: null };
+  if (rawKey.startsWith("sb_publishable_")) return { role: "anon (new format)", ref: null };
   try {
     const parts = rawKey.split(".");
     if (parts.length === 3) {
       const payload = JSON.parse(Buffer.from(parts[1], "base64").toString("utf8"));
-      return payload.role || "unknown_jwt";
+      return { role: payload.role || "unknown_jwt", ref: payload.ref || null, iss: payload.iss || null };
     }
   } catch {}
-  return "custom";
+  return { role: "custom", ref: null };
+}
+
+function getKeyRole(rawKey) {
+  return getKeyDetails(rawKey).role;
+}
+
+function getSupabaseUrl() {
+  const key = getSupabaseKey();
+  const details = getKeyDetails(key);
+  // Si le token JWT contient le project ref (ex: xeztwmpmnxmmuxzfqmph),
+  // l'URL doit correspondre à ce projet pour éviter le 401 "Invalid API key"
+  if (details.ref) {
+    return `https://${details.ref}.supabase.co`;
+  }
+  const u = process.env.SUPABASE_URL
+    || process.env.NEXT_PUBLIC_SUPABASE_URL
+    || "https://xeztwmpmnxmmuxzfqmph.supabase.co";
+  return (u || "").trim().replace(/\/$/, "");
 }
 
 async function db(path, { method = "GET", data, prefer } = {}) {
@@ -77,4 +88,4 @@ function isAdmin(req) {
   const a = Buffer.from(sig), b = Buffer.from(sign(exp)); return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
 const safeEq = (a, b) => { const x = crypto.createHash("sha256").update(a).digest(), y = crypto.createHash("sha256").update(b).digest(); return crypto.timingSafeEqual(x, y); };
-module.exports = { send, body, clean, sameOrigin, db, makeToken, isAdmin, safeEq, getSupabaseUrl, getSupabaseKey, getKeyRole };
+module.exports = { send, body, clean, sameOrigin, db, makeToken, isAdmin, safeEq, getSupabaseUrl, getSupabaseKey, getKeyRole, getKeyDetails };

@@ -1,4 +1,4 @@
-const { send, body, clean, sameOrigin, db, getSupabaseKey, getSupabaseUrl, getKeyRole } = require("./_lib");
+const { send, body, clean, sameOrigin, db, getSupabaseKey, getSupabaseUrl, getKeyRole, getKeyDetails } = require("./_lib");
 const RECIPIENT = process.env.NOTIFY_EMAIL || "anarouachamsoudine010@gmail.com";
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
   if (req.method === "GET") {
     const key = getSupabaseKey();
     const url = getSupabaseUrl();
-    const role = getKeyRole(key);
+    const keyDetails = getKeyDetails(key);
     let dbStatus = "unknown";
     let dbError = null;
     if (!key) {
@@ -47,9 +47,10 @@ module.exports = async (req, res) => {
       status: dbStatus === "ok" ? "ready" : "degraded",
       database: {
         configured: !!key,
-        role,
+        role: keyDetails.role,
+        keyRef: keyDetails.ref,
+        targetUrl: url,
         urlConfigured: !!process.env.SUPABASE_URL || !!process.env.NEXT_PUBLIC_SUPABASE_URL,
-        urlHost: url ? new URL(url).host : null,
         status: dbStatus,
         error: dbError
       },
