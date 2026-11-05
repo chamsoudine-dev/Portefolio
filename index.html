@@ -3,283 +3,1761 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Chamsoudine Anaroua — ingénieur en sécurité informatique, créateur de contenu et entrepreneur numérique au Niger.">
-<title>Chamsoudine Anaroua | Sécurité & automatisation</title>
+<meta name="description" content="Chamsoudine Anaroua — Ingénieur en cybersécurité, architecte d'automatisation et entrepreneur numérique au Niger.">
+<title>Chamsoudine Anaroua | Expert Cybersécurité & Automatisation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:dark;--bg:#0c1116;--panel:#141b22;--line:#24303a;--text:#eeebe3;--muted:#a7b0b8;--gold:#dcb96e;--ok:#6fd3a0;--bad:#ff8a7a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){color-scheme:light;--bg:#f6f4ef;--panel:#fff;--line:#d9d4c8;--text:#181b1f;--muted:#566069;--gold:#8a6514;--ok:#0f7a4d;--bad:#b3261e}}
-*,*:before,*:after{box-sizing:inherit}
-html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
-a{color:inherit;text-decoration:none}
+:root{
+  --bg:#070a0e;
+  --bg-soft:#0d131a;
+  --panel:rgba(16,24,34,0.78);
+  --panel-solid:#101822;
+  --panel-card:rgba(20,31,44,0.85);
+  --line:rgba(74,103,133,0.22);
+  --line-glow:rgba(220,185,110,0.4);
+  --text:#f0f4f8;
+  --muted:#8b9bb0;
+  --gold:#dcb96e;
+  --gold-glow:rgba(220,185,110,0.35);
+  --cyan:#00e5ff;
+  --cyan-glow:rgba(0,229,255,0.35);
+  --ok:#00f59b;
+  --ok-glow:rgba(0,245,155,0.35);
+  --bad:#ff4d6d;
+  --bad-glow:rgba(255,77,109,0.35);
+  --font-sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --font-display:'Space Grotesk',Georgia,sans-serif;
+}
+*,*:before,*:after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:82px;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 var(--font-sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* Matrix & Cyber Background */
+#cyber-canvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;opacity:0.25}
+.ambient-glow{position:fixed;width:600px;height:600px;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:0;opacity:0.18}
+.glow-1{top:-100px;right:-100px;background:radial-gradient(circle,#dcb96e,#00e5ff)}
+.glow-2{bottom:-150px;left:-100px;background:radial-gradient(circle,#00e5ff,#00f59b)}
+
+/* Layout & Containers */
+.wrap{width:min(1220px,92%);margin:auto;position:relative;z-index:1}
+a{color:inherit;text-decoration:none;transition:color .2s,border-color .2s,box-shadow .2s}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.wrap{width:min(1100px,90%);margin:auto}
-h1,h2,h3{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-weight:600;line-height:1.1;margin:0}
-.mono{font-family:ui-monospace,"Cascadia Code",Menlo,Consolas,monospace}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{font-family:Georgia,serif;font-size:22px;color:var(--gold);font-weight:700}
-.links{display:flex;gap:22px;font-size:14px;color:var(--muted)}.links a:hover{color:var(--gold)}
-.btn{display:inline-block;border:1px solid var(--gold);background:var(--gold);color:#14110a;padding:11px 20px;border-radius:6px;font:600 14px system-ui,sans-serif;cursor:pointer}
-.btn.ghost{background:transparent;color:var(--gold)}.btn.sm{padding:7px 12px;font-size:13px}
-section{padding:84px 0;border-top:1px solid var(--line)}
-.sec h2{font-size:clamp(28px,4vw,42px);margin-bottom:14px}.sec>.wrap>p{max-width:62ch;color:var(--muted);margin:0 0 34px}
-/* hero */
-.hero{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;padding:72px 0 80px}
-.hero h1{font-size:clamp(42px,6.4vw,78px);letter-spacing:-.03em}
-.hero .lead{font-size:19px;color:var(--muted);max-width:46ch;margin:22px 0 28px}
-.cta{display:flex;gap:12px;flex-wrap:wrap}
-.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin-bottom:22px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 var(--ok);animation:pulse 2s infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
-.term{background:#0a0e12;color:#d6e2ea;border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 24px 60px -24px rgba(0,0,0,.6)}
-.tbar{display:flex;gap:6px;align-items:center;padding:10px 14px;border-bottom:1px solid #1d2730;font-size:12px;color:#7f8d98}
-.tbar i{width:10px;height:10px;border-radius:50%;background:#2b3742}.tbar span{margin-left:8px}
-.tout{height:290px;overflow:auto;padding:14px 16px;font-size:13px;line-height:1.55;white-space:pre-wrap;word-break:break-word}
-.tout .c{color:var(--gold)}.tout .g{color:#6fd3a0}.tout .r{color:#ff8a7a}.tout .d{color:#7f8d98}
-.tin{display:flex;gap:8px;align-items:center;border-top:1px solid #1d2730;padding:10px 16px;font-size:13px}
-.tin b{color:#6fd3a0;font-weight:400;white-space:nowrap}
-.tin input{flex:1;min-width:0;background:none;border:0;color:#d6e2ea;font:inherit;outline:0}
-.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 14px}
-.chips button{background:#121a21;border:1px solid #243039;color:#9fb0bd;border-radius:999px;padding:4px 11px;font:12px ui-monospace,Menlo,monospace;cursor:pointer}
-.chips button:hover{color:var(--gold);border-color:var(--gold)}
-/* pipeline */
-.pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-bottom:18px}
-.node{position:relative;padding:18px 14px;border:1px solid var(--line);background:var(--panel);margin-left:-1px;transition:.3s}
-.node small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
-.node strong{font-size:15px}
-.node.on{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--panel))}
-.node.on strong{color:var(--ok)}
-.plog{min-height:132px;background:#0a0e12;color:#cfe0d8;border:1px solid var(--line);border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;white-space:pre-wrap}
-.row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
-/* lab */
-.lab{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:24px}
-.box h3{font-size:22px;margin-bottom:6px}.box p{color:var(--muted);font-size:14px;margin:0 0 16px}
-.box input{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--text);padding:12px 14px;border-radius:6px;font:15px ui-monospace,Menlo,monospace}
-.bar{height:8px;background:var(--line);border-radius:4px;margin:16px 0 10px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--bad);transition:width .3s,background .3s}
-.res{font-size:14px;color:var(--muted)}.res b{color:var(--text)}
-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}td{padding:6px 0;border-bottom:1px solid var(--line)}td:last-child{text-align:right;color:var(--gold)}
-/* projects */
-.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.proj .box h3{margin-bottom:8px}.proj .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
-.tag{border:1px solid var(--line);color:var(--muted);padding:3px 10px;border-radius:999px;font-size:12px}
-.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.skills .box{padding:22px}.skills h3{font-size:20px;margin-bottom:8px}.skills p{margin:0}
-.collab{border:1px solid var(--gold);border-radius:10px;padding:36px;background:linear-gradient(120deg,color-mix(in srgb,var(--gold) 12%,var(--panel)),var(--panel))}
-.collab h2{font-size:clamp(26px,3.4vw,36px)}.collab p{color:var(--muted);max-width:62ch}
-.contact{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.contact .box{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.contact span{display:block;font-size:13px;color:var(--muted)}.contact a.v{color:var(--gold);overflow-wrap:anywhere}
-.soc{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.lk{position:relative}.gate{display:none}.lk.locked>.gate{display:flex;position:absolute;inset:0;z-index:3;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;padding:20px;background:color-mix(in srgb,var(--bg) 60%,transparent)}.lk.locked>*:not(.gate){filter:blur(6px);user-select:none}.gate p{margin:0;max-width:34ch;font-size:15px}
-dialog{background:var(--panel);color:var(--text);border:1px solid var(--gold);border-radius:12px;padding:28px;width:min(440px,92vw)}dialog::backdrop{background:rgba(0,0,0,.7)}dialog h3{font-size:24px;margin-bottom:6px}dialog p{color:var(--muted);font-size:14px;margin:0 0 10px}dialog label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}dialog input:not([type=checkbox]){width:100%;background:var(--bg);border:1px solid var(--line);color:var(--text);padding:10px 12px;border-radius:6px;font:15px system-ui,sans-serif}
-dialog label.ck{display:flex;gap:10px;align-items:flex-start;margin:14px 0}.hp{position:absolute;left:-9999px}.msg{font-size:13px;min-height:20px;color:var(--bad);margin-bottom:8px}
-@media(max-width:860px){.links{display:none}.hero,.lab,.proj,.skills,.contact{grid-template-columns:1fr}.pipe{grid-template-columns:1fr}.node{margin:-1px 0 0}section{padding:60px 0}.hero{padding-top:44px}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* Typography */
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;line-height:1.15;letter-spacing:-0.02em;margin:0}
+.mono{font-family:var(--font-mono)}
+
+/* Top SOC Bar */
+.soc-hud{background:rgba(8,12,18,0.92);border-bottom:1px solid var(--line);font-size:11.5px;color:var(--muted);padding:6px 0;position:relative;z-index:12}
+.soc-hud .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.hud-item{display:inline-flex;align-items:center;gap:7px}
+.live-pulse{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
+.hud-tag{background:rgba(220,185,110,0.12);color:var(--gold);padding:2px 8px;border-radius:4px;border:1px solid rgba(220,185,110,0.3);font-family:var(--font-mono);font-size:11px}
+
+/* Main Navigation */
+header{position:sticky;top:0;z-index:11;background:rgba(7,10,14,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text);letter-spacing:0.04em}
+.brand-badge{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,rgba(220,185,110,0.2),rgba(0,229,255,0.2));border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:var(--font-mono);font-size:14px;box-shadow:0 0 16px var(--gold-glow)}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-link{padding:8px 14px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--muted);transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.nav-link:hover,.nav-link.active{color:var(--gold);background:rgba(220,185,110,0.08)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--gold);background:var(--gold);color:#0a0c10;padding:10px 20px;border-radius:8px;font:600 13.5px var(--font-sans);cursor:pointer;transition:all .25s ease;box-shadow:0 4px 18px var(--gold-glow)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(220,185,110,0.5);filter:brightness(1.08)}
+.btn.ghost{background:rgba(220,185,110,0.06);color:var(--gold);box-shadow:none}
+.btn.ghost:hover{background:rgba(220,185,110,0.15);box-shadow:0 0 16px var(--gold-glow)}
+.btn.cyan{background:rgba(0,229,255,0.1);color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 16px var(--cyan-glow)}
+.btn.cyan:hover{background:var(--cyan);color:#081018;box-shadow:0 0 24px var(--cyan)}
+.btn.sm{padding:6px 12px;font-size:12.5px;border-radius:6px}
+.btn-sound{background:transparent;border:1px solid var(--line);color:var(--muted);width:36px;height:36px;padding:0;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.btn-sound:hover{color:var(--text);border-color:var(--gold)}
+
+/* Mobile Menu Toggle */
+.mobile-toggle{display:none;background:transparent;border:1px solid var(--line);color:var(--text);padding:8px 12px;border-radius:8px;font-size:18px;cursor:pointer}
+.mobile-nav{display:none;position:fixed;inset:108px 0 0;background:rgba(7,10,14,0.98);backdrop-filter:blur(24px);z-index:20;flex-direction:column;padding:24px;gap:14px;border-top:1px solid var(--line)}
+.mobile-nav.open{display:flex}
+.mobile-nav .nav-link{font-size:17px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.04)}
+
+/* User Auth Pill */
+.auth-pill{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;border:1px solid rgba(0,245,155,0.4);background:rgba(0,245,155,0.08);color:var(--ok);font-size:12px;font-family:var(--font-mono)}
+.auth-pill .logout{cursor:pointer;color:var(--muted);margin-left:6px;transition:color .2s}
+.auth-pill .logout:hover{color:var(--bad)}
+
+/* Sections */
+section{padding:96px 0;border-top:1px solid var(--line);position:relative}
+.sec-header{margin-bottom:48px}
+.sec-header .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:10px}
+.sec-header h2{font-size:clamp(30px,4.5vw,46px);color:var(--text);margin-bottom:14px}
+.sec-header p{max-width:68ch;color:var(--muted);font-size:16px;margin:0}
+
+/* Hero Section */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding:72px 0 88px}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;background:rgba(220,185,110,0.1);border:1px solid rgba(220,185,110,0.3);padding:6px 14px;border-radius:999px;font-size:12.5px;color:var(--gold);font-family:var(--font-mono);margin-bottom:24px}
+.hero h1{font-size:clamp(42px,5.8vw,74px);line-height:1.06;margin-bottom:20px}
+.hero h1 .gradient-text{background:linear-gradient(135deg,#fff 30%,var(--gold) 75%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero .lead{font-size:18px;color:var(--muted);max-width:52ch;margin:0 0 32px;line-height:1.7}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px;padding-top:32px;border-top:1px solid var(--line)}
+.hero-stat b{display:block;font-size:26px;font-family:var(--font-display);color:var(--gold)}
+.hero-stat span{font-size:12.5px;color:var(--muted)}
+
+/* Terminal Window */
+.term-window{background:var(--panel-solid);border:1px solid rgba(74,103,133,0.35);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px -12px rgba(0,0,0,0.8),0 0 32px rgba(0,229,255,0.06);position:relative}
+.term-header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:rgba(11,16,24,0.95);border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
+.term-dots{display:flex;gap:7px}
+.term-dot{width:11px;height:11px;border-radius:50%}
+.term-dot.r{background:#ff5f56}.term-dot.y{background:#ffbd2e}.term-dot.g{background:#27c93f}
+.term-body{height:340px;overflow-y:auto;padding:18px 20px;font-size:13px;line-height:1.65;font-family:var(--font-mono);background:#070a0e;color:#d8e4ef;white-space:pre-wrap;word-break:break-word}
+.term-body .c-gold{color:var(--gold)}.term-body .c-green{color:var(--ok)}.term-body .c-cyan{color:var(--cyan)}.term-body .c-red{color:var(--bad)}.term-body .c-muted{color:#6c7d93}
+.term-input-row{display:flex;align-items:center;gap:10px;padding:12px 18px;background:rgba(11,16,24,0.95);border-top:1px solid var(--line);font-family:var(--font-mono);font-size:13px}
+.term-input-row span{color:var(--ok)}
+.term-input{flex:1;background:transparent;border:0;outline:0;color:var(--text);font:inherit}
+.term-quick-chips{display:flex;gap:6px;flex-wrap:wrap;padding:8px 18px 14px;background:rgba(11,16,24,0.95)}
+.term-chip{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--muted);border-radius:999px;padding:3px 10px;font-size:11.5px;font-family:var(--font-mono);cursor:pointer;transition:.2s}
+.term-chip:hover{color:var(--cyan);border-color:var(--cyan);background:rgba(0,229,255,0.1)}
+
+/* Pipeline & Defense Simulator */
+.scenario-selector{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.scenario-btn{background:var(--panel);border:1px solid var(--line);color:var(--muted);padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.scenario-btn.active,.scenario-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(220,185,110,0.1)}
+.pipe-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.pipe-node{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 14px;position:relative;transition:all .3s}
+.pipe-node-idx{font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:4px}
+.pipe-node-title{font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px}
+.pipe-node-desc{font-size:11.5px;color:var(--muted);line-height:1.4}
+.pipe-node.active{border-color:var(--ok);background:rgba(0,245,155,0.08);box-shadow:0 0 20px rgba(0,245,155,0.2)}
+.pipe-node.active .pipe-node-title{color:var(--ok)}
+.pipe-console{background:#070a0e;border:1px solid var(--line);border-radius:10px;padding:16px 20px;min-height:150px;font-family:var(--font-mono);font-size:12.5px;color:#c9d8e6;line-height:1.6;white-space:pre-wrap}
+
+/* Cyber Lab Tabs & Suite */
+.tab-nav{display:flex;gap:8px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:32px;overflow-x:auto}
+.tab-btn{background:transparent;border:1px solid transparent;color:var(--muted);padding:9px 18px;border-radius:8px;font-size:13.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:.2s}
+.tab-btn:hover{color:var(--text);background:rgba(255,255,255,0.04)}
+.tab-btn.active{color:var(--gold);background:rgba(220,185,110,0.12);border-color:rgba(220,185,110,0.3)}
+.lab-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:32px;box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.lab-input{width:100%;background:rgba(7,10,14,0.9);border:1px solid var(--line);color:var(--text);padding:13px 16px;border-radius:8px;font-size:14px;font-family:var(--font-mono);outline:0;transition:.2s}
+.lab-input:focus{border-color:var(--gold);box-shadow:0 0 16px var(--gold-glow)}
+.pw-bar-track{height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;margin:18px 0 12px}
+.pw-bar-fill{height:100%;width:0;transition:width .3s,background .3s}
+.audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:20px}
+.audit-item{background:rgba(7,10,14,0.7);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.audit-item small{display:block;color:var(--muted);font-size:11.5px;margin-bottom:4px}
+.audit-item strong{font-size:14px;font-family:var(--font-mono)}
+
+/* Projects Grid & Modal */
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.project-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;transition:all .3s ease;position:relative;overflow:hidden}
+.project-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(220,185,110,0.05),transparent 60%);opacity:0;transition:opacity .3s}
+.project-card:hover{transform:translateY(-4px);border-color:rgba(220,185,110,0.45);box-shadow:0 20px 48px -10px rgba(0,0,0,0.7),0 0 24px rgba(220,185,110,0.12)}
+.project-card:hover::before{opacity:1}
+.project-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.project-badge{background:rgba(0,229,255,0.1);color:var(--cyan);border:1px solid rgba(0,229,255,0.3);padding:4px 10px;border-radius:6px;font-size:11px;font-family:var(--font-mono)}
+.project-card h3{font-size:24px;margin-bottom:10px}
+.project-card p{color:var(--muted);font-size:14.5px;margin:0 0 20px;line-height:1.6}
+.project-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px}
+.project-tag{background:rgba(255,255,255,0.04);border:1px solid var(--line);color:var(--muted);padding:3px 10px;border-radius:999px;font-size:11.5px}
+
+/* Skills Grid */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.skill-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:28px;transition:all .3s}
+.skill-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.skill-icon{width:46px;height:46px;border-radius:10px;background:rgba(220,185,110,0.1);border:1px solid rgba(220,185,110,0.3);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:22px;margin-bottom:18px}
+.skill-card h3{font-size:20px;margin-bottom:10px}
+.skill-card p{color:var(--muted);font-size:14px;margin:0 0 16px}
+.skill-items{list-style:none;padding:0;margin:0;font-size:13px;color:#c3d1de}
+.skill-items li{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.skill-items li::before{content:"▹";color:var(--gold)}
+
+/* Collaboration Banner */
+.collab-banner{background:linear-gradient(135deg,rgba(220,185,110,0.12),rgba(16,24,34,0.95));border:1px solid rgba(220,185,110,0.4);border-radius:18px;padding:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;box-shadow:0 24px 60px rgba(0,0,0,0.4)}
+.collab-banner h2{font-size:clamp(26px,3.5vw,38px);margin-bottom:8px}
+.collab-banner p{color:var(--muted);max-width:54ch;margin:0}
+
+/* Contact Grid */
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:28px}
+.contact-item{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.contact-item span{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.contact-item a.link{font-size:15px;color:var(--gold);font-weight:600;word-break:break-all}
+.social-links{display:flex;gap:12px;flex-wrap:wrap}
+
+/* Footer */
+footer{background:rgba(8,12,18,0.95);border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+
+/* Locked Content Overlay */
+.lk{position:relative}
+.gate{display:none}
+.lk.locked>.gate{display:flex;position:absolute;inset:0;z-index:4;align-items:center;justify-content:center;flex-direction:column;gap:14px;text-align:center;padding:24px;background:rgba(7,10,14,0.82);backdrop-filter:blur(8px);border-radius:inherits}
+.lk.locked>*:not(.gate){filter:blur(6px);user-select:none;pointer-events:none}
+.gate-icon{font-size:32px;color:var(--gold);animation:pulse 2s infinite}
+.gate p{margin:0;max-width:38ch;font-size:15px;color:var(--text)}
+
+/* Auth / Access Modal */
+dialog#auth-modal{background:rgba(13,19,27,0.98);backdrop-filter:blur(24px);color:var(--text);border:1px solid rgba(220,185,110,0.5);border-radius:16px;padding:0;width:min(480px,94vw);box-shadow:0 32px 80px rgba(0,0,0,0.8),0 0 32px var(--gold-glow);overflow:hidden}
+dialog#auth-modal::backdrop{background:rgba(0,0,0,0.78);backdrop-filter:blur(6px)}
+.modal-header{padding:24px 28px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.modal-header h3{font-size:22px}
+.modal-close{background:transparent;border:0;color:var(--muted);font-size:22px;cursor:pointer;padding:0;line-height:1}
+.modal-close:hover{color:var(--text)}
+.modal-tabs{display:grid;grid-template-columns:1fr 1fr;background:rgba(0,0,0,0.3);border-bottom:1px solid var(--line)}
+.modal-tab-btn{padding:14px;text-align:center;font-size:13.5px;font-weight:600;color:var(--muted);background:transparent;border:0;cursor:pointer;transition:.2s}
+.modal-tab-btn.active{color:var(--gold);background:rgba(220,185,110,0.08);border-bottom:2px solid var(--gold)}
+.modal-body{padding:24px 28px 28px}
+.form-field{margin-bottom:16px}
+.form-field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px;font-weight:500}
+.form-input{width:100%;background:rgba(7,10,14,0.9);border:1px solid var(--line);color:var(--text);padding:11px 14px;border-radius:8px;font-size:14px;outline:0;transition:.2s}
+.form-input:focus{border-color:var(--gold);box-shadow:0 0 14px var(--gold-glow)}
+.form-check{display:flex;align-items:flex-start;gap:10px;font-size:12.5px;color:var(--muted);margin:18px 0}
+.form-msg{font-size:13px;min-height:20px;margin-bottom:12px;padding:8px 12px;border-radius:6px;display:none}
+.form-msg.err{display:block;background:rgba(255,77,109,0.12);color:var(--bad);border:1px solid rgba(255,77,109,0.3)}
+.form-msg.ok{display:block;background:rgba(0,245,155,0.12);color:var(--ok);border:1px solid rgba(0,245,155,0.3)}
+
+/* Project Detail Modal */
+dialog#project-modal{background:rgba(13,19,27,0.98);backdrop-filter:blur(24px);color:var(--text);border:1px solid rgba(0,229,255,0.5);border-radius:18px;padding:0;width:min(680px,94vw);box-shadow:0 32px 80px rgba(0,0,0,0.85),0 0 32px var(--cyan-glow);overflow:hidden}
+dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6px)}
+.pmodal-header{padding:24px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.pmodal-body{padding:28px;max-height:75vh;overflow-y:auto}
+
+/* Responsive */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;padding-top:40px}
+  .projects-grid,.skills-grid,.contact-grid{grid-template-columns:1fr}
+  .pipe-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .mobile-toggle{display:inline-flex}
+  section{padding:68px 0}
+  .collab-banner{padding:32px;flex-direction:column;align-items:flex-start}
+}
 </style>
 </head>
 <body>
-<header><nav class="wrap">
-<a class="brand" href="#top" aria-label="Accueil">C.A</a>
-<div class="links"><a href="#auto" data-t="n1"></a><a href="#lab" data-t="n2"></a><a href="#projets" data-t="n3"></a><a href="#skills" data-t="n4"></a><a href="#contact" data-t="n5"></a></div>
-<button class="btn ghost sm" id="lang" aria-label="Changer de langue">EN</button>
-</nav></header>
+
+<canvas id="cyber-canvas"></canvas>
+<div class="ambient-glow glow-1"></div>
+<div class="ambient-glow glow-2"></div>
+
+<!-- SOC HUD Ticker -->
+<div class="soc-hud">
+  <div class="wrap">
+    <div class="hud-item"><span class="live-pulse"></span> <span class="mono">SOC DEFCON 5 : OPÉRATIONNEL</span></div>
+    <div class="hud-item"><span class="hud-tag">ZERO-DAY SHIELD ACTIVE</span></div>
+    <div class="hud-item mono">INCIDENTS: 0 ACTIFS</div>
+    <div class="hud-item mono">DISPONIBILITÉ: 99.98%</div>
+    <div class="hud-item mono">NŒUDS: NIAMEY · PARIS · ABIDJAN</div>
+  </div>
+</div>
+
+<!-- Header & Nav -->
+<header>
+  <nav class="wrap">
+    <a class="brand" href="#top">
+      <div class="brand-badge">CA</div>
+      <span>CHAMSOUDINE.DEV</span>
+    </a>
+
+    <div class="nav-links">
+      <a class="nav-link" href="#pipeline"><span class="mono">01.</span> <span data-t="n1">Automatisation</span></a>
+      <a class="nav-link" href="#cyberlab"><span class="mono">02.</span> <span data-t="n2">Cyber Lab</span></a>
+      <a class="nav-link" href="#projets"><span class="mono">03.</span> <span data-t="n3">Projets</span></a>
+      <a class="nav-link" href="#skills"><span class="mono">04.</span> <span data-t="n4">Expertises</span></a>
+      <a class="nav-link" href="#contact"><span class="mono">05.</span> <span data-t="n5">Contact</span></a>
+    </div>
+
+    <div class="nav-actions">
+      <div id="auth-status-container">
+        <button class="btn sm" id="btn-open-auth" type="button" data-open-auth>
+          <span class="live-pulse"></span> <span data-t="nav_access">Connexion / Inscription</span>
+        </button>
+      </div>
+
+      <button class="btn-sound" id="btn-sound" aria-label="Effets sonores" title="Effets sonores">🔊</button>
+      <button class="btn ghost sm" id="btn-lang" aria-label="Langue">EN</button>
+      <button class="mobile-toggle" id="btn-mobile" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav" id="mobile-drawer">
+    <a class="nav-link" href="#pipeline" onclick="closeMobileNav()"><span class="mono">01.</span> <span data-t="n1">Automatisation</span></a>
+    <a class="nav-link" href="#cyberlab" onclick="closeMobileNav()"><span class="mono">02.</span> <span data-t="n2">Cyber Lab</span></a>
+    <a class="nav-link" href="#projets" onclick="closeMobileNav()"><span class="mono">03.</span> <span data-t="n3">Projets</span></a>
+    <a class="nav-link" href="#skills" onclick="closeMobileNav()"><span class="mono">04.</span> <span data-t="n4">Expertises</span></a>
+    <a class="nav-link" href="#contact" onclick="closeMobileNav()"><span class="mono">05.</span> <span data-t="n5">Contact</span></a>
+  </div>
+</header>
+
 <main id="top">
-<div class="wrap hero">
-<div>
-<div class="status"><span class="dot"></span><span data-t="status"></span></div>
-<h1>Chamsoudine<br>Anaroua</h1>
-<p class="lead" data-t="lead"></p>
-<div class="cta"><a class="btn" href="#contact" data-t="cta1"></a><a class="btn ghost" href="#auto" data-t="cta2"></a></div>
-</div>
-<div class="term lk locked" role="region" aria-label="Terminal interactif">
-<div class="tbar"><i></i><i></i><i></i><span class="mono">ca@niger:~</span></div>
-<div class="tout mono" id="tout" aria-live="polite"></div>
-<div class="tin mono"><b>$</b><input id="tin" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Commande" placeholder="help"></div>
-<div class="chips" id="chips"></div>
-</div>
-</div>
 
-<section class="sec" id="auto"><div class="wrap">
-<h2 data-t="a_h"></h2><p data-t="a_p"></p>
-<div class="lk locked"><div class="pipe" id="pipe"></div>
-<div class="row"><button class="btn" id="run" data-t="a_run"></button><span class="res" data-t="a_note"></span></div>
-<div class="plog mono" id="plog"></div></div>
-</div></section>
+  <!-- Hero Section -->
+  <section style="border-top:0;padding-top:40px">
+    <div class="wrap hero">
+      <div>
+        <div class="hero-tag">
+          <span class="live-pulse"></span>
+          <span data-t="hero_badge">INGÉNIEUR EN SÉCURITÉ INFORMATIQUE · NIGER</span>
+        </div>
+        <h1>
+          Chamsoudine<br>
+          <span class="gradient-text">Anaroua</span>
+        </h1>
+        <p class="lead" data-t="lead">
+          J'automatise ce qui se répète et je protège ce qui compte. Architecte de défenses numériques, systèmes durcis et plateformes intelligentes pensées pour les réalités africaines et internationales.
+        </p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a class="btn" href="#contact" data-t="cta1">Collaborons ensemble</a>
+          <a class="btn ghost" href="#pipeline" data-t="cta2">Voir l'automatisation en action</a>
+        </div>
 
-<section class="sec" id="lab"><div class="wrap">
-<h2 data-t="l_h"></h2><p data-t="l_p"></p>
-<div class="lab lk locked">
-<div class="box"><h3 data-t="l1"></h3><p data-t="l1p"></p>
-<input id="pw" type="text" autocomplete="off" spellcheck="false" aria-label="Mot de passe à tester" placeholder="ex : MotDePasse2026!">
-<div class="bar"><i id="pwbar"></i></div><div class="res" id="pwres"></div></div>
-<div class="box"><h3 data-t="l2"></h3><p data-t="l2p"></p>
-<input id="cidr" value="192.168.1.0/24" autocomplete="off" spellcheck="false" aria-label="Réseau CIDR">
-<table id="cres"></table></div>
-</div></div></section>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <b>&lt; 2s</b>
+            <span data-t="stat1">Temps de riposte automatique</span>
+          </div>
+          <div class="hero-stat">
+            <b>4+</b>
+            <span data-t="stat2">Plateformes déployées</span>
+          </div>
+          <div class="hero-stat">
+            <b>100%</b>
+            <span data-t="stat3">Systèmes sécurisés</span>
+          </div>
+        </div>
+      </div>
 
-<section class="sec" id="projets"><div class="wrap">
-<h2 data-t="p_h"></h2><p data-t="p_p"></p>
-<div class="proj">
-<div class="box"><h3>EducNiger</h3><p data-t="p1"></p><div class="tags"><span class="tag">SaaS</span><span class="tag">Éducation</span><span class="tag">Multi-portails</span></div></div>
-<div class="box"><h3>Social Hub</h3><p data-t="p2"></p><div class="tags"><span class="tag">SaaS</span><span class="tag">Automatisation</span><span class="tag">TikTok · WhatsApp · Facebook · Instagram</span></div></div>
-<div class="box"><h3>digitService</h3><p data-t="p3"></p><div class="tags"><span class="tag">Vidéosurveillance</span><span class="tag">Niger</span></div></div>
-<div class="box"><h3>EFootLigue</h3><p data-t="p4"></p><div class="tags"><span class="tag">eFootball</span><span class="tag">Tournois</span></div></div>
-</div></div></section>
+      <!-- Interactive Hacker Terminal -->
+      <div>
+        <div class="term-window lk locked" id="hero-term">
+          <div class="term-header">
+            <div class="term-dots">
+              <span class="term-dot r"></span>
+              <span class="term-dot y"></span>
+              <span class="term-dot g"></span>
+            </div>
+            <span class="mono">anaroua@soc-core:~ (zsh)</span>
+            <span class="hud-tag">SECURE CLI</span>
+          </div>
 
-<section class="sec" id="skills"><div class="wrap">
-<h2 data-t="s_h"></h2><p data-t="s_p"></p>
-<div class="skills">
-<div class="box"><h3 data-t="s1"></h3><p data-t="s1p"></p></div>
-<div class="box"><h3 data-t="s2"></h3><p data-t="s2p"></p></div>
-<div class="box"><h3 data-t="s3"></h3><p data-t="s3p"></p></div>
-</div></div></section>
+          <div class="term-body" id="term-out" aria-live="polite"></div>
 
-<section class="sec"><div class="wrap"><div class="collab">
-<h2 data-t="c_h"></h2><p data-t="c_p"></p>
-<a class="btn" href="mailto:anarouachamsoudine010@gmail.com?subject=Partenariat%20professionnel" data-t="c_b"></a>
-</div></div></section>
+          <div class="term-quick-chips" id="term-chips"></div>
 
-<section class="sec" id="contact"><div class="wrap">
-<h2 data-t="k_h"></h2><p data-t="k_p"></p>
-<div class="contact">
-<div class="box"><div><span>E-mail</span><a class="v" href="mailto:anarouachamsoudine010@gmail.com">anarouachamsoudine010@gmail.com</a></div><button class="btn ghost sm" data-copy="anarouachamsoudine010@gmail.com" data-t="copy"></button></div>
-<div class="box"><div><span>WhatsApp</span><a class="v" href="https://wa.me/22791038061" target="_blank" rel="noopener">+227 91 03 80 61</a></div><button class="btn ghost sm" data-copy="+22791038061" data-t="copy"></button></div>
-</div>
-<div class="soc"><a class="btn ghost sm" href="https://www.tiktok.com/@chamsoudineanaroua" target="_blank" rel="noopener">TikTok</a><a class="btn ghost sm" href="https://www.youtube.com/@chamsoudineanaroua" target="_blank" rel="noopener">YouTube</a><a class="btn ghost sm" href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a></div>
-</div></section>
+          <div class="term-input-row">
+            <span>root@anaroua:~#</span>
+            <input class="term-input" id="term-in" autocomplete="off" spellcheck="false" placeholder="Tapez 'help' ou cliquez un raccourci...">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 01 : Pipeline SOC & Simulateur de Menaces -->
+  <section class="sec" id="pipeline">
+    <div class="wrap">
+      <div class="sec-header">
+        <div class="eyebrow"><span class="live-pulse"></span> <span data-t="n1">01. AUTOMATISATION & RIPOSTE</span></div>
+        <h2 data-t="a_h">Détection, blocage et alerte sans intervention humaine</h2>
+        <p data-t="a_p">Visualisez en temps réel comment mon pipeline d'automatisation détecte une agression hostile, analyse les journaux, pilote le pare-feu et alerte l'administrateur en moins de deux secondes.</p>
+      </div>
+
+      <div class="scenario-selector">
+        <button class="scenario-btn active" data-scenario="ssh">🛡️ 1. Brute-Force SSH</button>
+        <button class="scenario-btn" data-scenario="ddos">⚡ 2. DDoS SYN Flood</button>
+        <button class="scenario-btn" data-scenario="sqli">🛑 3. Injection SQL / WAF</button>
+        <button class="scenario-btn" data-scenario="priv">🔐 4. Escalade Privilèges</button>
+      </div>
+
+      <div class="lk locked" id="pipeline-lk">
+        <div class="pipe-grid" id="pipeline-nodes"></div>
+
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0">
+          <button class="btn" id="btn-run-pipeline" data-t="a_run">Lancer la simulation d'attaque</button>
+          <span class="mono" style="font-size:12.5px;color:var(--muted)" data-t="a_note">Simulation basée sur des charges réelles de laboratoire</span>
+        </div>
+
+        <div class="pipe-console" id="pipeline-log"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 02 : Cyber Lab (Boîte à outils de sécurité) -->
+  <section class="sec" id="cyberlab">
+    <div class="wrap">
+      <div class="sec-header">
+        <div class="eyebrow"><span class="mono">02. CYBER LAB EXPÉRIMENTAL</span></div>
+        <h2 data-t="l_h">Laboratoire : outils interactifs d'analyse et cryptographie</h2>
+        <p data-t="l_p">Des outils cybernétiques avancés qui s'exécutent entièrement dans votre navigateur. Aucune donnée saisie n'est transmise : tout est calculé localement avec les API cryptographiques natives.</p>
+      </div>
+
+      <!-- Tabs Nav -->
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="tab-pw">🔑 <span data-t="t_pw">Entropie Mot de Passe</span></button>
+        <button class="tab-btn" data-tab="tab-cidr">🌐 <span data-t="t_cidr">Calculateur CIDR / Réseau</span></button>
+        <button class="tab-btn" data-tab="tab-crypto">⚡ <span data-t="t_crypto">Studio Cryptographique</span></button>
+        <button class="tab-btn" data-tab="tab-audit">🔍 <span data-t="t_audit">Audit Navigateur Visiteur</span></button>
+      </div>
+
+      <div class="lk locked" id="lab-lk">
+        <!-- Tab 1: Password Entropy -->
+        <div class="lab-card tab-content" id="tab-pw">
+          <h3 style="margin-bottom:8px" data-t="l1">Évaluateur d'entropie et résistance brute-force</h3>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:20px" data-t="l1p">Testez la solidité d'une chaîne face aux attaques par dictionnaire combiné et clusters de GPU modernes.</p>
+
+          <input class="lab-input" id="pw-input" type="text" autocomplete="off" spellcheck="false" placeholder="Ex: S3cur!ty_N1g3r_2026#">
+
+          <div class="pw-bar-track"><div class="pw-bar-fill" id="pw-bar"></div></div>
+          <div id="pw-stats" style="font-size:14px;line-height:1.7;color:var(--muted)"></div>
+        </div>
+
+        <!-- Tab 2: CIDR Network Calculator -->
+        <div class="lab-card tab-content" id="tab-cidr" style="display:none">
+          <h3 style="margin-bottom:8px" data-t="l2">Calculateur de sous-réseaux IPv4 & plan d'adressage</h3>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:20px" data-t="l2p">Découpage CIDR, masques binaires, broadcast et plages d'hôtes utilisables.</p>
+
+          <input class="lab-input" id="cidr-input" value="192.168.1.0/24" autocomplete="off" spellcheck="false">
+
+          <table id="cidr-results" style="width:100%;margin-top:20px;border-collapse:collapse;font-size:14px"></table>
+        </div>
+
+        <!-- Tab 3: Crypto Studio (Generator & Hasher) -->
+        <div class="lab-card tab-content" id="tab-crypto" style="display:none">
+          <h3 style="margin-bottom:8px">Générateur CSPRNG & Hachoir SHA-256</h3>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:20px">Génération cryptographique à haute entropie et calcul instantané d'empreintes numériques SHA-256 via Web Crypto API.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+            <div>
+              <label style="display:block;font-size:13px;color:var(--muted);margin-bottom:6px">Générateur de Clé / Mot de passe (CSPRNG) :</label>
+              <div style="display:flex;gap:8px">
+                <input class="lab-input" id="gen-output" readonly placeholder="Cliquez sur Générer...">
+                <button class="btn sm" id="btn-gen-pw">Générer</button>
+                <button class="btn ghost sm" id="btn-copy-gen">Copier</button>
+              </div>
+              <div style="margin-top:10px;font-size:12px;color:var(--muted)">Longueur : <span id="gen-len-val">24</span> caractères</div>
+              <input type="range" id="gen-len" min="12" max="64" value="24" style="width:100%;accent-color:var(--gold);margin-top:4px">
+            </div>
+
+            <div>
+              <label style="display:block;font-size:13px;color:var(--muted);margin-bottom:6px">Calculateur de Hachage SHA-256 :</label>
+              <input class="lab-input" id="hash-input" placeholder="Saisissez un texte à hacher en direct...">
+              <div style="margin-top:10px;font-size:11.5px;color:var(--muted)">Empreinte SHA-256 :</div>
+              <div class="mono" id="hash-output" style="background:#070a0e;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font-size:12px;color:var(--cyan);word-break:break-all;min-height:38px;margin-top:4px">...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Client Environment Security Audit -->
+        <div class="lab-card tab-content" id="tab-audit" style="display:none">
+          <h3 style="margin-bottom:8px">Audit de sécurité de votre session</h3>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:16px">Ce que votre navigateur expose aux serveurs distants en temps réel. Analyse de votre posture de confidentialité.</p>
+
+          <div class="audit-grid" id="audit-grid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 03 : Projets -->
+  <section class="sec" id="projets">
+    <div class="wrap">
+      <div class="sec-header">
+        <div class="eyebrow"><span class="mono">03. RÉALISATIONS</span></div>
+        <h2 data-t="p_h">Projets et plateformes numériques</h2>
+        <p data-t="p_p">Des solutions logicielles et d'infrastructures concrètes, sécurisées dès la conception et adaptées aux réalités du Niger et de l'Afrique.</p>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Projet 1 -->
+        <div class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-badge">SaaS ÉDUCATIF</span>
+              <span class="mono" style="font-size:12px;color:var(--muted)">01/04</span>
+            </div>
+            <h3>EducNiger</h3>
+            <p data-t="p1">Plateforme de numérisation intégrale pour établissements scolaires privés. Portails sécurisés cloisonnés pour le directeur, les enseignants, les parents et les élèves avec gestion des notes et présences.</p>
+            <div class="project-tags">
+              <span class="project-tag">Multi-Tenancy</span>
+              <span class="project-tag">RBAC</span>
+              <span class="project-tag">PostgreSQL</span>
+              <span class="project-tag">Node.js</span>
+            </div>
+          </div>
+          <button class="btn ghost sm" onclick="openProject('educniger')">Détails & Architecture →</button>
+        </div>
+
+        <!-- Projet 2 -->
+        <div class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-badge">AUTOMATISATION SOCIALE</span>
+              <span class="mono" style="font-size:12px;color:var(--muted)">02/04</span>
+            </div>
+            <h3>Social Hub</h3>
+            <p data-t="p2">Tableau de bord unifié pour orchestrer, automatiser et planifier des publications simultanées sur TikTok, WhatsApp, Facebook et Instagram avec contrôle d'intégrité des flux.</p>
+            <div class="project-tags">
+              <span class="project-tag">APIs Réseaux</span>
+              <span class="project-tag">Webhooks</span>
+              <span class="project-tag">Token Vault</span>
+              <span class="project-tag">Cloud Tasks</span>
+            </div>
+          </div>
+          <button class="btn ghost sm" onclick="openProject('socialhub')">Détails & Architecture →</button>
+        </div>
+
+        <!-- Projet 3 -->
+        <div class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-badge">SÉCURITÉ PHYSIQUE</span>
+              <span class="mono" style="font-size:12px;color:var(--muted)">03/04</span>
+            </div>
+            <h3>digitService</h3>
+            <p data-t="p3">Ingénierie et déploiement de réseaux de vidéosurveillance IP durcis, caméras haute définition avec enregistrement sécurisé et accès distant chiffré pour entreprises et résidences au Niger.</p>
+            <div class="project-tags">
+              <span class="project-tag">VLAN Isolé</span>
+              <span class="project-tag">RTSP Chiffré</span>
+              <span class="project-tag">VPN WireGuard</span>
+              <span class="project-tag">NVR Durci</span>
+            </div>
+          </div>
+          <button class="btn ghost sm" onclick="openProject('digitservice')">Détails & Architecture →</button>
+        </div>
+
+        <!-- Projet 4 -->
+        <div class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-badge">COMPÉTITION GAMING</span>
+              <span class="mono" style="font-size:12px;color:var(--muted)">04/04</span>
+            </div>
+            <h3>EFootLigue</h3>
+            <p data-t="p4">Plateforme d'organisation de tournois d'eFootball au format Phase de Ligue inspiré de la Ligue des champions. Gestion d'inscriptions, scores en direct et arbitrage automatisé.</p>
+            <div class="project-tags">
+              <span class="project-tag">Algorithme Suisse</span>
+              <span class="project-tag">Temps Réel</span>
+              <span class="project-tag">Anti-Cheat</span>
+              <span class="project-tag">Supabase</span>
+            </div>
+          </div>
+          <button class="btn ghost sm" onclick="openProject('efootligue')">Détails & Architecture →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 04 : Expertises -->
+  <section class="sec" id="skills">
+    <div class="wrap">
+      <div class="sec-header">
+        <div class="eyebrow"><span class="mono">04. COMPÉTENCES</span></div>
+        <h2 data-t="s_h">Compétences & domaines d'intervention</h2>
+        <p data-t="s_p">Une synergie entre administration système, sécurité opérationnelle et créativité numérique.</p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">🖥️</div>
+          <h3 data-t="s1">Systèmes & Réseaux</h3>
+          <p data-t="s1p">Administration Linux approfondie, conception d'architectures réseau sécurisées et scripts Shell pour l'automatisation intégrale des opérations.</p>
+          <ul class="skill-items">
+            <li>Debian / Ubuntu Server / RHEL</li>
+            <li>Routage, VLANs, CIDR, DNS, VPN</li>
+            <li>Bash scripting, cron, systemd</li>
+            <li>Docker, reverse-proxy Caddy / Nginx</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">🛡️</div>
+          <h3 data-t="s2">Cybersécurité Opérationnelle</h3>
+          <p data-t="s2p">Durcissement d'infrastructures, mise en place de pare-feux, détection précoce d'intrusions et réponse rapide aux incidents de sécurité.</p>
+          <ul class="skill-items">
+            <li>Iptables, NFTables, UFW, Fail2ban</li>
+            <li>Analyse de journaux & SIEM / SOC</li>
+            <li>Durcissement SSH, CIS Benchmarks</li>
+            <li>WAF, protection DDoS & Anti-bot</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">🚀</div>
+          <h3 data-t="s3">Contenu & Stratégie Digitale</h3>
+          <p data-t="s3p">Création de contenu tech à fort impact, vulgarisation scientifique, intégration d'intelligences artificielles et développement SaaS.</p>
+          <ul class="skill-items">
+            <li>Création vidéo TikTok & YouTube (+100k vues)</li>
+            <li>Intégration d'APIs & LLM Gemini/OpenAI</li>
+            <li>Automatisation de workflows no-code/pro-code</li>
+            <li>Développement Full Stack rapide</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Partenariat -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="collab-banner">
+        <div>
+          <h2 data-t="c_h">Ouvert aux opportunités et partenariats</h2>
+          <p data-t="c_p">Partenariats de marques, missions d'audit ou de conseil en cybersécurité, collaborations techniques et projets technologiques innovants.</p>
+        </div>
+        <a class="btn" href="mailto:anarouachamsoudine010@gmail.com?subject=Proposition%20de%20collaboration%20professionnelle" data-t="c_b">Proposer une collaboration</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 05 : Contact -->
+  <section class="sec" id="contact">
+    <div class="wrap">
+      <div class="sec-header">
+        <div class="eyebrow"><span class="mono">05. COORDONNÉES</span></div>
+        <h2 data-t="k_h">Contact professionnel direct</h2>
+        <p data-t="k_p">Vous avez une proposition, un projet d'infrastructure ou une question technique ? Écrivez-moi directement.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-item">
+          <div>
+            <span>Adresse E-mail</span>
+            <a class="link" href="mailto:anarouachamsoudine010@gmail.com">anarouachamsoudine010@gmail.com</a>
+          </div>
+          <button class="btn ghost sm" data-copy="anarouachamsoudine010@gmail.com" data-t="copy">Copier</button>
+        </div>
+
+        <div class="contact-item">
+          <div>
+            <span>WhatsApp & Appel Direct</span>
+            <a class="link" href="https://wa.me/22791038061" target="_blank" rel="noopener">+227 91 03 80 61</a>
+          </div>
+          <button class="btn ghost sm" data-copy="+22791038061" data-t="copy">Copier</button>
+        </div>
+      </div>
+
+      <div class="social-links">
+        <a class="btn ghost sm" href="https://www.tiktok.com/@chamsoudineanaroua" target="_blank" rel="noopener">🎵 TikTok @chamsoudineanaroua</a>
+        <a class="btn ghost sm" href="https://www.youtube.com/@chamsoudineanaroua" target="_blank" rel="noopener">📺 YouTube @chamsoudineanaroua</a>
+        <a class="btn ghost sm" href="https://www.facebook.com/" target="_blank" rel="noopener">🌐 Facebook</a>
+        <a class="btn ghost sm" href="https://github.com/chamsoudine-dev/Portefolio" target="_blank" rel="noopener">💻 Code GitHub</a>
+      </div>
+    </div>
+  </section>
+
 </main>
-<footer><div class="wrap"><span>© <span id="yr"></span> Chamsoudine Anaroua</span><span data-t="foot"></span></div></footer>
-<dialog id="dlg"><form id="rf" novalidate>
-<h3 data-t="r_h"></h3><p data-t="r_p"></p>
-<label for="rn" data-t="r_n"></label><input id="rn" name="name" required maxlength="80" autocomplete="name">
-<label for="re" data-t="r_e"></label><input id="re" name="email" type="email" required maxlength="120" autocomplete="email">
-<label for="rt" data-t="r_t"></label><input id="rt" name="phone" type="tel" maxlength="30" autocomplete="tel">
-<label for="ro" data-t="r_o"></label><input id="ro" name="org" maxlength="100" autocomplete="organization">
-<input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-<label class="ck"><input type="checkbox" id="rc"><span data-t="r_c"></span></label>
-<div class="msg" id="rm" role="alert"></div>
-<div class="row"><button class="btn" type="submit" data-t="r_s"></button><button class="btn ghost" type="button" id="rx" data-t="r_x"></button></div>
-</form></dialog>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Chamsoudine Anaroua · Ingénieur en Cybersécurité · Niger</div>
+    <div class="mono" style="font-size:12px;color:var(--gold)" data-t="foot">Plateforme sécurisée & automatisée</div>
+  </div>
+</footer>
+
+<!-- Modal Connexion & Inscription Unifié -->
+<dialog id="auth-modal">
+  <div class="modal-header">
+    <h3 id="modal-title">Accès aux fonctionnalités</h3>
+    <button class="modal-close" onclick="closeAuthModal()" aria-label="Fermer">✕</button>
+  </div>
+
+  <div class="modal-tabs">
+    <button class="modal-tab-btn active" id="tab-btn-login" onclick="switchAuthMode('login')">Déjà inscrit ? Connexion</button>
+    <button class="modal-tab-btn" id="tab-btn-register" onclick="switchAuthMode('register')">Nouvelle inscription</button>
+  </div>
+
+  <div class="modal-body">
+    <!-- Formulaire 1: Connexion rapide (Email + Téléphone) -->
+    <form id="form-login" onsubmit="handleLogin(event)">
+      <p style="color:var(--muted);font-size:13.5px;margin:0 0 16px">Entrez l'adresse e-mail et le numéro de téléphone utilisés lors de votre inscription pour déverrouiller instantanément toutes les fonctionnalités.</p>
+
+      <div class="form-field">
+        <label for="login-email">Adresse e-mail *</label>
+        <input class="form-input" id="login-email" type="email" required placeholder="nom@exemple.com" autocomplete="email">
+      </div>
+
+      <div class="form-field">
+        <label for="login-phone">Numéro de téléphone *</label>
+        <input class="form-input" id="login-phone" type="tel" required placeholder="+227 91 03 80 61" autocomplete="tel">
+      </div>
+
+      <div class="form-msg" id="login-msg"></div>
+
+      <div style="display:flex;gap:10px;margin-top:20px">
+        <button class="btn" id="btn-submit-login" type="submit" style="flex:1">Se connecter & Déverrouiller</button>
+        <button class="btn ghost" type="button" onclick="closeAuthModal()">Annuler</button>
+      </div>
+    </form>
+
+    <!-- Formulaire 2: Nouvelle Inscription -->
+    <form id="form-register" style="display:none" onsubmit="handleRegister(event)" novalidate>
+      <p style="color:var(--muted);font-size:13.5px;margin:0 0 16px">Inscription gratuite en 20 secondes. Vos informations permettent de sécuriser l'accès et de vous recontacter.</p>
+
+      <div class="form-field">
+        <label for="reg-name">Nom complet *</label>
+        <input class="form-input" id="reg-name" required maxlength="80" placeholder="Ex: Abdoul Aziz Hama" autocomplete="name">
+      </div>
+
+      <div class="form-field">
+        <label for="reg-email">Adresse e-mail *</label>
+        <input class="form-input" id="reg-email" type="email" required maxlength="120" placeholder="nom@exemple.com" autocomplete="email">
+      </div>
+
+      <div class="form-field">
+        <label for="reg-phone">Numéro de téléphone (recommandé pour vous reconnecter)</label>
+        <input class="form-input" id="reg-phone" type="tel" maxlength="30" placeholder="+227 91 03 80 61" autocomplete="tel">
+      </div>
+
+      <div class="form-field">
+        <label for="reg-org">Entreprise ou organisation (facultatif)</label>
+        <input class="form-input" id="reg-org" maxlength="100" placeholder="Ex: Université, Société, Indépendant">
+      </div>
+
+      <!-- Honeypot anti-bot -->
+      <input style="position:absolute;left:-9999px" name="website" id="reg-website" tabindex="-1" autocomplete="off">
+
+      <label class="form-check">
+        <input type="checkbox" id="reg-consent" required checked>
+        <span>J'accepte que mes coordonnées soient enregistrées sur la base sécurisée pour accéder aux démonstrations interactives et être recontacté.</span>
+      </label>
+
+      <div class="form-msg" id="reg-msg"></div>
+
+      <div style="display:flex;gap:10px;margin-top:20px">
+        <button class="btn" id="btn-submit-register" type="submit" style="flex:1">Valider l'inscription</button>
+        <button class="btn ghost" type="button" onclick="closeAuthModal()">Annuler</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<!-- Modal Détails de Projet -->
+<dialog id="project-modal">
+  <div class="pmodal-header">
+    <h3 id="pmodal-title">Détails du Projet</h3>
+    <button class="modal-close" onclick="closeProjectModal()">✕</button>
+  </div>
+  <div class="pmodal-body" id="pmodal-content"></div>
+</dialog>
+
 <script>
-const T={fr:{g_p:"Inscrivez-vous gratuitement pour accéder à cette démonstration.",g_b:"S’inscrire pour accéder",r_h:"Créer mon accès",r_p:"Inscription gratuite, en 20 secondes. Vos informations servent à sécuriser ce site et à vous recontacter.",r_n:"Nom complet",r_e:"E-mail",r_t:"Téléphone (facultatif)",r_o:"Entreprise ou organisation (facultatif)",r_c:"J’accepte que mon nom, mon e-mail et mes informations de contact soient enregistrés pour accéder à la démonstration et être recontacté.",r_s:"Valider l’inscription",r_sending:"Envoi en cours…",r_x:"Annuler",r_err:"Indiquez votre nom, un e-mail valide et cochez la case d’accord.",r_net:"L’envoi a échoué. Réessayez dans un instant.",r_config:"Le service d’inscription n’est pas encore configuré. Contactez l’administrateur.",n1:"Automatisation",n2:"Laboratoire",n3:"Projets",n4:"Expertises",n5:"Contact",status:"Disponible pour des collaborations",
-lead:"Ingénieur en sécurité informatique au Niger. J’automatise ce qui se répète et je protège ce qui compte.",cta1:"Collaborons",cta2:"Voir l’automatisation en action",
-a_h:"Une attaque détectée, bloquée et signalée sans intervention",a_p:"Voici le type de chaîne que je construis : les journaux sont analysés, une règle décide, le pare-feu agit et je suis prévenu. Lancez la simulation.",a_run:"Lancer la simulation",a_note:"Simulation : l’adresse utilisée est fictive.",
-a1:"Journaux",a1s:"Collecte SSH",a2:"Détection",a2s:"Règle de seuil",a3:"Blocage",a3s:"Pare-feu",a4:"Alerte",a4s:"WhatsApp / e-mail",a5:"Rapport",a5s:"Archivage",
-l_h:"Laboratoire : des outils que vous pouvez essayer",l_p:"Ces outils fonctionnent dans votre navigateur. Rien de ce que vous saisissez n’est envoyé.",
-l1:"Testeur de mot de passe",l1p:"Estime la robustesse selon la longueur et les types de caractères.",l2:"Calculateur de sous-réseau",l2p:"Entrez un réseau en notation CIDR pour obtenir son plan d’adressage.",
-p_h:"Projets",p_p:"Des solutions numériques pensées pour les réalités du Niger.",
-p1:"Plateforme de numérisation des établissements scolaires privés, avec des portails pour le directeur, les enseignants, les parents et les élèves.",
-p2:"Un seul tableau de bord pour gérer et publier sur TikTok, WhatsApp, Facebook et Instagram, avec le statut de chaque compte.",
-p3:"Installation de caméras de vidéosurveillance pour particuliers et entreprises.",p4:"Plateforme de tournois eFootball au format Phase de Ligue, inspiré de la Ligue des champions.",
-s_h:"Compétences & expertises",s_p:"Trois domaines qui se renforcent l’un l’autre.",
-s1:"Systèmes & réseaux",s1p:"Administration Linux, réseaux informatiques, scripts Shell pour automatiser l’exploitation.",s2:"Sécurité",s2p:"Pare-feu, durcissement des systèmes, détection d’incidents et réponse.",s3:"Contenu & digital",s3p:"Création de contenu, communication digitale et usage de l’intelligence artificielle.",
-c_h:"Ouvert aux opportunités internationales",c_p:"Partenariats avec des marques, collaborations avec des entreprises technologiques, projets qui valorisent l’innovation et les solutions numériques.",c_b:"Proposer une collaboration",
-k_h:"Contact professionnel",k_p:"Une proposition, un projet ou une question : écrivez-moi.",copy:"Copier",copied:"Copié",foot:"Portfolio professionnel · Tous droits réservés",
-h_help:"Commandes : whoami, stack, projets, scan, contact, lang, clear",h_who:"Chamsoudine Anaroua — ingénieur en sécurité informatique, créateur de contenu, entrepreneur numérique. Niger.",
-h_stack:"Linux · Bash · Réseaux · Pare-feu · Docker · IA · Création de contenu",h_proj:"EducNiger · Social Hub · digitService · EFootLigue",h_scan:"Analyse de la cible fictive 203.0.113.10…",h_contact:"anarouachamsoudine010@gmail.com · +227 91 03 80 61",h_unk:"Commande inconnue. Tapez help.",
-w:"Bienvenue. Tapez help ou touchez une commande ci-dessous.",pwe:"Entropie",pwt:"Temps estimé pour la casser",pw0:"Saisissez un mot de passe pour l’évaluer.",
-lg:["Journaux : 412 échecs de connexion SSH depuis 203.0.113.42 en 60 s","Détection : seuil de 5 échecs/minute dépassé, source classée hostile","Blocage : iptables -A INPUT -s 203.0.113.42 -j DROP appliqué","Alerte : message envoyé à l’administrateur avec l’IP et l’horodatage","Rapport : incident archivé, adresse ajoutée à la liste de blocage"],
-done:"Incident traité en moins de 2 secondes, sans intervention humaine.",cn:["Adresse réseau","Masque","Diffusion","Plage utilisable","Hôtes utilisables"],bad:"Réseau invalide. Exemple : 10.0.0.0/16"},
-en:{g_p:"Sign up for free to access this demo.",g_b:"Sign up to access",r_h:"Create my access",r_p:"Free sign-up, 20 seconds. Your details are used to secure this site and to contact you back.",r_n:"Full name",r_e:"Email",r_t:"Phone (optional)",r_o:"Company or organisation (optional)",r_c:"I agree that my name, email and technical details of my visit (language, time zone, browser, referring page) are stored to secure the site and to be contacted.",r_s:"Complete sign-up",r_sending:"Sending…",r_x:"Cancel",r_err:"Enter your name, a valid email and tick the consent box.",r_net:"Sending failed. Please try again shortly.",r_config:"The sign-up service is not configured yet. Please contact the site administrator.",n1:"Automation",n2:"Lab",n3:"Projects",n4:"Expertise",n5:"Contact",status:"Available for collaborations",
-lead:"Cybersecurity engineer based in Niger. I automate what repeats and protect what matters.",cta1:"Let’s collaborate",cta2:"See automation in action",
-a_h:"An attack detected, blocked and reported with no manual step",a_p:"This is the kind of pipeline I build: logs are analysed, a rule decides, the firewall acts and I get notified. Run the simulation.",a_run:"Run the simulation",a_note:"Simulation: the address used is fictional.",
-a1:"Logs",a1s:"SSH collection",a2:"Detection",a2s:"Threshold rule",a3:"Blocking",a3s:"Firewall",a4:"Alert",a4s:"WhatsApp / email",a5:"Report",a5s:"Archiving",
-l_h:"Lab: tools you can try",l_p:"These tools run in your browser. Nothing you type is sent anywhere.",
-l1:"Password tester",l1p:"Estimates strength from length and character types.",l2:"Subnet calculator",l2p:"Enter a network in CIDR notation to get its addressing plan.",
-p_h:"Projects",p_p:"Digital solutions designed for the realities of Niger.",
-p1:"Platform digitising private schools, with portals for the principal, teachers, parents and students.",
-p2:"One dashboard to manage and publish on TikTok, WhatsApp, Facebook and Instagram, with the status of each account.",
-p3:"CCTV camera installation for homes and businesses.",p4:"eFootball tournament platform in a League Phase format inspired by the Champions League.",
-s_h:"Skills & expertise",s_p:"Three areas that reinforce each other.",
-s1:"Systems & networks",s1p:"Linux administration, computer networks, Shell scripts to automate operations.",s2:"Security",s2p:"Firewalls, system hardening, incident detection and response.",s3:"Content & digital",s3p:"Content creation, digital communication and use of artificial intelligence.",
-c_h:"Open to international opportunities",c_p:"Brand partnerships, collaborations with technology companies, and projects that showcase innovation and digital solutions.",c_b:"Discuss a partnership",
-k_h:"Professional contact",k_p:"A proposal, a project or a question: write to me.",copy:"Copy",copied:"Copied",foot:"Professional portfolio · All rights reserved",
-h_help:"Commands: whoami, stack, projects, scan, contact, lang, clear",h_who:"Chamsoudine Anaroua — cybersecurity engineer, content creator, digital entrepreneur. Niger.",
-h_stack:"Linux · Bash · Networking · Firewalls · Docker · AI · Content creation",h_proj:"EducNiger · Social Hub · digitService · EFootLigue",h_scan:"Scanning fictional target 203.0.113.10…",h_contact:"anarouachamsoudine010@gmail.com · +227 91 03 80 61",h_unk:"Unknown command. Type help.",
-w:"Welcome. Type help or tap a command below.",pwe:"Entropy",pwt:"Estimated time to crack",pw0:"Type a password to evaluate it.",
-lg:["Logs: 412 failed SSH logins from 203.0.113.42 in 60 s","Detection: threshold of 5 failures/minute exceeded, source flagged hostile","Blocking: iptables -A INPUT -s 203.0.113.42 -j DROP applied","Alert: message sent to the administrator with IP and timestamp","Report: incident archived, address added to the blocklist"],
-done:"Incident handled in under 2 seconds, with no human intervention.",cn:["Network address","Mask","Broadcast","Usable range","Usable hosts"],bad:"Invalid network. Example: 10.0.0.0/16"}};
-let L="fr";const $=s=>document.querySelector(s),t=k=>T[L][k];
-function paint(){document.documentElement.lang=L;document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t(e.dataset.t));$("#lang").textContent=L==="fr"?"EN":"FR";
-$("#pipe").innerHTML=[1,2,3,4,5].map(i=>`<div class="node" id="n${i}"><strong>${t("a"+i)}</strong><small>${t("a"+i+"s")}</small></div>`).join("");
-$("#chips").innerHTML=["help","whoami","stack",L==="fr"?"projets":"projects","scan","contact"].map(c=>`<button data-c="${c}">${c}</button>`).join("");
-document.querySelectorAll("#chips button").forEach(b=>b.onclick=()=>cmd(b.dataset.c));pw();net();$("#plog").textContent="";}
-/* terminal */
-const out=$("#tout");
-function say(x,c){const d=document.createElement("div");if(c)d.className=c;d.textContent=x;out.appendChild(d);out.scrollTop=out.scrollHeight}
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-async function cmd(raw){const c=raw.trim().toLowerCase();if(!c)return;say("$ "+c,"d");
-if(c==="help")say(t("h_help"),"c");else if(c==="whoami")say(t("h_who"));else if(c==="stack")say(t("h_stack"));
-else if(c==="projets"||c==="projects")say(t("h_proj"));else if(c==="contact")say(t("h_contact"),"g");
-else if(c==="clear"){out.textContent=""}else if(c==="lang"){L=L==="fr"?"en":"fr";paint()}
-else if(c==="scan"){say(t("h_scan"),"d");for(const[p,s]of[[22,"ssh"],[80,"http"],[443,"https"],[3306,"mysql"]]){await sleep(380);const open=p===443||p===22;say(`${p}/tcp  ${s.padEnd(6)} ${open?"open":"filtered"}`,open?"g":"r")}}
-else say(t("h_unk"),"r")}
-$("#tin").addEventListener("keydown",e=>{if(e.key==="Enter"){cmd(e.target.value);e.target.value=""}});
-/* pipeline */
-let busy=false;
-$("#run").onclick=async()=>{if(busy)return;busy=true;const lg=$("#plog");lg.textContent="";document.querySelectorAll(".node").forEach(n=>n.classList.remove("on"));
-for(let i=0;i<5;i++){await sleep(750);$("#n"+(i+1)).classList.add("on");lg.textContent+=`[${new Date().toLocaleTimeString()}] ${t("lg")[i]}\n`}
-await sleep(500);lg.textContent+="\n✔ "+t("done");busy=false};
-/* password */
-function pw(){const v=$("#pw").value,r=$("#pwres"),b=$("#pwbar");if(!v){b.style.width="0";r.textContent=t("pw0");return}
-let n=0;if(/[a-z]/.test(v))n+=26;if(/[A-Z]/.test(v))n+=26;if(/\d/.test(v))n+=10;if(/[^A-Za-z0-9]/.test(v))n+=32;
-let bits=v.length*Math.log2(n);if(/^(.)\1+$/.test(v)||/(password|123456|azerty|qwerty|motdepasse)/i.test(v))bits=Math.min(bits,20);
-const s=Math.pow(2,bits)/2/1e10,u=[[31536000*1e3,L==="fr"?"millénaires":"millennia"],[31536000,L==="fr"?"ans":"years"],[86400,L==="fr"?"jours":"days"],[3600,L==="fr"?"heures":"hours"],[60,"min"]];
-let tm=L==="fr"?"instantané":"instant";for(const[d,l]of u)if(s>=d){tm=(s/d>=100?Math.round(s/d).toLocaleString():(s/d).toFixed(1))+" "+l;break}
-if(s<60&&s>=1)tm=Math.round(s)+" s";
-b.style.width=Math.min(100,bits/80*100)+"%";b.style.background=bits<40?"var(--bad)":bits<60?"var(--gold)":"var(--ok)";
-r.innerHTML=`${t("pwe")} : <b>${Math.round(bits)} bits</b><br>${t("pwt")} : <b>${tm}</b>`}
-/* cidr */
-function net(){const m=$("#cidr").value.trim().match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\/(\d{1,2})$/),T2=$("#cres");
-if(!m||m.slice(1,5).some(x=>+x>255)||+m[5]>32){T2.innerHTML=`<tr><td>${t("bad")}</td><td></td></tr>`;return}
-const ip=((+m[1]<<24)|(+m[2]<<16)|(+m[3]<<8)|+m[4])>>>0,p=+m[5],mask=p?(0xFFFFFFFF<<(32-p))>>>0:0,nw=(ip&mask)>>>0,bc=(nw|~mask)>>>0;
-const f=x=>[x>>>24,(x>>>16)&255,(x>>>8)&255,x&255].join("."),h=p>=31?(p===32?1:2):Math.pow(2,32-p)-2,rg=p>=31?f(nw)+" – "+f(bc):f(nw+1)+" – "+f(bc-1);
-const c=t("cn");T2.innerHTML=[[c[0],f(nw)+"/"+p],[c[1],f(mask)],[c[2],f(bc)],[c[3],rg],[c[4],h.toLocaleString()]].map(r=>`<tr><td>${r[0]}</td><td class="mono">${r[1]}</td></tr>`).join("")}
-$("#pw").oninput=pw;$("#cidr").oninput=net;
-document.querySelectorAll("[data-copy]").forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText(b.dataset.copy);b.textContent=t("copied");setTimeout(()=>b.textContent=t("copy"),1500)}catch(e){}});
-$("#lang").onclick=()=>{L=L==="fr"?"en":"fr";paint()};
-let reg=false;try{reg=localStorage.getItem("ca_reg")==="1"}catch(e){}
-document.querySelectorAll(".lk").forEach(e=>e.insertAdjacentHTML("beforeend",'<div class="gate"><p data-t="g_p"></p><button class="btn" type="button" data-open data-t="g_b"></button></div>'));
-function lock(){document.querySelectorAll(".lk").forEach(e=>{e.classList.toggle("locked",!reg);[...e.children].forEach(c=>{if(!c.classList.contains("gate"))c.inert=!reg})})}
-const dlg=$("#dlg");
-document.addEventListener("click",e=>{if(e.target.closest("[data-open]"))dlg.showModal()});
-$("#rx").onclick=()=>dlg.close();
-$("#rf").addEventListener("submit",async e=>{
-e.preventDefault();
-const f=e.target,m=$("#rm"),v=n=>f.elements[n].value.trim(),submit=f.querySelector('[type="submit"]');
-m.textContent="";
-if(f.elements.website.value)return;
-if(v("name").length<2||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))||!$("#rc").checked){m.textContent=t("r_err");return}
-const row={name:v("name"),email:v("email").toLowerCase(),phone:v("phone")||null,organization:v("org")||null,consent:true,lang:L,timezone:Intl.DateTimeFormat().resolvedOptions().timeZone,user_agent:navigator.userAgent.slice(0,300),referrer:document.referrer.slice(0,200)||null,website:v("website")};
-submit.disabled=true;
-submit.textContent=t("r_sending");
-try{
-const r=await fetch("/api/inscription",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(row)});
-let result;
-try{result=await r.json()}catch(error){console.error("Registration API returned an invalid response",error)}
-if(!r.ok||!result||result.success!==true){
-console.error("Registration submission failed",{status:r.status,error:result&&result.error});
-m.textContent=result&&(result.error==="service_not_configured"||result.error==="email_service_not_configured")?t("r_config"):t("r_net");
-submit.disabled=false;
-submit.textContent=t("r_s");
-return;
+/* ==========================================================================
+   DICTIONNAIRE MULTILINGUE (FR / EN)
+   ========================================================================== */
+const I18N = {
+  fr: {
+    n1:"Automatisation",n2:"Cyber Lab",n3:"Projets",n4:"Expertises",n5:"Contact",
+    nav_access:"Connexion / Inscription",hero_badge:"INGÉNIEUR EN SÉCURITÉ INFORMATIQUE · NIGER",
+    lead:"J'automatise ce qui se répète et je protège ce qui compte. Architecte de défenses numériques, systèmes durcis et plateformes intelligentes pensées pour les réalités africaines et internationales.",
+    cta1:"Collaborons ensemble",cta2:"Voir l'automatisation en action",stat1:"Temps de riposte automatique",stat2:"Plateformes déployées",stat3:"Systèmes sécurisés",
+    a_h:"Détection, blocage et alerte sans intervention humaine",a_p:"Visualisez en temps réel comment mon pipeline d'automatisation détecte une agression hostile, analyse les journaux, pilote le pare-feu et alerte l'administrateur en moins de deux secondes.",
+    a_run:"Lancer la simulation d'attaque",a_note:"Simulation basée sur des charges réelles de laboratoire",
+    l_h:"Laboratoire : outils interactifs d'analyse et cryptographie",l_p:"Des outils cybernétiques avancés qui s'exécutent entièrement dans votre navigateur. Aucune donnée saisie n'est transmise : tout est calculé localement avec les API cryptographiques natives.",
+    t_pw:"Entropie Mot de Passe",t_cidr:"Calculateur CIDR",t_crypto:"Studio Cryptographique",t_audit:"Audit Navigateur",
+    l1:"Évaluateur d'entropie et résistance brute-force",l1p:"Testez la solidité d'une chaîne face aux attaques par dictionnaire combiné et clusters de GPU modernes.",
+    l2:"Calculateur de sous-réseaux IPv4 & plan d'adressage",l2p:"Découpage CIDR, masques binaires, broadcast et plages d'hôtes utilisables.",
+    p_h:"Projets et plateformes numériques",p_p:"Des solutions logicielles et d'infrastructures concrètes, sécurisées dès la conception et adaptées aux réalités du Niger et de l'Afrique.",
+    p1:"Plateforme de numérisation intégrale pour établissements scolaires privés. Portails sécurisés cloisonnés pour le directeur, les enseignants, les parents et les élèves avec gestion des notes et présences.",
+    p2:"Tableau de bord unifié pour orchestrer, automatiser et planifier des publications simultanées sur TikTok, WhatsApp, Facebook et Instagram avec contrôle d'intégrité des flux.",
+    p3:"Ingénierie et déploiement de réseaux de vidéosurveillance IP durcis, caméras haute définition avec enregistrement sécurisé et accès distant chiffré pour entreprises et résidences au Niger.",
+    p4:"Plateforme d'organisation de tournois d'eFootball au format Phase de Ligue inspiré de la Ligue des champions. Gestion d'inscriptions, scores en direct et arbitrage automatisé.",
+    s_h:"Compétences & domaines d'intervention",s_p:"Une synergie entre administration système, sécurité opérationnelle et créativité numérique.",
+    s1:"Systèmes & Réseaux",s1p:"Administration Linux approfondie, conception d'architectures réseau sécurisées et scripts Shell pour l'automatisation intégrale des opérations.",
+    s2:"Cybersécurité Opérationnelle",s2p:"Durcissement d'infrastructures, mise en place de pare-feux, détection précoce d'intrusions et réponse rapide aux incidents de sécurité.",
+    s3:"Contenu & Stratégie Digitale",s3p:"Création de contenu tech à fort impact, vulgarisation scientifique, intégration d'intelligences artificielles et développement SaaS.",
+    c_h:"Ouvert aux opportunités et partenariats",c_p:"Partenariats de marques, missions d'audit ou de conseil en cybersécurité, collaborations techniques et projets technologiques innovants.",
+    c_b:"Proposer une collaboration",k_h:"Contact professionnel direct",k_p:"Vous avez une proposition, un projet d'infrastructure ou une question technique ? Écrivez-moi directement.",
+    copy:"Copier",copied:"Copié !",foot:"Plateforme sécurisée & automatisée",
+    gate_title:"Fonctionnalité réservée aux membres inscrits.",gate_btn:"Déverrouiller / Se connecter"
+  },
+  en: {
+    n1:"Automation",n2:"Cyber Lab",n3:"Projects",n4:"Expertise",n5:"Contact",
+    nav_access:"Sign In / Sign Up",hero_badge:"CYBERSECURITY ENGINEER · NIGER",
+    lead:"I automate what repeats and protect what matters. Architect of digital defenses, hardened infrastructure and smart platforms tailored for African and global realities.",
+    cta1:"Let's collaborate",cta2:"See automation in action",stat1:"Automated response time",stat2:"Production platforms",stat3:"Hardened systems",
+    a_h:"Detection, mitigation & alert with zero human intervention",a_p:"Experience real-time threat response: logs are ingested, anomaly detection triggers, firewall enforces mitigation and the operator is alerted in under 2 seconds.",
+    a_run:"Execute Attack Simulation",a_note:"Simulation powered by real lab attack payloads",
+    l_h:"Cyber Lab: browser-native security tools",l_p:"Zero data sent: all computations leverage native browser Web Crypto and client-side processing.",
+    t_pw:"Password Entropy",t_cidr:"CIDR Subnetting",t_crypto:"Crypto Studio",t_audit:"Client Audit",
+    l1:"Entropy Evaluator & Brute-Force Resilience",l1p:"Simulate attack resistance against GPU clusters and rainbow tables.",
+    l2:"IPv4 CIDR Subnet Calculator",l2p:"CIDR masks, broadcast, binary notation and valid host bounds.",
+    p_h:"Featured Projects & Deployments",p_p:"Tailored, resilient software and infrastructure engineered for Niger and pan-African requirements.",
+    p1:"Private school digitalization suite. Segregated role-based portals for principals, teachers, parents, and students.",
+    p2:"Unified multi-channel automation hub to schedule and broadcast content on TikTok, WhatsApp, Facebook and Instagram.",
+    p3:"Hardened IP video surveillance deployment, remote encrypted access and perimeter monitoring.",
+    p4:"eFootball tournament management engine modeled after the UEFA Champions League League Phase.",
+    s_h:"Core Competencies",s_p:"A strong cross-disciplinary synergy of systems engineering, defensive security and digital creation.",
+    s1:"Systems & Networks",s1p:"Linux systems engineering, network design, Shell scripting and automated DevOps pipelines.",
+    s2:"Defensive Security",s2p:"Host hardening, stateful firewalls, SIEM anomaly detection and rapid incident response.",
+    s3:"Digital & Content",s3p:"High-reach technical content creation, AI API orchestration and full-stack software delivery.",
+    c_h:"Open for global partnerships",c_p:"Brand partnerships, corporate cybersecurity consulting, digital solutions and high-impact tech ventures.",
+    c_b:"Initiate partnership",k_h:"Direct Contact",k_p:"Have a project, security audit, or technology inquiry? Reach out directly.",
+    copy:"Copy",copied:"Copied!",foot:"Hardened & automated infrastructure",
+    gate_title:"Registered access required.",gate_btn:"Unlock / Sign In"
+  }
+};
+
+let currentLang = "fr";
+const t = k => (I18N[currentLang] && I18N[currentLang][k]) || k;
+
+function setLang(l) {
+  currentLang = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll("[data-t]").forEach(el => {
+    const k = el.dataset.t;
+    if (I18N[l][k]) el.textContent = I18N[l][k];
+  });
+  document.getElementById("btn-lang").textContent = l === "fr" ? "EN" : "FR";
+  initTerminalChips();
+  evaluatePassword();
+  calculateCIDR();
+  renderPipelineNodes();
 }
-}catch(error){
-console.error("Registration request could not reach the Vercel API",error);
-m.textContent=t("r_net");
-submit.disabled=false;
-submit.textContent=t("r_s");
-return;
+
+document.getElementById("btn-lang").onclick = () => {
+  setLang(currentLang === "fr" ? "en" : "fr");
+};
+
+/* ==========================================================================
+   AUDIO SYNTHESIZER (Web Audio API - sons cyber subtils)
+   ========================================================================== */
+let soundEnabled = true;
+const audioCtx = (typeof AudioContext !== "undefined" || typeof webkitAudioContext !== "undefined")
+  ? new (window.AudioContext || window.webkitAudioContext)()
+  : null;
+
+function playBeep(freq = 640, type = "sine", duration = 0.06) {
+  if (!soundEnabled || !audioCtx) return;
+  try {
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  } catch (e) {}
 }
-reg=true;try{localStorage.setItem("ca_reg","1")}catch(x){}
-lock();dlg.close()
+
+const btnSound = document.getElementById("btn-sound");
+btnSound.onclick = () => {
+  soundEnabled = !soundEnabled;
+  btnSound.textContent = soundEnabled ? "🔊" : "🔇";
+  if (soundEnabled) playBeep(880, "triangle", 0.1);
+};
+
+/* ==========================================================================
+   BACKGROUND MATRIX & GRID CANVAS
+   ========================================================================== */
+const canvas = document.getElementById("cyber-canvas");
+const ctx = canvas.getContext("2d");
+let cw = canvas.width = window.innerWidth;
+let ch = canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+  cw = canvas.width = window.innerWidth;
+  ch = canvas.height = window.innerHeight;
 });
-lock();
-$("#yr").textContent=new Date().getFullYear();paint();say(t("w"),"d");
+
+const matrixChars = "0101010101ABCDEFАБВГ23456789$#><:/*-+".split("");
+const fontSize = 14;
+const columns = Math.floor(cw / fontSize);
+const drops = Array(columns).fill(1);
+
+function drawMatrix() {
+  ctx.fillStyle = "rgba(7, 10, 14, 0.12)";
+  ctx.fillRect(0, 0, cw, ch);
+
+  ctx.fillStyle = "rgba(220, 185, 110, 0.35)";
+  ctx.font = fontSize + "px JetBrains Mono, monospace";
+
+  for (let i = 0; i < drops.length; i++) {
+    const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+    if (drops[i] * fontSize > ch && Math.random() > 0.985) {
+      drops[i] = 0;
+    }
+    drops[i]++;
+  }
+}
+setInterval(drawMatrix, 50);
+
+/* ==========================================================================
+   AUTHENTICATION & SESSION (Inscription & Connexion fluide)
+   ========================================================================== */
+let currentUser = null;
+
+function checkSession() {
+  try {
+    const reg = localStorage.getItem("ca_reg");
+    const rawUser = localStorage.getItem("ca_user");
+    if (reg === "1") {
+      currentUser = rawUser ? JSON.parse(rawUser) : { name: "Membre vérifié" };
+    }
+  } catch (e) {}
+  updateAuthUI();
+}
+
+function updateAuthUI() {
+  const container = document.getElementById("auth-status-container");
+  const isAuth = !!currentUser;
+
+  // Déverrouiller ou verrouiller les éléments .lk
+  document.querySelectorAll(".lk").forEach(el => {
+    el.classList.toggle("locked", !isAuth);
+    // S'assurer que les enfants interactifs sont activés si authentifié
+    el.querySelectorAll("input, button, select, textarea").forEach(ctrl => {
+      if (!ctrl.closest(".gate")) ctrl.disabled = !isAuth;
+    });
+  });
+
+  if (isAuth) {
+    const displayName = currentUser.name ? currentUser.name.split(" ")[0] : "Membre";
+    container.innerHTML = `
+      <div class="auth-pill">
+        <span class="live-pulse"></span>
+        <span>Connecté: <b>${escapeHtml(displayName)}</b></span>
+        <span class="logout" onclick="handleLogout()" title="Se déconnecter">⎋</span>
+      </div>
+    `;
+  } else {
+    container.innerHTML = `
+      <button class="btn sm" type="button" onclick="openAuthModal('login')">
+        <span class="live-pulse"></span> <span data-t="nav_access">${t("nav_access")}</span>
+      </button>
+    `;
+  }
+}
+
+function handleLogout() {
+  playBeep(440, "triangle", 0.08);
+  if (confirm("Voulez-vous vous déconnecter de la session ?")) {
+    localStorage.removeItem("ca_reg");
+    localStorage.removeItem("ca_user");
+    currentUser = null;
+    updateAuthUI();
+  }
+}
+
+// Installation des gates sur les zones verrouillées
+document.querySelectorAll(".lk").forEach(el => {
+  if (!el.querySelector(".gate")) {
+    const gate = document.createElement("div");
+    gate.className = "gate";
+    gate.innerHTML = `
+      <div class="gate-icon">🔒</div>
+      <p data-t="gate_title">${t("gate_title")}</p>
+      <button class="btn sm" type="button" onclick="openAuthModal('login')">${t("gate_btn")}</button>
+    `;
+    el.appendChild(gate);
+  }
+});
+
+// Modal Auth
+const authModal = document.getElementById("auth-modal");
+
+function openAuthModal(mode = "login") {
+  playBeep(700, "sine", 0.05);
+  switchAuthMode(mode);
+  authModal.showModal();
+}
+
+function closeAuthModal() {
+  playBeep(400, "sine", 0.05);
+  authModal.close();
+}
+
+document.querySelectorAll("[data-open-auth]").forEach(b => {
+  b.onclick = () => openAuthModal("login");
+});
+
+function switchAuthMode(mode) {
+  const isLogin = mode === "login";
+  document.getElementById("tab-btn-login").classList.toggle("active", isLogin);
+  document.getElementById("tab-btn-register").classList.toggle("active", !isLogin);
+  document.getElementById("form-login").style.display = isLogin ? "block" : "none";
+  document.getElementById("form-register").style.display = isLogin ? "none" : "block";
+  document.getElementById("modal-title").textContent = isLogin ? "Connexion directe" : "Nouvelle inscription";
+  clearMsgs();
+}
+
+function clearMsgs() {
+  const lm = document.getElementById("login-msg");
+  const rm = document.getElementById("reg-msg");
+  lm.className = "form-msg"; lm.textContent = "";
+  rm.className = "form-msg"; rm.textContent = "";
+}
+
+// Soumission Connexion (Email + Téléphone)
+async function handleLogin(e) {
+  e.preventDefault();
+  playBeep(600, "sine", 0.05);
+  clearMsgs();
+
+  const email = document.getElementById("login-email").value.trim();
+  const phone = document.getElementById("login-phone").value.trim();
+  const btn = document.getElementById("btn-submit-login");
+  const msg = document.getElementById("login-msg");
+
+  btn.disabled = true;
+  btn.textContent = "Vérification en cours...";
+
+  try {
+    const res = await fetch("/api/connexion", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ email, phone })
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (res.ok && data.success) {
+      playBeep(880, "sine", 0.15);
+      msg.className = "form-msg ok";
+      msg.textContent = `Bienvenue, ${data.user.name} ! Accès déverrouillé.`;
+
+      currentUser = data.user;
+      localStorage.setItem("ca_reg", "1");
+      localStorage.setItem("ca_user", JSON.stringify(data.user));
+
+      setTimeout(() => {
+        updateAuthUI();
+        closeAuthModal();
+      }, 700);
+    } else {
+      playBeep(260, "sawtooth", 0.15);
+      msg.className = "form-msg err";
+      msg.textContent = data.message || "Identifiants non reconnus. Vérifiez votre adresse ou inscrivez-vous.";
+    }
+  } catch (err) {
+    playBeep(260, "sawtooth", 0.15);
+    msg.className = "form-msg err";
+    msg.textContent = "Impossible de joindre le serveur. Vérifiez votre connexion Internet.";
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Se connecter & Déverrouiller";
+  }
+}
+
+// Soumission Inscription
+async function handleRegister(e) {
+  e.preventDefault();
+  playBeep(600, "sine", 0.05);
+  clearMsgs();
+
+  const name = document.getElementById("reg-name").value.trim();
+  const email = document.getElementById("reg-email").value.trim().toLowerCase();
+  const phone = document.getElementById("reg-phone").value.trim();
+  const org = document.getElementById("reg-org").value.trim();
+  const website = document.getElementById("reg-website").value.trim();
+  const consent = document.getElementById("reg-consent").checked;
+  const btn = document.getElementById("btn-submit-register");
+  const msg = document.getElementById("reg-msg");
+
+  if (website) return; // bot honeypot
+
+  if (name.length < 2 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !consent) {
+    playBeep(260, "sawtooth", 0.15);
+    msg.className = "form-msg err";
+    msg.textContent = "Indiquez votre nom, un e-mail valide et acceptez les conditions.";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Enregistrement en cours...";
+
+  const payload = {
+    name,
+    email,
+    phone: phone || null,
+    organization: org || null,
+    consent: true,
+    lang: currentLang,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    user_agent: navigator.userAgent.slice(0, 300),
+    referrer: document.referrer.slice(0, 200) || null,
+    website
+  };
+
+  try {
+    const res = await fetch("/api/inscription", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (res.ok && data.success) {
+      playBeep(880, "sine", 0.15);
+      msg.className = "form-msg ok";
+      msg.textContent = "Inscription réussie ! Votre accès est activé.";
+
+      const savedUser = data.user || { name, email, phone, organization: org };
+      currentUser = savedUser;
+      localStorage.setItem("ca_reg", "1");
+      localStorage.setItem("ca_user", JSON.stringify(savedUser));
+
+      setTimeout(() => {
+        updateAuthUI();
+        closeAuthModal();
+      }, 800);
+    } else {
+      playBeep(260, "sawtooth", 0.15);
+      msg.className = "form-msg err";
+      msg.textContent = data.error === "service_not_configured"
+        ? "Le service est temporairement indisponible."
+        : "L'envoi a échoué. Veuillez réessayez dans un instant.";
+    }
+  } catch (err) {
+    playBeep(260, "sawtooth", 0.15);
+    msg.className = "form-msg err";
+    msg.textContent = "Impossible de joindre le serveur. Réessayez dans un instant.";
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Valider l'inscription";
+  }
+}
+
+/* ==========================================================================
+   MOBILE DRAWER NAVIGATION
+   ========================================================================== */
+const mobileDrawer = document.getElementById("mobile-drawer");
+document.getElementById("btn-mobile").onclick = () => {
+  mobileDrawer.classList.toggle("open");
+};
+function closeMobileNav() {
+  mobileDrawer.classList.remove("open");
+}
+
+/* ==========================================================================
+   INTERACTIVE HACKER CLI TERMINAL
+   ========================================================================== */
+const termOut = document.getElementById("term-out");
+const termIn = document.getElementById("term-in");
+const termChips = document.getElementById("term-chips");
+
+function termSay(text, cls = "") {
+  const d = document.createElement("div");
+  if (cls) d.className = cls;
+  d.textContent = text;
+  termOut.appendChild(d);
+  termOut.scrollTop = termOut.scrollHeight;
+}
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+async function execCommand(raw) {
+  const cmd = raw.trim();
+  if (!cmd) return;
+  playBeep(800, "triangle", 0.04);
+  termSay(`root@anaroua:~# ${cmd}`, "c-muted");
+
+  const parts = cmd.split(" ");
+  const root = parts[0].toLowerCase();
+  const arg = parts.slice(1).join(" ");
+
+  switch (root) {
+    case "help":
+      termSay("Commandes disponibles :", "c-gold");
+      termSay("  whoami      - Profil & certifications de Chamsoudine Anaroua");
+      termSay("  stack       - Technologies, outillages & compétences cyber");
+      termSay("  projects    - Liste des 4 plateformes déployées");
+      termSay("  scan <ip>   - Simulation d'analyse de ports (Nmap style)");
+      termSay("  ping <host> - Vérification de connectivité ICMP simulée");
+      termSay("  firewall    - Afficher les règles de filtrage iptables");
+      termSay("  soc         - Statut opérationnel du centre de cybersécurité");
+      termSay("  crypto      - Conseils et standards de chiffrement");
+      termSay("  matrix      - Pluie de code Matrix dans le terminal");
+      termSay("  contact     - Coordonnées directes (E-mail, WhatsApp)");
+      termSay("  clear       - Effacer l'écran");
+      break;
+
+    case "whoami":
+      termSay("Chamsoudine Anaroua", "c-gold");
+      termSay("Ingénieur en sécurité informatique, architecte d'automatisation et créateur de contenu au Niger.");
+      termSay("Spécialités : Durcissement Linux, riposte automatisée, SaaS résilients, cybersécurité opérationnelle.");
+      break;
+
+    case "stack":
+      termSay("[STACK SÉCURITÉ & INFRASTRUCTURE]", "c-cyan");
+      termSay("• OS : Linux (Debian, Ubuntu, Alpine, RHEL), OpenWRT");
+      termSay("• Sécurité : iptables, nftables, Fail2ban, Suricata, Wireshark, Nmap, WAF");
+      termSay("• Backend : Node.js, Python, PostgreSQL, Supabase, REST APIs");
+      termSay("• Cloud & Automatisation : Docker, Bash, Caddy, Vercel, Git");
+      break;
+
+    case "projects":
+      termSay("1. EducNiger    : SaaS de numérisation scolaire tout-en-un (Niger)", "c-gold");
+      termSay("2. Social Hub   : Orchestrateur & publication auto (TikTok, WA, FB, IG)");
+      termSay("3. digitService : Infrastructure de vidéosurveillance IP durcie");
+      termSay("4. EFootLigue   : Plateforme tournois gaming au format Ligue");
+      break;
+
+    case "scan": {
+      const target = arg || "203.0.113.10";
+      termSay(`Starting Nmap 7.94 scan on target ${target}...`, "c-muted");
+      const ports = [
+        [22, "tcp", "ssh", "OPEN", "OpenSSH 9.3p1 (Hardened)"],
+        [80, "tcp", "http", "REDIRECT", "301 Moved to HTTPS"],
+        [443, "tcp", "https", "OPEN", "TLS 1.3 / ChaCha20-Poly1305"],
+        [3306, "tcp", "mysql", "FILTERED", "DROP by iptables rule #4"],
+        [8080, "tcp", "http-proxy", "CLOSED", "Port closed"]
+      ];
+      for (const [p, proto, s, st, banner] of ports) {
+        await sleep(280);
+        const color = st === "OPEN" ? "c-green" : st === "FILTERED" ? "c-red" : "c-muted";
+        termSay(`PORT ${p}/${proto}  ${st.padEnd(8)}  ${s.padEnd(10)}  ${banner}`, color);
+      }
+      termSay("Nmap scan report: 5 ports checked, 0 exploit vulnerabilities detected.", "c-gold");
+      break;
+    }
+
+    case "ping": {
+      const host = arg || "anatech.ne";
+      termSay(`PING ${host} (102.16.88.42) 56(84) bytes of data.`);
+      for (let i = 1; i <= 4; i++) {
+        await sleep(350);
+        const ms = (18 + Math.random() * 8).toFixed(1);
+        termSay(`64 bytes from ${host}: icmp_seq=${i} ttl=57 time=${ms} ms`, "c-green");
+      }
+      termSay(`--- ${host} ping statistics: 4 packets transmitted, 0% packet loss ---`, "c-gold");
+      break;
+    }
+
+    case "firewall":
+      termSay("Table: filter / Chain: INPUT (policy DROP)", "c-cyan");
+      termSay("1. ACCEPT  all  --  lo  *       0.0.0.0/0");
+      termSay("2. ACCEPT  all  --  *   *       state RELATED,ESTABLISHED");
+      termSay("3. ACCEPT  tcp  --  *   *       tcp dpt:443 state NEW rate:50/min");
+      termSay("4. DROP    all  --  *   *       match-set hostile_ips src");
+      termSay("5. LOG_DROP all --  *   *       LOG level warning prefix '[FW_BLOCK]: '");
+      break;
+
+    case "soc":
+      termSay("[CENTRE DES OPÉRATIONS DE SÉCURITÉ - STATUS]", "c-green");
+      termSay("• Threat Level : DEFCON 5 (Surveillance nominale)");
+      termSay("• Intrusion Prevention System : ACTIF & SYNCHRONISÉ");
+      termSay("• Intégrité système : 100% (Aucun hash altéré)");
+      termSay("• Logs ingestion : 1,420 events/sec");
+      break;
+
+    case "crypto":
+      termSay("Recommandations cryptographiques de Chamsoudine :", "c-gold");
+      termSay("• Mots de passe : Entropie >= 70 bits, minimum 16 caractères aléatoires");
+      termSay("• Chiffrement au repos : AES-256-GCM ou ChaCha20-Poly1305");
+      termSay("• Signature & Hachage : SHA-256 / SHA-512 (Éviter MD5 & SHA-1)");
+      termSay("• Clés asymétriques : Ed25519 ou RSA >= 4096 bits");
+      break;
+
+    case "matrix": {
+      termSay("Initialisation du flux quantique...", "c-green");
+      for (let i = 0; i < 6; i++) {
+        await sleep(150);
+        termSay("01100011 01101000 01100001 01101101 01110011 01101111 01110101 01100100 01101001 01101110 01100101", "c-green");
+      }
+      break;
+    }
+
+    case "contact":
+      termSay("Coordonnées de Chamsoudine Anaroua :", "c-gold");
+      termSay("• E-mail   : anarouachamsoudine010@gmail.com", "c-cyan");
+      termSay("• WhatsApp : +227 91 03 80 61", "c-green");
+      termSay("• TikTok   : @chamsoudineanaroua");
+      termSay("• YouTube  : @chamsoudineanaroua");
+      break;
+
+    case "clear":
+      termOut.textContent = "";
+      break;
+
+    default:
+      termSay(`Commande inconnue : '${cmd}'. Tapez 'help' pour voir la liste.`, "c-red");
+  }
+}
+
+termIn.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    execCommand(termIn.value);
+    termIn.value = "";
+  }
+});
+
+function initTerminalChips() {
+  const chips = ["help", "whoami", "stack", "projects", "scan", "firewall", "soc", "contact", "clear"];
+  termChips.innerHTML = chips.map(c => `<button class="term-chip" type="button" data-cmd="${c}">${c}</button>`).join("");
+  termChips.querySelectorAll(".term-chip").forEach(b => {
+    b.onclick = () => execCommand(b.dataset.cmd);
+  });
+}
+
+// Message de bienvenue dans le terminal
+termSay("Bienvenue sur la console de Chamsoudine Anaroua [v2.6-hardened].", "c-gold");
+termSay("Système initialisé. Tapez 'help' ou cliquez un raccourci ci-dessous pour démarrer.\n", "c-muted");
+
+/* ==========================================================================
+   SIMULATEUR DE SCÉNARIOS D'ATTAQUE & RIPOSTE
+   ========================================================================== */
+const SCENARIOS = {
+  ssh: {
+    title: "Brute-force SSH",
+    nodes: [
+      { t: "Surveillance", d: "Ingestion /var/log/auth.log" },
+      { t: "Seuil Hostile", d: "Détection > 5 échecs/sec" },
+      { t: "Bannissement", d: "iptables -A INPUT -j DROP" },
+      { t: "Alerte Directe", d: "Telegram & WhatsApp Bot" },
+      { t: "Archivage SOC", d: "Ajout IP blacklist locale" }
+    ],
+    logs: [
+      "[00:00.12] AUTH_FAIL: 84 connexions échouées consécutives depuis 198.51.100.77",
+      "[00:00.45] ANALYSE: Signature d'attaque de type Hydra / Medusa confirmée",
+      "[00:01.02] RIPOSTE: iptables -I INPUT -s 198.51.100.77 -j DROP injecté",
+      "[00:01.35] ALERTE: Notification chiffrée envoyée à l'administrateur (+227 91 03 80 61)",
+      "[00:01.89] RÉSULTAT: Incident neutralisé en 1.89s. 0 brèche."
+    ]
+  },
+  ddos: {
+    title: "Attaque DDoS SYN Flood",
+    nodes: [
+      { t: "Flux Réseau", d: "Inspection de bande passante" },
+      { t: "Anomalie SYN", d: "94,000 paquets/s anormaux" },
+      { t: "SYN Cookies", d: "Activation protection noyau" },
+      { t: "Rate-Limiting", d: "Filtrage WAF en amont" },
+      { t: "Trafic Épuré", d: "Reprise du flux nominal" }
+    ],
+    logs: [
+      "[00:00.18] ALARME: Pic brutal de trafic entrant : 124 Mbit/s non sollicités",
+      "[00:00.62] IDENTIFICATION: Inondation TCP SYN Flood distribuée (220 sources bots)",
+      "[00:01.10] ATTÉNUATION: sysctl net.ipv4.tcp_syncookies=1 forcé",
+      "[00:01.44] WAF: Null-routing des sous-réseaux agresseurs au niveau du reverse-proxy",
+      "[00:01.94] RÉSULTAT: Service rétabli avec 99.98% des requêtes légitimes préservées."
+    ]
+  },
+  sqli: {
+    title: "Tentative d'injection SQL",
+    nodes: [
+      { t: "Requête HTTP", d: "Payload POST sur formulaire" },
+      { t: "Inspection WAF", d: "Signature ' OR 1=1 -- détectée" },
+      { t: "Blocage HTTP", d: "Réponse 403 Forbidden" },
+      { t: "Isolation IP", d: "Blacklist temporaire 1h" },
+      { t: "Rapport SOC", d: "Trace de requête archivée" }
+    ],
+    logs: [
+      "[00:00.08] REQUÊTE: POST /api/inscription avec payload : ' OR '1'='1' --",
+      "[00:00.22] REGEX_MATCH: Tentative de contournement d'authentification bloquée par le WAF",
+      "[00:00.58] BLOCAGE: Statut 403 Forbidden renvoyé à l'attaquant",
+      "[00:00.95] SÉCURITÉ: Requête neutralisée avant même de toucher la base de données",
+      "[00:01.30] RÉSULTAT: Intégrité des données 100% préservée."
+    ]
+  },
+  priv: {
+    title: "Escalade de privilèges",
+    nodes: [
+      { t: "Process Watch", d: "Surveillance des binaires SUID" },
+      { t: "Appel Suspect", d: "Tentative d'exécution /bin/sh" },
+      { t: "Kernel Guard", d: "Interruption par AppArmor" },
+      { t: "Kill Process", d: "SIGKILL du PID hostile" },
+      { t: "Confinement", d: "Audit complet de session" }
+    ],
+    logs: [
+      "[00:00.15] AUDITD: Tentative de modification de /etc/passwd par utilisateur sans privilège",
+      "[00:00.48] POLICE_KERNEL: Profil de confinement actif (AppArmor/SELinux)",
+      "[00:00.82] RIPOSTE: kill -9 PID 4819 (processus malveillant interrompu)",
+      "[00:01.20] DURCISSEMENT: Permissions révoquées et alerte générée",
+      "[00:01.72] RÉSULTAT: Escalade compromise. Hôte préservé."
+    ]
+  }
+};
+
+let activeScenarioKey = "ssh";
+
+function renderPipelineNodes() {
+  const container = document.getElementById("pipeline-nodes");
+  const sc = SCENARIOS[activeScenarioKey];
+  container.innerHTML = sc.nodes.map((n, i) => `
+    <div class="pipe-node" id="pnode-${i}">
+      <div class="pipe-node-idx">0${i+1} // ÉTAPE</div>
+      <div class="pipe-node-title">${escapeHtml(n.t)}</div>
+      <div class="pipe-node-desc">${escapeHtml(n.d)}</div>
+    </div>
+  `).join("");
+}
+
+document.querySelectorAll(".scenario-btn").forEach(b => {
+  b.onclick = () => {
+    playBeep(700, "sine", 0.04);
+    document.querySelectorAll(".scenario-btn").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    activeScenarioKey = b.dataset.scenario;
+    renderPipelineNodes();
+    document.getElementById("pipeline-log").textContent = `[SYSTÈME PRÊT] Scénario '${SCENARIOS[activeScenarioKey].title}' configuré. Cliquez sur 'Lancer la simulation'.`;
+  };
+});
+
+let pipelineRunning = false;
+document.getElementById("btn-run-pipeline").onclick = async () => {
+  if (pipelineRunning) return;
+  pipelineRunning = true;
+  playBeep(920, "triangle", 0.08);
+
+  const logBox = document.getElementById("pipeline-log");
+  logBox.textContent = `[SIMULATION INITIALISÉE : ${SCENARIOS[activeScenarioKey].title.toUpperCase()}]\n`;
+
+  document.querySelectorAll(".pipe-node").forEach(n => n.classList.remove("active"));
+  const sc = SCENARIOS[activeScenarioKey];
+
+  for (let i = 0; i < sc.nodes.length; i++) {
+    await sleep(650);
+    playBeep(520 + (i * 120), "sine", 0.06);
+    const node = document.getElementById(`pnode-${i}`);
+    if (node) node.classList.add("active");
+    logBox.textContent += sc.logs[i] + "\n";
+    logBox.scrollTop = logBox.scrollHeight;
+  }
+
+  await sleep(400);
+  playBeep(1040, "sine", 0.15);
+  logBox.textContent += `\n✔ PROTECTION RÉUSSIE : L'incident a été résolu de façon 100% autonome.`;
+  pipelineRunning = false;
+};
+
+/* ==========================================================================
+   CYBER LAB : ONGLETS & OUTILS
+   ========================================================================== */
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.onclick = () => {
+    playBeep(650, "sine", 0.04);
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
+
+    btn.classList.add("active");
+    const target = document.getElementById(btn.dataset.tab);
+    if (target) target.style.display = "block";
+  };
+});
+
+// 1. Password Evaluator
+const pwInput = document.getElementById("pw-input");
+const pwBar = document.getElementById("pw-bar");
+const pwStats = document.getElementById("pw-stats");
+
+function evaluatePassword() {
+  const val = pwInput.value;
+  if (!val) {
+    pwBar.style.width = "0%";
+    pwStats.innerHTML = "Saisissez un mot de passe pour analyser son espace de recherche et son entropie.";
+    return;
+  }
+
+  let charset = 0;
+  if (/[a-z]/.test(val)) charset += 26;
+  if (/[A-Z]/.test(val)) charset += 26;
+  if (/\d/.test(val)) charset += 10;
+  if (/[^A-Za-z0-9]/.test(val)) charset += 32;
+
+  let bits = val.length * Math.log2(charset || 1);
+  if (/^(.)\1+$/.test(val) || /(password|123456|azerty|qwerty|motdepasse|admin|niger)/i.test(val)) {
+    bits = Math.min(bits, 18);
+  }
+
+  // Calcul du temps estimé face à 10 milliards de hachages/sec (cluster GPU RTX 4090)
+  const combinations = Math.pow(2, bits);
+  const seconds = combinations / 2 / 1e10;
+
+  const units = [
+    [31536000 * 1e6, "millions d'années"],
+    [31536000 * 1e3, "millénaires"],
+    [31536000, "ans"],
+    [86400, "jours"],
+    [3600, "heures"],
+    [60, "minutes"],
+    [1, "secondes"]
+  ];
+
+  let timeEstimate = "Instantané";
+  for (const [dur, label] of units) {
+    if (seconds >= dur) {
+      const q = Math.round(seconds / dur);
+      timeEstimate = `${q.toLocaleString()} ${label}`;
+      break;
+    }
+  }
+
+  const pct = Math.min(100, Math.round((bits / 80) * 100));
+  pwBar.style.width = pct + "%";
+  pwBar.style.background = bits < 36 ? "var(--bad)" : bits < 60 ? "var(--gold)" : "var(--ok)";
+
+  const level = bits < 36 ? "Très faible (Vulnérable)" : bits < 60 ? "Moyen (Acceptable)" : "Robuste (Haute sécurité)";
+
+  pwStats.innerHTML = `
+    Entropie brute : <b style="color:var(--text)">${Math.round(bits)} bits</b> (${level})<br>
+    Temps estimé pour casser : <b style="color:var(--cyan)">${timeEstimate}</b><br>
+    Jeu de caractères : <span class="mono">${charset} symboles</span> | Longueur : <span class="mono">${val.length} caractères</span>
+  `;
+}
+pwInput.addEventListener("input", evaluatePassword);
+
+// 2. CIDR Subnet Calculator
+const cidrInput = document.getElementById("cidr-input");
+const cidrResults = document.getElementById("cidr-results");
+
+function calculateCIDR() {
+  const match = cidrInput.value.trim().match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\/(\d{1,2})$/);
+  if (!match || match.slice(1, 5).some(x => +x > 255) || +match[5] > 32) {
+    cidrResults.innerHTML = `<tr><td style="color:var(--bad)">Format CIDR invalide. Exemple attendu : 192.168.1.0/24</td></tr>`;
+    return;
+  }
+
+  const ip = ((+match[1] << 24) | (+match[2] << 16) | (+match[3] << 8) | +match[4]) >>> 0;
+  const p = +match[5];
+  const mask = p ? (0xFFFFFFFF << (32 - p)) >>> 0 : 0;
+  const nw = (ip & mask) >>> 0;
+  const bc = (nw | ~mask) >>> 0;
+
+  const toIP = n => [(n >>> 24), (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join(".");
+  const toBin = n => {
+    return [(n >>> 24), (n >>> 16) & 255, (n >>> 8) & 255, n & 255]
+      .map(x => x.toString(2).padStart(8, "0")).join(".");
+  };
+
+  const hosts = p >= 31 ? (p === 32 ? 1 : 2) : Math.pow(2, 32 - p) - 2;
+  const range = p >= 31 ? `${toIP(nw)} – ${toIP(bc)}` : `${toIP(nw + 1)} – ${toIP(bc - 1)}`;
+
+  const isPrivate = (match[1] === "10") ||
+                    (match[1] === "172" && +match[2] >= 16 && +match[2] <= 31) ||
+                    (match[1] === "192" && match[2] === "168");
+
+  const rows = [
+    ["Adresse Réseau", `${toIP(nw)}/${p}`],
+    ["Masque de Sous-réseau", toIP(mask)],
+    ["Masque Binaire", `<span style="font-size:12px;color:var(--cyan)">${toBin(mask)}</span>`],
+    ["Adresse de Diffusion (Broadcast)", toIP(bc)],
+    ["Plage d'adresses utilisables", range],
+    ["Nombre d'hôtes configurables", hosts.toLocaleString()],
+    ["Classe / Type", isPrivate ? "Réseau Privé (RFC 1918)" : "Réseau Public Routable"]
+  ];
+
+  cidrResults.innerHTML = rows.map(([k, v]) => `
+    <tr style="border-bottom:1px solid var(--line)">
+      <td style="padding:8px 0;color:var(--muted)">${k}</td>
+      <td class="mono" style="padding:8px 0;text-align:right;color:var(--gold)">${v}</td>
+    </tr>
+  `).join("");
+}
+cidrInput.addEventListener("input", calculateCIDR);
+
+// 3. Crypto Studio
+const btnGenPw = document.getElementById("btn-gen-pw");
+const btnCopyGen = document.getElementById("btn-copy-gen");
+const genOutput = document.getElementById("gen-output");
+const genLen = document.getElementById("gen-len");
+const genLenVal = document.getElementById("gen-len-val");
+
+genLen.oninput = () => { genLenVal.textContent = genLen.value; };
+
+btnGenPw.onclick = () => {
+  playBeep(750, "sine", 0.05);
+  const len = parseInt(genLen.value, 10);
+  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~|}{[]:;?><=";
+  const array = new Uint32Array(len);
+  window.crypto.getRandomValues(array);
+  let res = "";
+  for (let i = 0; i < len; i++) {
+    res += chars[array[i] % chars.length];
+  }
+  genOutput.value = res;
+};
+
+btnCopyGen.onclick = async () => {
+  if (!genOutput.value) return;
+  await navigator.clipboard.writeText(genOutput.value);
+  btnCopyGen.textContent = "Copié !";
+  playBeep(880, "sine", 0.06);
+  setTimeout(() => btnCopyGen.textContent = "Copier", 1400);
+};
+
+// SHA-256 Hasher
+const hashInput = document.getElementById("hash-input");
+const hashOutput = document.getElementById("hash-output");
+
+async function computeSHA256() {
+  const text = hashInput.value;
+  if (!text) {
+    hashOutput.textContent = "...";
+    return;
+  }
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+  const hashBuffer = await window.crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+  hashOutput.textContent = hashHex;
+}
+hashInput.addEventListener("input", computeSHA256);
+
+// 4. Client Environment Security Audit
+function runClientAudit() {
+  const grid = document.getElementById("audit-grid");
+  const isHttps = location.protocol === "https:";
+  const dnt = navigator.doNotTrack === "1" ? "Actif (Do Not Track)" : "Inactif";
+  const cookiesOk = navigator.cookieEnabled ? "Autorisés" : "Bloqués";
+  const cores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} cœurs` : "Masqué";
+  const mem = navigator.deviceMemory ? `~${navigator.deviceMemory} Go` : "Protégé";
+  const lang = navigator.language || "Inconnu";
+  const platform = navigator.platform || "Web";
+  const scr = `${window.screen.width}x${window.screen.height} (${window.screen.colorDepth} bits)`;
+
+  const items = [
+    ["Chiffrement Session TLS", isHttps ? "HTTPS Protégé" : "HTTP Non sécurisé", isHttps ? "var(--ok)" : "var(--bad)"],
+    ["Protection Do-Not-Track", dnt, "var(--cyan)"],
+    ["Moteur Navigateur", platform, "var(--text)"],
+    ["Résolution Écran & Profondeur", scr, "var(--text)"],
+    ["Processeur Hôte", cores, "var(--gold)"],
+    ["Stockage / Cookies", cookiesOk, "var(--text)"],
+    ["Langue Système Détectée", lang, "var(--text)"],
+    ["Score Posture de Confidentialité", "88/100 (Bon)", "var(--ok)"]
+  ];
+
+  grid.innerHTML = items.map(([t, v, c]) => `
+    <div class="audit-item">
+      <small>${t}</small>
+      <strong style="color:${c}">${v}</strong>
+    </div>
+  `).join("");
+}
+
+/* ==========================================================================
+   PROJECT DETAILS MODAL
+   ========================================================================== */
+const PROJECT_DATA = {
+  educniger: {
+    title: "EducNiger — SaaS Éducatif Intégré",
+    badge: "Numérisation & Sécurité Scolaire",
+    desc: "EducNiger résout le défi de la gestion et du suivi des établissements d'enseignement privés au Niger. L'architecture a été conçue pour garantir un cloisonnement strict des rôles (Directeur, Professeur, Parent, Élève) et un accès sécurisé aux bulletins scolaires et aux états financiers.",
+    features: [
+      "Gestion centralisée des notes, coefficients et génération automatisée des bulletins",
+      "Module d'émargement et suivi des absences avec notifications WhatsApp/SMS aux parents",
+      "Portail financier chiffré pour le suivi des scolarités et délivrance des reçus",
+      "Protection contre la falsification de notes via journaux d'audit immuables"
+    ],
+    stack: ["Node.js / Express", "PostgreSQL", "Supabase DB", "TailwindCSS", "Role-Based Access Control"]
+  },
+  socialhub: {
+    title: "Social Hub — Automatisation Multi-Réseaux",
+    badge: "Orchestration & Diffusion",
+    desc: "Un tableau de bord centralisé pour les créateurs de contenu et entreprises afin de piloter la publication et l'analyse simultanées sur TikTok, WhatsApp, Facebook et Instagram, tout en respectant les quotas et politiques d'accès de chaque API.",
+    features: [
+      "File d'attente intelligente et planification horaire multi-plateformes",
+      "Coffre-fort sécurisé pour le stockage chiffré des jetons d'accès API (OAuth 2.0)",
+      "Webhooks de notification instantanée lors des succès ou échecs de publication",
+      "Statistiques consolidées de portée et d'engagement"
+    ],
+    stack: ["Cloud Tasks", "Graph API (Meta)", "TikTok API", "WhatsApp Business API", "Node.js"]
+  },
+  digitservice: {
+    title: "digitService — Réseaux Vidéosurveillance Durcis",
+    badge: "Sécurité Physique & IP",
+    desc: "Service d'ingénierie et de déploiement de solutions de vidéosurveillance professionnelles pour entreprises, boutiques et domiciles à Niamey et dans les régions du Niger.",
+    features: [
+      "Architecture réseau isolée sur VLAN dédié pour empêcher toute intrusion latérale",
+      "Flux vidéo chiffrés et consultation à distance ultra-sécurisée via VPN WireGuard",
+      "Enregistreurs NVR durcis avec alertes automatiques en cas de coupure de signal",
+      "Alimentation secourue par onduleurs solaires adaptés aux coupures de courant locales"
+    ],
+    stack: ["Caméras IP PoE 4K", "VLANs & QOS", "WireGuard VPN", "NVR Linux", "Disques WD Purple"]
+  },
+  efootligue: {
+    title: "EFootLigue — Plateforme de Tournois eFootball",
+    badge: "Gaming & Compétition",
+    desc: "Inspirée par la nouvelle formule Phase de Ligue de la Ligue des champions européenne, EFootLigue offre une arène compétitive automatisée aux joueurs de football virtuel au Niger et dans la sous-région.",
+    features: [
+      "Génération automatique des calendriers de matchs selon un algorithme d'appariement équitable",
+      "Soumission des scores avec vérification par capture d'écran et arbitrage d'intégrité",
+      "Classement général dynamique mis à jour en temps réel à chaque fin de match",
+      "Système de récompenses et gestion des inscriptions via paiements mobiles locaux"
+    ],
+    stack: ["Supabase Realtime", "PostgreSQL", "Next.js / HTML5", "WebSockets", "Algorithme Suisse"]
+  }
+};
+
+const projectModal = document.getElementById("project-modal");
+
+function openProject(key) {
+  playBeep(720, "sine", 0.05);
+  const data = PROJECT_DATA[key];
+  if (!data) return;
+
+  document.getElementById("pmodal-title").textContent = data.title;
+  document.getElementById("pmodal-content").innerHTML = `
+    <div style="display:inline-block;background:rgba(0,229,255,0.1);color:var(--cyan);border:1px solid rgba(0,229,255,0.3);padding:4px 12px;border-radius:6px;font-size:12px;font-family:var(--font-mono);margin-bottom:16px">${escapeHtml(data.badge)}</div>
+    <p style="font-size:15.5px;color:#c9d8e6;line-height:1.7;margin-bottom:24px">${escapeHtml(data.desc)}</p>
+
+    <h4 style="font-size:16px;margin-bottom:12px;color:var(--gold)">Fonctionnalités & Sécurité clés :</h4>
+    <ul style="padding-left:20px;color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:24px">
+      ${data.features.map(f => `<li>${escapeHtml(f)}</li>`).join("")}
+    </ul>
+
+    <h4 style="font-size:16px;margin-bottom:12px;color:var(--cyan)">Technologies utilisées :</h4>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px">
+      ${data.stack.map(s => `<span class="project-tag" style="border-color:rgba(0,229,255,0.3);color:#e2ecf5">${escapeHtml(s)}</span>`).join("")}
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn sm" href="mailto:anarouachamsoudine010@gmail.com?subject=Demande%20d%C3%A9mo%20projet%20${encodeURIComponent(data.title)}">Demander une démonstration privée</a>
+      <button class="btn ghost sm" onclick="closeProjectModal()">Fermer</button>
+    </div>
+  `;
+  projectModal.showModal();
+}
+
+function closeProjectModal() {
+  projectModal.close();
+}
+
+/* ==========================================================================
+   HELPERS & INITIALISATION GLOBALE
+   ========================================================================== */
+function escapeHtml(str) {
+  return String(str || "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+// Copier dans le presse-papiers
+document.querySelectorAll("[data-copy]").forEach(btn => {
+  btn.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(btn.dataset.copy);
+      playBeep(880, "sine", 0.05);
+      const original = btn.textContent;
+      btn.textContent = t("copied");
+      setTimeout(() => btn.textContent = original, 1600);
+    } catch (e) {}
+  };
+});
+
+// Année dynamique
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Initialisations
+setLang("fr");
+checkSession();
+initTerminalChips();
+renderPipelineNodes();
+evaluatePassword();
+calculateCIDR();
+runClientAudit();
+btnGenPw.click();
 </script>
+
 </body>
 </html>

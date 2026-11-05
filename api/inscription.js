@@ -120,5 +120,13 @@ module.exports = async (req, res) => {
     });
   }
 
-  return send(res, 200, { success: true });
+  return send(res, 200, {
+    success: true,
+    user: {
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      organization: lead.organization
+    }
+  });
 };
