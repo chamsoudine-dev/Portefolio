@@ -111,7 +111,7 @@ module.exports = async (req, res) => {
   try {
     switch (d.action) {
       /* ====================================================================
-         SECTION 1 : PORTFOLIO CHAMSOUDINE ANAROUA
+         SECTION 1 : PORTFOLIO ANATECH
          ==================================================================== */
       case "list": {
         const [leadsRaw, tasks] = await Promise.all([
@@ -175,7 +175,7 @@ module.exports = async (req, res) => {
           const rPing = await fetch(SARKIN_WANKA_URL, {
             method: "GET",
             signal: AbortSignal.timeout(7000),
-            headers: { "User-Agent": "Chamsoudine-Monitor/1.0" }
+            headers: { "User-Agent": "Anatech-Monitor/1.0" }
           });
           const latency = Date.now() - t0;
           return send(res, 200, {
