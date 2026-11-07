@@ -33,9 +33,20 @@
 }
 *,*:before,*:after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:82px;background:var(--bg)}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 var(--font-sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.7 var(--font-sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* Matrix & Background */
+/* Cyber Matrix & Mesh Grid Overlay */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,255,0.025) 1px,transparent 1px);
+  background-size:44px 44px;
+  pointer-events:none;
+  z-index:0;
+}
 #cyber-canvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;opacity:0.25}
 .ambient-glow{position:fixed;width:600px;height:600px;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:0;opacity:0.18}
 .glow-1{top:-100px;right:-100px;background:radial-gradient(circle,#dcb96e,#00e5ff)}
@@ -68,13 +79,13 @@ nav{height:72px;display:flex;align-items:center;justify-content:space-between;ga
 .nav-actions{display:flex;align-items:center;gap:10px}
 
 /* Buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--gold);background:var(--gold);color:#0a0c10;padding:10px 20px;border-radius:8px;font:600 13.5px var(--font-sans);cursor:pointer;transition:all .25s ease;box-shadow:0 4px 18px var(--gold-glow)}
-.btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(220,185,110,0.5);filter:brightness(1.08)}
-.btn.ghost{background:rgba(220,185,110,0.06);color:var(--gold);box-shadow:none}
-.btn.ghost:hover{background:rgba(220,185,110,0.15);box-shadow:0 0 16px var(--gold-glow)}
-.btn.cyan{background:rgba(0,229,255,0.1);color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 16px var(--cyan-glow)}
-.btn.cyan:hover{background:var(--cyan);color:#081018;box-shadow:0 0 24px var(--cyan)}
-.btn.sm{padding:6px 12px;font-size:12.5px;border-radius:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--gold);background:linear-gradient(135deg,var(--gold),#e8c87e);color:#06090d;padding:11px 22px;border-radius:10px;font:700 13px var(--font-sans);letter-spacing:0.02em;text-transform:uppercase;cursor:pointer;transition:all .25s cubic-bezier(0.16,1,0.3,1);box-shadow:0 4px 18px var(--gold-glow);position:relative}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(220,185,110,0.55),0 0 12px var(--gold);filter:brightness(1.06)}
+.btn.ghost{background:rgba(220,185,110,0.06);color:var(--gold);border-color:rgba(220,185,110,0.4);box-shadow:none}
+.btn.ghost:hover{background:rgba(220,185,110,0.16);border-color:var(--gold);box-shadow:0 0 20px var(--gold-glow);transform:translateY(-2px)}
+.btn.cyan{background:rgba(0,229,255,0.08);color:var(--cyan);border-color:rgba(0,229,255,0.45);box-shadow:0 0 16px var(--cyan-glow)}
+.btn.cyan:hover{background:var(--cyan);color:#06090d;border-color:var(--cyan);box-shadow:0 0 28px rgba(0,229,255,0.6);transform:translateY(-2px)}
+.btn.sm{padding:7px 14px;font-size:11.5px;border-radius:7px}
 .btn-sound{background:transparent;border:1px solid var(--line);color:var(--muted);width:36px;height:36px;padding:0;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .btn-sound:hover{color:var(--text);border-color:var(--gold)}
 
@@ -84,10 +95,17 @@ nav{height:72px;display:flex;align-items:center;justify-content:space-between;ga
 .mobile-nav.open{display:flex}
 .mobile-nav .nav-link{font-size:17px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.04)}
 
-/* Auth Pill */
-.auth-pill{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;border:1px solid rgba(0,245,155,0.4);background:rgba(0,245,155,0.08);color:var(--ok);font-size:12px;font-family:var(--font-mono)}
-.auth-pill .logout{cursor:pointer;color:var(--muted);margin-left:6px;transition:color .2s}
-.auth-pill .logout:hover{color:var(--bad)}
+/* Auth Components & Actions */
+.auth-actions-group{display:inline-flex;align-items:center;gap:8px}
+.auth-connected-box{display:inline-flex;align-items:center;gap:10px}
+.auth-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:1px solid rgba(0,245,155,0.45);background:rgba(0,245,155,0.08);color:var(--ok);font-size:12.5px;font-family:var(--font-mono)}
+.auth-pill b{color:#fff;font-weight:600}
+.btn-logout{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;border:1px solid rgba(255,77,109,0.4);background:rgba(255,77,109,0.1);color:#ff758f;font-size:12px;font-family:var(--font-mono);font-weight:600;cursor:pointer;transition:all .2s ease}
+.btn-logout:hover{background:rgba(255,77,109,0.25);border-color:#ff4d6d;color:#fff;box-shadow:0 0 14px rgba(255,77,109,0.4);transform:translateY(-1px)}
+.mobile-auth-card{background:rgba(13,19,27,0.95);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;display:flex;flex-direction:column;gap:10px}
+.mobile-auth-user{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--text);font-family:var(--font-mono)}
+.btn-logout-block{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,77,109,0.45);background:rgba(255,77,109,0.12);color:#ff758f;font-size:13px;font-family:var(--font-mono);font-weight:600;cursor:pointer;transition:all .2s ease}
+.btn-logout-block:hover{background:rgba(255,77,109,0.25);color:#fff;border-color:#ff4d6d}
 
 /* Sections */
 section{padding:96px 0;border-top:1px solid var(--line);position:relative}
@@ -102,7 +120,7 @@ section{padding:96px 0;border-top:1px solid var(--line);position:relative}
 .hero h1{font-size:clamp(42px,5.8vw,74px);line-height:1.06;margin-bottom:20px}
 .hero h1 .gradient-text{background:linear-gradient(135deg,#fff 30%,var(--gold) 75%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero .lead{font-size:18px;color:var(--muted);max-width:52ch;margin:0 0 32px;line-height:1.7}
-.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px;padding-top:32px;border-top:1px solid var(--line)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px;padding-top:32px;border-top:1px solid var(--line)}
 .hero-stat b{display:block;font-size:26px;font-family:var(--font-display);color:var(--gold)}
 .hero-stat span{font-size:12.5px;color:var(--muted)}
 
@@ -184,8 +202,8 @@ section{padding:96px 0;border-top:1px solid var(--line);position:relative}
 /* ==========================================================================
    EXPERTISES
    ========================================================================== */
-.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.skill-card{background:var(--panel-card);border:1px solid var(--line);border-radius:16px;padding:32px 26px;transition:all .3s}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.skill-card{background:var(--panel-card);border:1px solid var(--line);border-radius:16px;padding:32px 26px;transition:all .3s;display:flex;flex-direction:column;justify-content:space-between}
 .skill-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,0.5)}
 .skill-icon{width:52px;height:52px;border-radius:12px;background:rgba(220,185,110,0.12);border:1px solid rgba(220,185,110,0.3);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:24px;margin-bottom:20px}
 .skill-card h3{font-size:21px;margin-bottom:12px}
@@ -193,6 +211,27 @@ section{padding:96px 0;border-top:1px solid var(--line);position:relative}
 .skill-metrics{background:rgba(6,9,13,0.7);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:20px}
 .skill-metrics small{display:block;font-size:11.5px;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
 .skill-metrics strong{font-size:13.5px;color:var(--text)}
+
+/* OS Simulator Components */
+.sim-modules-nav{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin:16px 0 20px;scrollbar-width:thin}
+.sim-mod-chip{background:rgba(13,19,27,0.75);border:1px solid var(--line);border-radius:8px;padding:8px 14px;color:var(--muted);font-size:12.5px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:all .2s;font-family:var(--font-mono)}
+.sim-mod-chip:hover{color:var(--text);border-color:var(--gold)}
+.sim-mod-chip.active{background:rgba(220,185,110,0.12);color:var(--gold);border-color:var(--gold);box-shadow:0 0 12px var(--gold-glow)}
+.sim-screen{background:#05080d;border:1px solid rgba(0,229,255,0.45);border-radius:14px;padding:26px;box-shadow:0 20px 50px rgba(0,0,0,0.8),0 0 30px rgba(0,229,255,0.1);position:relative;margin-top:14px;overflow:hidden}
+.sim-screen::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.12) 0px,rgba(0,0,0,0.12) 1px,transparent 1px,transparent 2px);pointer-events:none;border-radius:inherits;opacity:0.6}
+.sim-screen-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:16px;font-family:var(--font-mono);font-size:12px;color:var(--cyan)}
+.sim-progress-bar{height:6px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;margin-bottom:20px}
+.sim-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--cyan));transition:width .3s ease}
+.sim-question-title{font-size:16.5px;color:var(--text);margin-bottom:18px;line-height:1.5}
+.sim-choices-grid{display:grid;gap:11px;margin-bottom:18px}
+.sim-choice-btn{padding:13px 16px;text-align:left;background:rgba(13,19,27,0.8);border:1px solid var(--line);border-radius:8px;color:var(--text);font-size:13.5px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}
+.sim-choice-btn:hover:not(:disabled){border-color:var(--cyan);background:rgba(0,229,255,0.08);transform:translateX(4px)}
+.sim-choice-btn.selected{border-color:var(--gold);background:rgba(220,185,110,0.15)}
+.sim-choice-btn.correct{border-color:var(--ok);background:rgba(0,245,155,0.15);color:#fff}
+.sim-choice-btn.wrong{border-color:var(--bad);background:rgba(255,77,109,0.15);color:#fff}
+.sim-feedback-box{border-radius:8px;padding:14px 16px;font-size:13.5px;line-height:1.6;margin-bottom:18px}
+.sim-feedback-box.ok{background:rgba(0,245,155,0.1);border:1px solid rgba(0,245,155,0.3);color:var(--ok)}
+.sim-feedback-box.bad{background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.3);color:#ff758f}
 
 /* Collaboration Banner */
 .collab-banner{background:linear-gradient(135deg,rgba(220,185,110,0.12),rgba(14,21,30,0.95));border:1px solid rgba(220,185,110,0.4);border-radius:18px;padding:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;box-shadow:0 24px 60px rgba(0,0,0,0.4)}
@@ -251,6 +290,14 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
   section{padding:68px 0}
   .collab-banner{padding:32px;flex-direction:column;align-items:flex-start}
 }
+@media(max-width:768px){
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .brand span{display:none}
+  .auth-actions-group .btn.ghost{display:none}
+  .auth-pill .auth-user-label{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
 </style>
 </head>
 <body>
@@ -301,6 +348,7 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
 
   <!-- Mobile Drawer -->
   <div class="mobile-nav" id="mobile-drawer">
+    <div id="mobile-auth-status"></div>
     <a class="nav-link" href="#pipeline" onclick="closeMobileNav()"><span class="mono">01.</span> <span data-t="n1">Défense Autonome</span></a>
     <a class="nav-link" href="#cyberlab" onclick="closeMobileNav()"><span class="mono">02.</span> <span data-t="n2">Cyber Lab</span></a>
     <a class="nav-link" href="#projets" onclick="closeMobileNav()"><span class="mono">03.</span> <span data-t="n3">Projets</span></a>
@@ -326,23 +374,28 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
         <p class="lead" data-t="lead">
           J'automatise ce qui se répète et je protège ce qui compte. Architecte de défenses numériques, systèmes durcis et plateformes intelligentes pensées pour les réalités africaines et internationales.
         </p>
-        <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
           <a class="btn" href="#contact" data-t="cta1">Collaborons ensemble</a>
           <a class="btn ghost" href="#pipeline" data-t="cta2">Voir l'automatisation en action</a>
+          <a class="btn cyan" href="#cyberlab" onclick="switchToOsSimTab()">⚡ Simulateurs OS (A à Z)</a>
         </div>
 
         <div class="hero-stats">
           <div class="hero-stat">
-            <b>&lt; 2s</b>
-            <span data-t="stat1">Temps de riposte automatique</span>
+            <b>&lt; 1.2s</b>
+            <span data-t="stat1">Riposte automatique SOC</span>
           </div>
           <div class="hero-stat">
             <b>4+</b>
-            <span data-t="stat2">Plateformes déployées</span>
+            <span data-t="stat2">Plateformes en production</span>
+          </div>
+          <div class="hero-stat">
+            <b>12</b>
+            <span>Simulateurs OS (A à Z)</span>
           </div>
           <div class="hero-stat">
             <b>100%</b>
-            <span data-t="stat3">Systèmes sécurisés</span>
+            <span data-t="stat3">Systèmes durcis zéro-faille</span>
           </div>
         </div>
       </div>
@@ -471,6 +524,7 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
         <button class="tab-btn" data-tab="tab-url">🔍 <span>Scanner de Site Web</span></button>
         <button class="tab-btn" data-tab="tab-cidr">🌐 <span data-t="t_cidr">Calculateur Réseau CIDR</span></button>
         <button class="tab-btn" data-tab="tab-audit">🛡️ <span data-t="t_audit">Audit de votre Session</span></button>
+        <button class="tab-btn" data-tab="tab-os">💻 <span data-t="t_os">Simulateur OS (A à Z)</span></button>
       </div>
 
       <div class="lk locked" id="lab-lk">
@@ -552,6 +606,44 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
           <p style="color:var(--muted);font-size:14px;margin-bottom:16px">Ce que votre navigateur expose aux serveurs distants en temps réel. Analyse de votre posture de confidentialité.</p>
 
           <div class="audit-grid" id="audit-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:20px"></div>
+        </div>
+
+        <!-- Tab 6: Simulateur Interactif d'Installation d'OS de A à Z -->
+        <div class="lab-card tab-content" id="tab-os" style="display:none">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px">
+            <div>
+              <h3 style="margin:0 0 4px">Simulateur d'Installation de Systèmes (A à Z)</h3>
+              <p style="color:var(--muted);font-size:13.5px;margin:0">Apprenez à partitionner, configurer l'UEFI/BIOS et installer Windows ou Linux sans risque pour vos disques physiques.</p>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn ghost sm" type="button" onclick="startLabExam()">⚡ Examen Transversal (10 Q)</button>
+              <a class="btn sm cyan" href="/simulator.html" target="_blank" style="text-decoration:none">Plein Écran Dédié ↗</a>
+            </div>
+          </div>
+
+          <!-- Modules Chips Horizontal Nav -->
+          <div class="sim-modules-nav" id="lab-sim-modules"></div>
+
+          <!-- Active Simulation Box -->
+          <div class="sim-screen" id="lab-sim-screen">
+            <div class="sim-screen-header">
+              <span id="lab-sim-status">[MODULE: BIOS / UEFI SETUP]</span>
+              <span class="mono" id="lab-sim-step-badge">ÉTAPE 1 / 3</span>
+            </div>
+            <div class="sim-progress-bar">
+              <div class="sim-progress-fill" id="lab-sim-bar" style="width:0%"></div>
+            </div>
+            <div class="sim-question-title" id="lab-sim-q">Chargement du simulateur...</div>
+            <div class="sim-choices-grid" id="lab-sim-choices"></div>
+            <div id="lab-sim-feedback"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;flex-wrap:wrap;gap:10px">
+              <span class="mono" style="font-size:12px;color:var(--muted)" id="lab-sim-score-info">Score actuel : 0</span>
+              <div style="display:flex;gap:10px">
+                <button class="btn ghost sm" type="button" id="lab-sim-reset" onclick="resetCurrentLabSim()">Réinitialiser ce module</button>
+                <button class="btn sm" type="button" id="lab-sim-next" onclick="submitLabStep()" disabled>Valider cette étape</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -756,6 +848,30 @@ dialog#project-modal::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(6
             <li>▹ Solutions adaptées aux réalités du Niger</li>
           </ul>
         </div>
+
+        <div class="skill-card">
+          <div>
+            <div class="skill-icon">💻</div>
+            <h3 data-t="s4">Déploiement OS & Ingénierie Système</h3>
+            <p data-t="s4p">Installation experte de A à Z : UEFI/BIOS, partitionnement NVMe/SSD, déploiement Windows 10/11 & Linux, et simulateurs pédagogiques interactifs.</p>
+
+            <div class="skill-metrics">
+              <small>Bénéfice Client :</small>
+              <strong>100% de déploiements maîtrisés · Zéro perte de données</strong>
+            </div>
+
+            <ul style="list-style:none;padding:0;margin:0 0 20px;font-size:13px;color:#c3d1de;line-height:1.8">
+              <li>▹ Firmware UEFI, Secure Boot & Clés Bootables (GPT)</li>
+              <li>▹ Windows 10/11 Pro & Linux (Debian, Ubuntu, Arch, Kali)</li>
+              <li>▹ Partitionnement avancé (ESP EFI, LVM, Swap, Dual-Boot)</li>
+              <li>▹ Dépannage bas-niveau : GRUB Rescue, BCD & pilotes</li>
+            </ul>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn ghost sm" type="button" onclick="switchToOsSimTab()">Tester les simulateurs ↓</button>
+            <a class="btn sm cyan" href="/simulator.html" target="_blank" style="text-decoration:none">Académie OS ↗</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -937,7 +1053,11 @@ const I18N = {
     c_h:"Ouvert aux opportunités et partenariats",c_p:"Partenariats de marques, missions d'audit ou de conseil en cybersécurité, collaborations techniques et projets technologiques innovants.",
     c_b:"Proposer une collaboration",k_h:"Contact professionnel direct",k_p:"Vous avez une proposition, un projet d'infrastructure ou une question technique ? Écrivez-moi directement.",
     copy:"Copier",copied:"Copié !",foot:"Plateforme sécurisée & automatisée",
-    gate_title:"Fonctionnalité réservée aux membres inscrits.",gate_btn:"Déverrouiller / Se connecter"
+    gate_title:"Fonctionnalité réservée aux membres inscrits.",gate_btn:"Déverrouiller / Se connecter",
+    nav_login:"Connexion",nav_register:"Inscription",nav_logout:"Déconnexion",nav_connected:"Connecté",
+    gate_btn_login:"Se connecter pour déverrouiller",gate_btn_register:"S'inscrire pour déverrouiller",
+    t_os:"Simulateurs OS (A à Z)",s4:"Déploiement OS & Ingénierie Système",
+    s4p:"Installation experte de A à Z : UEFI/BIOS, partitionnement NVMe/SSD, déploiement Windows 10/11 & Linux, et simulateurs pédagogiques interactifs."
   },
   en: {
     n1:"Autonomous Defense",n2:"Cyber Lab",n3:"Projects",n4:"Expertise",n5:"Contact",
@@ -967,7 +1087,11 @@ const I18N = {
     c_h:"Open for global partnerships",c_p:"Brand partnerships, corporate cybersecurity consulting, digital solutions and high-impact tech ventures.",
     c_b:"Initiate partnership",k_h:"Direct Contact",k_p:"Have a project, security audit, or technology inquiry? Reach out directly.",
     copy:"Copy",copied:"Copied!",foot:"Hardened & automated infrastructure",
-    gate_title:"Registered access required.",gate_btn:"Unlock / Sign In"
+    gate_title:"Registered access required.",gate_btn:"Unlock / Sign In",
+    nav_login:"Sign In",nav_register:"Sign Up",nav_logout:"Sign Out",nav_connected:"Connected",
+    gate_btn_login:"Sign in to unlock",gate_btn_register:"Sign up to unlock",
+    t_os:"OS Simulators (A to Z)",s4:"OS Deployment & Systems Engineering",
+    s4p:"End-to-end OS deployment: UEFI/BIOS, NVMe/SSD partitioning, Windows 10/11 & Linux rollouts, and interactive pedagogical simulators."
   }
 };
 
@@ -985,6 +1109,7 @@ function setLang(l) {
   initTerminalChips();
   evaluatePassword();
   calculateCIDR();
+  if (typeof updateAuthUI === "function") updateAuthUI();
 }
 
 document.getElementById("btn-lang").onclick = () => {
@@ -1059,21 +1184,51 @@ setInterval(drawMatrix, 50);
 /* Session & Auth */
 let currentUser = null;
 
+function hasUserAccount() {
+  return localStorage.getItem("ca_has_account") === "1";
+}
+
+function getDefaultAuthMode() {
+  return hasUserAccount() ? "login" : "register";
+}
+
 function checkSession() {
   try {
-    const reg = localStorage.getItem("ca_reg");
-    const rawUser = localStorage.getItem("ca_user");
-    if (reg === "1") {
-      currentUser = rawUser ? JSON.parse(rawUser) : { name: "Membre vérifié" };
+    // Migration de l'ancien format ca_reg vers ca_has_account (sessionStorage pour la session active)
+    if (localStorage.getItem("ca_reg") === "1") {
+      localStorage.setItem("ca_has_account", "1");
+      const oldUser = localStorage.getItem("ca_user");
+      if (oldUser) {
+        try {
+          const parsed = JSON.parse(oldUser);
+          if (parsed && parsed.email) localStorage.setItem("ca_last_email", parsed.email);
+          if (parsed && parsed.phone) localStorage.setItem("ca_last_phone", parsed.phone);
+          if (parsed && parsed.name) localStorage.setItem("ca_last_name", parsed.name);
+        } catch (e) {}
+      }
+      localStorage.removeItem("ca_reg");
+      localStorage.removeItem("ca_user");
     }
-  } catch (e) {}
+
+    const sessionRaw = sessionStorage.getItem("ca_session_user");
+    if (sessionRaw) {
+      currentUser = JSON.parse(sessionRaw);
+    } else {
+      currentUser = null;
+    }
+  } catch (e) {
+    currentUser = null;
+  }
   updateAuthUI();
 }
 
 function updateAuthUI() {
   const container = document.getElementById("auth-status-container");
+  const mobileContainer = document.getElementById("mobile-auth-status");
   const isAuth = !!currentUser;
+  const hasAcc = hasUserAccount();
 
+  // Verrouillage / déverrouillage des modules sécurisés
   document.querySelectorAll(".lk").forEach(el => {
     el.classList.toggle("locked", !isAuth);
     el.querySelectorAll("input, button, select, textarea").forEach(ctrl => {
@@ -1081,30 +1236,110 @@ function updateAuthUI() {
     });
   });
 
+  // Mise à jour des boutons dans les gates
+  document.querySelectorAll(".gate").forEach(g => {
+    const btn = g.querySelector(".gate-action-btn");
+    if (btn) {
+      const mode = getDefaultAuthMode();
+      btn.textContent = hasAcc ? t("gate_btn_login") : t("gate_btn_register");
+      btn.onclick = () => openAuthModal(mode);
+    }
+  });
+
   if (isAuth) {
     const displayName = currentUser.name ? currentUser.name.split(" ")[0] : "Membre";
-    container.innerHTML = `
-      <div class="auth-pill">
-        <span class="live-pulse"></span>
-        <span>Connecté: <b>${escapeHtml(displayName)}</b></span>
-        <span class="logout" onclick="handleLogout()" title="Se déconnecter">⎋</span>
-      </div>
-    `;
+    if (container) {
+      container.innerHTML = `
+        <div class="auth-connected-box">
+          <div class="auth-pill" title="${t("nav_connected")} : ${escapeHtml(currentUser.name || displayName)}">
+            <span class="live-pulse"></span>
+            <span class="auth-user-label">${t("nav_connected")}: <b>${escapeHtml(displayName)}</b></span>
+          </div>
+          <button class="btn-logout" type="button" onclick="handleLogout()" title="${t("nav_logout")}">
+            <span class="logout-icon">🚪</span>
+            <span>${t("nav_logout")}</span>
+          </button>
+        </div>
+      `;
+    }
+    if (mobileContainer) {
+      mobileContainer.innerHTML = `
+        <div class="mobile-auth-card">
+          <div class="mobile-auth-user">
+            <span class="live-pulse"></span>
+            <span>${t("nav_connected")} : <b>${escapeHtml(currentUser.name || displayName)}</b></span>
+          </div>
+          <button class="btn-logout-block" type="button" onclick="handleLogout()">
+            🚪 ${t("nav_logout")} (fermer la session)
+          </button>
+        </div>
+      `;
+    }
   } else {
-    container.innerHTML = `
-      <button class="btn sm" type="button" onclick="openAuthModal('login')">
-        <span class="live-pulse"></span> <span data-t="nav_access">${t("nav_access")}</span>
-      </button>
-    `;
+    if (container) {
+      if (hasAcc) {
+        container.innerHTML = `
+          <div class="auth-actions-group">
+            <button class="btn sm" type="button" onclick="openAuthModal('login')" title="${t("nav_login")}">
+              🔑 <span>${t("nav_login")}</span>
+            </button>
+            <button class="btn ghost sm" type="button" onclick="openAuthModal('register')" title="${t("nav_register")}">
+              <span>${t("nav_register")}</span>
+            </button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="auth-actions-group">
+            <button class="btn sm" type="button" onclick="openAuthModal('register')" title="${t("nav_register")}">
+              <span class="live-pulse"></span> <span>${t("nav_register")}</span>
+            </button>
+            <button class="btn ghost sm" type="button" onclick="openAuthModal('login')" title="${t("nav_login")}">
+              <span>${t("nav_login")}</span>
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    if (mobileContainer) {
+      if (hasAcc) {
+        mobileContainer.innerHTML = `
+          <div class="mobile-auth-card">
+            <div style="font-size:12px;color:var(--muted)">${currentLang === "en" ? "Existing account on this device:" : "Compte existant sur cet appareil :"}</div>
+            <button class="btn sm" style="width:100%" type="button" onclick="closeMobileNav();openAuthModal('login')">
+              🔑 ${currentLang === "en" ? "Sign In & Unlock" : "Se connecter & Déverrouiller"}
+            </button>
+            <button class="btn ghost sm" style="width:100%" type="button" onclick="closeMobileNav();openAuthModal('register')">
+              ${currentLang === "en" ? "New Registration" : "Créer un autre compte"}
+            </button>
+          </div>
+        `;
+      } else {
+        mobileContainer.innerHTML = `
+          <div class="mobile-auth-card">
+            <button class="btn sm" style="width:100%" type="button" onclick="closeMobileNav();openAuthModal('register')">
+              ✨ ${currentLang === "en" ? "Create Account (Sign Up)" : "Créer un compte (Inscription)"}
+            </button>
+            <button class="btn ghost sm" style="width:100%" type="button" onclick="closeMobileNav();openAuthModal('login')">
+              ${currentLang === "en" ? "Already registered? Sign In" : "Déjà inscrit ? Se connecter"}
+            </button>
+          </div>
+        `;
+      }
+    }
   }
 }
 
 function handleLogout() {
   playBeep(440, "triangle", 0.08);
-  if (confirm("Voulez-vous vous déconnecter de la session ?")) {
-    localStorage.removeItem("ca_reg");
-    localStorage.removeItem("ca_user");
+  const confirmMsg = currentLang === "en"
+    ? "Do you want to log out and lock the session tools?"
+    : "Voulez-vous vous déconnecter de votre session ?";
+  if (confirm(confirmMsg)) {
+    sessionStorage.removeItem("ca_session_user");
     currentUser = null;
+    closeMobileNav();
     updateAuthUI();
   }
 }
@@ -1113,10 +1348,12 @@ document.querySelectorAll(".lk").forEach(el => {
   if (!el.querySelector(".gate")) {
     const gate = document.createElement("div");
     gate.className = "gate";
+    const mode = getDefaultAuthMode();
+    const btnText = hasUserAccount() ? t("gate_btn_login") : t("gate_btn_register");
     gate.innerHTML = `
       <div class="gate-icon">🔒</div>
       <p data-t="gate_title">${t("gate_title")}</p>
-      <button class="btn sm" type="button" onclick="openAuthModal('login')">${t("gate_btn")}</button>
+      <button class="btn sm gate-action-btn" type="button" onclick="openAuthModal('${mode}')">${btnText}</button>
     `;
     el.appendChild(gate);
   }
@@ -1124,9 +1361,10 @@ document.querySelectorAll(".lk").forEach(el => {
 
 const authModal = document.getElementById("auth-modal");
 
-function openAuthModal(mode = "login") {
+function openAuthModal(mode) {
   playBeep(700, "sine", 0.05);
-  switchAuthMode(mode);
+  const targetMode = (mode === "login" || mode === "register") ? mode : getDefaultAuthMode();
+  switchAuthMode(targetMode);
   authModal.showModal();
 }
 
@@ -1136,7 +1374,7 @@ function closeAuthModal() {
 }
 
 document.querySelectorAll("[data-open-auth]").forEach(b => {
-  b.onclick = () => openAuthModal("login");
+  b.onclick = () => openAuthModal();
 });
 
 function switchAuthMode(mode) {
@@ -1145,7 +1383,19 @@ function switchAuthMode(mode) {
   document.getElementById("tab-btn-register").classList.toggle("active", !isLogin);
   document.getElementById("form-login").style.display = isLogin ? "block" : "none";
   document.getElementById("form-register").style.display = isLogin ? "none" : "block";
-  document.getElementById("modal-title").textContent = isLogin ? "Connexion directe" : "Nouvelle inscription";
+  document.getElementById("modal-title").textContent = isLogin
+    ? (currentLang === "en" ? "Sign In & Unlock Access" : "Connexion directe")
+    : (currentLang === "en" ? "New Registration" : "Nouvelle inscription");
+
+  if (isLogin) {
+    const emailField = document.getElementById("login-email");
+    const phoneField = document.getElementById("login-phone");
+    const savedEmail = localStorage.getItem("ca_last_email") || "";
+    const savedPhone = localStorage.getItem("ca_last_phone") || "";
+    if (emailField && !emailField.value && savedEmail) emailField.value = savedEmail;
+    if (phoneField && !phoneField.value && savedPhone) phoneField.value = savedPhone;
+  }
+
   clearMsgs();
 }
 
@@ -1184,8 +1434,13 @@ async function handleLogin(e) {
       msg.textContent = `Bienvenue, ${data.user.name} ! Accès déverrouillé.`;
 
       currentUser = data.user;
-      localStorage.setItem("ca_reg", "1");
-      localStorage.setItem("ca_user", JSON.stringify(data.user));
+      sessionStorage.setItem("ca_session_user", JSON.stringify(data.user));
+      localStorage.setItem("ca_has_account", "1");
+      localStorage.setItem("ca_last_email", data.user.email || email);
+      if (data.user.phone || phone) localStorage.setItem("ca_last_phone", data.user.phone || phone);
+      if (data.user.name) localStorage.setItem("ca_last_name", data.user.name);
+      localStorage.removeItem("ca_reg");
+      localStorage.removeItem("ca_user");
 
       setTimeout(() => {
         updateAuthUI();
@@ -1261,8 +1516,13 @@ async function handleRegister(e) {
 
       const savedUser = data.user || { name, email, phone, organization: org };
       currentUser = savedUser;
-      localStorage.setItem("ca_reg", "1");
-      localStorage.setItem("ca_user", JSON.stringify(savedUser));
+      sessionStorage.setItem("ca_session_user", JSON.stringify(savedUser));
+      localStorage.setItem("ca_has_account", "1");
+      localStorage.setItem("ca_last_email", savedUser.email || email);
+      if (phone) localStorage.setItem("ca_last_phone", phone);
+      if (name) localStorage.setItem("ca_last_name", name);
+      localStorage.removeItem("ca_reg");
+      localStorage.removeItem("ca_user");
 
       setTimeout(() => {
         updateAuthUI();
@@ -1417,6 +1677,14 @@ async function execCommand(raw) {
       break;
     }
 
+    case "sim":
+    case "os":
+      termSay("[OS SIMULATOR ACADEMY PRO - 12 MODULES ACTIVÉS]", "c-cyan");
+      termSay("• Déploiement : BIOS/UEFI, GPT/MBR, Windows 10/11, Ubuntu, Arch CLI, Kali VM.");
+      termSay("• Lancement du simulateur dans le Cyber Lab...");
+      if (typeof switchToOsSimTab === "function") switchToOsSimTab();
+      break;
+
     case "contact":
       termSay("Coordonnées de Chamsoudine Anaroua :", "c-gold");
       termSay("• E-mail   : anarouachamsoudine010@gmail.com", "c-cyan");
@@ -1440,7 +1708,7 @@ termIn.addEventListener("keydown", e => {
 });
 
 function initTerminalChips() {
-  const chips = ["help", "whoami", "stack", "projects", "scan", "firewall", "soc", "contact", "clear"];
+  const chips = ["help", "whoami", "stack", "projects", "sim", "scan", "firewall", "soc", "contact", "clear"];
   termChips.innerHTML = chips.map(c => `<button class="term-chip" type="button" data-cmd="${c}">${c}</button>`).join("");
   termChips.querySelectorAll(".term-chip").forEach(b => {
     b.onclick = () => execCommand(b.dataset.cmd);
@@ -1891,6 +2159,230 @@ document.querySelectorAll("[data-copy]").forEach(btn => {
   };
 });
 
+/* ==========================================================================
+   OS SIMULATOR ACADEMY (CYBER LAB)
+   ========================================================================== */
+const LAB_OS_MODULES = [
+  { id: "bios", title: "BIOS / UEFI Setup", level: "Débutant", icon: "⚙️", desc: "Firmware, Secure Boot, UEFI/Legacy et priorité de démarrage." },
+  { id: "usb", title: "Clé USB Bootable", level: "Débutant", icon: "💾", desc: "ISO, schéma GPT/MBR, Rufus, Ventoy et validation SHA256." },
+  { id: "boot", title: "Menu Boot & Touches", level: "Débutant", icon: "🚀", desc: "Touches rapides (F12, F11, Esc) et sélection du média." },
+  { id: "partition", title: "Partitionnement", level: "Intermédiaire", icon: "🧩", desc: "GPT vs MBR, partition EFI ESP, Swap, Ext4 et Dual-Boot." },
+  { id: "win10", title: "Windows 10", level: "Intermédiaire", icon: "🪟", desc: "Installation personnalisée, gestion des partitions et disques." },
+  { id: "win11", title: "Windows 11", level: "Intermédiaire", icon: "🪟", desc: "TPM 2.0, Secure Boot, compte local et durcissement." },
+  { id: "ubuntu", title: "Ubuntu Linux", level: "Intermédiaire", icon: "🐧", desc: "Session Live sans risque, racine / et paramétrage utilisateur." },
+  { id: "linux", title: "Distributions Linux", level: "Intermédiaire", icon: "🐧", desc: "Debian, Mint, Fedora, Zorin et paquets .deb/.rpm." },
+  { id: "arch", title: "Arch Linux CLI", level: "Avancé", icon: "⌨️", desc: "Installation terminal : pacstrap, arch-chroot et GRUB." },
+  { id: "kali", title: "Kali Linux Sécurité", level: "Avancé", icon: "🛡️", desc: "Déploiement en VM isolée, audit autorisé et déontologie." },
+  { id: "drivers", title: "Pilotes Constructeur", level: "Intermédiaire", icon: "🔧", desc: "Sources officielles, GPU, chipset et gestionnaire matériel." },
+  { id: "troubleshoot", title: "Dépannage & Boot", level: "Avancé", icon: "🧰", desc: "No bootable device, GRUB rescue et réparation BCD." }
+];
+
+const LAB_SCENARIOS = {
+  bios: [
+    ["Quel programme initialise les composants matériels du PC avant le chargement du système d'exploitation ?", "Le BIOS / UEFI", "Le navigateur Web", "L'antivirus Windows", 0, "Le BIOS/UEFI est le micrologiciel (firmware) qui effectue le POST et amorce le démarrage."],
+    ["Sur un ordinateur moderne équipé d'un SSD NVMe et d'un disque GPT, quel mode de démarrage devez-vous privilégier ?", "Legacy (BIOS traditionnel)", "UEFI (Unified Extensible Firmware Interface)", "Mode Sans Échec", 1, "UEFI est le standard moderne indispensable pour exploiter pleinement les disques GPT et Secure Boot."],
+    ["Pour faire démarrer votre ordinateur sur une clé USB d'installation, que devez-vous configurer dans l'onglet 'Boot' du BIOS ?", "Désactiver le processeur", "Placer le périphérique USB en première priorité (1st Boot Device)", "Formater immédiatement la carte mère", 1, "En plaçant la clé USB en tête de liste, le firmware lit le chargeur d'amorçage de la clé avant le disque interne."]
+  ],
+  usb: [
+    ["Quel type de fichier fournit l'image exacte d'un système d'exploitation pour préparer une clé d'installation ?", "Un fichier exécutable .exe", "Une image disque au format .ISO", "Un document texte .txt", 1, "L'image ISO contient l'arborescence complète, les fichiers d'installation et le secteur d'amorçage."],
+    ["Pour installer un système d'exploitation moderne en mode UEFI, quel schéma de partition devez-vous choisir dans Rufus ?", "GPT (GUID Partition Table)", "MBR (Master Boot Record)", "FAT16", 0, "Le schéma GPT est requis pour les installations modernes avec firmware UEFI."],
+    ["Quelle précaution essentielle devez-vous prendre avant de lancer l'écriture sur la clé USB ?", "Vérifier la lettre du lecteur USB ciblé (car toutes ses données seront effacées)", "Débrancher l'écran", "Augmenter le volume du PC", 0, "L'écriture d'une image ISO formate la clé et efface irréversiblement les données qui s'y trouvaient."]
+  ],
+  boot: [
+    ["Quelle touche permet généralement d'accéder au 'Boot Menu' temporaire sans modifier les réglages permanents du BIOS ?", "F12 ou F11 (selon le fabricant)", "Barre d'espace", "Verr. Maj", 0, "Les touches F12, F11, F8 ou Échap ouvrent le menu de sélection rapide du périphérique d'amorçage."],
+    ["Votre clé USB bootable n'apparaît pas dans la liste de démarrage. Quelle est la première vérification technique ?", "Tester un autre port USB (de préférence sur la carte mère) et vérifier Fast Boot", "Acheter un nouvel ordinateur", "Supprimer Windows", 0, "Les ports USB frontaux ou le mode 'Fast Startup' peuvent parfois empêcher la détection immédiate au démarrage."],
+    ["Le message d'erreur 'No bootable device found' signifie :", "La connexion Wi-Fi est coupée", "Le firmware n'a trouvé aucun support contenant un secteur de démarrage valide", "La batterie est pleine", 1, "Cette erreur indique que ni le disque ni la clé ne présentent de chargeur de démarrage reconnu par le firmware."]
+  ],
+  partition: [
+    ["Quelle partition spéciale est indispensable sur un disque GPT pour stocker les fichiers de démarrage UEFI ?", "La partition EFI (ESP) formatée en FAT32", "Le disque C: en NTFS", "La mémoire cache du navigateur", 0, "La partition EFI (ESP) contient les chargeurs d'amorçage (.efi) que le micrologiciel UEFI exécute."],
+    ["Pour installer Ubuntu à côté de Windows (Dual-Boot), quelle est la règle de sécurité absolue ?", "Réduire la partition Windows depuis la gestion des disques et préserver la partition EFI", "Effacer tout le disque sans regarder", "Changer le mot de passe BIOS", 0, "Le partitionnement réfléchi préserve la partition EFI et les données existantes de Windows."],
+    ["Quel format de système de fichiers est le standard moderne sous Linux pour la partition racine (/) ?", "EXT4 (ou Btrfs)", "FAT12", "NTFS uniquement", 0, "EXT4 offre une excellente tolérance aux pannes, la gestion native des permissions POSIX et une grande robustesse."]
+  ],
+  win10: [
+    ["Lors de l'installation de Windows 10, quel choix permet de gérer manuellement vos disques et partitions ?", "Installation personnalisée : installer uniquement Windows (avancé)", "Mise à niveau rapide", "Quitter", 0, "L'option personnalisée donne accès à l'outil de partitionnement pour choisir exactement le SSD ou la partition cible."],
+    ["Que se passe-t-il lorsque vous cliquez sur 'Supprimer' sur une partition lors de l'installation ?", "La partition et toutes ses données sont détruites pour devenir un 'Espace non alloué'", "Les fichiers sont sauvegardés sur le cloud", "Rien ne se passe", 0, "La suppression détruit la table de partition locale : il faut toujours avoir sauvegardé au préalable."],
+    ["Après avoir sélectionné l'espace non alloué, que crée automatiquement l'installateur Windows ?", "La partition système EFI, la partition réservée MSR et la partition principale NTFS", "Un serveur Web", "Un jeu vidéo", 0, "Windows génère automatiquement les partitions auxiliaires nécessaires au bon démarrage du système."]
+  ],
+  win11: [
+    ["Quel module cryptographique matériel est formellement requis pour l'installation certifiée de Windows 11 ?", "La puce TPM 2.0 (Trusted Platform Module)", "Un lecteur de disquettes", "Une double carte graphique", 0, "Windows 11 exige TPM 2.0 pour renforcer le stockage sécurisé des clés de chiffrement BitLocker et l'intégrité du démarrage."],
+    ["Lors de la configuration initiale (OOBE), comment créer un compte local sans obliger de compte Microsoft sur Windows 11 Pro ?", "Choisir 'Configurer pour le travail ou l'école' puis 'Options de connexion : Domaine joint'", "Éteindre l'ordinateur d'un coup", "Supprimer le disque", 0, "Cette méthode native permet de créer un compte administrateur local totalement autonome et privé."]
+  ],
+  ubuntu: [
+    ["Quel avantage majeur propose l'option 'Essayer Ubuntu' lors du démarrage de la clé ?", "Tester tout le système et son matériel directement en mémoire RAM sans toucher au disque dur", "Accélérer Internet par 10", "Désactiver les virus", 0, "La session Live permet de vérifier le Wi-Fi, le son et le clavier avant de valider l'installation."],
+    ["Quel point de montage représente la base obligatoire de l'arborescence Linux ?", "Le point de montage racine '/'", "C:\\Windows", "D:\\Data", 0, "Sous Linux, tout découle de la racine unique '/' (disques, dossiers, périphériques)."]
+  ],
+  linux: [
+    ["Quelle distribution Linux privilégier pour un serveur de production recherchant une stabilité rocheuse et des paquets éprouvés ?", "Debian GNU/Linux", "Une version beta inconnue", "Windows 98", 0, "Debian est la référence mondiale pour les serveurs grâce à sa politique de tests rigoureuse et sa stabilité."],
+    ["Quel gestionnaire de paquets utilise la famille Red Hat / Fedora / AlmaLinux ?", "RPM / DNF", "APT / .deb", "Arch pacman", 0, "L'écosystème Red Hat/Fedora utilise le format de paquets RPM géré par l'outil DNF."]
+  ],
+  arch: [
+    ["Sous Arch Linux, quelle commande essentielle installe les paquets de base dans le point de montage /mnt ?", "pacstrap -K /mnt base linux linux-firmware", "install-all", "setup.exe", 0, "pacstrap déploie l'arborescence minimale et le noyau Linux sur le disque préparé."],
+    ["Quelle commande permet de basculer dans le nouveau système installé pour configurer le fuseau horaire et les utilisateurs ?", "arch-chroot /mnt", "cd /mnt", "exit", 0, "arch-chroot change la racine du système d'exploitation courant pour exécuter les commandes à l'intérieur du nouvel OS."]
+  ],
+  kali: [
+    ["Pour quelle finalité la distribution Kali Linux est-elle conçue ?", "Pour les audits de sécurité défensifs/offensifs autorisés et la formation professionnelle en cybersécurité", "Pour pirater illégalement les voisins", "Pour remplacer une console de jeux", 0, "Kali est une boîte à outils professionnelle d'audit dont l'usage est strictement encadré par le droit."],
+    ["Pourquoi est-il fortement recommandé d'utiliser Kali Linux dans une machine virtuelle (VirtualBox / VMware) ?", "Pour isoler l'environnement de travail et ne pas compromettre la machine hôte", "Parce que c'est obligatoire par la loi", "Pour avoir plus de RAM", 0, "Une machine virtuelle garantit un cloisonnement étanche lors des exercices d'analyse de vulnérabilités."]
+  ],
+  drivers: [
+    ["Où devez-vous prioritairement télécharger les pilotes (drivers) de votre ordinateur ?", "Sur le site officiel du fabricant de l'ordinateur ou du composant (Dell, HP, Lenovo, NVIDIA...)", "Sur un forum anonyme", "Dans un email d'inconnu", 0, "Les sites constructeurs garantissent des pilotes signés numériquement, stables et exempts de logiciels malveillants."],
+    ["Sous Windows, quel outil permet de vérifier que tous les pilotes sont correctement installés et sans conflit ?", "Le Gestionnaire de périphériques (devmgmt.msc)", "Le Bloc-notes", "La Corbeille", 0, "Le Gestionnaire de périphériques signale d'un triangle jaune tout composant manquant ou défectueux."]
+  ],
+  troubleshoot: [
+    ["Après une mise à jour ou un partitionnement, votre PC affiche l'invite 'grub rescue>'. Que s'est-il passé ?", "GRUB ne retrouve plus sa partition de modules ou son fichier de configuration grub.cfg", "La souris est débranchée", "Le disque est plein à 100%", 0, "Une modification de l'identifiant UUID ou des numéros de partition empêche GRUB de charger ses modules de démarrage."],
+    ["Sous Windows, quelle commande dans l'invite de dépannage permet de réécrire le secteur de démarrage principal ?", "bootrec /fixmbr et bootrec /rebuildbcd", "delete windows", "format C:", 0, "L'utilitaire bootrec répare le Master Boot Record et reconstruit le magasin de données de configuration de démarrage (BCD)."]
+  ]
+};
+
+let currentLabSimId = "bios";
+let currentLabSimStep = 0;
+let currentLabSimScore = 0;
+let currentLabSimSelected = null;
+
+function initLabOsSimulator() {
+  const nav = document.getElementById("lab-sim-modules");
+  if (!nav) return;
+  nav.innerHTML = LAB_OS_MODULES.map(m => `
+    <button class="sim-mod-chip ${m.id === currentLabSimId ? 'active' : ''}" type="button" onclick="selectLabSimModule('${m.id}')">
+      <span>${m.icon}</span> <span>${m.title}</span>
+    </button>
+  `).join("");
+  renderCurrentLabSimStep();
+}
+
+function selectLabSimModule(id) {
+  playBeep(700, "sine", 0.04);
+  currentLabSimId = id;
+  currentLabSimStep = 0;
+  currentLabSimScore = 0;
+  currentLabSimSelected = null;
+  document.querySelectorAll(".sim-mod-chip").forEach(c => {
+    const targetMod = LAB_OS_MODULES.find(m => m.id === id);
+    c.classList.toggle("active", targetMod && c.textContent.includes(targetMod.title));
+  });
+  renderCurrentLabSimStep();
+}
+
+function resetCurrentLabSim() {
+  selectLabSimModule(currentLabSimId);
+}
+
+function renderCurrentLabSimStep() {
+  const mod = LAB_OS_MODULES.find(m => m.id === currentLabSimId) || LAB_OS_MODULES[0];
+  const qs = LAB_SCENARIOS[currentLabSimId] || [];
+  const statusEl = document.getElementById("lab-sim-status");
+  const stepBadge = document.getElementById("lab-sim-step-badge");
+  const bar = document.getElementById("lab-sim-bar");
+  const qTitle = document.getElementById("lab-sim-q");
+  const choicesGrid = document.getElementById("lab-sim-choices");
+  const fb = document.getElementById("lab-sim-feedback");
+  const nextBtn = document.getElementById("lab-sim-next");
+  const scoreInfo = document.getElementById("lab-sim-score-info");
+
+  if (!statusEl || !qTitle) return;
+
+  if (currentLabSimStep >= qs.length) {
+    const pct = Math.round((currentLabSimScore / qs.length) * 100);
+    statusEl.textContent = `[MODULE TERMINÉ : ${mod.title.toUpperCase()}]`;
+    stepBadge.textContent = "100% VALIDÉ";
+    bar.style.width = "100%";
+    qTitle.innerHTML = `<span style="color:var(--ok)">🏆 Félicitations ! Module complété avec un score de ${pct}%.</span>`;
+    choicesGrid.innerHTML = `
+      <div style="background:rgba(0,245,155,0.08);border:1px solid rgba(0,245,155,0.3);border-radius:10px;padding:20px;text-align:center">
+        <h4 style="margin:0 0 8px;color:#fff">${pct >= 66 ? "Compétence Système Validée" : "Module terminé"}</h4>
+        <p style="color:var(--muted);font-size:13.5px;margin:0 0 16px">Vous avez répondu correctement à ${currentLabSimScore} question(s) sur ${qs.length}.</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="btn sm" type="button" onclick="resetCurrentLabSim()">Recommencer ce module</button>
+          <a class="btn sm cyan" href="/simulator.html" target="_blank" style="text-decoration:none">Ouvrir l'Académie Complète (12 Modules) ↗</a>
+        </div>
+      </div>
+    `;
+    fb.innerHTML = "";
+    nextBtn.disabled = true;
+    nextBtn.textContent = "Module terminé";
+    scoreInfo.textContent = `Score final : ${currentLabSimScore} / ${qs.length} (${pct}%)`;
+    return;
+  }
+
+  const q = qs[currentLabSimStep];
+  const pct = Math.round((currentLabSimStep / qs.length) * 100);
+  statusEl.textContent = `[MODULE: ${mod.title.toUpperCase()}]`;
+  stepBadge.textContent = `ÉTAPE ${currentLabSimStep + 1} / ${qs.length}`;
+  bar.style.width = pct + "%";
+  qTitle.textContent = q[0];
+
+  choicesGrid.innerHTML = q.slice(1, 4).map((text, idx) => `
+    <button class="sim-choice-btn" type="button" id="lab-choice-${idx}" onclick="selectLabChoice(${idx})">
+      <span class="mono" style="color:var(--gold);font-weight:700">${String.fromCharCode(65 + idx)}.</span>
+      <span>${escapeHtml(text)}</span>
+    </button>
+  `).join("");
+
+  fb.innerHTML = "";
+  nextBtn.disabled = true;
+  nextBtn.textContent = "Valider cette étape";
+  nextBtn.onclick = submitLabStep;
+  scoreInfo.textContent = `Score actuel : ${currentLabSimScore} / ${currentLabSimStep} · Niveau : ${mod.level}`;
+}
+
+function selectLabChoice(idx) {
+  playBeep(600, "triangle", 0.04);
+  currentLabSimSelected = idx;
+  document.querySelectorAll("#lab-sim-choices .sim-choice-btn").forEach((btn, i) => {
+    btn.classList.toggle("selected", i === idx);
+  });
+  const nextBtn = document.getElementById("lab-sim-next");
+  if (nextBtn) nextBtn.disabled = false;
+}
+
+function submitLabStep() {
+  const qs = LAB_SCENARIOS[currentLabSimId];
+  const q = qs[currentLabSimStep];
+  const isCorrect = currentLabSimSelected === q[4];
+
+  if (isCorrect) {
+    currentLabSimScore++;
+    playBeep(880, "sine", 0.12);
+  } else {
+    playBeep(250, "sawtooth", 0.16);
+  }
+
+  document.querySelectorAll("#lab-sim-choices .sim-choice-btn").forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q[4]) btn.classList.add("correct");
+    else if (i === currentLabSimSelected && !isCorrect) btn.classList.add("wrong");
+  });
+
+  const fb = document.getElementById("lab-sim-feedback");
+  fb.innerHTML = `
+    <div class="sim-feedback-box ${isCorrect ? 'ok' : 'bad'}">
+      <b>${isCorrect ? '✓ Excellente réponse !' : '✗ Analyse technique :'}</b><br>
+      ${q[5]}
+    </div>
+  `;
+
+  const nextBtn = document.getElementById("lab-sim-next");
+  nextBtn.disabled = false;
+  nextBtn.textContent = (currentLabSimStep === qs.length - 1) ? "Voir le résultat du module →" : "Étape suivante →";
+  nextBtn.onclick = () => {
+    currentLabSimStep++;
+    currentLabSimSelected = null;
+    renderCurrentLabSimStep();
+  };
+}
+
+function startLabExam() {
+  window.open("/simulator.html", "_blank");
+}
+
+function switchToOsSimTab() {
+  const osBtn = document.querySelector('.tab-btn[data-tab="tab-os"]');
+  if (osBtn) {
+    osBtn.click();
+    const labSec = document.getElementById("cyberlab");
+    if (labSec) labSec.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
 document.getElementById("year").textContent = new Date().getFullYear();
 
 // Init
@@ -1901,6 +2393,7 @@ evaluatePassword();
 calculateCIDR();
 runClientAudit();
 btnGenPw.click();
+initLabOsSimulator();
 </script>
 
 </body>

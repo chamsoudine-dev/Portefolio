@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OS Simulator Academy Pro | Chamsoudine Anaroua</title>
+<meta name="description" content="Simulateur interactif pour apprendre et maîtriser l'installation des systèmes d'exploitation (Windows, Linux, BIOS/UEFI, Partitionnement, Dépannage) de A à Z sans risque matériel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#05080c;
+  --panel:#0d131b;
+  --panel-card:#101824;
+  --panel-hover:#141f2e;
+  --line:rgba(255,255,255,0.08);
+  --line-strong:rgba(220,185,110,0.3);
+  --text:#f0f4f8;
+  --muted:#8ba2b8;
+  --gold:#dcb96e;
+  --gold-glow:rgba(220,185,110,0.3);
+  --cyan:#00e5ff;
+  --cyan-glow:rgba(0,229,255,0.25);
+  --ok:#00f59b;
+  --bad:#ff4d6d;
+  --font-sans:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --font-display:'Space Grotesk',system-ui,sans-serif;
+}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 var(--font-sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,255,0.025) 1px,transparent 1px);
+  background-size:44px 44px;
+  pointer-events:none;
+  z-index:0;
+}
+canvas#cyber-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.35}
+.ambient-glow{position:fixed;width:600px;height:600px;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:0;opacity:0.18}
+.glow-1{top:-150px;left:-100px;background:radial-gradient(circle,var(--gold),transparent 70%)}
+.glow-2{bottom:-150px;right:-100px;background:radial-gradient(circle,var(--cyan),transparent 70%)}
+.wrap{width:min(1240px,92vw);margin:auto;position:relative;z-index:1}
+.mono{font-family:var(--font-mono)}
+
+/* Header */
+header{position:sticky;top:0;z-index:11;background:rgba(6,9,13,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:0.04em}
+.brand-badge{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,rgba(220,185,110,0.2),rgba(0,229,255,0.2));border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:var(--font-mono);font-size:14px;box-shadow:0 0 16px var(--gold-glow)}
+.nav-actions{display:flex;align-items:center;gap:12px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--gold);background:var(--gold);color:#0a0c10;padding:10px 20px;border-radius:8px;font:600 13.5px var(--font-sans);cursor:pointer;transition:all .25s ease;text-decoration:none;box-shadow:0 4px 18px var(--gold-glow)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(220,185,110,0.5);filter:brightness(1.08)}
+.btn.ghost{background:rgba(220,185,110,0.06);color:var(--gold);box-shadow:none}
+.btn.ghost:hover{background:rgba(220,185,110,0.15);box-shadow:0 0 16px var(--gold-glow)}
+.btn.cyan{background:rgba(0,229,255,0.1);color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 16px var(--cyan-glow)}
+.btn.cyan:hover{background:var(--cyan);color:#081018;box-shadow:0 0 24px var(--cyan)}
+.btn.sm{padding:6px 14px;font-size:12.5px;border-radius:6px}
+.btn-sound{background:transparent;border:1px solid var(--line);color:var(--muted);width:36px;height:36px;padding:0;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.btn-sound:hover{color:var(--text);border-color:var(--gold)}
+
+/* Hero */
+.hero{padding:64px 0 44px;text-align:center}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;background:rgba(220,185,110,0.1);border:1px solid rgba(220,185,110,0.3);padding:6px 16px;border-radius:999px;font-size:12.5px;color:var(--gold);font-family:var(--font-mono);margin-bottom:20px}
+.live-pulse{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
+.hero h1{font-size:clamp(32px,5vw,56px);line-height:1.15;margin:0 0 18px;font-family:var(--font-display)}
+.hero h1 .gradient-text{background:linear-gradient(135deg,#fff 30%,var(--gold) 75%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.lead{font-size:17px;color:var(--muted);max-width:76ch;margin:auto auto 32px;line-height:1.7}
+
+/* Metrics bar */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:10px 0 48px}
+.metric-box{background:var(--panel-card);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.metric-box b{display:block;font-size:30px;font-family:var(--font-display);color:var(--gold);margin-bottom:4px}
+.metric-box span{font-size:12.5px;color:var(--muted);font-family:var(--font-mono)}
+
+/* Filter tabs */
+.filters{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;justify-content:center}
+.filter-btn{background:transparent;border:1px solid var(--line);color:var(--muted);padding:8px 18px;border-radius:999px;font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font-mono)}
+.filter-btn:hover{color:var(--text);border-color:var(--gold)}
+.filter-btn.active{background:rgba(220,185,110,0.15);color:var(--gold);border-color:var(--gold);box-shadow:0 0 14px var(--gold-glow)}
+
+/* Modules Grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:60px}
+.mod-card{background:var(--panel-card);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;transition:all .3s ease}
+.mod-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,0.4),0 0 20px rgba(220,185,110,0.1)}
+.mod-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.mod-icon{font-size:32px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);border-radius:10px;border:1px solid var(--line)}
+.badge{padding:4px 10px;border-radius:999px;font-size:11px;font-family:var(--font-mono);font-weight:600}
+.badge.deb{background:rgba(0,245,155,0.12);color:var(--ok);border:1px solid rgba(0,245,155,0.3)}
+.badge.int{background:rgba(220,185,110,0.12);color:var(--gold);border:1px solid rgba(220,185,110,0.3)}
+.badge.adv{background:rgba(255,77,109,0.12);color:var(--bad);border:1px solid rgba(255,77,109,0.3)}
+.mod-card h3{font-size:18px;margin:0 0 8px;color:var(--text)}
+.mod-card p{color:var(--muted);font-size:13.5px;line-height:1.6;margin:0 0 20px;flex-grow:1}
+
+/* Modal Simulation */
+dialog#sim-modal{background:rgba(10,15,22,0.98);backdrop-filter:blur(24px);color:var(--text);border:1px solid rgba(220,185,110,0.5);border-radius:18px;padding:0;width:min(780px,94vw);box-shadow:0 32px 80px rgba(0,0,0,0.85),0 0 32px var(--gold-glow);overflow:hidden}
+dialog#sim-modal::backdrop{background:rgba(0,0,0,0.85);backdrop-filter:blur(8px)}
+.modal-header{padding:20px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.modal-close{background:transparent;border:0;color:var(--muted);font-size:22px;cursor:pointer;line-height:1}
+.modal-close:hover{color:var(--text)}
+.modal-body{padding:26px}
+
+/* Virtual Screen Box */
+.sim-screen{background:#06090e;border:2px solid rgba(0,229,255,0.35);border-radius:12px;padding:22px;box-shadow:0 16px 40px rgba(0,0,0,0.7),0 0 24px rgba(0,229,255,0.08);position:relative;margin-bottom:20px}
+.sim-screen-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:16px;font-family:var(--font-mono);font-size:12px;color:var(--cyan)}
+.sim-progress-bar{height:6px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;margin-bottom:20px}
+.sim-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--cyan));transition:width .3s ease}
+.sim-question-title{font-size:17px;color:var(--text);margin-bottom:18px;line-height:1.5}
+.sim-choices-grid{display:grid;gap:11px;margin-bottom:18px}
+.sim-choice-btn{padding:14px 18px;text-align:left;background:rgba(13,19,27,0.75);border:1px solid var(--line);border-radius:10px;color:var(--text);font-size:14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}
+.sim-choice-btn:hover:not(:disabled){border-color:var(--cyan);background:rgba(0,229,255,0.08);transform:translateX(4px)}
+.sim-choice-btn.selected{border-color:var(--gold);background:rgba(220,185,110,0.15)}
+.sim-choice-btn.correct{border-color:var(--ok);background:rgba(0,245,155,0.15);color:#fff}
+.sim-choice-btn.wrong{border-color:var(--bad);background:rgba(255,77,109,0.15);color:#fff}
+.sim-feedback-box{border-radius:8px;padding:14px 16px;font-size:13.5px;line-height:1.6;margin-bottom:18px}
+.sim-feedback-box.ok{background:rgba(0,245,155,0.1);border:1px solid rgba(0,245,155,0.3);color:var(--ok)}
+.sim-feedback-box.bad{background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.3);color:#ff758f}
+
+/* Certificate Preview */
+.cert-card{background:linear-gradient(135deg,#0d1624,#0a0f18);border:2px solid var(--gold);border-radius:16px;padding:32px;text-align:center;box-shadow:0 0 32px var(--gold-glow);margin:20px 0}
+.cert-seal{width:64px;height:64px;margin:0 auto 16px;background:rgba(220,185,110,0.15);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px}
+
+@media(max-width:860px){
+  .metrics{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:540px){
+  .metrics{grid-template-columns:1fr}
+  .hero{padding-top:32px}
+}
+</style>
+</head>
+<body>
+
+<canvas id="cyber-canvas"></canvas>
+<div class="ambient-glow glow-1"></div>
+<div class="ambient-glow glow-2"></div>
+
+<header>
+  <nav class="wrap">
+    <a class="brand" href="/">
+      <div class="brand-badge">CA</div>
+      <span>CHAMSOUDINE.DEV</span>
+    </a>
+    <div class="nav-actions">
+      <a class="btn ghost sm" href="/#cyberlab">← Retour au Cyber Lab</a>
+      <button class="btn sm cyan" onclick="startExam()">⚡ Passer l'Examen (10 Q)</button>
+      <button class="btn-sound" id="btn-sound" aria-label="Son" title="Effets sonores">🔊</button>
+      <button class="btn ghost sm" id="btn-lang">EN</button>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="hero-tag">
+      <span class="live-pulse"></span>
+      <span id="txt-badge">LABORATOIRE INTERACTIF DE FORMATION · NIGER & AFRIQUE</span>
+    </div>
+    <h1 id="txt-title">Simulateurs d'Installation d'OS <span class="gradient-text">de A à Z</span></h1>
+    <p class="lead" id="txt-desc">
+      Apprenez à préparer, partitionner, installer et dépanner les systèmes d'exploitation modernes (Windows, Ubuntu, Arch Linux, Kali) et microcodes (BIOS, UEFI, GRUB) en toute sécurité sans toucher à vos disques physiques.
+    </p>
+
+    <div class="metrics">
+      <div class="metric-box">
+        <b>12</b>
+        <span>MODULES INTERACTIFS</span>
+      </div>
+      <div class="metric-box">
+        <b>100%</b>
+        <span>SÉCURISÉ & VIRTUEL</span>
+      </div>
+      <div class="metric-box">
+        <b>0</b>
+        <span>DISQUE RÉEL MODIFIÉ</span>
+      </div>
+      <div class="metric-box">
+        <b>GRATUIT</b>
+        <span>ACCÈS LIBRE IMMÉDIAT</span>
+      </div>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">Tous les modules (12)</button>
+      <button class="filter-btn" data-filter="Débutant">Niveau Débutant (3)</button>
+      <button class="filter-btn" data-filter="Intermédiaire">Niveau Intermédiaire (6)</button>
+      <button class="filter-btn" data-filter="Avancé">Niveau Avancé (3)</button>
+    </div>
+  </div>
+
+  <div class="cards-grid" id="cards-container"></div>
+</main>
+
+<!-- Simulation Modal -->
+<dialog id="sim-modal">
+  <div class="modal-header">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span id="m-icon" style="font-size:24px">⚙️</span>
+      <div>
+        <h3 id="m-title" style="margin:0;font-size:18px">Module</h3>
+        <span class="mono" id="m-sub" style="font-size:12px;color:var(--muted)">Étape 1 sur 3</span>
+      </div>
+    </div>
+    <button class="modal-close" onclick="closeSimModal()">✕</button>
+  </div>
+  <div class="modal-body" id="m-body"></div>
+</dialog>
+
+<script>
+let currentLang = "fr";
+let soundEnabled = true;
+const audioCtx = (typeof AudioContext !== "undefined" || typeof webkitAudioContext !== "undefined")
+  ? new (window.AudioContext || window.webkitAudioContext)() : null;
+
+function playBeep(freq = 640, type = "sine", duration = 0.06) {
+  if (!soundEnabled || !audioCtx) return;
+  try {
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    g.gain.setValueAtTime(0.08, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+    o.connect(g);
+    g.connect(audioCtx.destination);
+    o.start();
+    o.stop(audioCtx.currentTime + duration);
+  } catch(e){}
+}
+
+document.getElementById("btn-sound").onclick = () => {
+  soundEnabled = !soundEnabled;
+  document.getElementById("btn-sound").textContent = soundEnabled ? "🔊" : "🔇";
+};
+
+/* Matrix background effect */
+const canvas = document.getElementById("cyber-canvas");
+const ctx = canvas.getContext("2d");
+let cw = canvas.width = window.innerWidth;
+let ch = canvas.height = window.innerHeight;
+window.addEventListener("resize", () => {
+  cw = canvas.width = window.innerWidth;
+  ch = canvas.height = window.innerHeight;
+});
+const letters = "01010101ABCDEF0123456789$#@%&*";
+const fontSize = 14;
+let columns = Math.floor(cw / fontSize);
+let drops = Array(columns).fill(1);
+function drawMatrix() {
+  ctx.fillStyle = "rgba(7,10,14,0.12)";
+  ctx.fillRect(0, 0, cw, ch);
+  ctx.fillStyle = "rgba(0, 229, 255, 0.4)";
+  ctx.font = fontSize + "px monospace";
+  for (let i = 0; i < drops.length; i++) {
+    const text = letters.charAt(Math.floor(Math.random() * letters.length));
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    if (drops[i] * fontSize > ch && Math.random() > 0.985) drops[i] = 0;
+    drops[i]++;
+  }
+}
+setInterval(drawMatrix, 50);
+
+/* Modules Data */
+const OS_MODULES = [
+  { id: "bios", title: "BIOS / UEFI Setup", level: "Débutant", icon: "⚙️", desc: "Configuration du microcode de la carte mère, désactivation de Secure Boot, sélection UEFI/Legacy et ordre de priorité de démarrage." },
+  { id: "usb", title: "Clé USB Bootable", level: "Débutant", icon: "💾", desc: "Création d'une clé d'installation bootable avec Rufus, Ventoy ou BalenaEtcher : schéma GPT vs MBR et validation de somme SHA256." },
+  { id: "boot", title: "Menu Boot & Touches", level: "Débutant", icon: "🚀", desc: "Touches d'accès rapide (F12, F11, F8, Esc), sélection temporaire du média et diagnostic des erreurs 'No bootable device'." },
+  { id: "partition", title: "Partitionnement Avancé", level: "Intermédiaire", icon: "🧩", desc: "Différence GPT/MBR, partition système EFI (ESP), partition racine /, Swap et cohabitation Dual-Boot Windows + Linux." },
+  { id: "win10", title: "Installation Windows 10", level: "Intermédiaire", icon: "🪟", desc: "Installation personnalisée pas à pas, suppression des anciennes partitions, formatage NTFS et optimisation de l'espace disque." },
+  { id: "win11", title: "Installation Windows 11", level: "Intermédiaire", icon: "🪟", desc: "Validation des critères stricts (TPM 2.0, Secure Boot, processeur compatible), création de compte local et durcissement télémétrie." },
+  { id: "ubuntu", title: "Installation Ubuntu Linux", level: "Intermédiaire", icon: "🐧", desc: "Lancement de la session Live sécurisée, choix de l'installateur, création des partitions de base et configuration de l'utilisateur." },
+  { id: "linux", title: "Écosystème Distributions Linux", level: "Intermédiaire", icon: "🐧", desc: "Choisir la bonne distribution : Debian (stabilité serveur), Fedora (paquets RPM modernes), Mint (ergonomie) et Zorin OS." },
+  { id: "arch", title: "Arch Linux en CLI", level: "Avancé", icon: "⌨️", desc: "Installation experte 100% ligne de commande : parted, mkfs.btrfs/ext4, pacstrap base, arch-chroot et compilation du chargeur GRUB." },
+  { id: "kali", title: "Kali Linux & VM Éthique", level: "Avancé", icon: "🛡️", desc: "Déploiement dédié aux tests d'intrusion autorisés, isolation sous machine virtuelle (VM) et bonnes pratiques juridiques de sécurité." },
+  { id: "drivers", title: "Pilotes & Drivers Post-Install", level: "Intermédiaire", icon: "🔧", desc: "Téléchargement sécurisé auprès des constructeurs officiels, pilotes graphiques NVIDIA/AMD, chipset et vérification du gestionnaire de périphériques." },
+  { id: "troubleshoot", title: "Dépannage & Sauvetage Boot", level: "Avancé", icon: "🧰", desc: "Résolution des pannes critiques : console 'GRUB Rescue', réparation BCD sous Windows (`bootrec /fixmbr`), et boucles de redémarrage." }
+];
+
+const SCENARIOS = {
+  bios: [
+    ["Quel programme initialise les composants matériels du PC avant le chargement du système d'exploitation ?", "Le BIOS / UEFI", "Le navigateur Web", "L'antivirus Windows", 0, "Le BIOS/UEFI est le micrologiciel (firmware) qui effectue le POST (Power-On Self-Test) et amorce le démarrage."],
+    ["Sur un ordinateur moderne équipé d'un SSD NVMe et d'un disque GPT, quel mode de démarrage devez-vous privilégier ?", "Legacy (BIOS traditionnel)", "UEFI (Unified Extensible Firmware Interface)", "Mode Sans Échec", 1, "UEFI est le standard moderne indispensable pour exploiter pleinement les disques GPT, le démarrage rapide et Secure Boot."],
+    ["Pour faire démarrer votre ordinateur sur une clé USB d'installation, que devez-vous configurer dans l'onglet 'Boot' du BIOS ?", "Désactiver le processeur", "Placer le périphérique USB en première priorité (1st Boot Device)", "Formater immédiatement la carte mère", 1, "En plaçant la clé USB en tête de liste, le firmware lit le chargeur d'amorçage de la clé avant le disque interne."]
+  ],
+  usb: [
+    ["Quel type de fichier fournit l'image exacte d'un système d'exploitation pour préparer une clé d'installation ?", "Un fichier exécutable .exe", "Une image disque au format .ISO", "Un document texte .txt", 1, "L'image ISO contient l'arborescence complète, les fichiers d'installation et le secteur d'amorçage."],
+    ["Pour installer un système d'exploitation moderne en mode UEFI, quel schéma de partition devez-vous choisir dans Rufus ?", "GPT (GUID Partition Table)", "MBR (Master Boot Record)", "FAT16", 0, "Le schéma GPT est requis pour les installations modernes avec firmware UEFI."],
+    ["Quelle précaution essentielle devez-vous prendre avant de lancer l'écriture sur la clé USB ?", "Vérifier la lettre du lecteur USB ciblé (car toutes ses données seront effacées)", "Débrancher l'écran", "Augmenter le volume du PC", 0, "L'écriture d'une image ISO formate la clé et efface irréversiblement les données qui s'y trouvaient."]
+  ],
+  boot: [
+    ["Quelle touche permet généralement d'accéder au 'Boot Menu' temporaire sans modifier les réglages permanents du BIOS ?", "F12 ou F11 (selon le fabricant)", "Barre d'espace", "Verr. Maj", 0, "Les touches F12, F11, F8 ou Échap ouvrent le menu de sélection rapide du périphérique d'amorçage."],
+    ["Votre clé USB bootable n'apparaît pas dans la liste de démarrage. Quelle est la première vérification technique ?", "Tester un autre port USB (de préférence à l'arrière sur la carte mère) et vérifier la désactivation du Fast Boot", "Acheter un nouvel ordinateur", "Supprimer Windows", 0, "Les ports USB frontaux ou le mode 'Fast Startup' peuvent parfois empêcher la détection immédiate au démarrage."],
+    ["Le message d'erreur 'No bootable device found' signifie :", "La connexion Wi-Fi est coupée", "Le firmware n'a trouvé aucun support contenant un secteur de démarrage valide", "La batterie est pleine", 1, "Cette erreur indique que ni le disque ni la clé ne présentent de chargeur de démarrage reconnu par le firmware."]
+  ],
+  partition: [
+    ["Quelle partition spéciale est indispensable sur un disque GPT pour stocker les fichiers de démarrage UEFI ?", "La partition EFI (ESP - EFI System Partition) formatée en FAT32", "Le disque C: en NTFS", "La mémoire cache du navigateur", 0, "La partition EFI (ESP) contient les chargeurs d'amorçage (.efi) que le micrologiciel UEFI exécute."],
+    ["Pour installer Ubuntu à côté de Windows (Dual-Boot), quelle est la règle de sécurité absolue ?", "Réduire la partition Windows depuis la gestion des disques et ne jamais toucher à la partition EFI partagée", "Effacer tout le disque sans regarder", "Changer le mot de passe BIOS", 0, "Le partitionnement réfléchi préserve la partition EFI et les données existantes de Windows."],
+    ["Quel format de système de fichiers est le standard moderne sous Linux pour la partition racine (/) ?", "EXT4 (ou Btrfs)", "FAT12", "NTFS uniquement", 0, "EXT4 offre une excellente tolérance aux pannes, la gestion native des permissions POSIX et une grande robustesse."]
+  ],
+  win10: [
+    ["Lors de l'installation de Windows 10, quel choix permet de gérer manuellement vos disques et partitions ?", "Installation personnalisée : installer uniquement Windows (avancé)", "Mise à niveau rapide", "Quitter", 0, "L'option personnalisée donne accès à l'outil de partitionnement pour choisir exactement le SSD ou la partition cible."],
+    ["Que se passe-t-il lorsque vous cliquez sur 'Supprimer' sur une partition lors de l'installation ?", "La partition et toutes ses données sont détruites pour devenir un 'Espace non alloué'", "Les fichiers sont sauvegardés sur le cloud", "Rien ne se passe", 0, "La suppression détruit la table de partition locale : il faut toujours avoir sauvegardé au préalable."],
+    ["Après avoir sélectionné l'espace non alloué, que crée automatiquement l'installateur Windows ?", "La partition système EFI, la partition réservée MSR et la partition principale NTFS", "Un serveur Web", "Un jeu vidéo", 0, "Windows génère automatiquement les partitions auxiliaires nécessaires au bon démarrage du système."]
+  ],
+  win11: [
+    ["Quel module cryptographique matériel est formellement requis pour l'installation certifiée de Windows 11 ?", "La puce TPM 2.0 (Trusted Platform Module)", "Un lecteur de disquettes", "Une double carte graphique", 0, "Windows 11 exige TPM 2.0 pour renforcer le stockage sécurisé des clés de chiffrement BitLocker et l'intégrité du démarrage."],
+    ["Lors de la configuration initiale (OOBE), comment créer un compte local sans obliger de compte Microsoft sur Windows 11 Pro ?", "Choisir 'Configurer pour le travail ou l'école' puis 'Options de connexion : Domaine joint'", "Éteindre l'ordinateur d'un coup", "Supprimer le disque", 0, "Cette méthode native permet de créer un compte administrateur local totalement autonome et privé."]
+  ],
+  ubuntu: [
+    ["Quel avantage majeur propose l'option 'Essayer Ubuntu' lors du démarrage de la clé ?", "Tester tout le système et son matériel directement en mémoire RAM sans toucher au disque dur", "Accélérer Internet par 10", "Désactiver les virus", 0, "La session Live permet de vérifier le Wi-Fi, le son et le clavier avant de valider l'installation."],
+    ["Quel point de montage représente la base obligatoire de l'arborescence Linux ?", "Le point de montage racine '/'", "C:\\Windows", "D:\\Data", 0, "Sous Linux, tout découle de la racine unique '/' (disques, dossiers, périphériques)."]
+  ],
+  linux: [
+    ["Quelle distribution Linux privilégier pour un serveur de production recherchant une stabilité rocheuse et des paquets éprouvés ?", "Debian GNU/Linux", "Une version beta inconnue", "Windows 98", 0, "Debian est la référence mondiale pour les serveurs grâce à sa politique de tests rigoureuse et sa stabilité."],
+    ["Quel gestionnaire de paquets utilise la famille Red Hat / Fedora / AlmaLinux ?", "RPM / DNF", "APT / .deb", "Arch pacman", 0, "L'écosystème Red Hat/Fedora utilise le format de paquets RPM géré par l'outil DNF."]
+  ],
+  arch: [
+    ["Sous Arch Linux, quelle commande essentielle installe les paquets de base dans le point de montage /mnt ?", "pacstrap -K /mnt base linux linux-firmware", "install-all", "setup.exe", 0, "pacstrap déploie l'arborescence minimale et le noyau Linux sur le disque préparé."],
+    ["Quelle commande permet de basculer dans le nouveau système installé pour configurer le fuseau horaire et les utilisateurs ?", "arch-chroot /mnt", "cd /mnt", "exit", 0, "arch-chroot change la racine du système d'exploitation courant pour exécuter les commandes à l'intérieur du nouvel OS."]
+  ],
+  kali: [
+    ["Pour quelle finalité la distribution Kali Linux est-elle conçue ?", "Pour les audits de sécurité défensifs/offensifs autorisés et la formation professionnelle en cybersécurité", "Pour pirater illégalement les voisins", "Pour remplacer une console de jeux", 0, "Kali est une boîte à outils professionnelle d'audit dont l'usage est strictement encadré par le droit."],
+    ["Pourquoi est-il fortement recommandé d'utiliser Kali Linux dans une machine virtuelle (VirtualBox / VMware) ?", "Pour isoler l'environnement de travail et ne pas compromettre la machine hôte", "Parce que c'est obligatoire par la loi", "Pour avoir plus de RAM", 0, "Une machine virtuelle garantit un cloisonnement étanche lors des exercices d'analyse de vulnérabilités."]
+  ],
+  drivers: [
+    ["Où devez-vous prioritairement télécharger les pilotes (drivers) de votre ordinateur ?", "Sur le site officiel du fabricant de l'ordinateur ou du composant (Dell, HP, Lenovo, NVIDIA...)", "Sur un forum anonyme", "Dans un email d'inconnu", 0, "Les sites constructeurs garantissent des pilotes signés numériquement, stables et exempts de logiciels malveillants."],
+    ["Sous Windows, quel outil permet de vérifier que tous les pilotes sont correctement installés et sans conflit ?", "Le Gestionnaire de périphériques (devmgmt.msc)", "Le Bloc-notes", "La Corbeille", 0, "Le Gestionnaire de périphériques signale d'un triangle jaune tout composant manquant ou défectueux."]
+  ],
+  troubleshoot: [
+    ["Après une mise à jour ou un partitionnement, votre PC affiche l'invite 'grub rescue>'. Que s'est-il passé ?", "GRUB ne retrouve plus sa partition de modules ou son fichier de configuration grub.cfg", "La souris est débranchée", "Le disque est plein à 100%", 0, "Une modification de l'identifiant UUID ou des numéros de partition empêche GRUB de charger ses modules de démarrage."],
+    ["Sous Windows, quelle commande dans l'invite de dépannage permet de réécrire le secteur de démarrage principal ?", "bootrec /fixmbr et bootrec /rebuildbcd", "delete windows", "format C:", 0, "L'utilitaire bootrec répare le Master Boot Record et reconstruit le magasin de données de configuration de démarrage (BCD)."]
+  ]
+};
+
+let currentFilter = "all";
+let currentSim = null;
+let simStep = 0;
+let simScore = 0;
+let simSelected = null;
+let examMode = false;
+let examQuestions = [];
+
+function renderCards() {
+  const container = document.getElementById("cards-container");
+  const filtered = currentFilter === "all" ? OS_MODULES : OS_MODULES.filter(m => m.level === currentFilter);
+  container.innerHTML = filtered.map(m => `
+    <div class="mod-card">
+      <div>
+        <div class="mod-top">
+          <div class="mod-icon">${m.icon}</div>
+          <span class="badge ${m.level === 'Débutant' ? 'deb' : m.level === 'Intermédiaire' ? 'int' : 'adv'}">${m.level}</span>
+        </div>
+        <h3>${m.title}</h3>
+        <p>${m.desc}</p>
+      </div>
+      <button class="btn sm" onclick="launchSim('${m.id}')">Démarrer le simulateur →</button>
+    </div>
+  `).join("");
+}
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.onclick = () => {
+    playBeep(700, "sine", 0.04);
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentFilter = btn.dataset.filter;
+    renderCards();
+  };
+});
+
+const modal = document.getElementById("sim-modal");
+
+function closeSimModal() {
+  playBeep(450, "sine", 0.05);
+  modal.close();
+}
+
+function launchSim(id) {
+  playBeep(750, "sine", 0.06);
+  currentSim = OS_MODULES.find(m => m.id === id);
+  examMode = false;
+  simStep = 0;
+  simScore = 0;
+  simSelected = null;
+  renderSimStep();
+  modal.showModal();
+}
+
+function renderSimStep() {
+  const qs = SCENARIOS[currentSim.id] || [];
+  if (simStep >= qs.length) {
+    showSimResult();
+    return;
+  }
+  const q = qs[simStep];
+  document.getElementById("m-icon").textContent = currentSim.icon;
+  document.getElementById("m-title").textContent = currentSim.title;
+  document.getElementById("m-sub").textContent = `Étape ${simStep + 1} sur ${qs.length} · Niveau ${currentSim.level}`;
+
+  const pct = Math.round((simStep / qs.length) * 100);
+  const body = document.getElementById("m-body");
+  body.innerHTML = `
+    <div class="sim-screen">
+      <div class="sim-screen-header">
+        <span>[VIRTUAL HARDWARE EMULATOR]</span>
+        <span>STATUS: READY</span>
+      </div>
+      <div class="sim-progress-bar">
+        <div class="sim-progress-fill" style="width:${pct}%"></div>
+      </div>
+      <div class="sim-question-title"><b>Question ${simStep + 1} :</b> ${q[0]}</div>
+      <div class="sim-choices-grid">
+        ${q.slice(1, 4).map((text, idx) => `
+          <button class="sim-choice-btn" id="choice-${idx}" onclick="selectChoice(${idx})">
+            <span class="mono" style="color:var(--gold);font-weight:700">${String.fromCharCode(65 + idx)}.</span>
+            <span>${text}</span>
+          </button>
+        `).join("")}
+      </div>
+      <div id="sim-feedback"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px">
+        <button class="btn ghost sm" onclick="closeSimModal()">Abandonner</button>
+        <button class="btn sm" id="btn-valider" onclick="validateStep()" disabled>Valider cette étape</button>
+      </div>
+    </div>
+  `;
+}
+
+function selectChoice(idx) {
+  playBeep(600, "triangle", 0.04);
+  simSelected = idx;
+  document.querySelectorAll(".sim-choice-btn").forEach((btn, i) => {
+    btn.classList.toggle("selected", i === idx);
+  });
+  const valBtn = document.getElementById("btn-valider");
+  if (valBtn) valBtn.disabled = false;
+}
+
+function validateStep() {
+  const qs = SCENARIOS[currentSim.id];
+  const q = qs[simStep];
+  const isCorrect = simSelected === q[4];
+  if (isCorrect) {
+    simScore++;
+    playBeep(880, "sine", 0.12);
+  } else {
+    playBeep(250, "sawtooth", 0.16);
+  }
+
+  document.querySelectorAll(".sim-choice-btn").forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q[4]) btn.classList.add("correct");
+    else if (i === simSelected && !isCorrect) btn.classList.add("wrong");
+  });
+
+  const fb = document.getElementById("sim-feedback");
+  fb.innerHTML = `
+    <div class="sim-feedback-box ${isCorrect ? 'ok' : 'bad'}">
+      <b>${isCorrect ? '✓ Excellente réponse !' : '✗ Analyse technique :'}</b><br>
+      ${q[5]}
+    </div>
+  `;
+
+  const btn = document.getElementById("btn-valider");
+  btn.disabled = false;
+  btn.textContent = (simStep === qs.length - 1) ? "Voir le bilan →" : "Étape suivante →";
+  btn.onclick = () => {
+    simStep++;
+    simSelected = null;
+    renderSimStep();
+  };
+}
+
+function showSimResult() {
+  playBeep(880, "sine", 0.2);
+  const total = SCENARIOS[currentSim.id].length;
+  const pct = Math.round((simScore / total) * 100);
+  const success = pct >= 66;
+
+  document.getElementById("m-title").textContent = "Bilan de la simulation";
+  document.getElementById("m-sub").textContent = currentSim.title;
+
+  const body = document.getElementById("m-body");
+  body.innerHTML = `
+    <div style="text-align:center;padding:20px 10px">
+      <div style="font-size:52px;margin-bottom:12px">${success ? '🏆' : '📚'}</div>
+      <h2 style="font-size:28px;margin:0 0 6px;color:${success ? 'var(--ok)' : 'var(--gold)'}">${pct}% de réussite</h2>
+      <p style="color:var(--muted);margin:0 0 24px">
+        ${success ? 'Félicitations ! Vous maîtrisez les principes clés de ce module.' : 'Module terminé. Prenez le temps de revoir les étapes pour consolider vos acquis.'}
+      </p>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn ghost sm" onclick="launchSim('${currentSim.id}')">🔄 Recommencer ce module</button>
+        <button class="btn sm" onclick="closeSimModal()">Retour au catalogue</button>
+        <button class="btn sm cyan" onclick="startExam()">⚡ Tenter l'Examen Global</button>
+      </div>
+    </div>
+  `;
+}
+
+/* Exam Mode (10 Questions Transversales) */
+function startExam() {
+  playBeep(880, "sine", 0.15);
+  examMode = true;
+  examQuestions = [];
+  OS_MODULES.forEach(m => {
+    const qs = SCENARIOS[m.id] || [];
+    qs.forEach(q => examQuestions.push({ q, module: m }));
+  });
+  examQuestions.sort(() => Math.random() - 0.5);
+  examQuestions = examQuestions.slice(0, 10);
+
+  simStep = 0;
+  simScore = 0;
+  simSelected = null;
+  renderExamStep();
+  modal.showModal();
+}
+
+function renderExamStep() {
+  if (simStep >= examQuestions.length) {
+    showExamResult();
+    return;
+  }
+  const item = examQuestions[simStep];
+  const q = item.q;
+
+  document.getElementById("m-icon").textContent = item.module.icon;
+  document.getElementById("m-title").textContent = `Examen Général d'Installation OS`;
+  document.getElementById("m-sub").textContent = `Question ${simStep + 1} / 10 · ${item.module.title}`;
+
+  const pct = Math.round((simStep / 10) * 100);
+  const body = document.getElementById("m-body");
+  body.innerHTML = `
+    <div class="sim-screen">
+      <div class="sim-screen-header">
+        <span>[EXAMEN DE COMPÉTENCE SYSTÈME]</span>
+        <span>SCORE ACTUEL: ${simScore} / ${simStep}</span>
+      </div>
+      <div class="sim-progress-bar">
+        <div class="sim-progress-fill" style="width:${pct}%"></div>
+      </div>
+      <div class="sim-question-title"><b>Question ${simStep + 1} :</b> ${q[0]}</div>
+      <div class="sim-choices-grid">
+        ${q.slice(1, 4).map((text, idx) => `
+          <button class="sim-choice-btn" id="choice-${idx}" onclick="selectChoice(${idx})">
+            <span class="mono" style="color:var(--gold);font-weight:700">${String.fromCharCode(65 + idx)}.</span>
+            <span>${text}</span>
+          </button>
+        `).join("")}
+      </div>
+      <div id="sim-feedback"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px">
+        <button class="btn ghost sm" onclick="closeSimModal()">Quitter l'examen</button>
+        <button class="btn sm" id="btn-valider" onclick="validateExamStep()" disabled>Valider la réponse</button>
+      </div>
+    </div>
+  `;
+}
+
+function validateExamStep() {
+  const item = examQuestions[simStep];
+  const q = item.q;
+  const isCorrect = simSelected === q[4];
+  if (isCorrect) {
+    simScore++;
+    playBeep(880, "sine", 0.1);
+  } else {
+    playBeep(250, "sawtooth", 0.15);
+  }
+
+  document.querySelectorAll(".sim-choice-btn").forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q[4]) btn.classList.add("correct");
+    else if (i === simSelected && !isCorrect) btn.classList.add("wrong");
+  });
+
+  const fb = document.getElementById("sim-feedback");
+  fb.innerHTML = `
+    <div class="sim-feedback-box ${isCorrect ? 'ok' : 'bad'}">
+      <b>${isCorrect ? '✓ Correct !' : '✗ Règle technique :'}</b> ${q[5]}
+    </div>
+  `;
+
+  const btn = document.getElementById("btn-valider");
+  btn.disabled = false;
+  btn.textContent = (simStep === 9) ? "Découvrir mon résultat final →" : "Question suivante →";
+  btn.onclick = () => {
+    simStep++;
+    simSelected = null;
+    renderExamStep();
+  };
+}
+
+function showExamResult() {
+  playBeep(880, "sine", 0.25);
+  const pct = Math.round((simScore / 10) * 100);
+  const mention = pct >= 80 ? "Excellence" : pct >= 60 ? "Succès" : "À consolider";
+  const userName = localStorage.getItem("ca_last_name") || "Praticien Spécialiste";
+
+  document.getElementById("m-title").textContent = "Attestation de Réussite d'Examen";
+  document.getElementById("m-sub").textContent = "OS Simulator Academy Pro";
+
+  const body = document.getElementById("m-body");
+  body.innerHTML = `
+    <div class="cert-card">
+      <div class="cert-seal">🎖️</div>
+      <div class="mono" style="font-size:12px;color:var(--gold);letter-spacing:2px;margin-bottom:8px">ATTESTATION NUMÉRIQUE D'APTITUDE</div>
+      <h2 style="font-size:24px;margin:0 0 10px;color:#fff">${escapeHtml(userName)}</h2>
+      <p style="color:var(--muted);font-size:14px;max-width:50ch;margin:0 auto 16px">
+        A validé avec succès l'examen transversal d'installation de systèmes d'exploitation (BIOS/UEFI, Partitionnement, Windows, Linux & Dépannage).
+      </p>
+      <div style="font-size:32px;font-family:var(--font-display);color:var(--gold);margin-bottom:8px">${pct}% (${simScore}/10)</div>
+      <div class="mono" style="font-size:12px;color:var(--ok)">MENTION : ${mention.toUpperCase()} · DÉLIVRÉ PAR CHAMSOUDINE.DEV</div>
+    </div>
+
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap">
+      <button class="btn sm" onclick="window.print()">🖨️ Imprimer / Enregistrer en PDF</button>
+      <button class="btn ghost sm" onclick="startExam()">🔄 Repasser l'examen</button>
+      <button class="btn sm cyan" onclick="closeSimModal()">Retourner aux modules</button>
+    </div>
+  `;
+}
+
+function escapeHtml(s) {
+  return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+renderCards();
+</script>
+</body>
+</html>
