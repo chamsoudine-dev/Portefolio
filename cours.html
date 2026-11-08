@@ -622,7 +622,7 @@ function selectCourse(index) {
   const nextBtn = document.getElementById("btn-next-course");
   if (index === COURSES.length - 1) {
     nextBtn.textContent = "⚡ Pratiquer sur le Simulateur OS ➔";
-    nextBtn.onclick = () => window.location.href = "/simulator.html";
+    nextBtn.onclick = () => window.open("/simulator.html", "_blank");
   } else {
     nextBtn.textContent = "Cours suivant →";
     nextBtn.onclick = () => navigateCourse(1);

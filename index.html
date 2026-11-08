@@ -714,8 +714,8 @@ dialog#lesson-modal::backdrop{
           <p>
             Entraînez-vous à installer Windows ou Linux pas-à-pas, mesurez la résistance de votre mot de passe face aux hackers, ou scannez la sécurité d'un site web.
           </p>
-          <a class="btn sm cyan" href="#cyberlab">
-            ⚡ Lancer un Simulateur ➔
+          <a class="btn sm cyan" href="/simulator.html" target="_blank" rel="noopener">
+            ⚡ Lancer un Simulateur ↗
           </a>
         </div>
 
@@ -1004,98 +1004,98 @@ dialog#lesson-modal::backdrop{
       <!-- Dashboard Linux SOC — Bouclier de Défense Autonome v2.6 -->
       <div class="guardian-dashboard lk locked" id="pipeline-lk">
 
-        <!-- Top bar : statut systÃ¨me -->
+        <!-- Top bar : statut système -->
         <div class="guardian-top-bar">
           <div>
             <span style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;font-family:var(--font-mono)">root@debian-srv:~# systemctl status guardian.service</span>
-            <strong style="font-size:17px;color:var(--text)">ðŸ›¡ Bouclier de DÃ©fense Autonome v2.6</strong>
+            <strong style="font-size:17px;color:var(--text)">🛡 Bouclier de Défense Autonome v2.6</strong>
             <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-left:12px">Fail2ban + Suricata + iptables + rkhunter</span>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-            <div class="guardian-status-badge"><span class="live-pulse"></span><span>SYSTÃˆME ACTIF â€” 100% OPÃ‰RATIONNEL</span></div>
-            <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted)" id="g-uptime-display">uptime: calcul en coursâ€¦</div>
+            <div class="guardian-status-badge"><span class="live-pulse"></span><span>SYSTÈME ACTIF — 100% OPÉRATIONNEL</span></div>
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted)" id="g-uptime-display">uptime: calcul en cours…</div>
           </div>
         </div>
 
-        <!-- SÃ©lecteur de distribution Linux -->
+        <!-- Sélecteur de distribution Linux -->
         <div class="g-distro-bar">
           <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">Distro :</span>
-          <span class="g-distro-chip active" data-distro="debian">ðŸŸ  Debian / Ubuntu</span>
-          <span class="g-distro-chip" data-distro="arch">ðŸ”µ Arch Linux</span>
-          <span class="g-distro-chip" data-distro="rhel">âš« RHEL / CentOS</span>
-          <span class="g-distro-chip" data-distro="kali">ðŸ”´ Kali Linux</span>
-          <span style="margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--muted)" id="g-pkg-label">pkg: apt Â· init: systemd Â· fw: iptables/nftables</span>
+          <span class="g-distro-chip active" data-distro="debian">🟠 Debian / Ubuntu</span>
+          <span class="g-distro-chip" data-distro="arch">🔵 Arch Linux</span>
+          <span class="g-distro-chip" data-distro="rhel">⚫ RHEL / CentOS</span>
+          <span class="g-distro-chip" data-distro="kali">🔴 Kali Linux</span>
+          <span style="margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--muted)" id="g-pkg-label">pkg: apt · init: systemd · fw: iptables/nftables</span>
         </div>
 
-        <!-- Statistiques temps rÃ©el -->
+        <!-- Statistiques temps réel -->
         <div class="guardian-stats">
           <div class="g-stat"><span class="g-stat-label">IPs Bannies / 24h</span><span class="g-stat-val" style="color:var(--bad)" id="g-stat-ban">0</span></div>
-          <div class="g-stat"><span class="g-stat-label">Tentatives bloquÃ©es</span><span class="g-stat-val" style="color:var(--gold)" id="g-stat-att">0</span></div>
-          <div class="g-stat"><span class="g-stat-label">RÃ¨gles iptables actives</span><span class="g-stat-val" style="color:var(--cyan)" id="g-stat-rules">0</span></div>
-          <div class="g-stat"><span class="g-stat-label">Score sÃ©curitÃ©</span><span class="g-stat-val" style="color:var(--ok)" id="g-stat-score">â€”</span></div>
-          <div class="g-stat"><span class="g-stat-label">DerniÃ¨re menace</span><span class="g-stat-val" style="color:var(--bad);font-size:11px" id="g-stat-last">â€”</span></div>
-          <div class="g-stat"><span class="g-stat-label">Temps de rÃ©ponse</span><span class="g-stat-val" style="color:var(--ok)" id="g-stat-rtime">â€”</span></div>
+          <div class="g-stat"><span class="g-stat-label">Tentatives bloquées</span><span class="g-stat-val" style="color:var(--gold)" id="g-stat-att">0</span></div>
+          <div class="g-stat"><span class="g-stat-label">Règles iptables actives</span><span class="g-stat-val" style="color:var(--cyan)" id="g-stat-rules">0</span></div>
+          <div class="g-stat"><span class="g-stat-label">Score sécurité</span><span class="g-stat-val" style="color:var(--ok)" id="g-stat-score">—</span></div>
+          <div class="g-stat"><span class="g-stat-label">Dernière menace</span><span class="g-stat-val" style="color:var(--bad);font-size:11px" id="g-stat-last">—</span></div>
+          <div class="g-stat"><span class="g-stat-label">Temps de réponse</span><span class="g-stat-val" style="color:var(--ok)" id="g-stat-rtime">—</span></div>
         </div>
 
         <!-- 4 Panneaux SOC en grille 2x2 -->
         <div class="soc-panels" id="soc-panels-grid">
           <div class="soc-panel">
             <div class="soc-panel-head">
-              <span class="soc-panel-title">ðŸ“¡ Flux Menaces â€” /var/log/auth.log</span>
+              <span class="soc-panel-title">📡 Flux Menaces — /var/log/auth.log</span>
               <span class="soc-panel-status ok" id="p1-status">LIVE</span>
             </div>
-            <div class="soc-panel-body" id="panel-threats"><span class="cmt"># En attente de simulationâ€¦</span></div>
+            <div class="soc-panel-body" id="panel-threats"><span class="cmt"># En attente de simulation…</span></div>
           </div>
           <div class="soc-panel">
             <div class="soc-panel-head">
-              <span class="soc-panel-title">ðŸ”’ Fail2ban â€” Jails Actives</span>
+              <span class="soc-panel-title">ðŸ”’ 🔒 Fail2ban — Jails Actives</span>
               <span class="soc-panel-status ok" id="p2-status">ARMED</span>
             </div>
             <div class="soc-panel-body" id="panel-fail2ban"><span class="cmt"># fail2ban-client status sshd</span></div>
           </div>
           <div class="soc-panel">
             <div class="soc-panel-head">
-              <span class="soc-panel-title">ðŸŒ RÃ©seau â€” ss -tlnp</span>
+              <span class="soc-panel-title">🌐 Réseau — ss -tlnp</span>
               <span class="soc-panel-status ok" id="p3-status">CLEAN</span>
             </div>
-            <div class="soc-panel-body" id="panel-network"><span class="cmt"># Ports en Ã©couteâ€¦</span></div>
+            <div class="soc-panel-body" id="panel-network"><span class="cmt"># Ports en écoute…</span></div>
           </div>
           <div class="soc-panel">
             <div class="soc-panel-head">
-              <span class="soc-panel-title">ðŸ’» SantÃ© SystÃ¨me â€” top / free</span>
+              <span class="soc-panel-title">💻 Santé Système — top / free</span>
               <span class="soc-panel-status ok" id="p4-status">HEALTHY</span>
             </div>
-            <div class="soc-panel-body" id="panel-syshealth"><span class="cmt"># Collecte des mÃ©triquesâ€¦</span></div>
+            <div class="soc-panel-body" id="panel-syshealth"><span class="cmt"># Collecte des métriques…</span></div>
           </div>
         </div>
 
-        <!-- SÃ©lecteur de scÃ©narios -->
+        <!-- Sélecteur de scénarios -->
         <p style="font-size:13px;color:var(--muted);margin:0 0 12px;font-family:var(--font-mono)">root@debian-srv:~# <span style="color:var(--cyan)">select --scenario</span> <span style="color:var(--gold)">[SSH_BRUTE | PORT_SCAN | DDOS_FLOOD | ROOTKIT_SCAN]</span></p>
         <div class="scenarios-grid">
           <div class="sc-card active" data-scenario="ssh">
-            <b>ðŸ”´ SSH Brute-Force</b>
+            <b>🔴 SSH Brute-Force</b>
             <span>Fail2ban + iptables DROP auto-ban</span>
           </div>
           <div class="sc-card" data-scenario="portscan">
-            <b>ðŸ”µ Port Scan Furtif</b>
+            <b>🔵 Port Scan Furtif</b>
             <span>Suricata IDS + iptables REJECT</span>
           </div>
           <div class="sc-card" data-scenario="ddos">
-            <b>ðŸŸ  DDoS SYN Flood</b>
+            <b>🟠 DDoS SYN Flood</b>
             <span>iptables hashlimit + SYN cookies</span>
           </div>
           <div class="sc-card" data-scenario="rootkit">
-            <b>ðŸŸ¡ Scan Rootkit</b>
+            <b>🟡 Scan Rootkit</b>
             <span>rkhunter --check complet</span>
           </div>
         </div>
 
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:14px">
           <button class="btn" id="btn-run-guardian" type="button">
-            <span>â–¶ Lancer la simulation en direct</span>
+            <span>▶ Lancer la simulation en direct</span>
           </button>
           <div class="mono" style="font-size:12px;color:var(--gold)">
-            Distro : <b style="color:var(--cyan)" id="g-distro-label">Debian / Ubuntu</b> Â· Riposte : <b style="color:var(--ok)" id="g-rtime-inline">&lt; 1.2s</b>
+            Distro : <b style="color:var(--cyan)" id="g-distro-label">Debian / Ubuntu</b> · Riposte : <b style="color:var(--ok)" id="g-rtime-inline">&lt; 1.2s</b>
           </div>
         </div>
 
@@ -1106,11 +1106,11 @@ dialog#lesson-modal::backdrop{
             <span class="console-dot console-dot-y"></span>
             <span class="console-dot console-dot-g"></span>
             <span class="console-host-label" id="g-console-host">anatech@debian-srv:~$</span>
-            <span style="margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--muted)">Fail2ban v1.1.0 Â· Suricata 7.0.3 Â· iptables v1.8.9</span>
+            <span style="margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--muted)">Fail2ban v1.1.0 · Suricata 7.0.3 · iptables v1.8.9</span>
           </div>
-          <div class="console-body" id="guardian-console">SÃ©lectionnez un scÃ©nario puis cliquez sur <span class="c-cmd">â–¶ Lancer la simulation</span> pour voir le pipeline de dÃ©fense Linux rÃ©agir en temps rÃ©el.
+          <div class="console-body" id="guardian-console">Sélectionnez un scénario puis cliquez sur <span class="c-cmd">â–¶ Lancer la simulation</span> pour voir le pipeline de défense Linux réagir en temps réel.
 
-<span class="c-muted"># SystÃ¨mes armÃ©s : fail2ban.service [active] | suricata.service [active] | iptables [loaded]</span>
+<span class="c-muted"># Systèmes armés : fail2ban.service [active] | suricata.service [active] | iptables [loaded]</span>
 <span class="c-muted"># Journaux : /var/log/auth.log | /var/log/fail2ban.log | /var/log/suricata/fast.log</span></div>
         </div>
       </div>
@@ -1151,7 +1151,7 @@ dialog#lesson-modal::backdrop{
           </div>
 
 
-          <!-- Laboratoire de mots de passe â€” Checklist avancÃ©e (7 critÃ¨res) -->
+          <!-- Laboratoire de mots de passe — Checklist avancée (7 critères) -->
           <div class="pw-checklist">
             <div class="pw-check-item" id="chk-len"><span>&#9898;</span> Longueur &ge; 12 caract&egrave;res</div>
             <div class="pw-check-item" id="chk-lower"><span>&#9898;</span> Lettres minuscules (a-z)</div>
@@ -1162,7 +1162,7 @@ dialog#lesson-modal::backdrop{
             <div class="pw-check-item" id="chk-noseq"><span>&#9898;</span> Pas de s&eacute;quence clavier (qwerty, azerty&hellip;)</div>
           </div>
 
-          <!-- Barre de composition (segments de couleur par type de caractÃ¨re) -->
+          <!-- Barre de composition (segments de couleur par type de caractère) -->
           <div style="margin:14px 0 4px;display:flex;gap:3px;height:6px;border-radius:4px;overflow:hidden" id="pw-comp-bar">
             <div id="pw-seg-lower" style="background:#00e5ff;height:100%;width:0;transition:width .3s;border-radius:4px 0 0 4px"></div>
             <div id="pw-seg-upper" style="background:#dcb96e;height:100%;width:0;transition:width .3s"></div>
@@ -1176,23 +1176,23 @@ dialog#lesson-modal::backdrop{
             <span><span style="color:#ff4d6d">&#9646;</span> Symboles</span>
           </div>
 
-          <!-- Panneaux temps de crack (3 scÃ©narios d attaque) -->
+          <!-- Panneaux temps de crack (3 scénarios d attaque) -->
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
             <div style="background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.25);border-radius:8px;padding:10px 12px">
               <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono);margin-bottom:5px">&#9889; GPU Cluster (10&thinsp;Mrd/s)</div>
-              <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--bad)" id="pw-time-gpu">â€”</div>
+              <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--bad)" id="pw-time-gpu">—</div>
             </div>
             <div style="background:rgba(220,185,110,0.08);border:1px solid rgba(220,185,110,0.25);border-radius:8px;padding:10px 12px">
               <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono);margin-bottom:5px">&#128273; bcrypt (1&thinsp;000/s)</div>
-              <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--gold)" id="pw-time-bcrypt">â€”</div>
+              <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--gold)" id="pw-time-bcrypt">—</div>
             </div>
             <div style="background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.25);border-radius:8px;padding:10px 12px">
               <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono);margin-bottom:5px">&#127758; En ligne (100/h)</div>
-              <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--cyan)" id="pw-time-online">â€”</div>
+              <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--cyan)" id="pw-time-online">—</div>
             </div>
           </div>
 
-          <!-- Panneau statistiques dÃ©taillÃ©es -->
+          <!-- Panneau statistiques détaillées -->
           <div id="pw-stats" style="font-size:13.5px;line-height:1.8;color:var(--muted);background:rgba(6,9,13,0.7);padding:14px 18px;border-radius:10px;border:1px solid var(--line);margin-top:0"></div>
           <!-- Suggestion de mot de passe plus fort -->
           <div id="pw-suggestion" style="display:none;margin-top:12px;padding:12px 16px;background:rgba(0,245,155,0.07);border:1px solid rgba(0,245,155,0.25);border-radius:8px;font-size:13px;line-height:1.65"></div>
@@ -2399,11 +2399,11 @@ termSay("Système initialisé. Tapez 'help' ou cliquez un raccourci ci-dessous.\
    SIMULATEUR DU GARDIEN NUMÉRIQUE AUTONOME
    ========================================================================== */
 /* ==========================================================================
-   BOUCLIER DE DÃ‰FENSE AUTONOME â€” LINUX SOC ENGINE v2.6
-   Fail2ban / Suricata / iptables / rkhunter â€” 100% client-side simulation
+   BOUCLIER DE DÉFENSE AUTONOME — LINUX SOC ENGINE v2.6
+   Fail2ban / Suricata / iptables / rkhunter — 100% client-side simulation
    ========================================================================== */
 
-/* --- DonnÃ©es de distributions Linux --- */
+/* --- Données de distributions Linux --- */
 const DISTRO_META = {
   debian: { label:"Debian / Ubuntu", pkg:"apt", fw:"iptables/nftables", init:"systemd", jail:"/etc/fail2ban/jail.local", host:"anatech@ubuntu-22-srv" },
   arch:   { label:"Arch Linux",      pkg:"pacman", fw:"nftables", init:"systemd", jail:"/etc/fail2ban/jail.d/custom.conf", host:"anatech@arch-hardened" },
@@ -2448,7 +2448,7 @@ function authTs() {
   return `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][n.getMonth()]} ${String(n.getDate()).padStart(2,' ')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`;
 }
 
-/* --- Mise Ã  jour des panneaux SOC statiques --- */
+/* --- Mise à jour des panneaux SOC statiques --- */
 function initSocPanels() {
   const dm = DISTRO_META[currentDistro];
   const ips = [randIp(),randIp(),randIp(),randIp(),randIp()];
@@ -2464,7 +2464,7 @@ function initSocPanels() {
   document.getElementById("g-distro-label").textContent = dm.label;
   document.getElementById("g-distro-label").textContent = dm.label;
   document.getElementById("g-console-host").textContent = dm.host + "$";
-  document.getElementById("g-pkg-label").textContent = "pkg: " + dm.pkg + " Â· init: " + dm.init + " Â· fw: " + dm.fw;
+  document.getElementById("g-pkg-label").textContent = "pkg: " + dm.pkg + " · init: " + dm.init + " · fw: " + dm.fw;
   document.getElementById("g-uptime-display").textContent = "uptime: " + Math.floor(Math.random()*180+30) + " days, load: " + (Math.random()*1.2+0.1).toFixed(2) + " " + (Math.random()*0.8+0.05).toFixed(2) + " " + (Math.random()*0.4+0.02).toFixed(2);
 
   /* Panneau 1 : auth.log */
@@ -2496,7 +2496,7 @@ function initSocPanels() {
 <span class="ip-ok">LISTEN</span> 0      128    127.0.0.1:5432     0.0.0.0:*  users:(("postgres"))
 <span class="ip-ok">LISTEN</span> 0      128    127.0.0.1:6379     0.0.0.0:*  users:(("redis"))`;
 
-  /* Panneau 4 : SantÃ© systÃ¨me */
+  /* Panneau 4 : Santé système */
   const memTotal = 8192; const memUsed = Math.floor(Math.random()*3000)+1500;
   const cpu = (Math.random()*15+2).toFixed(1);
   document.getElementById("panel-syshealth").innerHTML =
@@ -2507,14 +2507,14 @@ function initSocPanels() {
 <span class="ip-ok">â–  PROC</span> ${Math.floor(Math.random()*200)+80} running  ${Math.floor(Math.random()*3)} zombie  ${rules} fw-rules`;
 }
 
-/* --- ScÃ©narios Linux temps rÃ©el --- */
+/* --- Scénarios Linux temps réel --- */
 const GUARDIAN_SCENARIOS = {
   ssh: {
-    name: "SSH Brute-Force â€” Fail2ban + iptables DROP",
+    name: "SSH Brute-Force — Fail2ban + iptables DROP",
     rtime: "0.9s",
     run: async function(dm) {
       const ip = randIp(); const ip2 = randIp();
-      await gConsoleLine(`<span class="c-warn">â•â•â•â• SCÃ‰NARIO 1 : SSH BRUTE-FORCE DETECTED â•â•â•â•</span>`, 0);
+      await gConsoleLine(`<span class="c-warn">â•â•â•â• SCÉNARIO 1 : SSH BRUTE-FORCE DETECTED â•â•â•â•</span>`, 0);
       await gConsoleLine(`<span class="c-muted"># Surveillance : journalctl -u ssh -f | fail2ban-client</span>`, 200);
       await gConsolePrompt("tail -f /var/log/auth.log", 400);
       for (let i=0;i<5;i++) {
@@ -2531,72 +2531,72 @@ const GUARDIAN_SCENARIOS = {
       await gConsoleLine(`Currently banned: <span class="c-err">2</span>  Banned IPs: <span class="c-ip">${ip} ${ip2}</span>`, 4400);
       await gConsolePrompt("ss -tnp | grep -E ':22'", 4800);
       await gConsoleLine(`<span class="c-ok">SYN-RECV 0      0      0.0.0.0:22   <span class="c-ip">${ip}</span>:51234  â†’ DROPPED by iptables</span>`, 5100);
-      await gConsoleLine(`\n<span class="c-ok">â•â•â•â• âœ… RIPOSTE TERMINÃ‰E â•â•â•â•</span>`, 5500);
-      await gConsoleLine(`<span class="c-ok">IPs bannies : ${ip}, ${ip2}  |  RÃ¨gles iptables DROP insÃ©rÃ©es en tÃªte de chaÃ®ne INPUT</span>`, 5700);
-      await gConsoleLine(`<span class="c-ok">Temps de rÃ©ponse Fail2ban : 0.9s â€” Aucune connexion Ã©tablie par l'attaquant.</span>`, 5900);
+      await gConsoleLine(`\n<span class="c-ok">â•â•â•â• ✅ RIPOSTE TERMINÉE â•â•â•â•</span>`, 5500);
+      await gConsoleLine(`<span class="c-ok">IPs bannies : ${ip}, ${ip2}  |  Règles iptables DROP insérées en tête de chaîne INPUT</span>`, 5700);
+      await gConsoleLine(`<span class="c-ok">Temps de réponse Fail2ban : 0.9s — Aucune connexion établie par l'attaquant.</span>`, 5900);
       await gConsoleLine(`<span class="c-muted"># /etc/fail2ban/jail.local â†’ [sshd] maxretry=5 bantime=86400 findtime=600</span>`, 6200);
       document.getElementById("g-stat-last").textContent = ip;
       document.getElementById("g-stat-rtime").textContent = "0.9s";
     }
   },
   portscan: {
-    name: "Port Scan Furtif â€” Suricata IDS + iptables REJECT",
+    name: "Port Scan Furtif — Suricata IDS + iptables REJECT",
     rtime: "1.1s",
     run: async function(dm) {
       const ip = randIp();
-      await gConsoleLine(`<span class="c-warn">â•â•â•â• SCÃ‰NARIO 2 : PORT SCAN DÃ‰TECTÃ‰ (nmap -sS furtif) â•â•â•â•</span>`, 0);
-      await gConsoleLine(`<span class="c-muted"># Suricata IDS analyse le trafic rÃ©seau en temps rÃ©el (IDS mode)</span>`, 200);
+      await gConsoleLine(`<span class="c-warn">â•â•â•â• SCÉNARIO 2 : PORT SCAN DÉTECTÉ (nmap -sS furtif) â•â•â•â•</span>`, 0);
+      await gConsoleLine(`<span class="c-muted"># Suricata IDS analyse le trafic réseau en temps réel (IDS mode)</span>`, 200);
       await gConsolePrompt("tail -f /var/log/suricata/fast.log", 500);
       await gConsoleLine(`<span class="c-err">11/07/2026-10:04:11.231874 [**] [1:2010936:3] ET SCAN Nmap Scripting Engine User-Agent Detected [**] [Classification: Web Application Attack] [Priority: 1] {TCP} <span class="c-ip">${ip}</span>:51234 -> 10.0.0.1:80</span>`, 900);
       await gConsoleLine(`<span class="c-err">11/07/2026-10:04:11.302411 [**] [1:2000538:6] ET SCAN Potential SSH Scan [**] [Classification: Attempted Information Leak] [Priority: 2] {TCP} <span class="c-ip">${ip}</span>:51235 -> 10.0.0.1:22</span>`, 1300);
       await gConsoleLine(`<span class="c-err">11/07/2026-10:04:11.389012 [**] [1:2010935:4] ET SCAN Nmap SYN Scan [**] {TCP} <span class="c-ip">${ip}</span>:0 -> 10.0.0.1:443</span>`, 1700);
-      await gConsoleLine(`<span class="c-warn">[Suricata] ALERT: Repeated port scan from <span class="c-ip">${ip}</span> â€” 47 ports probed in 0.4s â€” triggering block rule</span>`, 2200);
+      await gConsoleLine(`<span class="c-warn">[Suricata] ALERT: Repeated port scan from <span class="c-ip">${ip}</span> — 47 ports probed in 0.4s — triggering block rule</span>`, 2200);
       await gConsolePrompt(`iptables -I INPUT -s ${ip} -p tcp -j REJECT --reject-with tcp-reset`, 2700);
-      await gConsoleLine(`<span class="c-ok">[ âœ“ ] REJECT rule added for ${ip}/32 â€” TCP RST sent back to scanner</span>`, 3100);
+      await gConsoleLine(`<span class="c-ok">[ âœ“ ] REJECT rule added for ${ip}/32 — TCP RST sent back to scanner</span>`, 3100);
       await gConsolePrompt("iptables -L INPUT -n --line-numbers | head -5", 3400);
       await gConsoleLine(`<span class="c-ok">num  target     prot opt source               destination</span>`, 3700);
       await gConsoleLine(`<span class="c-ok">1    REJECT     tcp  --  ${ip}       0.0.0.0/0  reject-with tcp-reset</span>`, 3900);
       await gConsolePrompt("suricata-update --no-reload", 4200);
-      await gConsoleLine(`<span class="c-ok">[ âœ“ ] Updated 32,145 rules â€” Suricata signatures refreshed</span>`, 4600);
-      await gConsoleLine(`\n<span class="c-ok">â•â•â•â• âœ… SCAN NEUTRALISÃ‰ â•â•â•â•</span>`, 5000);
-      await gConsoleLine(`<span class="c-ok">IP scanner ${ip} bloquÃ©e via REJECT tcp-reset â€” le scanner ne voit que des ports Â« fermÃ©s Â»</span>`, 5300);
+      await gConsoleLine(`<span class="c-ok">[ âœ“ ] Updated 32,145 rules — Suricata signatures refreshed</span>`, 4600);
+      await gConsoleLine(`\n<span class="c-ok">â•â•â•â• ✅ SCAN NEUTRALISÉ â•â•â•â•</span>`, 5000);
+      await gConsoleLine(`<span class="c-ok">IP scanner ${ip} bloquée via REJECT tcp-reset — le scanner ne voit que des ports « fermés »</span>`, 5300);
       document.getElementById("g-stat-last").textContent = ip;
       document.getElementById("g-stat-rtime").textContent = "1.1s";
     }
   },
   ddos: {
-    name: "DDoS SYN Flood â€” iptables hashlimit + SYN Cookies",
+    name: "DDoS SYN Flood — iptables hashlimit + SYN Cookies",
     rtime: "1.4s",
     run: async function(dm) {
       const pps = Math.floor(Math.random()*80000)+30000;
-      await gConsoleLine(`<span class="c-warn">â•â•â•â• SCÃ‰NARIO 3 : DDOS SYN FLOOD DÃ‰TECTÃ‰ â•â•â•â•</span>`, 0);
-      await gConsoleLine(`<span class="c-muted"># DÃ©tection via netstat / ss : explosion du nombre de connexions SYN_RECV</span>`, 200);
+      await gConsoleLine(`<span class="c-warn">â•â•â•â• SCÉNARIO 3 : DDOS SYN FLOOD DÉTECTÉ â•â•â•â•</span>`, 0);
+      await gConsoleLine(`<span class="c-muted"># Détection via netstat / ss : explosion du nombre de connexions SYN_RECV</span>`, 200);
       await gConsolePrompt("ss -s", 500);
       await gConsoleLine(`<span class="c-err">Total: 65535 (kernel 65535)\nTCP:   62120 (estab 42, closed 60012, orphaned 2066, synrecv <span class="c-hl">${(pps/1000).toFixed(0)}k</span>, timewait 60012/0)</span>`, 900);
-      await gConsoleLine(`<span class="c-warn">[ALERTE] SYN_RECV count: ${pps.toLocaleString()} paquets/sec â€” DDoS SYN Flood confirmÃ© !</span>`, 1500);
+      await gConsoleLine(`<span class="c-warn">[ALERTE] SYN_RECV count: ${pps.toLocaleString()} paquets/sec — DDoS SYN Flood confirmé !</span>`, 1500);
       await gConsolePrompt("sysctl -w net.ipv4.tcp_syncookies=1", 2000);
-      await gConsoleLine(`<span class="c-ok">net.ipv4.tcp_syncookies = 1  â† SYN Cookies activÃ©s (protection kernel)</span>`, 2400);
+      await gConsoleLine(`<span class="c-ok">net.ipv4.tcp_syncookies = 1  â† SYN Cookies activés (protection kernel)</span>`, 2400);
       await gConsolePrompt("sysctl -w net.ipv4.tcp_syn_retries=2", 2700);
       await gConsoleLine(`<span class="c-ok">net.ipv4.tcp_syn_retries = 2</span>`, 3000);
       await gConsolePrompt("iptables -A INPUT -p tcp --syn -m hashlimit --hashlimit-name syn_flood --hashlimit-above 200/sec --hashlimit-burst 800 --hashlimit-mode srcip -j DROP", 3300);
-      await gConsoleLine(`<span class="c-ok">[ âœ“ ] RÃ¨gle hashlimit insÃ©rÃ©e : DROP si > 200 SYN/s par IP source</span>`, 3800);
+      await gConsoleLine(`<span class="c-ok">[ âœ“ ] Règle hashlimit insérée : DROP si > 200 SYN/s par IP source</span>`, 3800);
       await gConsolePrompt("iptables -A INPUT -p tcp --syn -m limit --limit 50/second --limit-burst 200 -j ACCEPT", 4100);
-      await gConsoleLine(`<span class="c-ok">[ âœ“ ] RÃ¨gle limit globale : ACCEPT max 50 SYN/s (trafic lÃ©gitime prÃ©servÃ©)</span>`, 4500);
+      await gConsoleLine(`<span class="c-ok">[ âœ“ ] Règle limit globale : ACCEPT max 50 SYN/s (trafic légitime préservé)</span>`, 4500);
       await gConsolePrompt("iptables -A INPUT -p tcp --syn -j DROP", 4800);
-      await gConsoleLine(`<span class="c-ok">[ âœ“ ] DROP catch-all pour SYN en excÃ¨s â€” trafic parasite Ã©liminÃ©</span>`, 5200);
+      await gConsoleLine(`<span class="c-ok">[ âœ“ ] DROP catch-all pour SYN en excès — trafic parasite éliminé</span>`, 5200);
       await gConsolePrompt("ss -s", 5500);
-      await gConsoleLine(`<span class="c-ok">TCP: synrecv <span class="c-hl">48</span>  â† retour Ã  la normale âœ“</span>`, 5900);
-      await gConsoleLine(`\n<span class="c-ok">â•â•â•â• âœ… FLOOD ABSORBÃ‰ â•â•â•â•</span>`, 6300);
-      await gConsoleLine(`<span class="c-ok">SYN Cookies kernel + hashlimit iptables ont rÃ©duit le SYN_RECV de ${(pps/1000).toFixed(0)}k Ã  48 â€” service en ligne sans interruption.</span>`, 6600);
+      await gConsoleLine(`<span class="c-ok">TCP: synrecv <span class="c-hl">48</span>  â† retour à la normale âœ“</span>`, 5900);
+      await gConsoleLine(`\n<span class="c-ok">â•â•â•â• ✅ FLOOD ABSORBÉ â•â•â•â•</span>`, 6300);
+      await gConsoleLine(`<span class="c-ok">SYN Cookies kernel + hashlimit iptables ont réduit le SYN_RECV de ${(pps/1000).toFixed(0)}k à 48 — service en ligne sans interruption.</span>`, 6600);
       document.getElementById("g-stat-rtime").textContent = "1.4s";
     }
   },
   rootkit: {
-    name: "Scan Anti-Rootkit â€” rkhunter --check",
+    name: "Scan Anti-Rootkit — rkhunter --check",
     rtime: "2.1s",
     run: async function(dm) {
-      await gConsoleLine(`<span class="c-warn">â•â•â•â• SCÃ‰NARIO 4 : SCAN ANTI-ROOTKIT rkhunter â•â•â•â•</span>`, 0);
-      await gConsoleLine(`<span class="c-muted"># VÃ©rification de l'intÃ©gritÃ© systÃ¨me â€” inspirÃ© de rkhunter v1.4.6 (GPL)</span>`, 200);
+      await gConsoleLine(`<span class="c-warn">â•â•â•â• SCÉNARIO 4 : SCAN ANTI-ROOTKIT rkhunter â•â•â•â•</span>`, 0);
+      await gConsoleLine(`<span class="c-muted"># Vérification de l'intégrité système — inspiré de rkhunter v1.4.6 (GPL)</span>`, 200);
       await gConsolePrompt("rkhunter --update", 500);
       await gConsoleLine(`<span class="c-ok">[ Rootkit Hunter version 1.4.6 ]</span>`, 900);
       await gConsoleLine(`<span class="c-ok">[ Checking rkhunter data files... ]  Fetching rkhunter.dat: [ Updated ]</span>`, 1200);
@@ -2622,15 +2622,15 @@ const GUARDIAN_SCENARIOS = {
       await gConsoleLine(`  Checking for sudo...................<span class="c-ok">[ Found: 1.9.15 ]</span>`, 5700);
       await gConsolePrompt("rkhunter --propupd", 6000);
       await gConsoleLine(`<span class="c-ok">[ Updating file properties database... ]  File updated: /var/lib/rkhunter/db/rkhunter.dat</span>`, 6400);
-      await gConsoleLine(`\n<span class="c-ok">â•â•â•â• âœ… SYSTÃˆME PROPRE â•â•â•â•</span>`, 6800);
-      await gConsoleLine(`<span class="c-ok">rkhunter : 0 rootkits trouvÃ©s Â· 0 fichiers suspects Â· IntÃ©gritÃ© des binaires : VALIDÃ‰E</span>`, 7100);
+      await gConsoleLine(`\n<span class="c-ok">â•â•â•â• ✅ SYSTÈME PROPRE â•â•â•â•</span>`, 6800);
+      await gConsoleLine(`<span class="c-ok">rkhunter : 0 rootkits trouvés · 0 fichiers suspects · Intégrité des binaires : VALIDÉE</span>`, 7100);
       await gConsoleLine(`<span class="c-muted"># Rapport complet â†’ /var/log/rkhunter.log</span>`, 7400);
       document.getElementById("g-stat-rtime").textContent = "2.1s";
     }
   }
 };
 
-/* --- Chips de scÃ©narios --- */
+/* --- Chips de scénarios --- */
 document.querySelectorAll(".sc-card").forEach(card => {
   card.onclick = () => {
     if (guardianRunning) return;
@@ -2640,7 +2640,7 @@ document.querySelectorAll(".sc-card").forEach(card => {
     currentScenarioKey = card.dataset.scenario;
     const sc = GUARDIAN_SCENARIOS[currentScenarioKey];
     gConsoleClear();
-    gConsoleAppend(`<span class="c-muted"># ScÃ©nario sÃ©lectionnÃ© : ${sc.name}</span>\n<span class="c-muted"># Cliquez sur â–¶ Lancer la simulation pour dÃ©marrer</span>`, 0);
+    gConsoleAppend(`<span class="c-muted"># Scénario sélectionné : ${sc.name}</span>\n<span class="c-muted"># Cliquez sur ▶ Lancer la simulation pour démarrer</span>`, 0);
   };
 });
 
@@ -2651,13 +2651,13 @@ document.getElementById("btn-run-guardian").onclick = async () => {
   playBeep(920, "triangle", 0.08);
   const btn = document.getElementById("btn-run-guardian");
   btn.disabled = true;
-  btn.querySelector("span").textContent = "â³ Simulation en coursâ€¦";
+  btn.querySelector("span").textContent = "â⏳ Simulation en cours…";
   const dm = DISTRO_META[currentDistro];
   gConsoleClear();
   await GUARDIAN_SCENARIOS[currentScenarioKey].run(dm);
   guardianRunning = false;
   btn.disabled = false;
-  btn.querySelector("span").textContent = "â–¶ Lancer la simulation en direct";
+  btn.querySelector("span").textContent = "▶ Lancer la simulation en direct";
   initSocPanels();
   document.getElementById("g-stat-ban").textContent = parseInt(document.getElementById("g-stat-ban").textContent) + Math.floor(Math.random()*3)+1;
   document.getElementById("g-stat-att").textContent = (parseInt(document.getElementById("g-stat-att").textContent.replace(/,/g,'')) + Math.floor(Math.random()*50)+10).toLocaleString();
@@ -2672,7 +2672,7 @@ document.querySelectorAll(".g-distro-chip").forEach(chip => {
     const dm = DISTRO_META[currentDistro];
     document.getElementById("g-distro-label").textContent = dm.label;
     document.getElementById("g-console-host").textContent = dm.host + "$";
-    document.getElementById("g-pkg-label").textContent = "pkg: " + dm.pkg + " Â· init: " + dm.init + " Â· fw: " + dm.fw;
+    document.getElementById("g-pkg-label").textContent = "pkg: " + dm.pkg + " · init: " + dm.init + " · fw: " + dm.fw;
     initSocPanels();
     playBeep(680, "sine", 0.03);
   };
@@ -2697,9 +2697,9 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
 });
 
 /* ==========================================================================
-   LABORATOIRE DE MOTS DE PASSE â€” MOTEUR D ANALYSE PRO v3.0
-   100% client-side Â· zero network Â· zero external lib
-   InspirÃ© de zxcvbn (Dropbox, MIT) â€” implÃ©mentation native
+   LABORATOIRE DE MOTS DE PASSE — MOTEUR D ANALYSE PRO v3.0
+   100% client-side · zero network · zero external lib
+   Inspiré de zxcvbn (Dropbox, MIT) — implémentation native
    ========================================================================== */
 const pwInput = document.getElementById("pw-input");
 const pwBar   = document.getElementById("pw-bar");
@@ -2709,20 +2709,20 @@ const pwGradeBadge = document.getElementById("pw-grade-badge");
 /* --- Top 120 mots de passe les plus courants (liste HIBP 2024) --- */
 const PW_DICT = new Set(["password","123456","password1","12345678","qwerty","abc123","monkey","1234567","letmein","trustno1","dragon","baseball","iloveyou","master","sunshine","ashley","bailey","passw0rd","shadow","123123","654321","superman","qazwsx","michael","football","azerty","motdepasse","admin","niger","niamey","hello123","welcome","login","pass","root","admin123","test","123","111111","qwerty123","password123","1q2w3e4r","123456789","12345","1234","0000","00000000","55555555","666666","7777777","88888888","1111111","12341234","qwertyuiop","987654321","mypassword","changeme","secret","pass123","love","sex","god","money","fuck","shit","liverpool","internet","service","computer","tigger","mickey","ninja","batman","starwars","hello","summer","george","jordan","harley","ranger","dakota","daniel","thomas","taylor","access","master","moon","november","alpha","bravo","charlie","delta","eagle","falcon","oscar","romeo","sierra","tango","united","victor","winner","xavier","yankee","zulu","orange","purple","yellow","silver","batman","spider","captain","falcon","green"]);
 
-/* --- SÃ©quences clavier QWERTY, AZERTY, etc. --- */
+/* --- Séquences clavier QWERTY, AZERTY, etc. --- */
 const KBD_SEQUENCES = ["qwertyuiop","asdfghjkl","zxcvbnm","qwerty","azerty","azertyuiop","qsdfghjklm","wxcvbn","1234567890","0987654321","abcdefghij","abcdef","abcd","1234","0000","1111","2222","3333","4444","5555","6666","7777","8888","9999","aaaa","bbbb","cccc","dddd","eeee","ffff"];
 
 /* --- Substitutions l33t (inverse : l33t -> normal) --- */
 const L33T = {"4":"a","@":"a","3":"e","â‚¬":"e","1":"i","!":"i","0":"o","5":"s","$":"s","7":"t","+":"t","8":"b"};
 
-/* --- DÃ©normalisation l33t pour dÃ©tecter les mots du dictionnaire masquÃ©s --- */
+/* --- Dénormalisation l33t pour détecter les mots du dictionnaire masqués --- */
 function deLeet(val) {
   let r = val.toLowerCase();
   for (const [k,v] of Object.entries(L33T)) r = r.split(k).join(v);
   return r;
 }
 
-/* --- DÃ©tection de patterns clavier --- */
+/* --- Détection de patterns clavier --- */
 function hasKeyboardWalk(val) {
   const v = val.toLowerCase();
   for (const seq of KBD_SEQUENCES) {
@@ -2734,18 +2734,18 @@ function hasKeyboardWalk(val) {
   return false;
 }
 
-/* --- DÃ©tection de date (aaaa, ddmm, mmaaaaâ€¦) --- */
+/* --- Détection de date (aaaa, ddmm, mmaaaa…) --- */
 function hasDatePattern(val) {
   return /(?:19|20)\d{2}/.test(val) || /\b\d{2}[\/\-\.]\d{2}[\/\-\.]\d{2,4}\b/.test(val) || /\d{4,8}/.test(val) && /(?:19|20)\d{2}|0[1-9]|1[0-2]/.test(val);
 }
 
 /* --- Formatage du temps de crack --- */
 function formatTime(seconds) {
-  if (!isFinite(seconds) || seconds > 3.154e18) return "siÃ¨cles (invulnÃ©rable)";
+  if (!isFinite(seconds) || seconds > 3.154e18) return "siècles (invulnérable)";
   const units = [
-    [3.154e13, "millions d'annÃ©es"],
-    [3.154e10, "millÃ©naires"],
-    [3.154e7,  "siÃ¨cles"],
+    [3.154e13, "millions d'années"],
+    [3.154e10, "millénaires"],
+    [3.154e7,  "siècles"],
     [31536000, "ans"],
     [86400,    "jours"],
     [3600,     "heures"],
@@ -2771,22 +2771,22 @@ function evaluatePassword() {
     pwBar.style.background = "var(--muted)";
     pwGradeBadge.textContent = "En attente de saisie";
     pwGradeBadge.style.color = "var(--muted)";
-    pwStats.innerHTML = "Saisissez un mot de passe pour analyser son niveau de protection et les temps de crack selon 3 scÃ©narios d&apos;attaque rÃ©els.";
+    pwStats.innerHTML = "Saisissez un mot de passe pour analyser son niveau de protection et les temps de crack selon 3 scénarios d&apos;attaque réels.";
     if (suggEl) suggEl.style.display = "none";
-    ["pw-time-gpu","pw-time-bcrypt","pw-time-online"].forEach(id => { const e = document.getElementById(id); if(e) e.textContent = "â€”"; });
+    ["pw-time-gpu","pw-time-bcrypt","pw-time-online"].forEach(id => { const e = document.getElementById(id); if(e) e.textContent = "—"; });
     ["pw-seg-lower","pw-seg-upper","pw-seg-num","pw-seg-sym"].forEach(id => { const e = document.getElementById(id); if(e) e.style.width = "0%"; });
     resetPwChecklist();
     return;
   }
 
-  /* CritÃ¨res de base */
+  /* Critères de base */
   const hasLower = /[a-z]/.test(val);
   const hasUpper = /[A-Z]/.test(val);
   const hasNum   = /\d/.test(val);
   const hasSym   = /[^A-Za-z0-9]/.test(val);
   const hasLen   = val.length >= 12;
 
-  /* DÃ©tections avancÃ©es */
+  /* Détections avancées */
   const isDict     = PW_DICT.has(val.toLowerCase()) || PW_DICT.has(deLeet(val));
   const isKbd      = hasKeyboardWalk(val);
   const isDate     = hasDatePattern(val);
@@ -2794,7 +2794,7 @@ function evaluatePassword() {
   const noDict     = !isDict && !isRepeat && !isDate;
   const noSeq      = !isKbd;
 
-  /* Mise Ã  jour checklist (7 critÃ¨res) */
+  /* Mise à jour checklist (7 critères) */
   updateCheckItem("chk-len",    hasLen);
   updateCheckItem("chk-lower",  hasLower);
   updateCheckItem("chk-upper",  hasUpper);
@@ -2815,7 +2815,7 @@ function evaluatePassword() {
   setPct("pw-seg-num",   (nc/total)*100);
   setPct("pw-seg-sym",   (sc/total)*100);
 
-  /* Calcul d entropie â€” espace charset */
+  /* Calcul d entropie — espace charset */
   let charset = 0;
   if (hasLower) charset += 26;
   if (hasUpper) charset += 26;
@@ -2824,7 +2824,7 @@ function evaluatePassword() {
 
   let bits = val.length * Math.log2(charset || 1);
 
-  /* PÃ©nalitÃ©s pour patterns faibles */
+  /* Pénalités pour patterns faibles */
   if (isDict)   bits = Math.min(bits, 15);
   if (isRepeat) bits = Math.min(bits, 10);
   if (isKbd)    bits = Math.min(bits * 0.5, 28);
@@ -2836,10 +2836,10 @@ function evaluatePassword() {
   /* Combinaisons = 2^bits */
   const combos = Math.pow(2, bits);
 
-  /* 3 scÃ©narios de crack */
+  /* 3 scénarios de crack */
   const secGpu    = combos / 2 / 1e10;      // GPU cluster MD5 : 10 Mrd/s
   const secBcrypt = combos / 2 / 1e3;       // bcrypt cost 10 : ~1 000/s
-  const secOnline = combos / 2 / (100/3600); // Service en ligne throttlÃ© : 100/h â†’ /s
+  const secOnline = combos / 2 / (100/3600); // Service en ligne throttlé : 100/h â†’ /s
 
   const tGpu    = formatTime(secGpu);
   const tBcrypt = formatTime(secBcrypt);
@@ -2855,28 +2855,28 @@ function evaluatePassword() {
   pwBar.style.width = pct + "%";
 
   let labelGrade, colorGrade, barColor;
-  if (bits < 28)      { labelGrade = "ðŸ”´ TrÃ¨s Faible";           colorGrade = "var(--bad)";  barColor = "#ff4d6d"; }
-  else if (bits < 40) { labelGrade = "ðŸŸ  Faible";                 colorGrade = "#ff8c42";     barColor = "#ff8c42"; }
-  else if (bits < 56) { labelGrade = "ðŸŸ¡ Moyen";                  colorGrade = "var(--gold)"; barColor = "#dcb96e"; }
-  else if (bits < 80) { labelGrade = "ðŸŸ¢ Fort";                   colorGrade = "var(--ok)";   barColor = "#00f59b"; }
-  else                { labelGrade = "ðŸ”µ ImpÃ©nÃ©trable (Expert)";  colorGrade = "var(--cyan)"; barColor = "#00e5ff"; }
+  if (bits < 28)      { labelGrade = "🔴 Très Faible";           colorGrade = "var(--bad)";  barColor = "#ff4d6d"; }
+  else if (bits < 40) { labelGrade = "🟠 Faible";                 colorGrade = "#ff8c42";     barColor = "#ff8c42"; }
+  else if (bits < 56) { labelGrade = "🟡 Moyen";                  colorGrade = "var(--gold)"; barColor = "#dcb96e"; }
+  else if (bits < 80) { labelGrade = "🟢 Fort";                   colorGrade = "var(--ok)";   barColor = "#00f59b"; }
+  else                { labelGrade = "🔵 Impénétrable (Expert)";  colorGrade = "var(--cyan)"; barColor = "#00e5ff"; }
 
   pwBar.style.background = barColor;
   pwGradeBadge.textContent = labelGrade;
   pwGradeBadge.style.color = colorGrade;
 
-  /* Conseil / faiblesses dÃ©tectÃ©es */
+  /* Conseil / faiblesses détectées */
   const warnings = [];
-  if (!hasLen)   warnings.push("Trop court : visez au moins 12 caractÃ¨res.");
+  if (!hasLen)   warnings.push("Trop court : visez au moins 12 caractères.");
   if (!hasUpper) warnings.push("Ajoutez des majuscules (A-Z).");
   if (!hasNum)   warnings.push("Ajoutez des chiffres (0-9).");
   if (!hasSym)   warnings.push("Ajoutez des symboles (!@#$%^&*).");
-  if (isDict)    warnings.push("âš ï¸ Ce mot de passe figure dans les listes de violation de donnÃ©es (HIBP).");
-  if (isKbd)     warnings.push("âš ï¸ SÃ©quence clavier dÃ©tectÃ©e (qwerty, azertyâ€¦) â€” facilement devinÃ©e.");
-  if (isDate)    warnings.push("âš ï¸ Contient une date â€” les robots l'essaient en prioritÃ©.");
-  if (isRepeat)  warnings.push("âš ï¸ CaractÃ¨res rÃ©pÃ©tÃ©s â€” trÃ¨s faible entropie.");
+  if (isDict)    warnings.push("âš ï¸ Ce mot de passe figure dans les listes de violation de données (HIBP).");
+  if (isKbd)     warnings.push("âš ï¸ Séquence clavier détectée (qwerty, azerty…) — facilement devinée.");
+  if (isDate)    warnings.push("âš ï¸ Contient une date — les robots l'essaient en priorité.");
+  if (isRepeat)  warnings.push("âš ï¸ Caractères répétés — très faible entropie.");
 
-  /* GÃ©nÃ©ration d une suggestion de mot de passe fort */
+  /* Génération d une suggestion de mot de passe fort */
   let suggestion = "";
   if (bits < 56) {
     const chars = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789!@#$%^&*-_+=";
@@ -2890,13 +2890,13 @@ function evaluatePassword() {
   pwStats.innerHTML = `
 <b style="color:${colorGrade}">${labelGrade}</b> &mdash; <span class="mono">${Math.round(bits)} bits d&apos;entropie</span><br>
 <span style="color:var(--muted)">Longueur :</span> <span class="mono">${val.length} car.</span> &nbsp;|&nbsp; <span style="color:var(--muted)">Alphabet :</span> <span class="mono">${charset} symboles</span> &nbsp;|&nbsp; <span style="color:var(--muted)">Combinaisons :</span> <span class="mono">2<sup>${Math.round(bits)}</sup></span><br>
-${warnings.length ? '<span style="color:var(--bad)">âš  ' + warnings.join(' &nbsp;Â· ') + '</span>' : '<span style="color:var(--ok)">âœ… Aucune faiblesse Ã©vidente dÃ©tectÃ©e.</span>'}
+${warnings.length ? '<span style="color:var(--bad)">âš  ' + warnings.join(' &nbsp;· ') + '</span>' : '<span style="color:var(--ok)">✅ Aucune faiblesse évidente détectée.</span>'}
 `;
 
   if (suggEl) {
     if (suggestion) {
       suggEl.style.display = "block";
-      suggEl.innerHTML = `<b style="color:var(--ok)">ðŸ’¡ Suggestion de mot de passe fort :</b><br><span class="mono" style="color:var(--cyan);font-size:14px;user-select:all">${suggestion}</span><br><small style="color:var(--muted)">GÃ©nÃ©rÃ© via CSPRNG Â· Copiez-le et stockez-le dans un gestionnaire de mots de passe.</small>`;
+      suggEl.innerHTML = `<b style="color:var(--ok)">💡 Suggestion de mot de passe fort :</b><br><span class="mono" style="color:var(--cyan);font-size:14px;user-select:all">${suggestion}</span><br><small style="color:var(--muted)">Généré via CSPRNG · Copiez-le et stockez-le dans un gestionnaire de mots de passe.</small>`;
     } else {
       suggEl.style.display = "none";
     }
@@ -3035,7 +3035,7 @@ function calculateCIDR() {
 }
 cidrInput.addEventListener("input", calculateCIDR);
 
-// 5. Client Security Audit â€” 100% local, zero external API
+// 5. Client Security Audit — 100% local, zero external API
 async function runClientAudit() {
   const grid = document.getElementById("audit-grid");
   if (!grid) return;
@@ -3061,43 +3061,43 @@ async function runClientAudit() {
   const platform   = navigator.userAgentData ? (navigator.userAgentData.platform || navigator.platform) : navigator.platform;
   const online     = navigator.onLine;
   const conType    = (navigator.connection || navigator.mozConnection || navigator.webkitConnection);
-  const netType    = conType ? (conType.effectiveType || conType.type || "?") : "Non exposÃ©";
+  const netType    = conType ? (conType.effectiveType || conType.type || "?") : "Non exposé";
   const rtt        = conType && conType.rtt != null ? conType.rtt + "ms" : "?";
-  const saveData   = conType && conType.saveData ? "Oui (Mode Ã©conomie)" : "Non";
+  const saveData   = conType && conType.saveData ? "Oui (Mode économie)" : "Non";
   const jsEnabled  = true;
   const webgl      = (() => {
     try {
       const c = document.createElement("canvas");
       const gl = c.getContext("webgl") || c.getContext("experimental-webgl");
-      if (!gl) return "Non supportÃ©";
+      if (!gl) return "Non supporté";
       const dbg = gl.getExtension("WEBGL_debug_renderer_info");
       return dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL).split("/")[0].trim() : "WebGL disponible";
-    } catch(e) { return "BloquÃ© / sandboxÃ©"; }
+    } catch(e) { return "Bloqué / sandboxé"; }
   })();
-  const storLocal  = (() => { try { localStorage.setItem("_t",1); localStorage.removeItem("_t"); return "Disponible"; } catch(e) { return "BloquÃ©"; } })();
-  const storSess   = (() => { try { sessionStorage.setItem("_t",1); sessionStorage.removeItem("_t"); return "Disponible"; } catch(e) { return "BloquÃ©"; } })();
+  const storLocal  = (() => { try { localStorage.setItem("_t",1); localStorage.removeItem("_t"); return "Disponible"; } catch(e) { return "Bloqué"; } })();
+  const storSess   = (() => { try { sessionStorage.setItem("_t",1); sessionStorage.removeItem("_t"); return "Disponible"; } catch(e) { return "Bloqué"; } })();
   const indexed    = !!window.indexedDB;
   const webworker  = !!window.Worker;
   const wasm       = !!window.WebAssembly;
   const crypto_ok  = !!(window.crypto && window.crypto.subtle);
 
   // Battery API (si disponible)
-  let battery = "Non exposÃ©e";
+  let battery = "Non exposée";
   try {
     if (navigator.getBattery) {
       const bat = await navigator.getBattery();
-      battery = `${Math.round(bat.level*100)}% â€” ${bat.charging ? "âš¡ En charge" : "ðŸ”‹ Sur batterie"}`;
+      battery = `${Math.round(bat.level*100)}% — ${bat.charging ? "âš¡ En charge" : "ðŸ”‹ Sur batterie"}`;
     }
   } catch(e) {}
 
-  // Score de confidentialitÃ© dynamique
+  // Score de confidentialité dynamique
   let score = 100;
   if (!isHttps)  score -= 30;
   if (!dnt)      score -= 10;
   if (cookies)   score -= 5;
-  if (webgl !== "BloquÃ© / sandboxÃ©") score -= 5;
+  if (webgl !== "Bloqué / sandboxé") score -= 5;
   if (storLocal === "Disponible") score -= 5;
-  let scoreLabel = score >= 80 ? "Bon" : score >= 60 ? "Moyen" : "RisquÃ©";
+  let scoreLabel = score >= 80 ? "Bon" : score >= 60 ? "Moyen" : "Risqué";
   let scoreColor = score >= 80 ? "var(--ok)" : score >= 60 ? "var(--gold)" : "var(--bad)";
 
   const card = (title, value, color, icon) => `
@@ -3107,24 +3107,24 @@ async function runClientAudit() {
     </div>`;
 
   grid.innerHTML = [
-    card("Chiffrement TLS", isHttps ? "HTTPS âœ“ ProtÃ©gÃ©" : "HTTP âš  Non sÃ©curisÃ©", isHttps?"var(--ok)":"var(--bad)", "ðŸ”’"),
-    card("Score ConfidentialitÃ©", `${score}/100 â€” ${scoreLabel}`, scoreColor, "ðŸ›¡"),
+    card("Chiffrement TLS", isHttps ? "HTTPS âœ“ Protégé" : "HTTP âš  Non sécurisé", isHttps?"var(--ok)":"var(--bad)", "ðŸ”’"),
+    card("Score Confidentialité", `${score}/100 — ${scoreLabel}`, scoreColor, "ðŸ›¡"),
     card("Fuseau Horaire (local)", tzLabel, "var(--cyan)", "ðŸŒ"),
     card("Langue Navigateur", langs, "var(--text)", "ðŸ—£"),
-    card("RÃ©solution Ã‰cran", `${scr} Â· DPR:${dpr}Ã—`, "var(--gold)", "ðŸ–¥"),
+    card("Résolution Écran", `${scr} · DPR:${dpr}Ã—`, "var(--gold)", "ðŸ–¥"),
     card("Type Appareil", mobile ? "Mobile / Tablette" : "Ordinateur de bureau", "var(--cyan)", "ðŸ“±"),
-    card("Processeur", cores ? `${cores} cÅ“urs logiques` : "MasquÃ©", "var(--gold)", "âš™"),
-    card("RAM DÃ©clarÃ©e", mem ? `${mem} Go (device memory)` : "MasquÃ©e", "var(--gold)", "ðŸ’¾"),
+    card("Processeur", cores ? `${cores} cœurs logiques` : "Masqué", "var(--gold)", "âš™"),
+    card("RAM Déclarée", mem ? `${mem} Go (device memory)` : "Masquée", "var(--gold)", "ðŸ’¾"),
     card("GPU / WebGL", webgl, "var(--muted)", "ðŸŽ®"),
     card("Batterie", battery, "var(--ok)", "ðŸ”‹"),
-    card("RÃ©seau", `${netType} Â· RTT:${rtt} Â· SaveData:${saveData}`, "var(--cyan)", "ðŸ“¡"),
+    card("Réseau", `${netType} · RTT:${rtt} · SaveData:${saveData}`, "var(--cyan)", "ðŸ“¡"),
     card("Connexion", online ? "En ligne" : "Hors ligne", online?"var(--ok)":"var(--bad)", "ðŸŒ"),
-    card("Do-Not-Track", dnt ? "âœ… Actif" : "âŒ Inactif", dnt?"var(--ok)":"var(--bad)", "ðŸš«"),
-    card("Cookies", cookies ? "AutorisÃ©s" : "BloquÃ©s", cookies?"var(--gold)":"var(--ok)", "ðŸª"),
+    card("Do-Not-Track", dnt ? "✅ Actif" : "❌ Inactif", dnt?"var(--ok)":"var(--bad)", "ðŸš«"),
+    card("Cookies", cookies ? "Autorisés" : "Bloqués", cookies?"var(--gold)":"var(--ok)", "🍪"),
     card("LocalStorage", storLocal, storLocal==="Disponible"?"var(--gold)":"var(--ok)", "ðŸ’½"),
     card("SessionStorage", storSess, "var(--muted)", "ðŸ“‚"),
-    card("WebCrypto (CSPRNG)", crypto_ok ? "âœ… Disponible" : "âŒ Absent", crypto_ok?"var(--ok)":"var(--bad)", "ðŸ”‘"),
-    card("WebAssembly", wasm ? "âœ… SupportÃ©" : "âŒ Absent", wasm?"var(--ok)":"var(--muted)", "âš¡"),
+    card("WebCrypto (CSPRNG)", crypto_ok ? "✅ Disponible" : "❌ Absent", crypto_ok?"var(--ok)":"var(--bad)", "ðŸ”‘"),
+    card("WebAssembly", wasm ? "✅ Supporté" : "❌ Absent", wasm?"var(--ok)":"var(--muted)", "âš¡"),
     card("Plateforme OS", platform, "var(--muted)", "ðŸ’»"),
   ].join("");
 }
