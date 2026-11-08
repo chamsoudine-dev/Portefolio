@@ -438,6 +438,29 @@ const COURSES = [
           <li>Utilisez une application comme <b>Fing</b> pour voir tous les téléphones connectés à votre réseau en temps réel.</li>
         </ol>
       </div>
+
+      <h4>3. Mini-Quiz d'Auto-Évaluation</h4>
+      <div class="quiz-section">
+        <div class="quiz-q" data-correct="0">
+          <b>Question 1 : Quelle est la plage d'adresses IP réservée aux réseaux locaux (IP privées) ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuiz(this, 0)">A) 192.168.x.x — attribuée par votre box Wi-Fi à l'intérieur de la maison</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 1)">B) 8.8.8.8 — adresse de votre opérateur Internet</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 2)">C) 255.255.255.0 — adresse du serveur mondial</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-q" data-correct="2">
+          <b>Question 2 : Votre voisin utilise votre Wi-Fi à votre insu. Quelle est la meilleure action immédiate ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuiz(this, 0)">A) Éteindre le routeur définitivement</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 1)">B) Envoyer un message au voisin sur WhatsApp</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 2)">C) Changer le mot de passe Wi-Fi depuis l'interface 192.168.1.1 et activer WPA3</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
     `
   },
 
@@ -489,6 +512,37 @@ const COURSES = [
           <li><code>ping 192.168.1.1</code> : Teste la communication avec votre box ou routeur Wi-Fi.</li>
           <li><code>ping 8.8.8.8</code> : Teste la sortie vers le réseau Internet mondial.</li>
         </ol>
+      </div>
+
+      <h4>3. Mini-Quiz d'Auto-Évaluation</h4>
+      <div class="quiz-section">
+        <div class="quiz-q" data-correct="1">
+          <b>Question 1 : Votre Internet ne fonctionne plus. Vous tapez "ping 192.168.1.1" et ça répond. Quelle est la conclusion ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuiz(this, 0)">A) Internet mondial fonctionne, le problème vient d'autre part</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 1)">B) Votre réseau local et votre box fonctionnent, mais la connexion à Internet est coupée côté opérateur</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 2)">C) Votre ordinateur est piraté</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-q" data-correct="0">
+          <b>Question 2 : Quelle commande Windows affiche votre adresse IP locale attribuée par votre box Wi-Fi ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuiz(this, 0)">A) <code>ipconfig</code> dans l'invite de commandes (CMD)</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 1)">B) <code>ls -la</code> dans le bureau</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 2)">C) Double-cliquer sur la corbeille</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+
+      <div class="lesson-box tip">
+        <b>🧪 Pratiquez maintenant dans notre Simulateur :</b><br>
+        Ouvrez le simulateur pour pratiquer les commandes réseau dans un environnement virtuel sans risque !
+        <div style="margin-top:10px">
+          <a class="btn sm cyan" href="/simulator.html" target="_blank" rel="noopener">⚡ Ouvrir le Simulateur OS ↗</a>
+        </div>
       </div>
     `
   }

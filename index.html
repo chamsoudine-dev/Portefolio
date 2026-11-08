@@ -484,7 +484,7 @@ dialog#lesson-modal::backdrop{
   animation:fadeIn .3s ease;
 }
 @keyframes fadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
- 80px);font-size:14.5px;line-height:1.8}
+.lesson-modal-body{padding:20px 24px 28px;font-size:14.5px;line-height:1.8}
 .lesson-modal-body h4{font-size:17px;color:var(--gold);margin:24px 0 10px}
 .lesson-modal-body p{color:var(--text);margin-bottom:14px}
 .lesson-box{background:rgba(255,255,255,0.03);border-left:3px solid var(--gold);padding:14px 18px;margin:18px 0;border-radius:0 8px 8px 0}
@@ -596,12 +596,13 @@ dialog#lesson-modal::backdrop{
       <span>ANATECH</span>
     </a>
 
-    <div class="nav-links">
-      <a class="nav-link" href="#pipeline"><span class="mono">01.</span> <span data-t="n1">Défense Autonome</span></a>
-      <a class="nav-link" href="#cyberlab"><span class="mono">02.</span> <span data-t="n2">Cyber Lab</span></a>
-      <a class="nav-link" href="#projets"><span class="mono">03.</span> <span data-t="n3">Projets</span></a>
-      <a class="nav-link" href="#skills"><span class="mono">04.</span> <span data-t="n4">Expertises</span></a>
-      <a class="nav-link" href="#contact"><span class="mono">05.</span> <span data-t="n5">Contact</span></a>
+        <div class="nav-links">
+      <a class="nav-link" href="#pipeline"><span class="mono">01.</span> <span>Accueil</span></a>
+      <a class="nav-link" href="#ecole"><span class="mono">02.</span> <span>Ecole</span></a>
+      <a class="nav-link" href="/cours.html" target="_blank"><span class="mono">03.</span> <span>Cours Interactifs</span></a>
+      <a class="nav-link" href="/simulator.html" target="_blank"><span class="mono">04.</span> <span>Simulateur</span></a>
+      <a class="nav-link" href="#missions"><span class="mono">05.</span> <span>Missions</span></a>
+      <a class="nav-link" href="#contact"><span class="mono">06.</span> <span>Contact</span></a>
     </div>
 
     <div class="nav-actions">
@@ -618,13 +619,14 @@ dialog#lesson-modal::backdrop{
   </nav>
 
   <!-- Mobile Drawer -->
-  <div class="mobile-nav" id="mobile-drawer">
+    <div class="mobile-nav" id="mobile-drawer">
     <div id="mobile-auth-status"></div>
-    <a class="nav-link" href="#pipeline" onclick="closeMobileNav()"><span class="mono">01.</span> <span data-t="n1">Défense Autonome</span></a>
-    <a class="nav-link" href="#cyberlab" onclick="closeMobileNav()"><span class="mono">02.</span> <span data-t="n2">Cyber Lab</span></a>
-    <a class="nav-link" href="#projets" onclick="closeMobileNav()"><span class="mono">03.</span> <span data-t="n3">Projets</span></a>
-    <a class="nav-link" href="#skills" onclick="closeMobileNav()"><span class="mono">04.</span> <span data-t="n4">Expertises</span></a>
-    <a class="nav-link" href="#contact" onclick="closeMobileNav()"><span class="mono">05.</span> <span data-t="n5">Contact</span></a>
+    <a class="nav-link" href="#pipeline" onclick="closeMobileNav()"><span class="mono">01.</span> <span>Accueil</span></a>
+    <a class="nav-link" href="#ecole" onclick="closeMobileNav()"><span class="mono">02.</span> <span>Ecole</span></a>
+    <a class="nav-link" href="/cours.html" target="_blank" onclick="closeMobileNav()"><span class="mono">03.</span> <span>Cours Interactifs</span></a>
+    <a class="nav-link" href="/simulator.html" target="_blank" onclick="closeMobileNav()"><span class="mono">04.</span> <span>Simulateur OS</span></a>
+    <a class="nav-link" href="#missions" onclick="closeMobileNav()"><span class="mono">05.</span> <span>Missions</span></a>
+    <a class="nav-link" href="#contact" onclick="closeMobileNav()"><span class="mono">06.</span> <span>Contact</span></a>
   </div>
 </header>
 
