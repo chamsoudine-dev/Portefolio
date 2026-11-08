@@ -451,9 +451,89 @@ function drawPortfolio(){
 
   $("#tb").innerHTML="<tr><th></th><th>Tâche</th><th>Échéance</th><th>Inscrit Lié</th><th></th></tr>"+(T.map(t=>`<tr><td><input type="checkbox" data-tg="${t.id}" ${t.done?"checked":""} aria-label="Terminée"></td><td class="${t.done?"done":""}">${e(t.title)}</td><td>${e(t.due||"—")}</td><td>${e(nm(t.lead_id))}</td><td><button class="btn d sm" data-td="${t.id}">Suppr.</button></td></tr>`).join("")||'<tr><td colspan="5" style="color:var(--muted)">Aucune tâche en cours.</td></tr>');
 
-  const q=$("#q").value.toLowerCase(),sf=$("#sf").value,F=L.filter(l=>(!sf||l.status===sf)&&(!q||[l.name,l.email,l.organization,l.phone].join(" ").toLowerCase().includes(q)));
+function parseLeadNotes(raw){
+  if(!raw) return { text:"", geo:null, profile:null, logins:null };
+  try{
+    const obj = JSON.parse(raw);
+    if(obj && typeof obj === "object"){
+      return {
+        text: obj.raw_notes || "",
+        geo: obj.realtime_geo || null,
+        profile: obj.work_profile || null,
+        logins: obj.login_info || null
+      };
+    }
+  }catch(err){}
+  return { text:raw, geo:null, profile:null, logins:null };
+}
 
-  $("#lt").innerHTML="<tr><th>Date</th><th>Contact</th><th>Statut</th><th>Notes</th><th></th></tr>"+(F.map(l=>`<tr><td>${e(new Date(l.created_at).toLocaleDateString("fr-FR"))}</td><td><b>${e(l.name)}</b><br><a href="mailto:${e(l.email)}" style="color:var(--gold)">${e(l.email)}</a><br>${e(l.phone||"")} ${e(l.organization||"")}</td><td><select data-st="${l.id}">${ST.map(([v,n])=>`<option value="${v}" ${l.status===v?"selected":""}>${n}</option>`).join("")}</select></td><td><textarea data-nt="${l.id}" rows="2" maxlength="2000" style="width:100%;min-width:160px">${e(l.notes)}</textarea></td><td><button class="btn d sm" data-ld="${l.id}">Suppr.</button></td></tr>`).join("")||'<tr><td colspan="5" style="color:var(--muted)">Aucun inscrit.</td></tr>');
+function openJobDelegation(email, name, location, skills){
+  const sub = encodeURIComponent("Opportunité de mission & Travaux informatiques - Anatec");
+  const body = encodeURIComponent(
+    "Bonjour " + name + ",\n\n" +
+    "Dans le cadre des activités techniques et des projets d'Anatec (" + (location || "Niger / Afrique") + "), nous avons actuellement des travaux informatiques à déléguer qui correspondent à votre profil et compétences (" + (skills || "générales") + ").\n\n" +
+    "Seriez-vous disponible pour que nous puissions échanger sur le cahier des charges et la rémunération de cette mission ?\n\n" +
+    "Dans l'attente de votre réponse rapide,\n\n" +
+    "Chamsoudine Anaroua — Fondateur Anatec\n" +
+    "Tél / WhatsApp : +227 91 03 80 61\n" +
+    "Site : https://anatech-ten.vercel.app/"
+  );
+  window.location.href = "mailto:" + email + "?subject=" + sub + "&body=" + body;
+}
+
+  const q=$("#q").value.toLowerCase(),sf=$("#sf").value,F=L.filter(l=>(!sf||l.status===sf)&&(!q||[l.name,l.email,l.organization,l.phone,l.notes].join(" ").toLowerCase().includes(q)));
+
+  $("#lt").innerHTML="<tr><th>Inscrit & Contact</th><th>Localisation Temps Réel</th><th>Profil & Compétences</th><th>Statut</th><th>Délégation Travaux</th><th></th></tr>"+(F.map(l=>{
+    const p = parseLeadNotes(l.notes);
+    const locCity = (p.geo && p.geo.city) || (l.organization && l.organization.split(",")[0]) || "Non précisé";
+    const locCountry = (p.geo && p.geo.country) || (l.organization && l.organization.split(",")[1]) || "";
+    const locStr = [locCity, locCountry].filter(Boolean).join(", ");
+    const hasGps = p.geo && p.geo.lat && p.geo.lon;
+    const gpsLink = hasGps ? `https://www.google.com/maps?q=${p.geo.lat},${p.geo.lon}` : "";
+    const skillsList = (p.profile && Array.isArray(p.profile.skills) && p.profile.skills.length) ? p.profile.skills.join(", ") : (p.profile && p.profile.level ? p.profile.level : "Général / Apprentissage");
+    const cleanPhone = (l.phone || "").replace(/[^0-9]/g, "");
+    const waLink = cleanPhone ? `https://wa.me/${cleanPhone}` : "";
+    const dateFormatted = new Date(l.created_at).toLocaleDateString("fr-FR");
+    const lastSeenFormatted = (p.logins && p.logins.last_seen) ? new Date(p.logins.last_seen).toLocaleDateString("fr-FR") : dateFormatted;
+
+    return `<tr>
+      <td>
+        <b>${e(l.name)}</b><br>
+        <a href="mailto:${e(l.email)}" style="color:var(--gold);font-size:12.5px">${e(l.email)}</a><br>
+        ${l.phone ? `<span style="font-size:12px;color:var(--muted)">📞 ${e(l.phone)}</span>` : ""}
+        <div style="font-size:10.5px;color:var(--muted);margin-top:4px">Inscrit: ${dateFormatted} · Vu: ${lastSeenFormatted}</div>
+      </td>
+      <td>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:14px">📍</span>
+          <b>${e(locStr)}</b>
+        </div>
+        ${hasGps ? `<a href="${gpsLink}" target="_blank" rel="noopener" style="font-size:11px;color:var(--cyan);text-decoration:underline;display:inline-block;margin-top:3px" title="Voir les coordonnées GPS en temps réel sur la carte">🛰️ GPS : ${p.geo.lat.toFixed(3)}, ${p.geo.lon.toFixed(3)} ↗</a>` : `<span style="font-size:10.5px;color:var(--muted)">IP / Ville déclarée</span>`}
+        ${p.logins && p.logins.ip ? `<div style="font-size:10px;font-family:var(--font-mono);color:var(--muted)">IP: ${e(p.logins.ip)}</div>` : ""}
+      </td>
+      <td>
+        <div style="font-size:12.5px;font-weight:600;color:var(--gold)">${e(p.profile && p.profile.level ? p.profile.level : "Membre Anatec")}</div>
+        <div style="font-size:11.5px;color:var(--text);margin-top:3px;max-width:220px">${e(skillsList)}</div>
+        <span class="badge ${p.profile && p.profile.available_for_work !== false ? 'pret' : 'mesures'}" style="margin-top:5px;font-size:10px">
+          ${p.profile && p.profile.available_for_work !== false ? '✅ Prêt pour missions' : '📚 Apprentissage'}
+        </span>
+      </td>
+      <td>
+        <select data-st="${l.id}">${ST.map(([v,n])=>`<option value="${v}" ${l.status===v?"selected":""}>${n}</option>`).join("")}</select>
+      </td>
+      <td>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <button class="btn sm" type="button" style="font-size:11px;padding:5px 8px;background:linear-gradient(135deg,var(--gold),#e8c87e);color:#06090d;font-weight:700;cursor:pointer;border-radius:6px;border:none" onclick="openJobDelegation('${e(l.email)}','${e(l.name)}','${e(locStr)}','${e(skillsList)}')">
+            📧 Déléguer travail
+          </button>
+          ${waLink ? `<a href="${waLink}" target="_blank" rel="noopener" class="btn cyan sm" style="font-size:11px;padding:5px 8px;text-align:center;text-decoration:none">💬 WhatsApp</a>` : ""}
+        </div>
+      </td>
+      <td>
+        <button class="btn d sm" data-ld="${l.id}" title="Supprimer cet inscrit">✕</button>
+      </td>
+    </tr>`;
+  }).join("")||'<tr><td colspan="6" style="color:var(--muted)">Aucun inscrit trouvé avec ces critères.</td></tr>');
 }
 
 /* ==========================================================================
