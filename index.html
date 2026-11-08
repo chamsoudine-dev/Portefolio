@@ -446,6 +446,50 @@ dialog#lesson-modal::backdrop{background:rgba(0,0,0,0.85);backdrop-filter:blur(8
 .quiz-opt:hover:not(:disabled){border-color:var(--cyan);background:rgba(0,229,255,0.08);transform:translateX(4px)}
 .quiz-feedback{font-size:13px}
 
+
+/* ==========================================================================
+   LECTEUR IMMERSIF ÉCOLE ANATEC & CARTES HAUTE QUALITÉ
+   ========================================================================== */
+.school-reader-wrap{background:linear-gradient(145deg,rgba(14,21,32,0.98),rgba(8,12,18,0.99));border:2px solid var(--gold);border-radius:18px;margin:28px 0;padding:0;box-shadow:0 24px 64px rgba(0,0,0,0.8),0 0 32px rgba(220,185,110,0.25);overflow:hidden;transition:all .3s ease}
+.reader-top-bar{padding:18px 24px;background:rgba(0,0,0,0.4);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.reader-badge-wrap{display:flex;align-items:center;gap:12px}
+.reader-icon-box{width:48px;height:48px;border-radius:12px;background:rgba(220,185,110,0.15);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:26px}
+.reader-title-box h3{font-size:20px;color:#fff;margin:0 0 4px}
+.reader-actions{display:flex;align-items:center;gap:8px}
+
+.reader-progress-track{height:4px;background:rgba(255,255,255,0.06);width:100%}
+.reader-progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--cyan));width:25%;transition:width .3s}
+
+.reader-body-layout{display:grid;grid-template-columns:260px 1fr;min-height:480px}
+.reader-sidebar{background:rgba(6,9,14,0.7);border-right:1px solid var(--line);padding:20px 14px}
+.reader-sidebar-title{font-size:11px;font-family:var(--font-mono);color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;padding-left:8px}
+.chapter-nav-btn{width:100%;text-align:left;background:transparent;border:1px solid transparent;color:var(--muted);padding:10px 12px;border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;margin-bottom:4px;line-height:1.4}
+.chapter-nav-btn:hover{color:var(--text);background:rgba(255,255,255,0.04);border-color:var(--line)}
+.chapter-nav-btn.active{color:var(--gold);background:rgba(220,185,110,0.12);border-color:rgba(220,185,110,0.3);font-weight:600}
+.chapter-check{font-size:11px;opacity:0.6}
+.chapter-nav-btn.active .chapter-check{opacity:1;color:var(--gold)}
+
+.reader-main-content{padding:32px 36px;overflow-y:auto;max-height:750px;font-size:15px;line-height:1.8}
+.reader-main-content h4{font-size:18px;color:var(--gold);margin:24px 0 12px;display:flex;align-items:center;gap:8px}
+.reader-main-content p{color:var(--text);margin-bottom:16px}
+
+.reader-footer-bar{padding:16px 28px;background:rgba(0,0,0,0.4);border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+
+/* Cartes École Améliorées */
+.school-lesson-card{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(16,24,35,0.95),rgba(10,15,22,0.98));border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;transition:all .3s cubic-bezier(0.16,1,0.3,1)}
+.school-lesson-card:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,0.6);border-color:var(--gold)}
+.lesson-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.lesson-icon-badge{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:24px}
+.lesson-tag-pill{font-family:var(--font-mono);font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase}
+.lesson-chips-row{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 18px}
+.lesson-chip{font-size:11px;padding:2px 8px;border-radius:4px;background:rgba(255,255,255,0.04);border:1px solid var(--line);color:var(--muted);font-family:var(--font-mono)}
+
+@media(max-width:860px){
+  .reader-body-layout{grid-template-columns:1fr}
+  .reader-sidebar{border-right:0;border-bottom:1px solid var(--line);max-height:200px;overflow-y:auto}
+  .reader-main-content{padding:20px}
+}
+
 </style>
 </head>
 <body>
@@ -615,33 +659,82 @@ dialog#lesson-modal::backdrop{background:rgba(0,0,0,0.85);backdrop-filter:blur(8
   </section>
 
   
+  
   <!-- Section : L'École Anatec (Cours Clairs & Pratiques) -->
   <section class="sec" id="ecole" style="background:rgba(8,12,18,0.5)">
     <div class="wrap">
       <div class="sec-header">
         <div class="eyebrow"><span class="mono">01. L'ÉCOLE NUMÉRIQUE ANATEC</span></div>
         <h2>Apprenez l'informatique pas à pas (même sans expérience)</h2>
-        <p>Ici, pas de jargon incompréhensible ni de termes barbares. Chaque leçon est rédigée en français clair avec des exemples concrets pour que chacun puisse progresser à son rythme.</p>
+        <p>Ici, pas de jargon incompréhensible ni de termes barbares. Chaque cours est rédigé en français clair avec des analogies vivantes, des études de cas réelles et des mini-quiz d'auto-évaluation pour progresser sereinement.</p>
       </div>
 
-      
+      <!-- Lecteur immersif intégré (s'ouvre dynamiquement lors d'un clic sur un cours) -->
+      <div class="school-reader-wrap" id="school-reader-container" style="display:none">
+        <div class="reader-top-bar">
+          <div class="reader-badge-wrap">
+            <div class="reader-icon-box" id="reader-icon">💻</div>
+            <div class="reader-title-box">
+              <span class="mono" id="reader-badge" style="font-size:11px;color:var(--gold);text-transform:uppercase">COURS 1 · FONDAMENTAL</span>
+              <h3 id="reader-title">Titre du cours en cours de lecture</h3>
+            </div>
+          </div>
+          <div class="reader-actions">
+            <button class="btn sm ghost" type="button" onclick="toggleReaderFullscreen()" id="btn-reader-expand" title="Plein écran">⛶ Plein écran</button>
+            <button class="btn sm" type="button" onclick="closeInlineReader()" title="Fermer le lecteur">✕ Fermer le cours</button>
+          </div>
+        </div>
+
+        <div class="reader-progress-track">
+          <div class="reader-progress-bar" id="reader-progress-fill"></div>
+        </div>
+
+        <div class="reader-body-layout">
+          <!-- Sommaire interactif à gauche -->
+          <div class="reader-sidebar">
+            <div class="reader-sidebar-title">📑 Sommaire du cours</div>
+            <div id="reader-chapters-list"></div>
+          </div>
+
+          <!-- Contenu complet du chapitre à droite -->
+          <div class="reader-main-content" id="reader-content-display"></div>
+        </div>
+
+        <div class="reader-footer-bar">
+          <div style="font-size:12.5px;color:var(--muted)" id="reader-step-status">Chapitre 1 sur 5</div>
+          <div style="display:flex;gap:10px">
+            <button class="btn sm ghost" type="button" id="reader-prev-btn" onclick="prevReaderChapter()">← Chapitre précédent</button>
+            <button class="btn sm" type="button" id="reader-next-btn" onclick="nextReaderChapter()">Chapitre suivant →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grille des 6 Cours Clés Anatec -->
       <div class="school-cards-grid">
         <!-- Cours 1 : Matériel & Hardware -->
         <div class="school-lesson-card">
           <div>
-            <div class="school-lesson-header">
-              <span class="school-badge">COURS 1 · ARCHITECTURE PC</span>
-              <span class="mono" style="font-size:12px;color:var(--gold)">⏱ 10 min</span>
+            <div class="lesson-card-top">
+              <div class="lesson-icon-badge" style="color:var(--cyan)">💻</div>
+              <span class="lesson-tag-pill" style="background:rgba(0,229,255,0.12);color:var(--cyan);border:1px solid rgba(0,229,255,0.3)">MATÉRIEL PC</span>
             </div>
-            <h3>Comprendre son Ordinateur de A à Z</h3>
-            <p>Processeur (CPU), RAM, Disque SSD vs HDD, Carte Mère : comprenez enfin comment marche votre machine et comment la protéger de la chaleur et poussière sahélienne.</p>
+            <h3 style="font-size:18px;margin:0 0 8px;color:#fff">Comprendre son Ordinateur de A à Z</h3>
+            <p style="color:var(--muted);font-size:13.5px;line-height:1.6;margin:0">
+              Processeur (CPU), RAM, Disque SSD vs HDD, Carte Mère : comprenez enfin comment marche chaque pièce et comment protéger votre PC contre la chaleur et la poussière sahélienne.
+            </p>
+            <div class="lesson-chips-row">
+              <span class="lesson-chip">🧠 Processeur</span>
+              <span class="lesson-chip">📋 RAM</span>
+              <span class="lesson-chip">⚡ SSD</span>
+              <span class="lesson-chip">☀️ Anti-chaleur</span>
+            </div>
           </div>
           <div>
             <div class="school-meta">
-              <span>Niveau: Débutant</span> · <span>Avec Quiz inclus</span>
+              <span>⏱ 10 min de lecture</span> · <span>Quiz inclus</span>
             </div>
-            <button class="btn sm ghost" type="button" onclick="openSchoolLesson('hardware')" style="width:100%">
-              📖 Ouvrir le cours complet avec Quiz ➔
+            <button class="btn sm" type="button" onclick="loadInlineCourse('hardware')" style="width:100%">
+              📖 Ouvrir le cours interactif ➔
             </button>
           </div>
         </div>
@@ -649,19 +742,26 @@ dialog#lesson-modal::backdrop{background:rgba(0,0,0,0.85);backdrop-filter:blur(8
         <!-- Cours 2 : Cybersécurité & Anti-piratage -->
         <div class="school-lesson-card">
           <div>
-            <div class="school-lesson-header">
-              <span class="school-badge" style="border-color:var(--bad);color:var(--bad);background:rgba(255,77,109,0.1)">COURS 2 · CYBERSÉCURITÉ</span>
-              <span class="mono" style="font-size:12px;color:var(--bad)">⏱ 12 min</span>
+            <div class="lesson-card-top">
+              <div class="lesson-icon-badge" style="color:var(--bad)">🛡️</div>
+              <span class="lesson-tag-pill" style="background:rgba(255,77,109,0.12);color:var(--bad);border:1px solid rgba(255,77,109,0.3)">CYBERSÉCURITÉ</span>
             </div>
-            <h3>Éviter le Piratage & Arnaques WhatsApp</h3>
-            <p>Le piège du faux SMS WhatsApp à 6 chiffres, les fausses bourses d'études et le phishing : découvrez les 4 règles d'or pour être totalement inviolable.</p>
+            <h3 style="font-size:18px;margin:0 0 8px;color:#fff">Éviter le Piratage & Arnaques WhatsApp</h3>
+            <p style="color:var(--muted);font-size:13.5px;line-height:1.6;margin:0">
+              Le piège du faux SMS WhatsApp à 6 chiffres, les fausses bourses d'études et le phishing : apprenez les réflexes indispensables pour être 100% protégé des hackers.
+            </p>
+            <div class="lesson-chips-row">
+              <span class="lesson-chip">🎣 Anti-Phishing</span>
+              <span class="lesson-chip">💬 Sécurité WhatsApp</span>
+              <span class="lesson-chip">🔐 2FA</span>
+            </div>
           </div>
           <div>
             <div class="school-meta">
-              <span>Niveau: Tout public</span> · <span>Cas réels analysés</span>
+              <span>⏱ 12 min de lecture</span> · <span>Cas réels décryptés</span>
             </div>
-            <button class="btn sm ghost" type="button" onclick="openSchoolLesson('cyber_basics')" style="width:100%;border-color:var(--bad);color:var(--bad)">
-              📖 Ouvrir le cours complet avec Quiz ➔
+            <button class="btn sm" type="button" onclick="loadInlineCourse('cyber_basics')" style="width:100%;background:linear-gradient(135deg,var(--bad),#ff758f);color:#fff;border-color:var(--bad)">
+              📖 Ouvrir le cours interactif ➔
             </button>
           </div>
         </div>
@@ -669,43 +769,57 @@ dialog#lesson-modal::backdrop{background:rgba(0,0,0,0.85);backdrop-filter:blur(8
         <!-- Cours 3 : Smartphone & Mobile Money -->
         <div class="school-lesson-card">
           <div>
-            <div class="school-lesson-header">
-              <span class="school-badge" style="border-color:var(--ok);color:var(--ok);background:rgba(0,245,155,0.1)">COURS 3 · PAIEMENTS MOBILES</span>
-              <span class="mono" style="font-size:12px;color:var(--ok)">⏱ 10 min</span>
+            <div class="lesson-card-top">
+              <div class="lesson-icon-badge" style="color:var(--ok)">📱</div>
+              <span class="lesson-tag-pill" style="background:rgba(0,245,155,0.12);color:var(--ok);border:1px solid rgba(0,245,155,0.3)">PAIEMENTS & MOBILES</span>
             </div>
-            <h3>Sécuriser son Smartphone & Mobile Money</h3>
-            <p>Verrouiller le code PIN de sa carte SIM contre le SIM Swap, déjouer les faux dépôts Orange/Airtel/Moov Money et activer la localisation anti-vol.</p>
+            <h3 style="font-size:18px;margin:0 0 8px;color:#fff">Sécuriser Smartphone & Mobile Money</h3>
+            <p style="color:var(--muted);font-size:13.5px;line-height:1.6;margin:0">
+              Verrouiller le code PIN de la carte SIM contre le SIM Swap, déjouer les faux dépôts Orange/Airtel/Moov Money et activer la localisation anti-vol à distance.
+            </p>
+            <div class="lesson-chips-row">
+              <span class="lesson-chip">💰 Mobile Money</span>
+              <span class="lesson-chip">🔒 Code PIN SIM</span>
+              <span class="lesson-chip">📍 Anti-Vol</span>
+            </div>
           </div>
           <div>
             <div class="school-meta">
-              <span>Niveau: Tout public</span> · <span>Finances & Mobiles</span>
+              <span>⏱ 10 min de lecture</span> · <span>Finances protégées</span>
             </div>
-            <button class="btn sm ghost" type="button" onclick="openSchoolLesson('mobile_security')" style="width:100%;border-color:var(--ok);color:var(--ok)">
-              📖 Ouvrir le cours complet avec Quiz ➔
+            <button class="btn sm" type="button" onclick="loadInlineCourse('mobile_security')" style="width:100%;background:linear-gradient(135deg,var(--ok),#00c47d);color:#06090d;border-color:var(--ok)">
+              📖 Ouvrir le cours interactif ➔
             </button>
           </div>
         </div>
 
-        <!-- Cours 4 : Systèmes d'exploitation & Installation -->
+        <!-- Cours 4 : Systèmes & Installation -->
         <div class="school-lesson-card">
           <div>
-            <div class="school-lesson-header">
-              <span class="school-badge">COURS 4 · INSTALLATION & OS</span>
-              <span class="mono" style="font-size:12px;color:var(--cyan)">⏱ 14 min</span>
+            <div class="lesson-card-top">
+              <div class="lesson-icon-badge" style="color:var(--cyan)">💿</div>
+              <span class="lesson-tag-pill" style="background:rgba(0,229,255,0.12);color:var(--cyan);border:1px solid rgba(0,229,255,0.3)">INSTALLATION & OS</span>
             </div>
-            <h3>Installer Windows 11 & Linux sans Risque</h3>
-            <p>Clé USB bootable avec Rufus, configuration du BIOS/UEFI, et partitionnement du disque dur pour réinstaller son PC sans jamais perdre ses données.</p>
+            <h3 style="font-size:18px;margin:0 0 8px;color:#fff">Installer Windows 11 & Linux sans Risque</h3>
+            <p style="color:var(--muted);font-size:13.5px;line-height:1.6;margin:0">
+              Créer une clé USB bootable avec Rufus, configurer le BIOS/UEFI, et partitionner son disque pour réinstaller Windows ou Linux sans jamais perdre ses photos personnelles.
+            </p>
+            <div class="lesson-chips-row">
+              <span class="lesson-chip">🔑 Rufus</span>
+              <span class="lesson-chip">⚙️ BIOS/UEFI</span>
+              <span class="lesson-chip">🗂️ Partitionnement</span>
+            </div>
           </div>
           <div>
             <div class="school-meta">
-              <span>Niveau: Débutant / Moyen</span> · <span>TP Virtuel lié</span>
+              <span>⏱ 14 min de lecture</span> · <span>Simulateur virtuel lié</span>
             </div>
             <div style="display:flex;gap:8px">
-              <button class="btn sm ghost" type="button" onclick="openSchoolLesson('os_install')" style="flex:1">
-                📖 Cours & Quiz
+              <button class="btn sm ghost" type="button" onclick="loadInlineCourse('os_install')" style="flex:1">
+                📖 Leçon & Quiz
               </button>
               <button class="btn sm cyan" type="button" onclick="switchToOsSimTab()" style="flex:1">
-                ⚡ TP Virtuel
+                ⚡ TP Simulateur
               </button>
             </div>
           </div>
@@ -714,19 +828,26 @@ dialog#lesson-modal::backdrop{background:rgba(0,0,0,0.85);backdrop-filter:blur(8
         <!-- Cours 5 : Réseaux & Wi-Fi -->
         <div class="school-lesson-card">
           <div>
-            <div class="school-lesson-header">
-              <span class="school-badge">COURS 5 · RÉSEAUX & WI-FI</span>
-              <span class="mono" style="font-size:12px;color:var(--cyan)">⏱ 11 min</span>
+            <div class="lesson-card-top">
+              <div class="lesson-icon-badge" style="color:var(--gold)">🌐</div>
+              <span class="lesson-tag-pill" style="background:rgba(220,185,110,0.12);color:var(--gold);border:1px solid rgba(220,185,110,0.3)">RÉSEAU & WI-FI</span>
             </div>
-            <h3>Comprendre Internet, les IP et le Wi-Fi</h3>
-            <p>Adresse IP publique vs privée, fonctionnement du routeur et comment sécuriser sa box Wi-Fi pour empêcher les voisins de voler sa connexion.</p>
+            <h3 style="font-size:18px;margin:0 0 8px;color:#fff">Comprendre Internet, les IP et le Wi-Fi</h3>
+            <p style="color:var(--muted);font-size:13.5px;line-height:1.6;margin:0">
+              Adresse IP publique vs privée, fonctionnement du routeur, serveurs DNS et comment sécuriser sa box Wi-Fi contre les voisins indiscrets.
+            </p>
+            <div class="lesson-chips-row">
+              <span class="lesson-chip">📡 Wi-Fi WPA3</span>
+              <span class="lesson-chip">🏠 IP Privée</span>
+              <span class="lesson-chip">🌍 IP Publique</span>
+            </div>
           </div>
           <div>
             <div class="school-meta">
-              <span>Niveau: Débutant</span> · <span>Réseau pratique</span>
+              <span>⏱ 11 min de lecture</span> · <span>Pratique réseaux</span>
             </div>
-            <button class="btn sm ghost" type="button" onclick="openSchoolLesson('networks')" style="width:100%">
-              📖 Ouvrir le cours complet avec Quiz ➔
+            <button class="btn sm" type="button" onclick="loadInlineCourse('networks')" style="width:100%">
+              📖 Ouvrir le cours interactif ➔
             </button>
           </div>
         </div>
@@ -734,26 +855,33 @@ dialog#lesson-modal::backdrop{background:rgba(0,0,0,0.85);backdrop-filter:blur(8
         <!-- Cours 6 : Ligne de commande & Terminal -->
         <div class="school-lesson-card">
           <div>
-            <div class="school-lesson-header">
-              <span class="school-badge">COURS 6 · LIGNE DE COMMANDE</span>
-              <span class="mono" style="font-size:12px;color:var(--gold)">⏱ 10 min</span>
+            <div class="lesson-card-top">
+              <div class="lesson-icon-badge" style="color:var(--gold)">⚡</div>
+              <span class="lesson-tag-pill" style="background:rgba(220,185,110,0.12);color:var(--gold);border:1px solid rgba(220,185,110,0.3)">TERMINAL & CMD</span>
             </div>
-            <h3>Le Terminal sans Peur (Windows & Linux)</h3>
-            <p>Apprenez à utiliser l'écran noir sans panique : tableau comparatif des commandes indispensables (ping, ipconfig, ls, cd, dir) pour diagnostiquer son PC.</p>
+            <h3 style="font-size:18px;margin:0 0 8px;color:#fff">Le Terminal sans Peur (Windows & Linux)</h3>
+            <p style="color:var(--muted);font-size:13.5px;line-height:1.6;margin:0">
+              Apprenez à utiliser l'écran noir sans panique : les commandes indispensables (ping, ipconfig, ls, cd, dir) pour diagnostiquer son réseau et réparer son PC.
+            </p>
+            <div class="lesson-chips-row">
+              <span class="lesson-chip">💻 CMD / Bash</span>
+              <span class="lesson-chip">🔍 ping / ipconfig</span>
+              <span class="lesson-chip">📂 Navigation cd/ls</span>
+            </div>
           </div>
           <div>
             <div class="school-meta">
-              <span>Niveau: Débutant</span> · <span>Pratique console</span>
+              <span>⏱ 10 min de lecture</span> · <span>Dépannage réseau</span>
             </div>
-            <button class="btn sm ghost" type="button" onclick="openSchoolLesson('terminal_basics')" style="width:100%">
-              📖 Ouvrir le cours complet avec Quiz ➔
+            <button class="btn sm" type="button" onclick="loadInlineCourse('terminal_basics')" style="width:100%">
+              📖 Ouvrir le cours interactif ➔
             </button>
           </div>
         </div>
       </div>
-
     </div>
   </section>
+
 
   <!-- Section : Délégation de Travaux & Opportunités Rémunérées -->
   <section class="sec" id="missions">
@@ -3987,6 +4115,166 @@ function checkQuizAnswer(btn, chosenIdx) {
   }
 }
 
+
+
+/* ==========================================================================
+   GESTION DU LECTEUR IMMERSIF INTÉGRÉ — ÉCOLE ANATEC
+   ========================================================================== */
+let activeCourseId = null;
+let activeChapterIdx = 0;
+
+function loadInlineCourse(courseId) {
+  const course = SCHOOL_LESSONS[courseId];
+  if (!course) return;
+
+  activeCourseId = courseId;
+  activeChapterIdx = 0;
+  playBeep(700, "sine", 0.05);
+
+  const container = document.getElementById("school-reader-container");
+  if (!container) return;
+
+  // Mise à jour de l'en-tête du lecteur
+  document.getElementById("reader-icon").textContent = course.icon;
+  document.getElementById("reader-badge").textContent = course.badge;
+  document.getElementById("reader-title").textContent = course.title;
+
+  // Rendu des chapitres du cours
+  renderCourseChapters(course);
+
+  // Affichage du premier chapitre
+  renderChapterContent(course, 0);
+
+  // Afficher le conteneur et scroller vers lui
+  container.style.display = "block";
+  container.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function renderCourseChapters(course) {
+  const list = document.getElementById("reader-chapters-list");
+  if (!list) return;
+
+  // Découper le contenu du cours en chapitres logiques (basé sur <h4>)
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = course.content;
+
+  const h4Elements = tempDiv.querySelectorAll("h4");
+  const chapters = [];
+
+  if (h4Elements.length > 0) {
+    h4Elements.forEach((h4, idx) => {
+      chapters.push({
+        title: h4.textContent.trim(),
+        idx: idx
+      });
+    });
+  } else {
+    chapters.push({ title: "Contenu complet du cours", idx: 0 });
+  }
+
+  window.__currentCourseChapters = chapters;
+
+  list.innerHTML = chapters.map((ch, i) => `
+    <button class="chapter-nav-btn ${i === 0 ? 'active' : ''}" type="button" onclick="selectReaderChapter(${i})">
+      <span class="chapter-check">${i + 1}.</span>
+      <span style="flex:1">${escapeHtml(ch.title)}</span>
+    </button>
+  `).join("");
+}
+
+function selectReaderChapter(idx) {
+  const course = SCHOOL_LESSONS[activeCourseId];
+  if (!course) return;
+  activeChapterIdx = idx;
+  playBeep(600, "sine", 0.04);
+  renderChapterContent(course, idx);
+}
+
+function renderChapterContent(course, chapterIdx) {
+  const contentDisplay = document.getElementById("reader-content-display");
+  const progressFill = document.getElementById("reader-progress-fill");
+  const statusLabel = document.getElementById("reader-step-status");
+  const prevBtn = document.getElementById("reader-prev-btn");
+  const nextBtn = document.getElementById("reader-next-btn");
+
+  const chapters = window.__currentCourseChapters || [];
+  const total = Math.max(chapters.length, 1);
+
+  // Mettre à jour la barre de progression
+  const pct = Math.round(((chapterIdx + 1) / total) * 100);
+  if (progressFill) progressFill.style.width = pct + "%";
+  if (statusLabel) statusLabel.textContent = "Chapitre " + (chapterIdx + 1) + " sur " + total + " (" + pct + "% terminé)";
+
+  // Mettre à jour l'état actif dans la sidebar
+  document.querySelectorAll(".chapter-nav-btn").forEach((btn, i) => {
+    btn.classList.toggle("active", i === chapterIdx);
+  });
+
+  // Découpage du contenu selon le chapitre sélectionné
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = course.content;
+  const h4s = Array.from(tempDiv.querySelectorAll("h4"));
+
+  if (h4s.length > 0 && h4s[chapterIdx]) {
+    const activeH4 = h4s[chapterIdx];
+    let chapterHtml = "<h4>" + activeH4.innerHTML + "</h4>";
+    let curr = activeH4.nextElementSibling;
+    while (curr && curr.tagName !== "H4") {
+      chapterHtml += curr.outerHTML;
+      curr = curr.nextElementSibling;
+    }
+    contentDisplay.innerHTML = chapterHtml;
+  } else {
+    contentDisplay.innerHTML = course.content;
+  }
+
+  // Gestion des boutons Suivant / Précédent
+  if (prevBtn) prevBtn.disabled = chapterIdx === 0;
+  if (nextBtn) {
+    if (chapterIdx === total - 1) {
+      nextBtn.textContent = "✓ Terminer ce cours";
+      nextBtn.onclick = () => {
+        playBeep(880, "sine", 0.2);
+        alert("Félicitations ! Vous avez validé l'ensemble de ce cours. Pratiquez sur nos simulateurs ou continuez avec une autre leçon.");
+        closeInlineReader();
+      };
+    } else {
+      nextBtn.textContent = "Chapitre suivant →";
+      nextBtn.onclick = nextReaderChapter;
+    }
+  }
+
+  contentDisplay.scrollTop = 0;
+}
+
+function nextReaderChapter() {
+  const chapters = window.__currentCourseChapters || [];
+  if (activeChapterIdx < chapters.length - 1) {
+    selectReaderChapter(activeChapterIdx + 1);
+  }
+}
+
+function prevReaderChapter() {
+  if (activeChapterIdx > 0) {
+    selectReaderChapter(activeChapterIdx - 1);
+  }
+}
+
+function closeInlineReader() {
+  playBeep(400, "sine", 0.05);
+  const container = document.getElementById("school-reader-container");
+  if (container) container.style.display = "none";
+}
+
+function toggleReaderFullscreen() {
+  const container = document.getElementById("school-reader-container");
+  if (!container) return;
+  if (!document.fullscreenElement) {
+    container.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
 
 function openSchoolLesson(lessonId) {
   const lesson = SCHOOL_LESSONS[lessonId];
