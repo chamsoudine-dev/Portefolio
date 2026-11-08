@@ -435,6 +435,17 @@ dialog#lesson-modal::backdrop{background:rgba(0,0,0,0.85);backdrop-filter:blur(8
   .skills-checkboxes{grid-template-columns:1fr}
 }
 
+
+/* Quiz interactifs des cours */
+.lesson-nav-tabs{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.lesson-quiz-wrap{background:rgba(0,0,0,0.3);border:1px solid rgba(220,185,110,0.3);border-radius:12px;padding:18px;margin-top:16px}
+.quiz-q{margin-bottom:14px}
+.quiz-q b{color:#fff;font-size:14px;display:block;margin-bottom:10px;line-height:1.5}
+.quiz-options{display:grid;gap:8px}
+.quiz-opt{text-align:left;background:rgba(255,255,255,0.03);border:1px solid var(--line);padding:10px 14px;border-radius:8px;color:var(--text);font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font-sans)}
+.quiz-opt:hover:not(:disabled){border-color:var(--cyan);background:rgba(0,229,255,0.08);transform:translateX(4px)}
+.quiz-feedback{font-size:13px}
+
 </style>
 </head>
 <body>
@@ -613,129 +624,134 @@ dialog#lesson-modal::backdrop{background:rgba(0,0,0,0.85);backdrop-filter:blur(8
         <p>Ici, pas de jargon incompréhensible ni de termes barbares. Chaque leçon est rédigée en français clair avec des exemples concrets pour que chacun puisse progresser à son rythme.</p>
       </div>
 
+      
       <div class="school-cards-grid">
-        <!-- Leçon 1 -->
+        <!-- Cours 1 : Matériel & Hardware -->
         <div class="school-lesson-card">
           <div>
             <div class="school-lesson-header">
-              <span class="school-badge">LEÇON 1 · MATÉRIEL</span>
-              <span class="mono" style="font-size:12px;color:var(--muted)">⏱ 5 min</span>
+              <span class="school-badge">COURS 1 · ARCHITECTURE PC</span>
+              <span class="mono" style="font-size:12px;color:var(--gold)">⏱ 10 min</span>
             </div>
             <h3>Comprendre son Ordinateur de A à Z</h3>
-            <p>Processeur, RAM, Disque SSD, Carte mère : comprenez enfin à quoi sert chaque composant à l'intérieur de votre ordinateur ou téléphone sans être ingénieur.</p>
+            <p>Processeur (CPU), RAM, Disque SSD vs HDD, Carte Mère : comprenez enfin comment marche votre machine et comment la protéger de la chaleur et poussière sahélienne.</p>
           </div>
           <div>
             <div class="school-meta">
-              <span>Niveau: Débutant</span> · <span>Composants & Fonctionnement</span>
+              <span>Niveau: Débutant</span> · <span>Avec Quiz inclus</span>
             </div>
             <button class="btn sm ghost" type="button" onclick="openSchoolLesson('hardware')" style="width:100%">
-              📖 Lire la leçon interactive
+              📖 Ouvrir le cours complet avec Quiz ➔
             </button>
           </div>
         </div>
 
-        <!-- Leçon 2 -->
+        <!-- Cours 2 : Cybersécurité & Anti-piratage -->
         <div class="school-lesson-card">
           <div>
             <div class="school-lesson-header">
-              <span class="school-badge">LEÇON 2 · SÉCURITÉ</span>
-              <span class="mono" style="font-size:12px;color:var(--muted)">⏱ 7 min</span>
+              <span class="school-badge" style="border-color:var(--bad);color:var(--bad);background:rgba(255,77,109,0.1)">COURS 2 · CYBERSÉCURITÉ</span>
+              <span class="mono" style="font-size:12px;color:var(--bad)">⏱ 12 min</span>
             </div>
-            <h3>Éviter le Piratage & les Arnaques en Ligne</h3>
-            <p>Faux messages WhatsApp, e-mails d'hameçonnage (phishing), faux sites bancaires : apprenez les 4 réflexes simples qui empêchent 99% des piratages de vos comptes.</p>
+            <h3>Éviter le Piratage & Arnaques WhatsApp</h3>
+            <p>Le piège du faux SMS WhatsApp à 6 chiffres, les fausses bourses d'études et le phishing : découvrez les 4 règles d'or pour être totalement inviolable.</p>
           </div>
           <div>
             <div class="school-meta">
-              <span>Niveau: Tout public</span> · <span>Protection des comptes</span>
+              <span>Niveau: Tout public</span> · <span>Cas réels analysés</span>
             </div>
-            <button class="btn sm ghost" type="button" onclick="openSchoolLesson('cyber_basics')" style="width:100%">
-              📖 Lire la leçon interactive
+            <button class="btn sm ghost" type="button" onclick="openSchoolLesson('cyber_basics')" style="width:100%;border-color:var(--bad);color:var(--bad)">
+              📖 Ouvrir le cours complet avec Quiz ➔
             </button>
           </div>
         </div>
 
-        <!-- Leçon 3 -->
+        <!-- Cours 3 : Smartphone & Mobile Money -->
         <div class="school-lesson-card">
           <div>
             <div class="school-lesson-header">
-              <span class="school-badge">LEÇON 3 · SYSTÈMES</span>
-              <span class="mono" style="font-size:12px;color:var(--muted)">⏱ 8 min</span>
+              <span class="school-badge" style="border-color:var(--ok);color:var(--ok);background:rgba(0,245,155,0.1)">COURS 3 · PAIEMENTS MOBILES</span>
+              <span class="mono" style="font-size:12px;color:var(--ok)">⏱ 10 min</span>
             </div>
-            <h3>Installer & Réparer Windows ou Linux</h3>
-            <p>Comment créer une clé USB d'installation, démarrer sur le BIOS/UEFI, et formater son disque sans risquer d'effacer ses photos ou fichiers personnels.</p>
+            <h3>Sécuriser son Smartphone & Mobile Money</h3>
+            <p>Verrouiller le code PIN de sa carte SIM contre le SIM Swap, déjouer les faux dépôts Orange/Airtel/Moov Money et activer la localisation anti-vol.</p>
           </div>
           <div>
             <div class="school-meta">
-              <span>Niveau: Débutant / Moyen</span> · <span>Installation d'OS</span>
+              <span>Niveau: Tout public</span> · <span>Finances & Mobiles</span>
+            </div>
+            <button class="btn sm ghost" type="button" onclick="openSchoolLesson('mobile_security')" style="width:100%;border-color:var(--ok);color:var(--ok)">
+              📖 Ouvrir le cours complet avec Quiz ➔
+            </button>
+          </div>
+        </div>
+
+        <!-- Cours 4 : Systèmes d'exploitation & Installation -->
+        <div class="school-lesson-card">
+          <div>
+            <div class="school-lesson-header">
+              <span class="school-badge">COURS 4 · INSTALLATION & OS</span>
+              <span class="mono" style="font-size:12px;color:var(--cyan)">⏱ 14 min</span>
+            </div>
+            <h3>Installer Windows 11 & Linux sans Risque</h3>
+            <p>Clé USB bootable avec Rufus, configuration du BIOS/UEFI, et partitionnement du disque dur pour réinstaller son PC sans jamais perdre ses données.</p>
+          </div>
+          <div>
+            <div class="school-meta">
+              <span>Niveau: Débutant / Moyen</span> · <span>TP Virtuel lié</span>
             </div>
             <div style="display:flex;gap:8px">
               <button class="btn sm ghost" type="button" onclick="openSchoolLesson('os_install')" style="flex:1">
-                📖 Leçon
+                📖 Cours & Quiz
               </button>
               <button class="btn sm cyan" type="button" onclick="switchToOsSimTab()" style="flex:1">
-                ⚡ Simuler
+                ⚡ TP Virtuel
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Leçon 4 -->
+        <!-- Cours 5 : Réseaux & Wi-Fi -->
         <div class="school-lesson-card">
           <div>
             <div class="school-lesson-header">
-              <span class="school-badge">LEÇON 4 · RÉSEAUX</span>
-              <span class="mono" style="font-size:12px;color:var(--muted)">⏱ 6 min</span>
+              <span class="school-badge">COURS 5 · RÉSEAUX & WI-FI</span>
+              <span class="mono" style="font-size:12px;color:var(--cyan)">⏱ 11 min</span>
             </div>
-            <h3>Comment marche Internet & le Wi-Fi ?</h3>
-            <p>Comprendre ce qu'est une adresse IP, le rôle de votre box ou routeur Wi-Fi, et comment vérifier si des voisins utilisent votre connexion en douce.</p>
+            <h3>Comprendre Internet, les IP et le Wi-Fi</h3>
+            <p>Adresse IP publique vs privée, fonctionnement du routeur et comment sécuriser sa box Wi-Fi pour empêcher les voisins de voler sa connexion.</p>
           </div>
           <div>
             <div class="school-meta">
-              <span>Niveau: Débutant</span> · <span>Réseau & Wi-Fi</span>
+              <span>Niveau: Débutant</span> · <span>Réseau pratique</span>
             </div>
             <button class="btn sm ghost" type="button" onclick="openSchoolLesson('networks')" style="width:100%">
-              📖 Lire la leçon interactive
+              📖 Ouvrir le cours complet avec Quiz ➔
             </button>
           </div>
         </div>
 
-        <!-- Leçon 5 -->
+        <!-- Cours 6 : Ligne de commande & Terminal -->
         <div class="school-lesson-card">
           <div>
             <div class="school-lesson-header">
-              <span class="school-badge">LEÇON 5 · COMMANDES</span>
-              <span class="mono" style="font-size:12px;color:var(--muted)">⏱ 6 min</span>
+              <span class="school-badge">COURS 6 · LIGNE DE COMMANDE</span>
+              <span class="mono" style="font-size:12px;color:var(--gold)">⏱ 10 min</span>
             </div>
-            <h3>Le Terminal sans Peur (Pour Débutants)</h3>
-            <p>L'écran noir ne mord pas ! Découvrez les 5 commandes indispensables (ping, ipconfig/ifconfig, ls/dir) pour diagnostiquer son ordinateur comme un pro.</p>
+            <h3>Le Terminal sans Peur (Windows & Linux)</h3>
+            <p>Apprenez à utiliser l'écran noir sans panique : tableau comparatif des commandes indispensables (ping, ipconfig, ls, cd, dir) pour diagnostiquer son PC.</p>
           </div>
           <div>
             <div class="school-meta">
-              <span>Niveau: Débutant</span> · <span>Terminal & Ligne de commande</span>
+              <span>Niveau: Débutant</span> · <span>Pratique console</span>
             </div>
             <button class="btn sm ghost" type="button" onclick="openSchoolLesson('terminal_basics')" style="width:100%">
-              📖 Lire la leçon interactive
-            </button>
-          </div>
-        </div>
-
-        <!-- Carte Opportunité / Travaux -->
-        <div class="school-lesson-card" style="border-color:rgba(220,185,110,0.4);background:rgba(220,185,110,0.04)">
-          <div>
-            <div class="school-lesson-header">
-              <span class="school-badge" style="background:rgba(220,185,110,0.25);color:var(--gold)">COMMUNAUTÉ</span>
-              <span class="mono" style="font-size:12px;color:var(--gold)">Opportunités</span>
-            </div>
-            <h3>Vous voulez mettre vos compétences en pratique ?</h3>
-            <p>Anatec recherche régulièrement des personnes motivées pour réaliser des missions techniques ou des délégations de travaux rémunérées.</p>
-          </div>
-          <div>
-            <button class="btn sm" type="button" onclick="openAuthModal('register')" style="width:100%">
-              💼 Rejoindre le réseau de travaux
+              📖 Ouvrir le cours complet avec Quiz ➔
             </button>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -3579,148 +3595,398 @@ document.addEventListener("click", (e) => {
 /* ==========================================================================
    CONTENU PÉDAGOGIQUE COMPLET DE L'ÉCOLE ANATEC
    ========================================================================== */
+
+/* ==========================================================================
+   COURS DE TRÈS HAUTE QUALITÉ — ÉCOLE NUMÉRIQUE ANATEC
+   ========================================================================== */
 const SCHOOL_LESSONS = {
   hardware: {
     icon: "💻",
-    badge: "LEÇON 1 · MATÉRIEL INFORMATIQUE",
-    title: "Comprendre son Ordinateur de A à Z (Sans aucun mot compliqué)",
+    badge: "LEÇON 1 · MATÉRIEL & ARCHITECTURE PC",
+    title: "Comprendre son Ordinateur de A à Z (Architecture, Composants & Maintenance)",
+    summary: "Maîtrisez le rôle de chaque composant interne, comprenez pourquoi un PC ralentit et apprenez à le maintenir en parfait état même sous climat chaud et poussiéreux.",
+    chapters: [
+      { id: "intro", title: "1. L'anatomie d'un ordinateur" },
+      { id: "cpu_ram", title: "2. Le duo magique : Processeur (CPU) & RAM" },
+      { id: "storage", title: "3. Stockage : Pourquoi le SSD transforme tout" },
+      { id: "power_cooling", title: "4. Alimentation, Chaleur & Poussière (Conseils Sahel/Afrique)" },
+      { id: "quiz", title: "5. Mini-Quiz d'Auto-Évaluation" }
+    ],
     content: `
-      <h4>1. Pourquoi comprendre son ordinateur ?</h4>
-      <p>Un ordinateur n'a rien de magique. C'est simplement une équipe d'éléments qui travaillent ensemble, exactement comme dans une cuisine de restaurant :</p>
+      <div class="lesson-nav-tabs">
+        <span class="hud-tag" style="background:rgba(0,229,255,0.1);color:var(--cyan);border-color:rgba(0,229,255,0.3)">MODULE FONDAMENTAL</span>
+        <span class="mono" style="font-size:12px;color:var(--muted)">Temps de lecture : 10 min · Débutant à Intermédiaire</span>
+      </div>
+
+      <h4>1. L'anatomie d'un ordinateur : L'analogie du restaurant</h4>
+      <p>Un ordinateur n'est pas un bloc mystérieux. C'est un ensemble d'organes électroniques hautement spécialisés qui collaborent en permanence. Pour bien les mémoriser, utilisons <b>l'analogie de la cuisine d'un grand restaurant</b> :</p>
 
       <div class="lesson-box">
-        <b>🧠 Le Processeur (CPU) : Le Chef Cuisinier</b><br>
-        C'est le cerveau de l'ordinateur. C'est lui qui exécute les calculs et donne les ordres. Plus il est rapide (en GHz) et a de « cœurs », plus il peut faire de tâches en même temps sans ralentir.
+        <b>🧠 Le Processeur (CPU - Central Processing Unit) : Le Chef Cuisinier</b><br>
+        Il lit les recettes (instructions des logiciels) et exécute les ordres. Sa vitesse s'exprime en <b>Gigahertz (GHz)</b> : 3.0 GHz signifie qu'il peut exécuter 3 milliards d'opérations de base par seconde. S'il a <b>4, 8 ou 16 cœurs</b>, c'est comme s'il avait plusieurs chefs qui cuisinent en même temps sans se gêner.
       </div>
 
       <div class="lesson-box">
-        <b>📋 La Mémoire RAM : Le Plan de Travail du Cuisinier</b><br>
-        La RAM stocke temporairement ce que vous êtes en train d'utiliser (vos onglets ouverts, votre vidéo en cours). Quand vous éteignez l'ordinateur, la RAM se vide totalement. Pour un confort moderne, <b>8 Go ou 16 Go de RAM</b> sont recommandés.
+        <b>📋 La Mémoire Vive (RAM) : Le Plan de Travail du Cuisinier</b><br>
+        La RAM contient uniquement ce dont le chef a besoin immédiatement (votre navigateur ouvert, votre document Word). Si votre plan de travail est trop petit (ex: 4 Go de RAM), le chef manque de place dès que vous ouvrez plusieurs onglets : il doit sans cesse ranger et sortir des affaires, ce qui fait ramer tout l'ordinateur !<br>
+        <i>Norme recommandée en 2026 : minimum 8 Go, idéalement 16 Go DDR4 ou DDR5.</i>
       </div>
 
       <div class="lesson-box">
-        <b>🗄️ Le Disque de Stockage (SSD ou HDD) : Le Placard</b><br>
-        C'est là que vos photos, musiques et logiciels restent enregistrés même quand la machine est éteinte. <b>Privilégiez toujours un disque SSD</b> : il est 10 fois plus rapide qu'un ancien disque dur mécanique (HDD) et démarre votre ordinateur en moins de 15 secondes !
+        <b>🗄️ Le Disque de Stockage (SSD vs HDD) : Le Placard / La Réserve</b><br>
+        C'est là que vos fichiers dorment durablement, même ordinateur éteint. Il existe deux grandes technologies :
+        <ul>
+          <li><b>L'ancien HDD mécanique :</b> C'est un disque magnétique qui tourne avec une aiguille mécanique. Il est lent (80 à 120 Mo/s), fragile aux chocs et met plus d'une minute à démarrer Windows.</li>
+          <li><b>Le SSD électronique (SATA ou NVMe) :</b> Aucune pièce mécanique, ce sont des puces flash ultra-rapides (550 Mo/s en SATA, jusqu'à 7000 Mo/s en NVMe M.2). Windows démarre en 8 secondes chrono !</li>
+        </ul>
       </div>
+
+      <h4>2. La Carte Mère et l'Alimentation : Le squelette et le cœur</h4>
+      <p>La <b>Carte Mère</b> relie tous les composants par des pistes de cuivre appelées « bus de communication ». La <b>Boîte d'Alimentation (PSU)</b> transforme le courant alternatif 220V de votre prise murale en courants continus stables de 12V, 5V et 3.3V.</p>
 
       <div class="lesson-box tip">
-        <b>💡 Le conseil pratique d'Anatec :</b><br>
-        Si votre ancien ordinateur est très lent, ne le jetez pas ! Dans 90% des cas, remplacer l'ancien disque dur par un SSD à 15 000 FCFA et ajouter un peu de RAM lui redonne une seconde jeunesse immédiate.
+        <b>☀️ Les Conseils Spéciaux Anatec pour l'Afrique et le Sahel (Chaleur & Poussière) :</b>
+        <ul>
+          <li><b>La poussière tue les ventilateurs :</b> Dans notre région sahélienne, la poussière s'accumule sur le radiateur du processeur. Tous les 6 mois, dépoussiérez l'intérieur avec une bombe à air sec ou un pinceau doux.</li>
+          <li><b>La pâte thermique sèche :</b> La pâte thermique entre le processeur et son ventilateur durcit après 2 ou 3 ans. Si votre ventilateur tourne à fond et fait un bruit d'avion, faites renouveler la pâte thermique.</li>
+          <li><b>Protégez-vous des coupures de courant :</b> Les baisses et coupures brutales de tension endommagent les composants électroniques. Utilisez toujours un <b>régulateur de tension ou un onduleur (UPS)</b> pour votre ordinateur de bureau !</li>
+        </ul>
+      </div>
+
+      <h4>3. Mini-Quiz d'Auto-Évaluation</h4>
+      <p style="color:var(--muted)">Testez vos connaissances en 3 questions concrètes :</p>
+      
+      <div class="lesson-quiz-wrap" id="quiz-hardware">
+        <div class="quiz-q" data-correct="1">
+          <b>Question 1 : Votre ordinateur met 2 minutes à démarrer et ralentit dès que vous ouvrez un dossier. Quel composant faut-il remplacer en priorité ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 0)">A) L'écran</button>
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 1)">B) Remplacer l'ancien disque dur (HDD) par un SSD</button>
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 2)">C) Changer la souris</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-q" data-correct="2" style="margin-top:16px">
+          <b>Question 2 : Que se passe-t-il avec les données contenues dans la RAM quand vous éteignez votre ordinateur ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 0)">A) Elles restent gravées pour toujours</button>
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 1)">B) Elles sont automatiquement envoyées sur Internet</button>
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 2)">C) Elles sont complètement effacées (mémoire volatile)</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
       </div>
     `
   },
 
   cyber_basics: {
     icon: "🛡️",
-    badge: "LEÇON 2 · SÉCURITÉ DU QUOTIDIEN",
-    title: "Éviter le Piratage & les Arnaques en Ligne (WhatsApp, Faux SMS)",
+    badge: "LEÇON 2 · SÉCURITÉ DU QUOTIDIEN & ANTI-PIRATAGE",
+    title: "Éviter le Piratage, Phishing & Arnaques WhatsApp / Réseaux Sociaux",
+    summary: "Découvrez comment les cybercriminels procèdent réellement, apprenez à déjouer les faux liens, et blindez vos comptes WhatsApp, Facebook, e-mail et bancaires.",
     content: `
-      <h4>1. Comment les pirates attaquent-ils vraiment ?</h4>
-      <p>Contrairement aux films, les pirates ne tapent pas furieusement sur un clavier vert pour forcer votre compte. <b>Ils vous piègent pour que vous leur donniez vous-même vos accès</b>. C'est ce qu'on appelle l'ingénierie sociale ou le phishing.</p>
+      <div class="lesson-nav-tabs">
+        <span class="hud-tag" style="background:rgba(255,77,109,0.1);color:var(--bad);border-color:rgba(255,77,109,0.3)">SÉCURITÉ VITALE</span>
+        <span class="mono" style="font-size:12px;color:var(--muted)">Temps de lecture : 12 min · Tout public</span>
+      </div>
 
-      <h4>2. Les 4 Réflexes d'Or Anatec pour être Inviolable :</h4>
+      <h4>1. La Réalité du Piratage : 95% des attaques ciblent l'humain</h4>
+      <p>Dans 95% des cas, un pirate n'a pas besoin de casser un chiffrement militaire complexe : <b>il vous manipule pour que vous lui donniez vos clés vous-même</b>. C'est l'<b>ingénierie sociale (Social Engineering)</b> et le <b>Phishing (Hameçonnage)</b>.</p>
+
+      <h4>2. Les 4 Grandes Arnaques Réelles à Connaître Absolument</h4>
 
       <div class="lesson-box">
-        <b>1. Le Code WhatsApp à 6 chiffres est SECRET ABSOLU</b><br>
-        Si un ami ou un inconnu vous écrit : <i>"Je t'ai envoyé un code par SMS par erreur, renvoie-le moi vite !"</i>, <b>C'EST UN PIRATE</b> qui essaie de voler votre compte WhatsApp. Ne partagez JAMAIS aucun code reçu par SMS.
+        <b>🚨 1. L'arnaque au faux code WhatsApp à 6 chiffres (Le vol de compte)</b><br>
+        <i>Le scénario :</i> Vous recevez un message WhatsApp d'un ami ou membre de famille disant : <i>"Salut, j'ai envoyé un code SMS sur ton numéro par erreur, renvoie-le moi vite s'il te plaît !"</i>.<br>
+        <b>La réalité :</b> Le compte de votre ami a déjà été piraté. Le pirate installe WhatsApp sur son téléphone avec VOTRE numéro et demande à WhatsApp de vous envoyer le SMS de confirmation. Si vous lui donnez ce code, <b>votre compte WhatsApp est volé en 3 secondes</b>.<br>
+        <b>👉 Règle d'or :</b> Ne transmettez JAMAIS un code reçu par SMS à qui que ce soit, même à votre frère ou votre patron !
       </div>
 
       <div class="lesson-box">
-        <b>2. Regardez TOUJOURS l'adresse réelle du site (URL)</b><br>
-        Si un message vous dit de vous connecter à votre banque ou Facebook, regardez la barre en haut : si ce n'est pas exactement le vrai nom (ex: <i>facebook-securite-login.xyz</i> au lieu de <i>facebook.com</i>), c'est une fausse page qui enregistre vos identifiants.
+        <b>🎣 2. Le Phishing par faux lien (Fausse bourse d'études, faux concours, fausse alerte bancaire)</b><br>
+        <i>Le scénario :</i> Vous recevez un lien : <i>"Le gouvernement offre 50 000 FCFA à tous les étudiants, cliquez ici pour vérifier votre éligibilité"</i>.<br>
+        En cliquant, vous tombez sur une page avec le logo officiel qui vous demande votre e-mail, mot de passe et numéro Mobile Money.<br>
+        <b>👉 Comment détecter le piège :</b> Regardez la barre d'adresse en haut ! Un vrai site gouvernemental termine par <code>.gouv.ne</code> ou <code>.gov</code>. Les pirates utilisent des adresses comme <code>aide-gouvernement-niger.free-bonus.xyz</code>.
       </div>
 
       <div class="lesson-box">
-        <b>3. Utilisez la méthode de la « Phrase de passe »</b><br>
-        Au lieu d'un mot court facile à pirater (ex: <i>Niamey2026</i>), inventez une phrase avec des espaces et symboles : <i>"MonChameauBoitDuThe!2026"</i>. Un pirate mettrait plus de 50 000 ans à la deviner !
+        <b>🔑 3. L'erreur des mots de passe recyclés</b><br>
+        Si vous utilisez le même mot de passe (ex: <code>Moussa2024</code>) sur votre compte Facebook, sur un petit site de téléchargement et sur votre boîte e-mail : si le petit site se fait pirater un jour, le pirate essaiera immédiatement ce mot de passe sur votre boîte Gmail et prendra le contrôle de toute votre vie numérique !
       </div>
 
       <div class="lesson-box tip">
-        <b>💡 Activez la Double Authentification (2FA) :</b><br>
-        Sur WhatsApp, allez dans Paramètres > Compte > Vérification en deux étapes. Même si quelqu'un vole votre carte SIM, il ne pourra jamais ouvrir votre WhatsApp sans votre code PIN secret.
+        <b>🛡️ Le Protocole de Protection Absolue Anatec :</b>
+        <ol>
+          <li><b>Activez la vérification en 2 étapes (2FA) sur WhatsApp :</b> Allez dans <i>Paramètres > Compte > Vérification en deux étapes</i>. Créez un code PIN secret à 6 chiffres. Même si un pirate vole votre carte SIM, il ne pourra jamais ouvrir votre WhatsApp !</li>
+          <li><b>Utilisez la méthode de la « Phrase de passe » :</b> Au lieu de <code>Niger2026</code>, écrivez : <code>MonPereAcheteDuTheVert!2026</code>. Elle est facile à retenir pour vous, mais impossible à casser pour un supercalculateur.</li>
+          <li><b>Sécurisez votre compte Google/Gmail :</b> Gmail est le cœur de votre smartphone Android. Activez l'application <b>Google Authenticator</b> pour protéger vos accès.</li>
+        </ol>
+      </div>
+
+      <h4>3. Mini-Quiz d'Auto-Évaluation</h4>
+      <div class="lesson-quiz-wrap" id="quiz-cyber">
+        <div class="quiz-q" data-correct="1">
+          <b>Question 1 : Un ami Facebook vous écrit en urgence : "Je suis bloqué en voyage, envoie-moi 20 000 FCFA sur ce numéro". Que devez-vous faire ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 0)">A) Envoyer l'argent tout de suite pour l'aider</button>
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 1)">B) L'appeler directement sur son vrai numéro de téléphone pour vérifier sa voix</button>
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 2)">C) Transférer le message à d'autres amis</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    `
+  },
+
+  mobile_security: {
+    icon: "📱",
+    badge: "LEÇON 3 · SMARTPHONE & PAIEMENTS MOBILES",
+    title: "Sécuriser son Smartphone, Cartes SIM & Comptes Mobile Money",
+    summary: "Apprenez à vous prémunir du SIM Swapping, à verrouiller vos applications de transfert d'argent (Airtel, Orange, Moov Money) et à protéger vos données en cas de vol du téléphone.",
+    content: `
+      <div class="lesson-nav-tabs">
+        <span class="hud-tag" style="background:rgba(0,245,155,0.1);color:var(--ok);border-color:rgba(0,245,155,0.3)">FINANCES & MOBILES</span>
+        <span class="mono" style="font-size:12px;color:var(--muted)">Temps de lecture : 10 min · Tout public</span>
+      </div>
+
+      <h4>1. Votre téléphone est désormais votre portefeuille</h4>
+      <p>Au Niger et en Afrique de l'Ouest, nos téléphones contiennent nos économies (Orange Money, Moov Money, Airtel Money, Al Izza, etc.), nos échanges privés et nos documents professionnels. Si votre téléphone n'est pas sécurisé, un voleur de rue peut vider vos comptes en quelques minutes.</p>
+
+      <h4>2. Les 3 Failles Majeures et Comment les Verrouiller :</h4>
+
+      <div class="lesson-box">
+        <b>🔒 1. Le Code PIN de votre Carte SIM (Le bouclier anti-vol)</b><br>
+        <i>Le danger :</i> Par défaut, la plupart des cartes SIM ont pour code PIN <b>0000</b> ou <b>1234</b>. Si un voleur arrache votre téléphone, il met votre carte SIM dans son propre appareil, reçoit vos SMS de récupération bancaire et vide vos comptes !<br>
+        <b>👉 L'action immédiate :</b> Allez dans <i>Paramètres du téléphone > Sécurité > Verrouillage de la carte SIM</i>. Changez immédiatement le code PIN par défaut pour un code secret à 4 chiffres personnel.
+      </div>
+
+      <div class="lesson-box">
+        <b>💸 2. Le Piège du Faux Dépôt Mobile Money</b><br>
+        <i>Le scénario :</i> Vous recevez un faux SMS imitant votre opérateur : <i>"Dépôt de 25 000 FCFA reçu de Moussa..."</i>. Deux secondes après, un inconnu vous appelle en panique : <i>"Pardonnez-moi grand frère, je me suis trompé de numéro en envoyant l'argent pour soigner ma mère, renvoyez-le moi s'il vous plaît !"</i>.<br>
+        Si vous lui renvoyez 25 000 FCFA sans avoir composé votre solde officiel (*144# ou *155#), vous venez de lui donner votre propre argent !<br>
+        <b>👉 Règle d'or :</b> Vérifiez TOUJOURS votre solde réel via le code USSD officiel avant de croire un SMS.
+      </div>
+
+      <div class="lesson-box tip">
+        <b>🛡️ Les 3 Verrous Essentiels à Activer Aujourd'hui :</b>
+        <ul>
+          <li><b>Activez la localisation à distance :</b> Sur Android, activez <i>Google Localiser mon appareil (Find My Device)</i>. Cela vous permet d'effacer vos données à distance si le téléphone est volé.</li>
+          <li><b>Mettez un mot de passe ou empreinte sur vos applications bancaires et WhatsApp.</b></li>
+          <li><b>Méfiez-vous des applications téléchargées hors du Play Store / App Store (fichiers .APK non officiels) :</b> Ils contiennent souvent des chevaux de Troie qui enregistrent ce que vous tapez à l'écran.</li>
+        </ul>
+      </div>
+
+      <h4>3. Mini-Quiz d'Auto-Évaluation</h4>
+      <div class="lesson-quiz-wrap" id="quiz-mobile">
+        <div class="quiz-q" data-correct="2">
+          <b>Question : Quelqu'un vous appelle en affirmant qu'il vous a envoyé 30 000 FCFA par erreur et demande le renvoi. Que faites-vous ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 0)">A) Vous le croyez et renvoyez l'argent immédiatement</button>
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 1)">B) Vous l'insultez et raccrochez</button>
+            <button class="quiz-opt" onclick="checkQuizAnswer(this, 2)">C) Vous tapez le code secret officiel de votre opérateur pour vérifier votre solde réel</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
       </div>
     `
   },
 
   os_install: {
-    icon: "💻",
-    badge: "LEÇON 3 · SYSTÈMES & INSTALLATION",
-    title: "Installer & Réparer Windows ou Linux sans Rien Casser",
+    icon: "💿",
+    badge: "LEÇON 4 · SYSTÈMES & INSTALLATION PRO",
+    title: "Installer & Réparer Windows 11 et Linux sans Perte de Données",
+    summary: "Guide professionnel pas-à-pas pour créer une clé bootable avec Rufus, configurer le BIOS/UEFI, partitionner un disque sans effacer vos fichiers et installer les bons pilotes.",
     content: `
-      <h4>1. Les 3 étapes indispensables pour installer un système propre :</h4>
+      <div class="lesson-nav-tabs">
+        <span class="hud-tag" style="background:rgba(220,185,110,0.1);color:var(--gold);border-color:var(--gold)">PRATIQUE TECHNIQUE</span>
+        <span class="mono" style="font-size:12px;color:var(--muted)">Temps de lecture : 14 min · Débutant & Technicien</span>
+      </div>
+
+      <h4>1. La Préparation du Matériel & Logiciels</h4>
+      <p>Pour installer ou réinstaller proprement un ordinateur, vous avez besoin de 3 éléments indispensables :</p>
+      <ul>
+        <li>Une clé USB vierge de <b>8 Go ou 16 Go</b> minimum (sauvegardez son contenu car elle sera formatée).</li>
+        <li>L'image ISO officielle (téléchargeable gratuitement sur le site officiel de Microsoft pour Windows 11, ou sur ubuntu.com pour Linux).</li>
+        <li>Le logiciel gratuit et léger <b>Rufus</b> (sur rufus.ie).</li>
+      </ul>
+
+      <h4>2. Les 4 Étapes Maîtresses d'une Installation Réussie</h4>
 
       <div class="lesson-box">
-        <b>Étape 1 : Créer la clé USB d'installation</b><br>
-        Téléchargez le logiciel gratuit <b>Rufus</b> ou <b>Ventoy</b>. Branchez une clé USB vierge d'au moins 8 Go, sélectionnez le fichier ISO de Windows 11 ou Ubuntu Linux, et lancez la création.
+        <b>Étape 1 : Graver l'image ISO avec Rufus</b><br>
+        Ouvrez Rufus en tant qu'administrateur. Sélectionnez votre clé USB, puis choisissez votre fichier ISO.<br>
+        <b>Attention au Schéma de Partition :</b>
+        <ul>
+          <li><b>GPT (recommandé pour ordinateurs récents, UEFI) :</b> Indispensable pour Windows 11 et les disques avec démarrage sécurisé.</li>
+          <li><b>MBR (pour anciens ordinateurs avec BIOS Legacy) :</b> Utilisé sur les machines d'avant 2014.</li>
+        </ul>
+        Cliquez sur <i>Démarrer</i> et attendez 10 minutes que la clé soit prête.
       </div>
 
       <div class="lesson-box">
         <b>Étape 2 : Démarrer l'ordinateur sur la clé (Boot Menu)</b><br>
-        Éteignez le PC. Branchez la clé USB et rallumez-le en tapotant immédiatement la touche <b>F12</b> (sur Dell/Lenovo), <b>F9</b> (sur HP) ou <b>Échap / F2</b> (sur Asus). Choisissez votre clé USB dans la liste.
+        Éteignez complètement l'ordinateur. Branchez votre clé USB dans un port USB direct (évitez les hubs). Rallumez la machine et <b>tapotez immédiatement et plusieurs fois la touche du Boot Menu</b> :
+        <ul>
+          <li><b>HP :</b> Touche <code>F9</code> (ou <code>Échap</code> puis <code>F9</code>)</li>
+          <li><b>Dell & Lenovo :</b> Touche <code>F12</code></li>
+          <li><b>Asus & Acer :</b> Touche <code>F12</code> ou <code>Échap</code></li>
+          <li><b>Toshiba :</b> Touche <code>F12</code></li>
+        </ul>
+        Sélectionnez <b>UEFI: Nom de votre clé USB</b> dans la liste.
       </div>
 
       <div class="lesson-box">
-        <b>Étape 3 : Le Partitionnement sans effacer vos fichiers</b><br>
-        Si votre disque a deux partitions (C: pour le système et D: pour vos documents), formatez UNIQUEMENT la partition C:. Vos dossiers sur D: resteront parfaitement intacts !
+        <b>Étape 3 : Le Partitionnement sans effacer vos photos et documents</b><br>
+        Lors de l'installation de Windows, choisissez toujours <b>« Personnalisé : installer uniquement Windows (avancé) »</b>.<br>
+        Vous verrez la liste des partitions :
+        <ul>
+          <li><b>Lecteur 0 Partition 1 / C: (Système) :</b> C'est celle-ci qu'il faut formater ou supprimer pour y réinstaller Windows propre.</li>
+          <li><b>Lecteur 0 Partition 2 / D: (Vos Données) :</b> <b>NE LA SUPPRIMEZ PAS !</b> Vos fichiers personnels y resteront parfaitement intacts.</li>
+        </ul>
       </div>
 
       <div class="lesson-box tip">
-        <b>🧪 Passez à la pratique sans risque :</b><br>
-        Utilisez notre <b>Simulateur d'Installation d'OS</b> dans la section suivante pour vous entraîner en conditions réelles sans toucher à votre vrai disque dur !
+        <b>🧪 Entraînez-vous dès maintenant dans notre Simulateur Virtuel !</b><br>
+        Pas besoin de risquer votre vrai PC pour apprendre : notre <b>Simulateur OS Pro</b> (accessible dans l'onglet Cyber Lab) reproduit l'écran BIOS et les questions d'installation en conditions réelles !
+        <div style="margin-top:10px">
+          <button class="btn sm cyan" type="button" onclick="closeSchoolLesson();switchToOsSimTab()">⚡ Lancer le Simulateur d'Installation Virtuel ➔</button>
+        </div>
       </div>
     `
   },
 
   networks: {
     icon: "🌐",
-    badge: "LEÇON 4 · RÉSEAUX & CONNEXIONS",
-    title: "Comment fonctionnent Internet, les Adresses IP et le Wi-Fi ?",
+    badge: "LEÇON 5 · RÉSEAUX, INTERNET & WI-FI",
+    title: "Comprendre Internet, les Adresses IP, Routeurs et le Wi-Fi",
+    summary: "Démystifiez les adresses IP, le fonctionnement des routeurs Wi-Fi, les serveurs DNS et apprenez à repérer les intrus qui consomment votre forfait Internet.",
     content: `
-      <h4>1. C'est quoi une adresse IP ?</h4>
-      <p>Une adresse IP, c'est l'adresse postale de votre appareil dans le monde numérique. Quand vous demandez une page web ou une vidéo YouTube, les serveurs ont besoin de votre IP pour savoir où envoyer les données.</p>
+      <div class="lesson-nav-tabs">
+        <span class="hud-tag" style="background:rgba(0,229,255,0.1);color:var(--cyan);border-color:rgba(0,229,255,0.3)">RÉSEAUX & TÉLÉCOMS</span>
+        <span class="mono" style="font-size:12px;color:var(--muted)">Temps de lecture : 11 min · Débutant & Pratique</span>
+      </div>
+
+      <h4>1. Qu'est-ce qu'une Adresse IP ?</h4>
+      <p>Dans le monde réel, si quelqu'un veut vous envoyer une lettre, il a besoin de votre adresse postale (Pays, Ville, Quartier, Numéro de rue). Dans le monde numérique, c'est exactement le rôle de l'<b>Adresse IP (Internet Protocol)</b>.</p>
 
       <div class="lesson-box">
-        <b>🏠 IP Locale (192.168.x.x) vs 🌍 IP Publique</b><br>
-        Dans votre maison ou entreprise, votre routeur donne à chaque téléphone et ordinateur une adresse privée interne (souvent qui commence par 192.168...). Vers l'extérieur, tout le monde partage une seule adresse IP publique fournie par votre opérateur (Airtel, Moov, Orange, Niger Télécoms, etc.).
+        <b>🏠 Adresse IP Privée (Locale) vs 🌍 Adresse IP Publique :</b>
+        <ul>
+          <li><b>Votre IP Privée (ex: <code>192.168.1.15</code>) :</b> Donnée par votre box ou routeur Wi-Fi à votre smartphone pour communiquer dans la maison. Personne sur Internet ne peut voir cette adresse directement.</li>
+          <li><b>Votre IP Publique (ex: <code>102.164.210.45</code>) :</b> Fournie par votre opérateur (Airtel, Moov, Orange, Niger Télécoms, etc.). C'est l'adresse unique avec laquelle votre maison apparaît sur Internet.</li>
+        </ul>
       </div>
 
       <div class="lesson-box">
-        <b>🔒 Protéger son Wi-Fi domestique</b><br>
-        Changez toujours le mot de passe par défaut de votre modem ou box. Choisissez le chiffrement <b>WPA2-AES ou WPA3</b>. Évitez les mots de passe trop simples comme votre numéro de téléphone.
+        <b>📡 Le Rôle du Routeur et du Serveur DHCP</b><br>
+        Le <b>routeur</b> est comme un chef de gare : il prend les paquets de données venant d'Internet et les achemine exactement vers l'appareil qui les a demandés (par exemple la vidéo YouTube vers la tablette, et le message WhatsApp vers le smartphone). Le service <b>DHCP</b> distribue automatiquement les adresses IP à chaque appareil qui se connecte.
+      </div>
+
+      <div class="lesson-box tip">
+        <b>🔒 Comment sécuriser votre Box Wi-Fi :</b>
+        <ol>
+          <li><b>Changez le mot de passe d'administration de la box :</b> L'adresse d'accès est souvent <code>192.168.1.1</code> ou <code>192.168.0.1</code>. Ne laissez JAMAIS les identifiants par défaut (<code>admin / admin</code>).</li>
+          <li><b>Utilisez le chiffrement WPA2-AES ou WPA3 :</b> Ne choisissez jamais le vieux protocole WEP, qui se pirate en moins de 60 secondes avec des outils gratuits.</li>
+          <li><b>Inspectez les appareils connectés :</b> Utilisez une application gratuite comme <b>Fing</b> sur votre smartphone pour voir la liste de tous les téléphones et PC connectés à votre Wi-Fi en temps réel !</li>
+        </ol>
       </div>
     `
   },
 
   terminal_basics: {
     icon: "⚡",
-    badge: "LEÇON 5 · COMMANDES INDISPENSABLES",
-    title: "Le Terminal sans Peur : Les 5 Commandes Magiques",
+    badge: "LEÇON 6 · TERMINAL & LIGNE DE COMMANDE",
+    title: "Le Terminal sans Peur : Les Commandes Essentielles Windows & Linux",
+    summary: "Apprenez à utiliser la ligne de commande sans crainte pour diagnostiquer un réseau, dépanner un système et exécuter des opérations 10 fois plus vite qu'à la souris.",
     content: `
-      <h4>1. Pourquoi utiliser le terminal ?</h4>
-      <p>Le terminal est simplement une façon de parler directement à l'ordinateur par écrit, sans passer par la souris. C'est beaucoup plus rapide et ça permet de dépanner quand l'écran graphique est bloqué.</p>
-
-      <div class="lesson-box">
-        <b>1. ping google.com</b><br>
-        Envoie 4 paquets vers Google. Si ça répond en quelques millisecondes, votre connexion Internet fonctionne parfaitement !
+      <div class="lesson-nav-tabs">
+        <span class="hud-tag" style="background:rgba(220,185,110,0.1);color:var(--gold);border-color:var(--gold)">OUTIL PRO</span>
+        <span class="mono" style="font-size:12px;color:var(--muted)">Temps de lecture : 10 min · Pratique</span>
       </div>
 
-      <div class="lesson-box">
-        <b>2. ipconfig (Windows) ou ip a (Linux)</b><br>
-        Affiche immédiatement votre adresse IP, votre passerelle de connexion et l'état de votre carte Wi-Fi.
-      </div>
+      <h4>1. Pourquoi les professionnels adorent le terminal ?</h4>
+      <p>L'interface graphique avec la souris est agréable, mais elle est lente et consomme beaucoup de mémoire. Le terminal permet de parler directement au cœur du système avec des instructions textuelles nettes et précises.</p>
+
+      <h4>2. Le Tableau de Correspondance Windows vs Linux</h4>
 
       <div class="lesson-box">
-        <b>3. cd nom_du_dossier</b><br>
-        Permet d'entrer dans un dossier (Change Directory). Pour revenir en arrière, tapez <b>cd ..</b>.
+        <table style="width:100%;border-collapse:collapse;font-size:13.5px">
+          <tr style="border-bottom:1px solid var(--line);color:var(--gold)">
+            <th align="left" style="padding:8px">Action souhaitée</th>
+            <th align="left" style="padding:8px">Commande Windows (CMD)</th>
+            <th align="left" style="padding:8px">Commande Linux / Mac</th>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+            <td style="padding:8px">Tester la connexion Internet</td>
+            <td style="padding:8px"><code>ping google.com</code></td>
+            <td style="padding:8px"><code>ping google.com</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+            <td style="padding:8px">Voir son adresse IP</td>
+            <td style="padding:8px"><code>ipconfig</code></td>
+            <td style="padding:8px"><code>ip a</code> ou <code>ifconfig</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+            <td style="padding:8px">Lister les fichiers du dossier</td>
+            <td style="padding:8px"><code>dir</code></td>
+            <td style="padding:8px"><code>ls -la</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+            <td style="padding:8px">Entrer dans un dossier</td>
+            <td style="padding:8px"><code>cd nom_dossier</code></td>
+            <td style="padding:8px"><code>cd nom_dossier</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+            <td style="padding:8px">Effacer l'écran</td>
+            <td style="padding:8px"><code>cls</code></td>
+            <td style="padding:8px"><code>clear</code></td>
+          </tr>
+        </table>
       </div>
 
-      <div class="lesson-box">
-        <b>4. dir (Windows) ou ls (Linux)</b><br>
-        Liste instantanément tous les fichiers et dossiers présents là où vous vous trouvez.
+      <div class="lesson-box tip">
+        <b>💡 Le Test de diagnostic réseau en 3 étapes :</b>
+        <ol>
+          <li><code>ping 127.0.0.1</code> : Teste si votre carte réseau interne fonctionne.</li>
+          <li><code>ping 192.168.1.1</code> : Teste si le câble ou le Wi-Fi communique bien avec votre box/routeur.</li>
+          <li><code>ping 8.8.8.8</code> : Teste si vous sortez bien sur le réseau mondial Internet (serveurs Google).</li>
+        </ol>
       </div>
     `
   }
 };
+
+// Fonction de vérification interactive du Quiz de cours
+function checkQuizAnswer(btn, chosenIdx) {
+  const qBox = btn.closest('.quiz-q');
+  if (!qBox) return;
+  const correctIdx = parseInt(qBox.dataset.correct, 10);
+  const options = qBox.querySelectorAll('.quiz-opt');
+  const fb = qBox.querySelector('.quiz-feedback');
+
+  options.forEach((opt, idx) => {
+    opt.disabled = true;
+    if (idx === correctIdx) {
+      opt.style.background = 'rgba(0,245,155,0.2)';
+      opt.style.borderColor = 'var(--ok)';
+      opt.style.color = '#fff';
+    } else if (idx === chosenIdx && chosenIdx !== correctIdx) {
+      opt.style.background = 'rgba(255,77,109,0.2)';
+      opt.style.borderColor = 'var(--bad)';
+      opt.style.color = '#fff';
+    }
+  });
+
+  if (chosenIdx === correctIdx) {
+    playBeep(880, "sine", 0.15);
+    fb.innerHTML = '<div style="margin-top:10px;padding:8px 12px;background:rgba(0,245,155,0.1);border-left:3px solid var(--ok);color:var(--ok);font-size:13px">✓ Félicitations ! C\'est la réponse exacte.</div>';
+  } else {
+    playBeep(260, "sawtooth", 0.15);
+    fb.innerHTML = '<div style="margin-top:10px;padding:8px 12px;background:rgba(255,77,109,0.1);border-left:3px solid var(--bad);color:#ff758f;font-size:13px">✗ Mauvaise réponse. La bonne réponse est mise en surbrillance verte ci-dessus.</div>';
+  }
+}
+
 
 function openSchoolLesson(lessonId) {
   const lesson = SCHOOL_LESSONS[lessonId];
