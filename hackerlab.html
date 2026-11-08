@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Anatec HackerLab — Académie de Cybersécurité & Pentest</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+:root{
+  --bg:#070a0f;--panel:#0d1219;--p2:#101822;--text:#c7d0d9;--muted:#7f93a5;
+  --gold:#dcb96e;--cyan:#00e5ff;--green:#00ff9d;--blue:#4ea1ff;--red:#ff5f5f;
+  --line:#1a2533;--font-mono:"DejaVu Sans Mono",Consolas,ui-monospace,monospace;
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);font-family:var(--font-mono);
+  display:grid;grid-template-rows:56px 1fr;height:100vh;overflow:hidden;
+}
+
+/* Header Anatec */
+header{
+  background:#090d13;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;z-index:20;font-family:var(--font-sans);
+}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.brand img{width:32px;height:32px;filter:drop-shadow(0 0 8px rgba(220,185,110,0.4));border-radius:6px}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-title{font-size:16px;font-weight:800;letter-spacing:0.04em}
+.brand-title b{color:var(--gold)}
+.brand-sub{font-size:9.5px;color:var(--cyan);font-family:var(--font-mono);letter-spacing:0.1em;text-transform:uppercase}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.btn-nav{
+  background:#101822;color:var(--text);border:1px solid var(--line);
+  padding:6px 12px;border-radius:6px;font-size:12px;text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;transition:.2s;
+}
+.btn-nav:hover{border-color:var(--cyan);color:#fff}
+.badge-live{background:rgba(0,255,157,0.1);color:var(--green);border:1px solid rgba(0,255,157,0.3);padding:3px 8px;border-radius:4px;font-size:11px}
+
+/* Conteneur principal */
+.app-container{
+  display:grid;grid-template-columns:260px 1fr;height:calc(100vh - 56px);overflow:hidden;
+}
+aside{background:#070a0e;border-right:1px solid var(--line);padding:12px;overflow-y:auto}
+aside h1{font-size:13.5px;color:var(--green);margin:0 0 10px;display:flex;align-items:center;gap:6px}
+.tab{
+  display:block;width:100%;text-align:left;background:#101820;color:#8fa3b5;
+  border:1px solid #1e2a36;padding:8px 10px;margin-bottom:6px;border-radius:6px;
+  cursor:pointer;font-family:inherit;font-size:11px;transition:.15s;
+}
+.tab:hover:not(.locked){border-color:var(--cyan);color:#fff}
+.tab.active{border-color:var(--green);color:var(--green);background:rgba(0,255,157,0.06)}
+.tab.done{color:#5ddc9a}
+.tab.locked{opacity:.4;cursor:not-allowed}
+.tab.red{border-left:3px solid var(--red)}
+.tab.blue{border-left:3px solid var(--blue)}
+.tab.green{border-left:3px solid var(--green)}
+.foot{margin-top:14px;font-size:10.5px;color:var(--muted);line-height:1.5;border-top:1px solid var(--line);padding-top:12px}
+
+main{display:flex;flex-direction:column;overflow:hidden}
+#brief{padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+#brief h2{margin:0 0 4px;font-size:13.5px;color:var(--blue)}
+#brief p{margin:0;font-size:11.5px;color:var(--muted);white-space:pre-line;line-height:1.5}
+
+#layout{flex:1;display:grid;grid-template-columns:1fr 310px;overflow:hidden}
+#content{overflow-y:auto;padding:16px 20px;font-size:12.5px;line-height:1.6}
+#content h3{color:var(--green);margin-top:0}
+#content code{background:#101820;padding:2px 6px;border-radius:4px;color:#ffd479;font-size:11.5px}
+#content pre{background:#070a0e;border:1px solid var(--line);padding:10px;border-radius:6px;overflow-x:auto;font-size:11.5px;color:#9fe8c1}
+.quiz{background:var(--panel);border:1px solid #1a2c3a;border-radius:8px;padding:12px;margin:14px 0}
+.quiz b{color:var(--blue)}
+button.quiz-btn{background:var(--green);color:#000;border:none;padding:7px 12px;margin:6px 6px 0 0;cursor:pointer;font-family:inherit;border-radius:4px;font-size:11px;font-weight:700}
+button.quiz-btn:hover{filter:brightness(1.15)}
+
+#side{background:#070a0e;border-left:1px solid var(--line);padding:12px;overflow-y:auto;font-size:11.5px}
+#side h3{margin:0 0 8px;color:var(--blue);font-size:12px}
+#agentLog{color:var(--muted);margin-top:6px;max-height:260px;overflow-y:auto;line-height:1.45}
+#term{display:flex;flex-direction:column;overflow:hidden;background:#080c12}
+#out{flex:1;overflow-y:auto;padding:12px 14px;font-size:12.5px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+#line{display:flex;padding:8px 14px;border-top:1px solid var(--line);background:#070a0e}
+#prompt{color:var(--green);white-space:nowrap;margin-right:6px}
+#cmd{flex:1;background:transparent;border:none;outline:none;color:#e8eef5;font-family:inherit;font-size:12.5px}
+
+.ok{color:var(--green)}.warn{color:#ffcc00}.err{color:var(--red)}.info{color:var(--blue)}.dim{color:#5a6b7c}.hd{color:var(--blue);font-weight:bold}
+.hidden{display:none!important}
+
+@media(max-width:960px){
+  .app-container{grid-template-columns:1fr;grid-template-rows:auto 1fr;height:calc(100vh - 56px)}
+  aside{max-height:140px;border-right:none;border-bottom:1px solid var(--line)}
+  #layout{grid-template-columns:1fr}
+  #side{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="/">
+    <img src="/favicon.svg" alt="Logo Anatec">
+    <div class="brand-text">
+      <span class="brand-title">ANA<b>TEC</b></span>
+      <span class="brand-sub">HACKERLAB CYBER ACADEMY</span>
+    </div>
+  </a>
+  <div class="nav-actions">
+    <span class="badge-live">● SANDBOX ISOLÉE CLIENT-SIDE</span>
+    <a class="btn-nav" href="/cours.html">📚 Tous les Cours</a>
+    <a class="btn-nav" href="/simulator.html">⚡ Simulateur OS</a>
+    <a class="btn-nav" href="/">🏠 Accueil</a>
+  </div>
+</header>
+
+<div class="app-container">
+  <aside>
+    <h1>🎓 ANATEC HACKERLAB</h1>
+    <div id="menu"></div>
+    <div class="foot">
+      Progression : <strong style="color:var(--green)" id="pct">0%</strong><br>
+      Score : <strong style="color:var(--gold)" id="score">0</strong> pts<br>
+      <button onclick="resetAll()" style="background:#222;color:#aaa;border:1px solid #333;font-size:10px;padding:4px 8px;margin-top:6px;cursor:pointer;border-radius:4px">Réinitialiser la progression</button>
+    </div>
+  </aside>
+
+  <main>
+    <div id="brief"><h2 id="title"></h2><p id="subtitle"></p></div>
+    <div id="layout">
+      <div id="content" class="hidden"></div>
+      <div id="term">
+        <div id="out"></div>
+        <div id="line"><span id="prompt"></span><input id="cmd" autocomplete="off" spellcheck="false" autofocus></div>
+      </div>
+      <div id="side">
+        <h3>🎯 OBJECTIFS DU MODULE</h3>
+        <ul id="objs" style="list-style:none;padding:0;margin:0 0 14px"></ul>
+        <div style="border:1px solid #173042;border-radius:6px;padding:8px;background:#0a1219">
+          <b style="color:var(--blue)">AGENT PÉDAGOGIQUE ANATEC</b>
+          <div id="agentLog">En attente d'instruction…</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+/* ================= COURS (THÉORIE) ================= */
+const courses=[
+{id:"c1",name:"C1 · Bases du réseau",html:`
+<h3>Le réseau en 10 minutes</h3>
+<p>Une <b>adresse IP</b> identifie une machine (ex : <code>10.10.10.5</code>). Les <b>ports</b> identifient les services : 22 = SSH, 80 = HTTP, 443 = HTTPS, 21 = FTP, 445 = SMB, 3306 = MySQL, 23 = Telnet.</p>
+<pre>nmap -sV 10.10.10.5      # liste les services + versions
+ping 10.10.10.5          # la machine répond-elle ?</pre>
+<p><b>À retenir :</b> chaque port ouvert est une porte d'entrée potentielle. Moins de services = moins de risques.</p>
+<div class="quiz"><b>Quiz :</b> quel port correspond à SSH ?<br>
+<button class="quiz-btn" onclick="quiz(this,0,1)">a) 80</button><button class="quiz-btn" onclick="quiz(this,0,2)">b) 22</button><button class="quiz-btn" onclick="quiz(this,0,3)">c) 445</button></div>`},
+{id:"c2",name:"C2 · Linux & terminal Kali",html:`
+<h3>Survivre dans un terminal</h3>
+<pre>ls                # lister les fichiers
+cd /home/kali     # changer de dossier
+cat fichier.txt   # lire un fichier
+whoami            # qui suis-je ?</pre>
+<p>Kali Linux est une distribution dédiée au pentest : nmap, hydra, john, sqlmap, metasploit y sont préinstallés. Le dossier <code>/usr/share/wordlists/rockyou.txt</code> contient 14 millions de mots de passe fuités — l'arme favorite des attaques par dictionnaire.</p>
+<div class="quiz"><b>Quiz :</b> quelle commande lit un fichier ?<br>
+<button class="quiz-btn" onclick="quiz(this,1,1)">a) ls</button><button class="quiz-btn" onclick="quiz(this,1,2)">b) cat</button><button class="quiz-btn" onclick="quiz(this,1,3)">c) cd</button></div>`},
+{id:"c3",name:"C3 · Sécurité web",html:`
+<h3>Le web vu par un attaquant</h3>
+<p>Un serveur web sert des pages. Certaines sont cachées : <code>/robots.txt</code> (parfois trahi par le développeur !), dossiers <code>/backup</code>, <code>/admin</code>. Les outils d'énumération les cherchent avec un dictionnaire :</p>
+<pre>gobuster dir -u http://cible -w /usr/share/wordlists/dirb/common.txt
+curl http://cible/robots.txt</pre>
+<p><b>Injection SQL :</b> si une page construit sa requête avec l'entrée utilisateur (<code>?id=1</code>), l'attaquant peut la détourner pour lire toute la base. L'outil sqlmap automatise l'extraction.</p>
+<div class="quiz"><b>Quiz :</b> où un développeur oublie-t-il souvent des chemins secrets ?<br>
+<button class="quiz-btn" onclick="quiz(this,2,1)">a) robots.txt</button><button class="quiz-btn" onclick="quiz(this,2,2)">b) index.css</button><button class="quiz-btn" onclick="quiz(this,2,3)">c) favicon.ico</button></div>`},
+{id:"c4",name:"C4 · Mots de passe & hash",html:`
+<h3>Stocker et casser des mots de passe</h3>
+<p>Un système ne stocke jamais ton mot de passe : il stocke son <b>hash</b> (empreinte mathématique irréversible). Mais si le hash fuite, on peut tester des millions de candidats :</p>
+<pre>john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt</pre>
+<p><b>Règle d'or :</b> la longueur bat la complexité. <code>soleil22</code> tombe en secondes ; une phrase de 20 mots prendrait des milliards d'années.</p>
+<div class="quiz"><b>Quiz :</b> qu'est-ce qui protège le mieux ?<br>
+<button class="quiz-btn" onclick="quiz(this,3,1)">a) P@ss (complexe, court)</button><button class="quiz-btn" onclick="quiz(this,3,2)">b) mon-chat-aime-le-thon-fraichement-peche (long)</button><button class="quiz-btn" onclick="quiz(this,3,3)">c) 123456789</button></div>`},
+{id:"c5",name:"C5 · WiFi & WPA2",html:`
+<h3>Le WiFi : handshake et crack</h3>
+<p>Quand un client se connecte en WPA2, un <b>handshake</b> (poignée de main en 4 messages) est échangé. En capturant ce handshake, on peut tester des mots de passe hors ligne :</p>
+<pre>sudo airmon-ng start wlan0          # mode moniteur
+sudo airodump-ng wlan0mon           # scanner
+sudo aireplay-ng --deauth 5 -a BSSID wlan0mon   # forcer une reconnexion
+aircrack-ng -w rockyou.txt capture.cap</pre>
+<p><b>Défense :</b> mot de passe long (16+), WPA3 si possible, désactiver le WPS.</p>
+<div class="quiz"><b>Quiz :</b> pourquoi l'attaque "deauth" existe-t-elle ?<br>
+<button class="quiz-btn" onclick="quiz(this,4,1)">a) Pour faire joli</button><button class="quiz-btn" onclick="quiz(this,4,2)">b) Forcer un client à se reconnecter et capturer le handshake</button><button class="quiz-btn" onclick="quiz(this,4,3)">c) Augmenter le signal</button></div>`},
+{id:"c6",name:"C6 · Défense & Blue Team",html:`
+<h3>Défendre son entreprise</h3>
+<p>Le défenseur (Blue Team) lit les <b>logs</b> pour détecter une attaque, puis réagit :</p>
+<pre>tail -f /var/log/auth.log              # qui tente de se connecter ?
+ss -tulpn                              # quels ports sont ouverts ?
+sudo ufw deny 23/tcp                   # fermer Telnet (dangereux)
+sudo iptables -A INPUT -s 1.2.3.4 -j DROP   # bannir une IP attaquante</pre>
+<p><b>Principes :</b> moindre privilège, mises à jour, mots de passe forts, surveillance continue, pas de services inutiles (Telnet, FTP anonyme).</p>
+<div class="quiz"><b>Quiz :</b> quel service est à fermer en priorité ?<br>
+<button class="quiz-btn" onclick="quiz(this,5,1)">a) HTTPS (443)</button><button class="quiz-btn" onclick="quiz(this,5,2)">b) Telnet (23)</button><button class="quiz-btn" onclick="quiz(this,5,3)">c) SSH (22) durci</button></div>`}
+];
+
+/* ================= PROJETS ATTAQUE (ROUGE) ================= */
+const redLabs=[
+{id:1,name:"R1 · Reconnaissance réseau",m:{ip:"10.10.10.5",host:"academy-web",ports:[[22,"ssh","OpenSSH 8.2p1"],[80,"http","Apache 2.4.49"],[3306,"mysql","MySQL 8.0.27"]],web:{"/":"<html>\n<head><title>Academy Corp</title></head>\n<body><h1>Bienvenue chez Academy Corp</h1>\n<!-- TODO: retirer avant prod : FLAG{RECON_MASTER} -->\n</body></html>"}},
+ brief:"Le client donne l'IP 10.10.10.5. Vérifie qu'elle répond, énumère les services, récupère le flag caché dans la page web.",
+ objectives:[{t:"ping la cible",hint:"ping 10.10.10.5",ok:S=>S.pinged},{t:"nmap -sV la cible",hint:"nmap -sV 10.10.10.5",ok:S=>S.scanned},{t:"Lire la page et capturer le flag (curl)",hint:"curl http://10.10.10.5",ok:S=>S.flags.includes("FLAG{RECON_MASTER}")}]},
+{id:2,name:"R2 · Énumération web",m:{ip:"10.10.10.8",host:"blog",ports:[[80,"http","nginx 1.18.0"]],web:{"/":"<html><title>Blog</title><body><h1>Mon blog</h1></body></html>","/robots.txt":"User-agent: *\nDisallow: /backup/\nDisallow: /admin.html\n","/admin.html":"<h2>Panneau admin</h2><p>FLAG{DIRS_ARE_GOLD}</p>","/backup/":"Index of /backup\n  db.sql.gz\n  config.old"}},
+ brief:"Le blog interne est sur 10.10.10.8. Trouve les fichiers cachés et le flag.",
+ objectives:[{t:"Énumérer les dossiers (gobuster/dirb)",hint:"gobuster dir -u http://10.10.10.8 -w /usr/share/wordlists/dirb/common.txt",ok:S=>S.dirs.length>0},{t:"Lire robots.txt",hint:"curl http://10.10.10.8/robots.txt",ok:S=>S.webCalls.includes("/robots.txt")},{t:"Flag de /admin.html",hint:"curl http://10.10.10.8/admin.html",ok:S=>S.flags.includes("FLAG{DIRS_ARE_GOLD}")}]},
+{id:3,name:"R3 · FTP anonyme",m:{ip:"10.10.10.11",host:"ftp-srv",ports:[[21,"ftp","vsftpd 3.0.3"]],ftp:{files:{"flag.txt":"FLAG{ANON_FTP_IS_BAD}","notes.txt":"TODO: desactiver anonymous"}}},
+ brief:"Un serveur FTP oublié sur 10.10.10.11. Teste le compte anonyme et récupère le flag.",
+ objectives:[{t:"Connexion FTP anonyme",hint:"ftp 10.10.10.11",ok:S=>S.ftpOk},{t:"Télécharger flag.txt (get)",hint:"dans ftp> : ls puis get flag.txt",ok:S=>!!S.loot["flag.txt"]},{t:"Lire le fichier (cat flag.txt)",hint:"cat flag.txt",ok:S=>S.flags.includes("FLAG{ANON_FTP_IS_BAD}")}]},
+{id:4,name:"R4 · Brute force SSH",m:{ip:"10.10.10.14",host:"lab-ssh",ports:[[22,"ssh","OpenSSH 8.2p1"]],ssh:{user:"student",pass:"dragon",home:{"flag.txt":"FLAG{SSH_WEAK_PASS}"}}},
+ brief:"Le serveur SSH 10.10.10.14 a un compte 'student' faible. Casse-le avec hydra puis connecte-toi.",
+ objectives:[{t:"Trouver le mot de passe (hydra)",hint:"hydra -l student -P /usr/share/wordlists/rockyou.txt ssh://10.10.10.14",ok:S=>S.creds.pass==="dragon"},{t:"Session SSH",hint:"ssh student@10.10.10.14",ok:S=>S.shell},{t:"Lire flag.txt",hint:"cat flag.txt",ok:S=>S.flags.includes("FLAG{SSH_WEAK_PASS}")}]},
+{id:5,name:"R5 · EternalBlue (SMB)",m:{ip:"10.10.10.17",host:"win-legacy",ports:[[445,"microsoft-ds","Windows 7 SP1 (MS17-010)"],[3389,"rdp","MS Terminal"]]},
+ brief:"Windows 7 sans patch expose SMB sur 10.10.10.17. Trouve l'exploit, lance Metasploit, obtiens SYSTEM.",
+ objectives:[{t:"Chercher l'exploit (searchsploit ms17-010)",hint:"searchsploit ms17-010",ok:S=>S.searchsploit},{t:"Exploiter via Metasploit",hint:"msfconsole puis : use exploit/windows/smb/ms17_010_eternalblue ; set RHOSTS 10.10.10.17 ; run",ok:S=>S.root},{t:"Lire le flag",hint:"cat flag.txt",ok:S=>S.flags.includes("FLAG{ETERNAL_BLUE}")}]},
+{id:6,name:"R6 · Injection SQL",m:{ip:"10.10.10.20",host:"shop",ports:[[80,"http","Apache + PHP 7.4"]],web:{"/":"<html><title>Boutique</title><body><a href=\"/product.php?id=1\">Produit 1</a></body></html>","/product.php?id=1":"<h2>Chaise</h2><p>Prix : 49 EUR</p>"}},
+ brief:"La boutique 10.10.10.20 a un paramètre douteux : product.php?id=1. Extrais la base avec sqlmap.",
+ objectives:[{t:"Repérer le paramètre",hint:"curl \"http://10.10.10.20/product.php?id=1\"",ok:S=>S.webCalls.some(c=>c.includes("product.php"))},{t:"Dump avec sqlmap",hint:"sqlmap -u \"http://10.10.10.20/product.php?id=1\" --batch --dump",ok:S=>S.sqlDump},{t:"Flag en base",hint:"observe la sortie du dump",ok:S=>S.flags.includes("FLAG{SQLI_TAUTOLOGY}")}]},
+{id:7,name:"R7 · WiFi WPA2",m:{bssid:"AA:BB:CC:11:22:33",ssid:"Cafe_Gratuit",key:"cafe2023"},
+ brief:"Réseau 'Cafe_Gratuit' : moniteur, scan, handshake, crack. Clé attendue : nom + année.",
+ objectives:[{t:"Mode moniteur",hint:"sudo airmon-ng start wlan0",ok:S=>S.monitor},{t:"Scan des réseaux",hint:"sudo airodump-ng wlan0mon",ok:S=>S.wifiScan},{t:"Handshake (deauth)",hint:"sudo aireplay-ng --deauth 5 -a AA:BB:CC:11:22:33 wlan0mon",ok:S=>S.handshake},{t:"Cracker la clé",hint:"aircrack-ng -w /usr/share/wordlists/rockyou.txt capture-01.cap",ok:S=>S.key==="cafe2023"}]},
+{id:8,name:"R8 · Cassage de hash",loot:{"hash.txt":"5f4dcc3b5aa765d61d8327deb882cf99"},
+ brief:"Un hash a été récupéré. Casse-le avec john et soumets le mot de passe (submit).",
+ objectives:[{t:"Lire hash.txt",hint:"cat hash.txt",ok:S=>S.read.includes("hash.txt")},{t:"john --wordlist",hint:"john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt",ok:S=>S.cracked},{t:"Soumettre le mot de passe",hint:"submit soleil22",ok:S=>S.submitted.includes("soleil22")}]},
+{id:9,name:"R9 · Box / routeur admin",m:{ip:"10.10.10.1",host:"box-isp",ports:[[80,"http","Boa HTTPd"],[23,"telnet","Telnet actif"]],web:{"/":"<html><title>Box Admin</title><body><h2>Connexion admin</h2><form method=post action=/login>user <input name=user> pass <input name=pass></form></body></html>"}},
+ brief:"La box de l'agence sur 10.10.10.1 : identifiants par défaut probablement conservés.",
+ objectives:[{t:"Voir la page de connexion",hint:"curl http://10.10.10.1",ok:S=>S.webCalls.includes("/")},{t:"Login par défaut (curl -d)",hint:"curl -d \"user=admin&pass=admin\" http://10.10.10.1/login",ok:S=>S.routerLogged},{t:"Clé WiFi + flag",hint:"curl http://10.10.10.1/wifi",ok:S=>S.flags.includes("FLAG{DEFAULT_CREDS}")}]},
+{id:10,name:"R10 · Chaîne complète (final)",m:{ip:"10.10.10.30",host:"final",ports:[[22,"ssh","OpenSSH 8.9"],[80,"http","Apache 2.4.49 (CVE-2021-41773)"]],web:{"/":"<html><title>Final target</title></html>"}},
+ brief:"Serveur final : nikto, recherche d'exploit, exploitation, flag root.",
+ objectives:[{t:"Scan nikto",hint:"nikto -h http://10.10.10.30",ok:S=>S.nikto},{t:"Trouver la CVE",hint:"searchsploit apache 2.4.49",ok:S=>S.searchsploit},{t:"Exploiter (exploit 10.10.10.30)",hint:"exploit 10.10.10.30",ok:S=>S.root},{t:"Flag final",hint:"cat flag.txt",ok:S=>S.flags.includes("FLAG{FULL_CHAIN_PWNED}")}]}
+];
+
+/* ================= PROJETS DÉFENSE (BLEU) ================= */
+const blueLabs=[
+{id:101,name:"B1 · Détecter un port scan",m:{log:"Nov  8 09:12:01 srv sshd[412]: Failed password for root from 45.155.205.233 port 40012\nNov  8 09:12:03 srv sshd[413]: Failed password for root from 45.155.205.233 port 40014\nNov  8 09:12:06 srv sshd[414]: Failed password for admin from 45.155.205.233 port 40020\nNov  8 09:13:55 srv sshd[500]: Accepted password for student from 45.155.205.233 port 40102\nNov  8 09:14:02 srv sudo: student : command=/bin/cat /etc/shadow"},
+ brief:"ALERTE : trafic suspect sur ton serveur. Analyse /var/log/auth.log, identifie l'IP attaquante et bannis-la.",
+ objectives:[{t:"Lire les logs (cat /var/log/auth.log)",hint:"cat /var/log/auth.log",ok:S=>S.read.includes("auth.log")},{t:"Identifier l'IP attaquante (submit)",hint:"submit 45.155.205.233",ok:S=>S.submitted.includes("45.155.205.233")},{t:"Bannir l'IP (iptables)",hint:"sudo iptables -A INPUT -s 45.155.205.233 -j DROP",ok:S=>S.banned.includes("45.155.205.233")}]},
+{id:102,name:"B2 · Fermer les ports dangereux",m:{ports:[[22,"ssh","OpenSSH"],[23,"telnet","⚠ Telnet legacy"],[445,"smb","Samba 3.0.20 ⚠"],[80,"http","nginx"]]},
+ brief:"Un audit révèle des services obsolètes sur ton serveur : inspecte les ports ouverts et ferme les deux dangereux (Telnet + vieux Samba).",
+ objectives:[{t:"Lister les ports (ss -tulpn)",hint:"ss -tulpn",ok:S=>S.portsListed},{t:"Fermer Telnet (ufw deny 23)",hint:"sudo ufw deny 23/tcp",ok:S=>S.closed.includes(23)},{t:"Fermer SMB (ufw deny 445)",hint:"sudo ufw deny 445/tcp",ok:S=>S.closed.includes(445)}]},
+{id:103,name:"B3 · Durcir SSH",m:{},
+ brief:"Ton SSH accepte root par mot de passe. Inspecte /etc/ssh/sshd_config et corrige les 2 lignes dangereuses.",
+ objectives:[{t:"Lire la config",hint:"cat /etc/ssh/sshd_config",ok:S=>S.read.includes("sshd_config")},{t:"Interdire root (submit PermitRootLogin no)",hint:"submit PermitRootLogin no",ok:S=>S.submitted.includes("PermitRootLogin no")},{t:"Exiger les clés (submit PasswordAuthentication no)",hint:"submit PasswordAuthentication no",ok:S=>S.submitted.includes("PasswordAuthentication no")}]},
+{id:104,name:"B4 · Répondre à une intrusion",m:{files:{"webshell.php":"<?php system($_GET['cmd']); ?>  // DÉPÔSÉ PAR ATTAQUANT","index.html":"<html>site normal</html>"}},
+ brief:"INCIDENT : un webshell a peut-être été déposé sur le serveur web (/var/www). Trouve le fichier malveillant et supprime-le.",
+ objectives:[{t:"Trouver le webshell (ls /var/www)",hint:"ls /var/www",ok:S=>S.lsWeb},{t:"Le lire pour confirmer",hint:"cat /var/www/webshell.php",ok:S=>S.read.includes("webshell.php")},{t:"Le supprimer (rm)",hint:"rm /var/www/webshell.php",ok:S=>S.removed.includes("webshell.php")}]}
+];
+
+const all={};
+courses.forEach((c,i)=>all[c.id]={type:"course",idx:i});
+redLabs.forEach((l,i)=>all[l.id]={type:"red",idx:i});
+blueLabs.forEach((l,i)=>all[l.id]={type:"blue",idx:i});
+const order=["c1","c2","c3","c4","c5",1,2,3,4,5,6,7,8,9,10,"c6",101,102,103,104];
+
+/* ================= MOTEUR COMMUN ================= */
+const KALI={"README.txt":"ANATEC HACKERLAB - simulateur 100% securise client-side.\nhelp | objectives | hint | clear","rockyou.txt":"14344391 mots (123456, password, dragon, soleil22, cafe2023...)"};
+const out=document.getElementById("out"),$=id=>document.getElementById(id);
+const inp=$("cmd");
+function p(t,c){const d=document.createElement("div");if(c)d.className=c;d.textContent=t;out.appendChild(d);out.scrollTop=out.scrollHeight;}
+function agent(t,k){const a=$("agentLog");const d=document.createElement("div");if(k)d.className=k;d.textContent=t;a.appendChild(d);a.scrollTop=1e9;if(k==="ok"||k==="warn")p("[ AGENT ] "+t,k);}
+let cur="c1",S=null;
+const prog=JSON.parse(localStorage.getItem("anatec_hackerlab")||'{"done":[],"score":0}');
+const save=()=>localStorage.setItem("anatec_hackerlab",JSON.stringify(prog));
+const K=k=>String(k);
+const done=k=>prog.done.map(K).includes(K(k));
+
+function quiz(btn,ci,ans){
+  const ok=ans===2;
+  if(ok&&!done(cur)){prog.done.push(cur);prog.score+=20;save();refreshMenu();
+    agent("✅ Bonne réponse ! Cours validé (+20 pts). Étape suivante débloquée.","ok");}
+  else agent(ok?"✅ Bonne réponse !":"❌ Non, relis attentivement la leçon.",ok?"ok":"err");
+  btn.style.outline="2px solid "+(ok?"#00ff9d":"#ff5f5f");
+  renderObjs([]);
+}
+
+function newS(id,type){
+ S={type:type,curIdx:0,user:"kali",host:"kali",cwd:"/home/kali",mode:null,flags:[],webCalls:[],dirs:[],read:[],loot:{},submitted:[],banned:[],closed:[],removed:[],
+ pinged:false,scanned:false,ftpOk:false,creds:{},shell:false,root:false,monitor:false,wifiScan:false,handshake:false,key:null,cracked:null,sqlDump:false,nikto:false,searchsploit:false,routerLogged:false,portsListed:false,lsWeb:false,stuck:0};
+ if(type==="red"){S.curIdx=redLabs.findIndex(l=>l.id===id);Object.assign(S.loot,redLabs[S.curIdx].loot||{});}
+ if(type==="blue"){S.curIdx=blueLabs.findIndex(l=>l.id===id);Object.assign(S.loot,blueLabs[S.curIdx].m.files||{});}
+ out.innerHTML="";$("agentLog").innerHTML="";
+ agent("Prêt. Cible chargée — tape une commande (help / objectives / hint).","info");
+}
+
+function show(id){
+ cur=id;const e=all[id];
+ $("objs").innerHTML="";$("agentLog").innerHTML="";
+ if(e.type==="course"){
+   const c=courses[e.idx];
+   $("title").textContent="📚 "+c.name;
+   $("subtitle").textContent="Leçon théorique — réponds au quiz pour valider.";
+   $("term").classList.add("hidden");$("content").classList.remove("hidden");
+   $("content").innerHTML=c.html;
+   newS(id,"course");
+   renderObjs([]);renderMenu();return;
+ }
+ const L=e.type==="red"?redLabs[e.idx]:blueLabs[e.idx];
+ $("term").classList.remove("hidden");$("content").classList.add("hidden");
+ newS(id,e.type);
+ $("title").textContent=(e.type==="red"?"🔴 ":"🔵 ")+L.name;
+ $("subtitle").textContent=L.brief;
+ p("# "+L.name,"hd");p(L.brief,"dim");p("");
+ const tgt=e.type==="red"?(L.m.ip||L.m.ssid):"ton serveur (localhost)";
+ p("Cible : "+tgt,"warn");p("Tape help / objectives / hint.","dim");
+ renderObjs(L.objectives);renderMenu();upPrompt();
+ if(inp)inp.focus();
+}
+
+function renderObjs(objs){
+ const ul=$("objs");ul.innerHTML="";
+ if(all[cur].type==="course"){
+   ul.innerHTML=`<li class="${done(cur)?'ok':'cur'}">${done(cur)?'✔':'○'} Répondre correctement au quiz</li>`;
+   return;
+ }
+ const pr=prog["pr_"+progKey()]||0;
+ objs.forEach((o,i)=>{const li=document.createElement("li");li.className=i<pr?"ok":i===pr?"cur":"";li.textContent=(i<pr?"✔ ":"○ ")+o.t;ul.appendChild(li);});
+}
+function progKey(){return cur;}
+
+function refreshMenu(){
+ renderMenu();
+ $("pct").textContent=Math.round(prog.done.map(K).filter(x=>order.map(K).includes(x)).length/order.length*100)+"%";
+ $("score").textContent=prog.score;
+}
+function renderMenu(){
+ const m=$("menu");m.innerHTML="";
+ order.forEach((k,idx)=>{
+  const e=all[k];let name;
+  if(e.type==="course")name="📚 "+courses[e.idx].name;
+  else{const L=e.type==="red"?redLabs[e.idx]:blueLabs[e.idx];name=(e.type==="red"?"🔴 ":"🔵 ")+L.name;}
+  const isDone=done(k);
+  const open=idx===0||isDone||done(order[idx-1]);
+  const b=document.createElement("button");
+  b.className="tab "+(e.type==="red"?"red":e.type==="blue"?"blue":"green")
+    +(K(k)===K(cur)?" active":"")+(isDone?" done":"")+(open?"":" locked");
+  b.textContent=(isDone?"✔ ":"")+name;
+  b.onclick=()=>{if(!open){agent("Termine d'abord l'étape précédente.","warn");return;}show(k);};
+  m.appendChild(b);
+ });
+}
+function complete(objs){
+ if(!done(cur)){prog.done.push(cur);prog.score+=objs.length*50;save();refreshMenu();
+  agent("🏆 PROJET TERMINÉ ! +"+objs.length*50+" pts","ok");
+  p("┌───── PROJET VALIDÉ AVEC SUCCÈS ─────┐","hd");}
+}
+function agentCheck(objs){
+ if(all[cur].type==="course")return;
+ const k="pr_"+progKey();let pr=prog[k]||0,chg=false;
+ while(pr<objs.length&&objs[pr].ok(S)){pr++;prog[k]=pr;chg=true;agent("✔ Objectif "+pr+" validé : "+objs[pr-1].t,"ok");}
+ if(chg){save();renderObjs(objs);S.stuck=0;if(pr>=objs.length)complete(objs);}
+ else{S.stuck++;if(S.stuck>=3&&pr<objs.length){agent("Bloqué ? Indice : "+objs[pr].hint,"info");S.stuck=0;}}
+}
+function grab(txt){(txt.match(/FLAG\{[A-Z0-9_]+\}/g)||[]).forEach(f=>{if(!S.flags.includes(f)){S.flags.push(f);agent("🚩 Flag capturé : "+f,"ok");}});}
+function tok(s){const o=[];let c="",q=null;for(const ch of s){if(q){if(ch===q)q=null;else c+=ch;}else if(ch==='"'||ch==="'")q=ch;else if(ch===" "){if(c){o.push(c);c="";}}else c+=ch;}if(c)o.push(c);return o;}
+function resetAll(){if(confirm("Réinitialiser tout le HackerLab Anatec ?")){localStorage.removeItem("anatec_hackerlab");location.reload();}}
+
+/* ================= COMMANDES TERMINAL KALI ================= */
+const C={
+help(){p(`RECON : ping | nmap -sV | ss -tulpn | cat /var/log/auth.log
+WEB : curl [-d data] url | gobuster dir -u url -w wl | dirb url | nikto -h url | sqlmap -u "url" --batch --dump
+ATTAQUE : ftp ip | hydra -l u -P wl ssh://ip | ssh u@ip | searchsploit q | msfconsole | exploit ip
+WIFI : airmon-ng | airodump-ng | aireplay-ng --deauth N -a BSSID | aircrack-ng -w wl cap
+HASH/DEF : john --wordlist=wl f | iptables -A INPUT -s IP -j DROP | ufw deny PORT/tcp | rm fichier
+DIVERS : ls | pwd | cd | cat f | submit rep | objectives | hint | clear`,"hd");},
+objectives(){const e=all[cur];if(e.type==="course")return p("Objectif du cours : répondre au quiz.","info");
+ const L=e.type==="red"?redLabs[e.idx]:blueLabs[e.idx];const pr=prog["pr_"+progKey()]||0;
+ L.objectives.forEach((o,i)=>p((i<pr?"✔ ":i===pr?"▶ ":"○ ")+o.t,i<pr?"ok":i===pr?"warn":"dim"));},
+hint(){const e=all[cur];
+ if(e.type==="course")return p("Relis la leçon, la réponse y est écrite noir sur blanc.","info");
+ const L=e.type==="red"?redLabs[e.idx]:blueLabs[e.idx];const pr=prog["pr_"+progKey()]||0;
+ if(pr>=L.objectives.length)return p("Projet déjà terminé.","info");
+ p("[ AGENT ] Indice : "+L.objectives[pr].hint,"info");},
+ls(){const f=new Set(["README.txt","rockyou.txt"]);Object.keys(S.loot).forEach(x=>f.add(x));
+ if(all[cur].type==="blue"&&cur===104){p("/var/www :");[...f].forEach(x=>p("  "+x));S.lsWeb=true;return;}
+ p([...f].join("   "));},
+pwd(){p(S.cwd);},cd(){p("(navigation simulée)");},whoami(){p(S.shell?S.user:"kali");},
+cat(a){if(!a[0])return p("Usage: cat <fichier>","err");
+ const b=a[0].split("/").pop();let c=S.loot[b];
+ if(c===undefined&&all[cur].type==="blue"&&cur===101&&a[0].includes("auth.log"))c=blueLabs[0].m.log;
+ if(c===undefined&&all[cur].type==="blue"&&cur===103&&a[0].includes("sshd_config"))c="# sshd_config\nPermitRootLogin yes\nPasswordAuthentication yes\nPort 22";
+ if(c===undefined){p("cat: "+a[0]+": Aucun fichier","err");agent("Tape ls pour voir les fichiers.","warn");return;}
+ p(c);if(!S.read.includes(b))S.read.push(b);grab(c);},
+submit(v){if(!v.length)return p("Usage: submit <réponse>","err");S.submitted.push(v.join(" "));p("[ AGENT ] Soumis : "+v.join(" "),"info");},
+ping(a){const e=all[cur];if(e.type!=="red")return p("ping: utilise la cible du projet rouge.","warn");
+ const L=redLabs[e.idx],ip=a[a.length-1];
+ if(!L.m.ip||ip!==L.m.ip)return p("ping: "+ip+": introuvable","err");
+ p("PING "+ip);for(let i=1;i<=3;i++)p("64 bytes from "+ip+": icmp_seq="+i+" ttl=63 time="+(Math.random()*2+.3).toFixed(2)+" ms");
+ p("3 transmitted, 3 received, 0% loss","ok");S.pinged=true;},
+nmap(a){const e=all[cur];if(e.type!=="red")return p("nmap: en défense utilise ss -tulpn.","warn");
+ const L=redLabs[e.idx],ip=a.find(x=>/^\d+\.\d+\.\d+\.\d+$/.test(x));
+ if(!L.m.ports||ip!==L.m.ip)return p("Host seems down","warn");
+ p("PORT      STATE SERVICE   VERSION");L.m.ports.forEach(([pt,sv,v])=>p((pt+"/tcp").padEnd(10)+"open  "+sv.padEnd(12)+v,"warn"));
+ p("Nmap done.");S.scanned=true;},
+ss(a){const e=all[cur];if(e.type!=="blue")return p("ss: commande défense","warn");
+ if(cur!==102)return p("(rien à inspecter ici)","dim");
+ const L=blueLabs[e.idx];
+ p("Netid State Recv-Q Local Address:Port Process");L.m.ports.forEach(([pt,sv,v])=>p("tcp   LISTEN 0      0.0.0.0:"+pt+"  ["+sv+"] "+v,(pt===23||pt===445)?"err":""));
+ S.portsListed=true;},
+iptables(a){const e=all[cur];if(e.type!=="blue")return p("iptables: réservé au Blue Team","warn");
+ const i=a.indexOf("-s"),ip=i>=0?a[i+1]:null;
+ if(!ip)return p("Usage: iptables -A INPUT -s <IP> -j DROP","err");
+ S.banned.push(ip);p("[+] IP "+ip+" bannie (DROP)","ok");},
+ufw(a){const e=all[cur];if(e.type!=="blue")return p("ufw: réservé au Blue Team","warn");
+ const pt=parseInt(a.find(x=>/^\d+$/.test(x))||0);
+ if(!pt)return p("Usage: ufw deny <port>/tcp","err");
+ S.closed.push(pt);p("Rule added (port "+pt+" fermé)","ok");agent("Port "+pt+" fermé. Bon réflexe !","ok");},
+rm(a){const f=(a.find(x=>!x.startsWith("-"))||"").split("/").pop();
+ if(!f||S.loot[f]===undefined)return p("rm: fichier introuvable","err");
+ delete S.loot[f];S.removed.push(f);p("[+] "+f+" supprimé","ok");agent("Menace neutralisée.","ok");},
+curl(a){const e=all[cur];if(e.type!=="red")return p("curl: connection refused","err");
+ const L=redLabs[e.idx];
+ if(!L.m.web)return p("curl: (7) Failed to connect","err");
+ const url=a.find(x=>x.startsWith("http"));if(!url)return p("Usage: curl <url>","err");
+ const di=a.indexOf("-d"),data=di>=0?a[di+1]:null;
+ let u;try{u=new URL(url)}catch(_){return p("URL invalide","err")}
+ let path=u.pathname+(u.search||"");S.webCalls.push(path);
+ if(L.id===9){
+  if(data){if(/user=admin/.test(data)&&/pass=admin/.test(data)){S.routerLogged=true;p("302 Found — Connecté admin","ok");}else p("401 invalid credentials","err");return;}
+  if(path==="/wifi"){if(!S.routerLogged)return p("403 login required","err");
+   const b='{"ssid":"Maison_5G","wpa_key":"cafe2023","flag":"FLAG{DEFAULT_CREDS}"}';p(b,"warn");grab(b);return;}
+  p(L.m.web["/"]);return;}
+ const body=L.m.web[path]!==undefined?L.m.web[path]:L.m.web[path.replace(/\/$/,"")||"/"];
+ if(body===undefined){p("<h1>404 Not Found</h1>","err");agent("Cette page n'existe pas. Énumère avec gobuster.","warn");return;}
+ p(body);grab(body);},
+gobuster(a){const e=all[cur];if(e.type!=="red")return p("gobuster: réservé aux projets rouges","warn");
+ const L=redLabs[e.idx],iu=a.indexOf("-u");
+ if(!L.m.web||iu<0)return p("Usage: gobuster dir -u <url> -w <wl>","err");
+ if(!a[a.indexOf("-w")+1]){agent("Ajoute -w /usr/share/wordlists/dirb/common.txt","warn");return;}
+ p("==================================================");
+ Object.keys(L.m.web).filter(k=>k!=="/"&&!k.includes("?")).forEach(k=>{p(k.padEnd(16)+" (Status: 200)","warn");if(!S.dirs.includes(k))S.dirs.push(k);});
+ p("==================================================");},
+dirb(a){const u=a.find(x=>x.startsWith("http"));return C.gobuster(["dir","-u",u,"-w","common.txt"]);},
+nikto(a){const e=all[cur];if(e.type!=="red")return p("nikto: réservé aux projets rouges","err");
+ const L=redLabs[e.idx];if(!L.m.web)return p("nikto: unreachable","err");
+ p("+ Target: "+L.m.ip);p("+ Server: "+(L.m.ports.find(x=>x[0]===80)||["","","?"])[2]);
+ p("+ /admin/ found","warn");p("+ 3 findings");S.nikto=true;},
+sqlmap(a){const e=all[cur];if(e.type!=="red")return p("sqlmap: réservé aux projets rouges","err");
+ const L=redLabs[e.idx],u=a.find(x=>x.includes("http"));
+ if(L.id!==6||!u||!u.includes("product.php")){agent("Cible : http://"+L.m.ip+"/product.php?id=1","warn");return;}
+ p("GET parameter 'id' is injectable","warn");
+ p("| 1 | admin | FLAG{SQLI_TAUTOLOGY} |","warn");S.sqlDump=true;grab("FLAG{SQLI_TAUTOLOGY}");},
+ftp(a){const e=all[cur];if(e.type!=="red")return p("ftp: réservé aux projets rouges","err");
+ const L=redLabs[e.idx];
+ if(!L.m.ftp||a[a.length-1]!==L.m.ip)return p("ftp: connect refused","err");
+ p("Connected. Login: anonymous → 230 Login successful.","ok");
+ p("Tape ls, get <fichier>, bye","dim");S.ftpOk=true;S.mode="ftp";},
+hydra(a){const e=all[cur];if(e.type!=="red")return p("hydra: réservé aux projets rouges","err");
+ const L=redLabs[e.idx];
+ if(!L.m.ssh)return p("hydra: pas de SSH ici","err");
+ const iu=a.indexOf("-l"),ipw=a.indexOf("-P"),user=iu>=0?a[iu+1]:null,wl=ipw>=0?a[ipw+1]:null,t=(a.find(x=>x.includes("ssh://"))||"").replace("ssh://","");
+ if(t!==L.m.ip)return agent("Cible : ssh://"+L.m.ip,"warn");
+ if(!user)return agent("Précise l'utilisateur : -l "+L.m.ssh.user,"warn");
+ if(!wl)return agent("Précise la wordlist : -P /usr/share/wordlists/rockyou.txt","warn");
+ if(user!==L.m.ssh.user)return p("0 valid passwords found","err");
+ p("[22][ssh] host: "+t+"  login: "+user+"  password: "+L.m.ssh.pass,"ok");S.creds={user,pass:L.m.ssh.pass};},
+ssh(a){const e=all[cur];if(e.type!=="red")return p("ssh: réservé aux projets rouges","err");
+ const L=redLabs[e.idx],c=a[a.length-1]||"";
+ if(!L.m.ssh||!c.includes("@")||c.split("@")[1]!==L.m.ip)return p("ssh: connection refused","err");
+ S.mode="sshpw";p(c+"'s password: ","dim");},
+searchsploit(a){const q=a.join(" ").toLowerCase();S.searchsploit=true;
+ p(" Exploit Title                                |  Path");
+ if(q.includes("ms17"))p(" Microsoft Windows 7 - SMB MS17-010 (EternalBlue) | windows/remote/42315.py","warn");
+ else if(q.includes("apache"))p(" Apache 2.4.49 - Path Traversal (CVE-2021-41773) | linux/remote/50383.sh","warn");
+ else p(" Aucun résultat. Essaie : searchsploit ms17-010","dim");},
+msfconsole(){p("metasploit v6.3.40 — tape : use / set RHOSTS / run / exit","dim");S.mode="msf";},
+exploit(a){const e=all[cur];if(e.type!=="red")return p("exploit: réservé aux projets rouges","err");
+ const L=redLabs[e.idx],ip=a[a.length-1];
+ if(L.id!==10)return p("Rien à exploiter avec cette commande (voir projet R10).","warn");
+ if(ip!==L.m.ip)return p("cible introuvable","err");
+ if(!S.searchsploit)return agent("Cherche d'abord l'exploit : searchsploit apache 2.4.49","warn");
+ p("[+] Shell root obtenu !","ok");S.root=true;S.shell=true;S.user="root";S.host="final";S.cwd="/root";
+ S.loot["flag.txt"]="FLAG{FULL_CHAIN_PWNED}";},
+"airmon-ng"(a){const e=all[cur];if(e.type!=="red"||redLabs[e.idx].id!==7)return p("Pas de carte WiFi ici","warn");
+ p("phy0    wlan0     rt2800usb");p("(monitor mode enabled on wlan0mon)","ok");S.monitor=true;},
+"airodump-ng"(a){const e=all[cur];if(e.type!=="red"||redLabs[e.idx].id!==7)return p("interface introuvable","err");
+ if(!S.monitor)return agent("D'abord : sudo airmon-ng start wlan0","warn");
+ p(" BSSID              PWR  CH  ESSID");
+ p(" AA:BB:CC:11:22:33  -42   6  Cafe_Gratuit","warn");
+ p(" AA:BB:CC:44:55:66  -68  11  Bureau-Corp");S.wifiScan=true;},
+"aireplay-ng"(a){const e=all[cur];if(e.type!=="red"||redLabs[e.idx].id!==7)return p("mode moniteur requis","err");
+ const L=redLabs[e.idx];
+ if(!S.monitor)return agent("Active le mode moniteur d'abord.","warn");
+ const b=(a.find(x=>/^([0-9A-F]{2}:){5}[0-9A-F]{2}$/i.test(x))||"").toUpperCase();
+ if(b!==L.m.bssid)return agent("BSSID attendu : "+L.m.bssid,"warn");
+ p("[*] WPA handshake: "+b,"ok");S.handshake=true;},
+"aircrack-ng"(a){const e=all[cur];if(e.type!=="red"||redLabs[e.idx].id!==7)return p("Aucune capture ici","err");
+ const L=redLabs[e.idx];
+ if(!S.handshake)return p("Aucun handshake valide dans la capture","err");
+ p("Opening capture-01.cap");p("KEY FOUND! [ "+L.m.key+" ]","ok");
+ S.key=L.m.key;agent("Clé WPA2 : "+L.m.key+" (mot de passe faible : nom + année)","ok");},
+john(a){const e=all[cur];if(e.type!=="red"||redLabs[e.idx].id!==8)return p("john: rien à casser ici","warn");
+ if(!S.read.includes("hash.txt"))agent("Lis d'abord : cat hash.txt","warn");
+ if(!a.some(x=>x.includes("wordlist")))return agent("Précise : --wordlist=/usr/share/wordlists/rockyou.txt","warn");
+ p("Loaded 1 password hash (Raw-MD5)","dim");
+ p("soleil22          (hash.txt)","ok");S.cracked="soleil22";
+ agent("Hash cassé : soleil22. Soumets : submit soleil22","ok");}
+};
+
+function ftpCmd(v){const L=redLabs[S.curIdx],t=v.trim().split(/\s+/);
+ if(t[0]==="ls")Object.keys(L.m.ftp.files).forEach(f=>p("  "+f));
+ else if(t[0]==="get"){if(L.m.ftp.files[t[1]]){S.loot[t[1]]=L.m.ftp.files[t[1]];p("226 Transfer complete","ok");agent("Fichier téléchargé : cat "+t[1],"info");}else p("550 Failed","err");}
+ else if(t[0]==="bye"||t[0]==="quit"){S.mode=null;p("221 Goodbye.");}
+ else p("ls | get | bye","warn");}
+function sshPw(v){const L=redLabs[S.curIdx];
+ if(v===L.m.ssh.pass){S.mode=null;S.shell=true;S.user=L.m.ssh.user;S.host="lab-ssh";
+  Object.assign(S.loot,L.m.ssh.home);
+  p("Welcome to Ubuntu 20.04 LTS","dim");agent("Shell obtenu ! ls puis cat flag.txt","ok");}
+ else{p("Permission denied, please try again.","err");S.mode=null;}}
+function msfCmd(v){const L=redLabs[S.curIdx],t=v.trim().split(/\s+/);
+ if(t[0]==="use")S.msfUse=t.slice(1).join(" ");
+ else if(t[0]==="set"&&/RHOSTS/i.test(t[1]||"")){S.msfHost=t[2];p("RHOSTS => "+t[2]);}
+ else if(t[0]==="run"||t[0]==="exploit"){
+  if(!S.msfUse||!S.msfUse.includes("ms17"))return p("[-] Aucun module EternalBlue (use exploit/windows/smb/ms17_010_eternalblue)","err");
+  if(S.msfHost!==L.m.ip)return agent("set RHOSTS "+L.m.ip,"warn");
+  p("[*] Meterpreter session 1 opened","ok");S.root=true;S.shell=true;S.user="SYSTEM";S.host="win-legacy";
+  S.loot["flag.txt"]="FLAG{ETERNAL_BLUE}";S.mode=null;}
+ else if(t[0]==="exit"||t[0]==="background")S.mode=null;
+ else p("use / set RHOSTS / run / exit","warn");}
+
+/* ================= BOUCLE D'ENTRÉE TERMINAL ================= */
+const hist=[];let hi=0;
+inp.addEventListener("keydown",evt=>{
+ if(evt.key==="ArrowUp"&&hist.length){hi=Math.max(0,hi-1);inp.value=hist[hi];evt.preventDefault();return;}
+ if(evt.key==="ArrowDown"&&hist.length){hi=Math.min(hist.length,hi+1);inp.value=hist[hi]||"";evt.preventDefault();return;}
+ if(evt.key!=="Enter")return;
+
+ const v=inp.value;inp.value="";
+ if(v.trim()){hist.push(v);hi=hist.length;}
+ p($("prompt").textContent+(S.mode==="sshpw"?"****":v));
+ const e=all[cur];
+ if(e.type==="course")return;
+ if(S.mode==="ftp")ftpCmd(v);
+ else if(S.mode==="sshpw")sshPw(v);
+ else if(S.mode==="msf")msfCmd(v);
+ else{const t=tok(v);let n=t[0],a=t.slice(1);if(n==="sudo"){n=a[0];a=a.slice(1);}
+  const fn=C[n];if(!fn){p(n+": commande introuvable","err");agent("Commande inconnue. Tape help.","warn");}else fn(a);}
+ upPrompt();agentCheck(e.type==="red"?redLabs[e.idx].objectives:blueLabs[e.idx].objectives);
+});
+function upPrompt(){$("prompt").textContent=S.mode==="msf"?"msf6> ":S.mode==="ftp"?"ftp> ":S.mode==="sshpw"?"password: ":S.shell?S.user+"@"+S.host+"$ ":"(kali㉿kali)-["+S.cwd+"]$ ";}
+document.addEventListener("click",ev=>{if(!ev.target.closest("button")&&!$("term").classList.contains("hidden"))inp.focus();});
+
+/* ================= DÉMARRAGE ================= */
+refreshMenu();
+show(done("c1")?"c2":"c1");
+</script>
+</body>
+</html>

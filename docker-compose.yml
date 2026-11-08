@@ -1,0 +1,13 @@
+services:
+  anatec-academy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: anatec-portfolio-sandbox
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - NODE_ENV=production
+    labels:
+      - "traefik.enable=true"

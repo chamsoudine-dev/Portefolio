@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Anatec Git Trainer — Entraîneur Git du Débutant à Super Expert</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+:root{
+  --bg:#070a0f;--panel:#0d1219;--p2:#131c2a;--text:#e8eefc;--muted:#8fa3b5;
+  --gold:#dcb96e;--cyan:#00e5ff;--green:#00ff9d;--blue:#4ea1ff;--red:#ff5f5f;--amber:#ffc45d;
+  --line:#1a2533;--font-mono:"DejaVu Sans Mono",Consolas,ui-monospace,monospace;
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14.5px/1.5 var(--font-sans)}
+
+/* Header Anatec */
+header{
+  background:#090d13;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 20px;z-index:20;flex-wrap:wrap;gap:12px;
+}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.brand img{width:32px;height:32px;filter:drop-shadow(0 0 8px rgba(220,185,110,0.4));border-radius:6px}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-title{font-size:16px;font-weight:800;letter-spacing:0.04em}
+.brand-title b{color:var(--gold)}
+.brand-sub{font-size:9.5px;color:var(--cyan);font-family:var(--font-mono);letter-spacing:0.1em;text-transform:uppercase}
+.nav-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.btn-nav{
+  background:#101822;color:var(--text);border:1px solid var(--line);
+  padding:6px 12px;border-radius:6px;font-size:12px;text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;transition:.2s;
+}
+.btn-nav:hover{border-color:var(--cyan);color:#fff}
+.badge-live{background:rgba(0,229,255,0.1);color:var(--cyan);border:1px solid rgba(0,229,255,0.3);padding:3px 8px;border-radius:4px;font-size:11px}
+
+main{max-width:1240px;margin:18px auto;padding:0 16px;display:grid;grid-template-columns:290px minmax(0,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+h2{font-size:16.5px;margin:0 0 8px;color:#fff}
+.lv{width:100%;text-align:left;background:var(--p2);border:1px solid var(--line);color:var(--text);padding:9px 11px;border-radius:8px;margin:4px 0;cursor:pointer;font:inherit;transition:.15s}
+.lv:hover{border-color:var(--cyan)}
+.lv.on{border-color:var(--green);box-shadow:inset 3px 0 var(--green);background:rgba(0,255,157,0.05)}
+.lv small{display:block;color:var(--muted);font-size:11.5px}
+.lv.max{border-color:var(--amber)}
+.bar{height:7px;background:var(--line);border-radius:9px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--green);width:0;transition:width .3s}
+.rank{font-weight:700;color:var(--amber);font-size:13.5px}
+.task{background:var(--p2);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
+.task b{color:var(--green)}
+code{font-family:var(--font-mono);color:var(--cyan);background:#070a0e;padding:2px 6px;border-radius:4px}
+.term{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#070b12;color:#cbd7ee}
+.th{padding:8px 12px;background:#0d1420;display:flex;justify-content:space-between;color:var(--muted);font-size:12.5px;font-family:var(--font-mono)}
+#out{height:300px;overflow:auto;padding:12px;font:13px/1.6 var(--font-mono);white-space:pre-wrap}
+#out .ok{color:var(--green)}#out .err{color:var(--red)}#out .info{color:var(--cyan)}#out .add{color:var(--green)}#out .del{color:var(--red)}
+.ir{display:flex;gap:8px;align-items:center;border-top:1px solid var(--line);padding:8px 10px;font:13px var(--font-mono);color:var(--green);background:#0a0f18}
+#cmd{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#f3f7ff;font:inherit}
+button{cursor:pointer;border:1px solid var(--line);border-radius:8px;background:var(--p2);color:var(--text);padding:8px 13px;font:inherit;font-size:12.5px;transition:.15s}
+button:hover{border-color:var(--cyan);color:#fff}
+button.p{background:var(--green);border-color:var(--green);color:#06150f;font-weight:700}
+button.p:hover{filter:brightness(1.15)}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.hint{font-size:12.5px;color:var(--amber);margin:8px 0 0;min-height:1em}
+#g{overflow-x:auto;margin-top:12px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--p2)}
+#g text{fill:var(--text);font:11px var(--font-mono)}
+.done{color:var(--green);font-weight:700}
+@media(max-width:880px){main{grid-template-columns:1fr}#out{height:250px}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="/">
+    <img src="/favicon.svg" alt="Logo Anatec">
+    <div class="brand-text">
+      <span class="brand-title">ANA<b>TEC</b></span>
+      <span class="brand-sub">GIT TERMINAL TRAINER</span>
+    </div>
+  </a>
+  <div class="nav-actions">
+    <span class="badge-live">● MOTEUR GIT CLIENT-SIDE 100% ISOLÉ</span>
+    <a class="btn-nav" href="/hackerlab.html">🛡️ HackerLab</a>
+    <a class="btn-nav" href="/cours.html">📚 Cours</a>
+    <a class="btn-nav" href="/simulator.html">⚡ Simulateur OS</a>
+    <a class="btn-nav" href="/">🏠 Accueil</a>
+  </div>
+</header>
+
+<main>
+  <aside class="card">
+    <h2>Parcours d'Apprentissage</h2>
+    <div class="rank" id="rank">Rang : Novice</div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="muted" style="font-size:12px;margin-bottom:12px" id="pct">0 / 40 missions · 0 %</div>
+    <div id="lvs"></div>
+    <div class="act" style="margin-top:14px">
+      <button onclick="resetAll()" style="font-size:11px;padding:6px 10px;background:#1a1114;border-color:#4a2028;color:#ff7c8a">Tout réinitialiser</button>
+    </div>
+  </aside>
+
+  <section class="card">
+    <h2 id="ttl">Chargement de la mission…</h2>
+    <div class="task">
+      <div id="desc"></div>
+      <p class="hint" id="hint"></p>
+    </div>
+
+    <div class="term">
+      <div class="th"><span>user@anatec-sandbox: ~/projet</span><span id="brn"></span></div>
+      <div id="out" aria-live="polite"></div>
+      <div class="ir">
+        <span id="ps">$</span>
+        <input id="cmd" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="git status, git add ., git commit -m &quot;...&quot;, git help…">
+      </div>
+    </div>
+
+    <div class="act">
+      <button class="p" onclick="run()">▶ Exécuter</button>
+      <button onclick="hint()">💡 Indice</button>
+      <button onclick="load()">🔄 Recommencer la mission</button>
+      <button class="p" id="nx" onclick="next()">Mission Suivante →</button>
+    </div>
+
+    <div class="muted" style="margin-top:12px;font-size:12.5px" id="st"></div>
+    <div id="g"></div>
+  </section>
+</main>
+
+<script>
+const tk=l=>(l.match(/"[^"]*"|'[^']*'|\S+/g)||[]).map(x=>/^["']/.test(x)?x.slice(1,-1):x);
+const ok=m=>[m,'ok'],er=m=>[m,'err'],eq=(a,b)=>JSON.stringify(Object.entries(a).sort())===JSON.stringify(Object.entries(b).sort());
+let S,li=0,mi=0,done=new Set,hs=0,H=[],hi=0;
+const fresh=()=>({repo:0,wt:{},ix:{},C:{},B:{},head:'main',det:null,tags:{},stash:[],rl:[],rem:null,rt:{},rb:null,rq:null,xf:{},mg:null,conf:[],n:0,f:{}});
+const cid=()=>S.det||S.B[S.head]||null,T=i=>i?S.C[i].t:{},ht=()=>T(cid());
+const anc=i=>{let r=new Set,q=[i];while(q.length){let x=q.pop();if(x&&!r.has(x)){r.add(x);q.push(...S.C[x].p)}}return r};
+const hist=i=>[...anc(i)].sort((a,b)=>S.C[b].n-S.C[a].n),ms=()=>hist(cid()).map(x=>S.C[x].msg);
+const mb=(a,b)=>{let A=anc(a),q=[b],v=new Set;while(q.length){let x=q.shift();if(v.has(x))continue;v.add(x);if(A.has(x))return x;q.push(...S.C[x].p)}return null};
+const mk=(m,p,t)=>{let id=((++S.n*2654435761)>>>0).toString(16).padStart(8,'0').slice(0,7);S.C[id]={id,msg:m,p,t:{...t},n:S.n};return id};
+const rlg=m=>S.rl.unshift({id:cid(),m}),mv=(id,m)=>{if(S.det)S.det=id;else S.B[S.head]=id;rlg(m)};
+const dirty=()=>!eq(S.ix,ht())||Object.keys(S.ix).some(f=>S.wt[f]!==S.ix[f]);
+const setT=t=>{let w={...t};for(let f in S.wt)if(!(f in S.ix)&&!(f in t))w[f]=S.wt[f];S.wt=w;S.ix={...t}};
+const m3=(b,o,h,nm)=>{let t={},conf=[];new Set([...Object.keys(b),...Object.keys(o),...Object.keys(h)]).forEach(f=>{let r,B=b[f],O=o[f],X=h[f];if(O===X)r=O;else if(B===O)r=X;else if(B===X)r=O;else{conf.push(f);r=`<<<<<<< HEAD\n${O??''}\n=======\n${X??''}\n>>>>>>> ${nm}`}if(r!==undefined)t[f]=r});return{t,conf}};
+const rs=r=>{let m=(r||'HEAD').match(/^(.*?)(?:~(\d*)|(\^)|@\{(\d+)\})?$/),b=m[1]||'HEAD',x;if(m[4]!=null){let e=S.rl[+m[4]];return e&&e.id}
+x=b==='HEAD'?cid():br(b)||S.tags[b]||Object.keys(S.C).find(k=>k.startsWith(b));let n=m[3]?1:m[2]!=null?(m[2]===''?1:+m[2]):0;while(x&&n--)x=S.C[x].p[0];return x};
+const deco=id=>{let n=Object.keys(S.B).filter(b=>S.B[b]===id).map(b=>(b===S.head&&!S.det?'HEAD -> ':'')+b).concat(Object.keys(S.tags).filter(t=>S.tags[t]===id).map(t=>'tag: '+t));if(S.det===id)n.unshift('HEAD');return n.length?` (${n.join(', ')})`:''};
+const lab=(a,b)=>a===undefined?'new file':b===undefined?'deleted':'modified';
+const br=n=>S.B[n]??(n&&n.startsWith('origin/')?S.rt[n.slice(7)]:undefined),ig=f=>f.startsWith('.git/')||(S.wt['.gitignore']||'').split('\n').map(x=>x.trim()).includes(f);
+const tl=()=>S.rb.ids.map((id,i)=>`${i+1}. ${S.rb.acts[i]} ${id} ${S.rb.msgs[i]||S.C[id].msg}`).join('\n')+'\n(édite : squash 2 · drop 3 · reword 1 "msg" · pick N — puis go, ou abort)';
+const hook=()=>{let h=S.wt['.git/hooks/pre-commit'];if(!h||!S.xf['.git/hooks/pre-commit'])return'';for(let l of h.split('\n')){let m=l.trim().match(/^deny(-file)?\s+(.+)$/);if(!m)continue;for(let f in S.ix)if(m[1]?f===m[2]:(S.ix[f]||'').includes(m[2])&&S.ix[f]!==ht()[f])return `pre-commit : « ${m[2]} » détecté dans ${f}`}return''};
+function rbPut(s,tree){let q=S.rq;if((s.ac==='squash'||s.ac==='fixup')&&q.cnt)S.det=mk(q.cm,S.C[S.det].p,tree);else{q.cm=s.msg||S.C[s.x].msg;S.det=mk(q.cm,[S.det],tree)}q.cnt++;rlg('rebase: '+q.cm)}
+function rbGo(){let q=S.rq;while(q.i<q.steps.length){let s=q.steps[q.i];if(s.ac==='drop'){q.i++;continue}let x=s.x,o=T(S.det),m=m3(T(S.C[x].p[0]),o,S.C[x].t,x);
+if(m.conf.length){setT(m.t);m.conf.forEach(f=>{if(o[f]===undefined)delete S.ix[f];else S.ix[f]=o[f]});S.conf=m.conf;q.cur=s;return er(m.conf.map(f=>`CONFLICT (content): Merge conflict in ${f}`).join('\n')+`\nRebase interrompu (${q.i+1}/${q.steps.length}) : résous le conflit, git add, puis git rebase --continue (ou --skip / --abort).`)}
+rbPut(s,m.t);q.i++}
+let t=S.det;S.B[q.branch]=t;S.head=q.branch;S.det=null;S.rq=null;S.conf=[];setT(T(t));rlg('rebase (finish)');return ok(`Successfully rebased and updated refs/heads/${S.head}.`)}
+function rbCtl(a){let q=S.rq;if(!q)return er('fatal: no rebase in progress');
+if(a.includes('--abort')){S.det=null;S.head=q.branch;S.rq=null;S.conf=[];S.f.ab=1;setT(ht());return ok('Rebase annulé, branche restaurée.')}
+if(S.conf.length)return er('error: fichiers non résolus : '+S.conf.join(', ')+'\nRésous, puis git add.');
+if(a.includes('--skip')){q.cur=null;q.i++;setT(T(S.det));return rbGo()}
+if(q.cur){rbPut(q.cur,{...S.ix});q.cur=null;q.i++}return rbGo()}
+function RB(c,a){let r=S.rb,n=+a[0]-1;if(c==='abort'){S.rb=null;return ok('Rebase annulé.')}if(c==='todo')return[tl(),'info'];
+if(c==='go'){S.rq={steps:r.ids.map((x,i)=>({x,ac:r.acts[i],msg:r.msgs[i]})),i:0,cnt:0,base:r.base,branch:S.head,cur:null,cm:''};S.rb=null;S.det=r.base;return rbGo()}
+if(!(n>=0&&n<r.ids.length))return er('Numéro de ligne invalide. Tape todo.');if((c==='squash'||c==='fixup')&&n===0)return er('Impossible de squash la 1re ligne.');r.acts[n]=c;if(c==='reword')r.msgs[n]=a[1]||'';return[tl(),'info']}
+function one(line){let t=tk(line),c=t[0],a=t.slice(1);if(!c)return['',''];
+if(c==='help')return['Commandes Shell : echo "txt" > f | cat | ls | touch | rm | clear\nCommandes Git : init status add commit(-m -am --amend) diff(--staged) log(--oneline --graph --all) branch(-d -D -m) switch/checkout(-c/-b) merge(--no-ff --abort) rebase cherry-pick revert reset(--soft --mixed --hard) restore(--staged) stash(pop list) tag(-a) reflog remote push(-u -f --force-with-lease)\nÉquipe : fetch pull(--rebase) clone | Sécurité : rm(--cached) grep filter-repo commit -S | rebase -i HEAD~N puis squash N · drop N · reword N "msg" · todo · go · abort | rebase --continue/--skip/--abort\nEnchaîne avec && · Flèches ↑ / ↓ pour l’historique','info'];
+if(c==='pwd')return['/home/user/projet',''];
+if(c==='ls')return[Object.keys(S.wt).filter(f=>!f.startsWith('.git/')).sort().join('  ')+(S.repo?'  .git':''),''];
+if(c==='cat')return a[0]&&S.wt[a[0]]!==undefined?[S.wt[a[0]],'']:er(`cat: ${a[0]||''}: No such file`);
+if(c==='chmod'){let f=a[1];if(a[0]!=='+x'||S.wt[f]===undefined)return er('usage: chmod +x <fichier>');S.xf[f]=1;return['','']}
+if(c==='touch'){a.forEach(f=>{if(S.wt[f]===undefined)S.wt[f]=''});return['','']}
+if(c==='rm'){let f=a[a.length-1];if(S.wt[f]===undefined)return er(`rm: ${f}: No such file`);delete S.wt[f];return['','']}
+if(c==='echo'){let i=t.findIndex(x=>x==='>'||x==='>>');if(i<0)return[a.join(' '),''];let f=t[i+1],x=t.slice(1,i).join(' ');if(!f)return er('syntax error');S.wt[f]=t[i]==='>'||S.wt[f]===undefined?x:S.wt[f]+'\n'+x;return['','']}
+if(c==='@team'){let b=a[0],p=(S.rem=S.rem||{url:'https://ex.com/p.git',refs:{}}).refs[b],id=mk(a[1],p?[p]:[],{...T(p),[a[2]]:a[1]});S.rem.refs[b]=id;return['','']}
+if(S.rb&&['pick','squash','fixup','drop','reword','todo','go','abort'].includes(c))return RB(c,a);
+if(c==='git'){if(!S.repo&&a[0]!=='init'&&a[0]!=='clone')return er('fatal: not a git repository (or any of the parent directories): .git');return G(a[0],a.slice(1))}
+return er(`bash: ${c}: command not found`)}
+function G(s,a){switch(s){
+case'init':if(S.repo)return['Reinitialized existing Git repository','info'];S.repo=1;return ok('Initialized empty Git repository in /home/user/projet/.git/');
+case'status':{S.f.st=1;let h=ht(),o=[S.det?`HEAD detached at ${S.det}`:`On branch ${S.head}`],ch=[],un=[],ut=Object.keys(S.wt).filter(f=>!(f in S.ix)&&!ig(f));
+if(!cid())o.push('\nNo commits yet');new Set([...Object.keys(S.ix),...Object.keys(h)]).forEach(f=>{if(!S.conf.includes(f)&&S.ix[f]!==h[f])ch.push(`\t${lab(h[f],S.ix[f])}: ${f}`)});
+Object.keys(S.ix).forEach(f=>{if(!S.conf.includes(f)&&S.wt[f]!==S.ix[f])un.push(`\t${S.wt[f]===undefined?'deleted':'modified'}: ${f}`)});
+if(S.conf.length)o.push('\nUnmerged paths:\n'+S.conf.map(f=>`\tboth modified: ${f}`).join('\n'));if(ch.length)o.push('\nChanges to be committed:\n'+ch.join('\n'));if(un.length)o.push('\nChanges not staged for commit:\n'+un.join('\n'));if(ut.length)o.push('\nUntracked files:\n'+ut.map(f=>'\t'+f).join('\n'));
+if(!(ch.length+un.length+ut.length+S.conf.length))o.push('nothing to commit, working tree clean');return[o.join('\n'),'']}
+case'add':{if(!a.length)return er('Nothing specified, nothing added.');let all=a.some(x=>['.','-A','--all'].includes(x)),fs=all?[...new Set([...Object.keys(S.wt),...Object.keys(S.ix)])].filter(f=>!ig(f)||f in S.ix):a;
+for(let f of fs){if(S.wt[f]!==undefined)S.ix[f]=S.wt[f];else if(f in S.ix)delete S.ix[f];else return er(`fatal: pathspec '${f}' did not match any files`);S.conf=S.conf.filter(x=>x!==f)}return['','']}
+case'commit':{if(S.rq&&S.rq.cur&&!a.includes('--amend')){if(S.conf.length)return er('error: Committing is not possible because you have unmerged files.');return G('rebase',['--continue'])}let am=a.includes('--amend'),all=a.some(x=>x==='-a'||x==='-am'),mi=a.findIndex(x=>x==='-m'||x==='-am'),msg=mi>-1?a[mi+1]:null;
+if(S.conf.length)return er('error: Committing is not possible because you have unmerged files.');
+if(all)Object.keys(S.ix).forEach(f=>{if(S.wt[f]===undefined)delete S.ix[f];else S.ix[f]=S.wt[f]});
+if(am){let tip=cid();if(!tip)return er('fatal: nothing to amend');msg=msg??S.C[tip].msg;let id=mk(msg,S.C[tip].p,S.ix);mv(id,'commit (amend): '+msg);return ok(`[${S.head} ${id}] ${msg}`)}
+if(eq(S.ix,ht())&&!S.mg)return er('nothing to commit (use git add / git commit -am)');
+if(msg==null&&!S.mg)return er('Aborting commit due to empty commit message. Use -m "message".');
+let hk=hook();if(hk&&!a.includes('--no-verify')){S.f.blk=1;return er(hk+'\nCommit annulé par le hook pre-commit (contournement : --no-verify).')}let p=[cid()].filter(Boolean);if(S.mg&&S.mg.p)p.push(S.mg.p);msg=msg??S.mg.msg;S.mg=null;let id=mk(msg,p,S.ix),sg=a.includes('-S');if(sg)S.C[id].sig=1;mv(id,'commit: '+msg);return ok(`[${S.head} ${id}] ${msg}`+(sg?' (signé GPG ✓)':''))}
+case'diff':{let sg=a.includes('--staged')||a.includes('--cached'),x=sg?ht():S.ix,y=sg?S.ix:S.wt,o=[];S.f.diff=1;new Set([...Object.keys(x),...Object.keys(y)]).forEach(f=>{if(x[f]!==y[f]&&(sg||f in S.ix)){o.push(`diff --git a/${f} b/${f}`);if(x[f]!==undefined)x[f].split('\n').forEach(l=>o.push('- '+l));if(y[f]!==undefined)y[f].split('\n').forEach(l=>o.push('+ '+l))}});return[o.join('\n'),o.length?'diff':'']}
+case'log':{let one=a.includes('--oneline'),gr=a.includes('--graph'),arg=a.find(x=>x[0]!=='-'),st=a.includes('--all')?Object.values(S.B):[arg?rs(arg):cid()];if(!st[0])return er('fatal: your current branch does not have any commits yet');
+let set=new Set;st.forEach(x=>anc(x).forEach(y=>set.add(y)));S.f.log=1;return[[...set].sort((x,y)=>S.C[y].n-S.C[x].n).map(id=>one?`${gr?'* ':''}${id}${deco(id)} ${S.C[id].msg}`:`commit ${id}${deco(id)}\n    ${S.C[id].msg}\n`).join('\n'),'']}
+case'reflog':return[S.rl.map((e,i)=>`${(e.id||'').slice(0,7)} HEAD@{${i}}: ${e.m}`).join('\n'),''];
+case'branch':{let d=a.find(x=>/^-[dD]$/.test(x));
+if(d){let n=a[a.indexOf(d)+1];if(!S.B[n])return er(`error: branch '${n}' not found`);if(n===S.head)return er(`error: cannot delete branch '${n}' checked out`);if(d==='-d'&&!anc(cid()).has(S.B[n]))return er(`error: the branch '${n}' is not fully merged.\nIf you are sure, run 'git branch -D ${n}'`);let id=S.B[n];delete S.B[n];return ok(`Deleted branch ${n} (was ${id}).`)}
+if(a[0]==='-m'){S.B[a[2]]=S.B[a[1]];delete S.B[a[1]];if(S.head===a[1])S.head=a[2];return['','']}
+if(!a.length)return[Object.keys(S.B).map(b=>(b===S.head&&!S.det?'* ':'  ')+b).join('\n'),''];if(!cid())return er('fatal: not a valid object name: no commits yet');if(S.B[a[0]])return er(`fatal: a branch named '${a[0]}' already exists`);let x=a[1]?rs(a[1]):cid();if(!x)return er('fatal: not a valid object name');S.B[a[0]]=x;return['','']}
+case'switch':case'checkout':{let nb=a[0]==='-c'||a[0]==='-b',n=nb?a[1]:a[0];if(!n)return er('fatal: missing branch name');
+if(nb){if(S.B[n])return er(`fatal: a branch named '${n}' already exists`);if(!cid())return er('fatal: no commits yet');S.B[n]=cid();S.head=n;S.det=null;rlg('checkout: moving to '+n);return ok(`Switched to a new branch '${n}'`)}
+let isb=S.B[n]!==undefined,t=isb?S.B[n]:rs(n);if(!t)return er(`error: pathspec '${n}' did not match any known branch`);
+let dy=dirty();if(dy&&!eq(T(t),ht()))return er('error: Your local changes would be overwritten.\nCommit or stash them first.');
+if(isb){S.head=n;S.det=null}else S.det=t;if(!dy)setT(T(t));rlg('checkout: moving to '+n);return ok(isb?`Switched to branch '${n}'`:`HEAD detached at ${t}`)}
+case'merge':{if(a[0]==='--abort'){S.mg=null;S.conf=[];setT(ht());return ok('Merge aborted.')}
+let nm=a.find(x=>x[0]!=='-'),t=br(nm),c=cid();if(!t)return er(`merge: ${nm||''} - not something we can merge`);if(dirty())return er('error: Your local changes would be overwritten by merge.');
+if(anc(c).has(t))return['Already up to date.',''];
+if(anc(t).has(c)&&!a.includes('--no-ff')){mv(t,`merge ${nm}: Fast-forward`);setT(T(t));return ok(`Updating ${c}..${t}\nFast-forward`)}
+let r=m3(T(mb(c,t)),T(c),T(t),nm);setT(r.t);
+if(r.conf.length){r.conf.forEach(f=>{if(T(c)[f]===undefined)delete S.ix[f];else S.ix[f]=T(c)[f]});S.conf=r.conf;S.mg={p:t,msg:`Merge branch '${nm}'`};return er(r.conf.map(f=>`CONFLICT (content): Merge conflict in ${f}`).join('\n')+'\nAutomatic merge failed; fix conflicts, git add, then git commit.')}
+let id=mk(`Merge branch '${nm}'`,[c,t],r.t);mv(id,'merge '+nm);return ok(`Merge made by the 'ort' strategy.`)}
+case'rebase':{if(a.includes('--continue')||a.includes('--abort')||a.includes('--skip'))return rbCtl(a);if(S.rq)return er('error: un rebase est déjà en cours (--continue, --skip ou --abort).');if(a.includes('-i')){if(dirty())return er('error: cannot rebase: you have unstaged changes.');let b=rs(a.find(x=>x[0]!=='-')),l=[];if(!b)return er('usage: git rebase -i HEAD~N');for(let x=cid();x&&x!==b;x=S.C[x].p[0])l.unshift(x);if(!l.length)return er('Rien à réécrire.');S.rb={ids:l,base:b,acts:l.map(()=>'pick'),msgs:{}};return[tl(),'info']}let nm=a.find(x=>x[0]!=='-'),t=br(nm),c=cid();if(!t)return er(`fatal: invalid upstream '${nm||''}'`);if(dirty())return er('error: cannot rebase: you have unstaged changes.');if(anc(c).has(t))return['Current branch is up to date.',''];
+let base=mb(c,t),l=[];for(let x=c;x&&x!==base;x=S.C[x].p[0])l.unshift(x);S.rq={steps:l.map(x=>({x,ac:'pick'})),i:0,cnt:0,base:t,branch:S.head,cur:null,cm:''};S.det=t;return rbGo()}
+case'cherry-pick':{let x=rs(a[0]);if(!x)return er('fatal: bad revision');if(dirty())return er('error: your local changes would be overwritten');let c=cid(),r=m3(T(S.C[x].p[0]),T(c),S.C[x].t,x);
+if(r.conf.length){setT(r.t);r.conf.forEach(f=>S.ix[f]=T(c)[f]);S.conf=r.conf;S.mg={p:null,msg:S.C[x].msg};return er('CONFLICT: résous, git add, puis git commit.')}
+let id=mk(S.C[x].msg,[c],r.t);mv(id,'cherry-pick: '+S.C[x].msg);setT(r.t);return ok(`[${S.head} ${id}] ${S.C[x].msg}`)}
+case'revert':{let x=rs(a.find(y=>y[0]!=='-')||'HEAD');if(!x)return er('fatal: bad revision');if(dirty())return er('error: your local changes would be overwritten');let r=m3(S.C[x].t,ht(),T(S.C[x].p[0]),'revert');if(r.conf.length)return er('CONFLICT : revert annulé.');let m=`Revert "${S.C[x].msg}"`,id=mk(m,[cid()],r.t);mv(id,'revert: '+m);setT(r.t);return ok(`[${S.head} ${id}] ${m}`)}
+case'reset':{let md=a.includes('--hard')?'h':a.includes('--soft')?'s':'m',r=a.find(x=>x[0]!=='-'),t=rs(r||'HEAD');if(!t)return er(`fatal: ambiguous argument '${r}'`);
+if(md==='h'){setT(T(t));S.mg=null;S.conf=[]}else if(md==='m')S.ix={...T(t)};mv(t,'reset: moving to '+(r||'HEAD'));return ok(md==='h'?`HEAD is now at ${t} ${S.C[t].msg}`:'')}
+case'restore':{let sg=a.includes('--staged'),fs=a.filter(x=>x[0]!=='-');if(!fs.length)return er('fatal: you must specify path(s) to restore');
+for(let f of fs){let h=ht()[f];if(sg){if(h===undefined)delete S.ix[f];else S.ix[f]=h}else{if(S.ix[f]===undefined)return er(`error: pathspec '${f}' did not match any file(s) known to git`);S.wt[f]=S.ix[f]}}return['','']}
+case'stash':{let s=a[0];if(s==='list')return[S.stash.map((e,i)=>`stash@{${i}}: ${e.m}`).join('\n'),''];
+if(s==='pop'||s==='apply'){let e=S.stash[0];if(!e)return er('No stash entries found.');for(let f in e.d){if(e.d[f]===undefined)delete S.wt[f];else S.wt[f]=e.d[f]}if(s==='pop')S.stash.shift();return ok('Changes restored.')}
+let h=ht(),d={},u=a.includes('-u');new Set([...Object.keys(S.wt),...Object.keys(h)]).forEach(f=>{if((f in S.ix||f in h||u)&&S.wt[f]!==h[f])d[f]=S.wt[f]});
+if(!Object.keys(d).length&&eq(S.ix,h))return['No local changes to save',''];S.stash.unshift({d,m:`WIP on ${S.head}: ${cid()}`});S.f.stash=1;
+for(let f in d){if(h[f]===undefined)delete S.wt[f];else S.wt[f]=h[f]}S.ix={...h};return ok('Saved working directory and index state')}
+case'tag':{if(!a.length)return[Object.keys(S.tags).sort().join('\n'),''];let n=a.find(x=>x[0]!=='-');if(S.tags[n])return er(`fatal: tag '${n}' already exists`);S.tags[n]=a.find((x,i)=>i&&a[i-1]===n&&x[0]!=='-')?rs(a[a.indexOf(n)+1]):cid();return['','']}
+case'remote':if(a[0]==='add'&&a[2]){S.rem={url:a[2],refs:{}};return['','']}return a[0]==='-v'&&S.rem?[`origin ${S.rem.url} (fetch)\norigin ${S.rem.url} (push)`,'']:['usage: git remote add origin <url>',''];
+case'push':{if(!S.rem)return er('fatal: No configured push destination.\ngit remote add origin <url>');let fl=a.some(x=>/^(-f|--force.*)$/.test(x)),ps=a.filter(x=>x[0]!=='-'),b=ps[1]||S.head,t=S.B[b];if(!t)return er(`error: src refspec ${b} does not match any`);let o=S.rem.refs[b];
+if(o&&!anc(t).has(o)&&!fl)return er(` ! [rejected] ${b} -> ${b} (non-fast-forward)\nerror: failed to push some refs.\nhint: history diverged from origin/${b}`);S.rem.refs[b]=S.rt[b]=t;return ok(`To ${S.rem.url}\n ${!o?'*':anc(t).has(o)?' ':'+'} ${b} -> ${b}`+(!o?' (new branch)':''))}
+case'fetch':{if(!S.rem)return er('fatal: aucun remote configuré');let o=[];for(let b in S.rem.refs)if(S.rt[b]!==S.rem.refs[b]){o.push(` * ${b} -> origin/${b}`);S.rt[b]=S.rem.refs[b]}return[o.length?`From ${S.rem.url}\n`+o.join('\n'):'',o.length?'ok':'']}
+case'pull':{let f=G('fetch',[]);if(f[1]==='err')return f;return G(a.includes('--rebase')?'rebase':'merge',['origin/'+S.head])}
+case'clone':{if(!S.rem)return er('fatal: dépôt distant introuvable');S.repo=1;for(let b in S.rem.refs){S.B[b]=S.rem.refs[b];S.rt[b]=S.rem.refs[b]}S.head=S.B.main?'main':Object.keys(S.B)[0];if(cid())setT(ht());rlg('clone');return ok("Cloning into 'p'... done.")}
+case'rm':{let ca=a.includes('--cached'),fs=a.filter(x=>x[0]!=='-');if(!fs.length)return er('usage: git rm [--cached] <fichier>');for(let f of fs){if(!(f in S.ix))return er(`fatal: pathspec '${f}' did not match any files`);delete S.ix[f];if(!ca)delete S.wt[f]}return ok(`rm '${fs.join("', '")}'`)}
+case'grep':{S.f.grep=1;let o=[];for(let f in ht())ht()[f].split('\n').forEach((l,i)=>{if(a[0]&&l.includes(a[0]))o.push(`${f}:${i+1}:${l}`)});return[o.join('\n'),'']}
+case'filter-repo':{let i=a.indexOf('--path'),f=a[i+1];if(i<0||!a.includes('--invert-paths'))return er('usage: git filter-repo --path <fichier> --invert-paths');if(dirty())return er('Aborting: working tree not clean.');let old=Object.values(S.C).sort((x,y)=>x.n-y.n),mp={};old.forEach(c=>{let t={...c.t};delete t[f];mp[c.id]=mk(c.msg,c.p.map(p=>mp[p]),t)});old.forEach(c=>delete S.C[c.id]);for(let b in S.B)S.B[b]=mp[S.B[b]];for(let t in S.tags)S.tags[t]=mp[S.tags[t]];if(S.det)S.det=mp[S.det];S.rl=[];S.stash=[];setT(ht());return ok(`Parsed ${old.length} commits\nHistoire réécrite : ${f} supprimé de tous les commits.`)}
+default:return er(`git: '${s||''}' is not a git command. Tape help.`)}}
+function exec(line){let o=[];for(let c of line.split(/\s*&&\s*/)){let r=one(c);if(r[0])o.push(r);if(r[1]==='err')break}return o}
+const K=(m,f=m.toLowerCase()+'.txt')=>[`echo ${m} > ${f}`,'git add .',`git commit -m "${m}"`],A=['git init',...K('A','a.txt')],R=[...A,...K('B'),...K('C')],F=[...A,'git switch -c feature',...K('F'),'git switch main'];
+const CF=[...A,'git switch -c feature','echo feature > a.txt','git commit -am F','git switch main','echo main > a.txt','git commit -am M'];
+const L=[
+{n:'Débutant',s:'Dépôt, commit, historique',m:[
+{t:'Créer un dépôt',d:'Initialise un dépôt Git dans ce dossier.',h:'git init',s:[],ok:()=>S.repo},
+{t:'Premier commit',d:'Crée <b>README.md</b> avec <code>echo "Bonjour" &gt; README.md</code>, ajoute-le puis commit « Premier commit ».',h:'echo ... > README.md · git add README.md · git commit -m "Premier commit"',s:['git init'],ok:()=>ms().includes('Premier commit')&&ht()['README.md']!==undefined},
+{t:'Lire l’historique',d:'Affiche l’historique sur une ligne par commit.',h:'git log --oneline',s:A,ok:()=>S.f.log},
+{t:'Voir les changements',d:'Un fichier vient d’être modifié. Affiche exactement ce qui a changé (avant d’ajouter à l’index).',h:'git diff',s:[...A,'echo b >> a.txt'],ok:()=>S.f.diff}]},
+{n:'Branches',s:'Créer, fusionner, nettoyer',m:[
+{t:'Créer et basculer',d:'Crée la branche <b>feature</b> et place-toi dessus en une seule commande.',h:'git switch -c feature',s:A,ok:()=>S.head==='feature'},
+{t:'Fusion fast-forward',d:'<b>feature</b> a un commit d’avance. Reviens sur main et fusionne-la.',h:'git switch main · git merge feature',s:[...F.slice(0,-1),'git switch main'].filter((x,i,a)=>i<a.length-1||true),ok:()=>S.head==='main'&&S.B.main===S.B.feature},
+{t:'Supprimer une branche',d:'feature est déjà fusionnée dans main : supprime-la proprement.',h:'git branch -d feature',s:[...F,'git merge feature'],ok:()=>!S.B.feature},
+{t:'Branches divergentes',d:'Crée feature avec un commit, reviens sur main avec un autre commit <i>différent</i>, puis fusionne : tu dois obtenir un commit de merge.',h:'Deux commits sur deux branches · git merge feature',s:A,ok:()=>S.head==='main'&&S.C[cid()].p.length===2}]},
+{n:'Intermédiaire',s:'Remote, restore, amend',m:[
+{t:'Publier',d:'Ajoute un remote <b>origin</b> (une URL au choix) et pousse main en configurant le suivi.',h:'git remote add origin <url> · git push -u origin main',s:A,ok:()=>S.rem&&S.rem.refs.main===S.B.main},
+{t:'Annuler une modif',d:'a.txt a été abîmé. Remets-le dans l’état du dernier commit.',h:'git restore a.txt',s:[...A,'echo oups > a.txt'],ok:()=>S.wt['a.txt']===ht()['a.txt']},
+{t:'Désindexer',d:'a.txt est indexé par erreur. Sors-le de l’index <i>sans perdre</i> ta modification.',h:'git restore --staged a.txt',s:[...A,'echo b >> a.txt','git add a.txt'],ok:()=>S.ix['a.txt']===ht()['a.txt']&&S.wt['a.txt']!==ht()['a.txt']},
+{t:'Corriger le dernier commit',d:'Le message « Typpo » est faux. Corrige-le sans créer de nouveau commit.',h:'git commit --amend -m "Typo"',s:[...A,...K('Typpo')],ok:()=>S.C[cid()].msg!=='Typpo'&&hist(cid()).length===2}]},
+{n:'Avancé',s:'Stash, tags, conflits, cherry-pick',m:[
+{t:'Mettre de côté',d:'Tu as une modif en cours. Range-la, vérifie que l’arbre est propre, puis récupère-la.',h:'git stash · git status · git stash pop',s:[...A,'echo wip >> a.txt'],ok:()=>S.f.stash&&!S.stash.length&&S.wt['a.txt']!==ht()['a.txt']},
+{t:'Versionner',d:'Marque le commit actuel comme version <b>v1.0</b> avec un tag annoté.',h:'git tag -a v1.0 -m "Version 1.0"',s:[...A,...K('B')],ok:()=>S.tags['v1.0']&&S.tags['v1.0']===cid()},
+{t:'Résoudre un conflit',d:'feature et main ont modifié a.txt. Fusionne feature, résous le conflit (écris « final » dans a.txt) et termine le merge.',h:'git merge feature · echo final > a.txt · git add a.txt · git commit -m "Merge"',s:CF,ok:()=>S.C[cid()].p.length===2&&!S.conf.length&&!ht()['a.txt'].includes('<<<')},
+{t:'Cherry-pick',d:'feature contient X puis Y. Récupère <i>uniquement</i> X sur main.',h:'git log --oneline feature · git cherry-pick <id de X>',s:[...A,'git switch -c feature',...K('X'),...K('Y'),'git switch main'],ok:()=>S.head==='main'&&ht()['x.txt']!==undefined&&ht()['y.txt']===undefined}]},
+{n:'Réécriture',s:'Reset, revert, reflog, squash',m:[
+{t:'Défaire en gardant',d:'Annule le commit C mais garde ses changements prêts dans l’index.',h:'git reset --soft HEAD~1',s:R,ok:()=>S.C[cid()].msg==='B'&&S.ix['c.txt']!==undefined},
+{t:'Défaire complètement',d:'Annule le commit C <i>et</i> ses fichiers.',h:'git reset --hard HEAD~1',s:R,ok:()=>S.C[cid()].msg==='B'&&S.wt['c.txt']===undefined},
+{t:'Annuler sans réécrire',d:'Le commit C est déjà publié : annule-le avec un nouveau commit, l’historique reste intact.',h:'git revert HEAD',s:R,ok:()=>hist(cid()).length===4&&S.C[cid()].msg.startsWith('Revert')&&ht()['c.txt']===undefined},
+{t:'Récupérer un commit perdu',d:'Un <code>reset --hard</code> a fait disparaître C. Ramène main sur C.',h:'git reflog · git reset --hard <id ou HEAD@{1}>',s:[...R,'git reset --hard HEAD~2'],ok:()=>ms().includes('C')},
+{t:'Squash',d:'Fusionne B et C en un seul commit « BC » (A reste seul).',h:'git reset --soft HEAD~2 · git commit -m "BC"',s:R,ok:()=>hist(cid()).length===2&&S.C[cid()].msg==='BC'&&ht()['b.txt']!==undefined&&ht()['c.txt']!==undefined}]},
+{n:'Expert',s:'Rebase, merge --no-ff, force push',m:[
+{t:'Rebase',d:'main a avancé. Rejoue feature au-dessus de main pour un historique linéaire.',h:'git rebase main (depuis feature)',s:[...F,...K('M'),'git switch feature'],ok:()=>S.head==='feature'&&S.C[S.B.feature].p[0]===S.B.main&&hist(S.B.feature).length===3},
+{t:'Merge explicite',d:'Fusionne feature en gardant une trace : même si le fast-forward est possible, crée un commit de merge.',h:'git merge --no-ff feature',s:F,ok:()=>S.C[cid()].p.length===2},
+{t:'Push forcé prudent',d:'Tu as rebasé feature après l’avoir poussée : le push normal est refusé. Publie-la sans écraser le travail des autres.',h:'git push --force-with-lease origin feature',s:[...A,'git remote add origin https://ex.com/p.git','git switch -c feature',...K('F'),'git push origin feature','git switch main',...K('M'),'git switch feature','git rebase main'],ok:()=>S.rem.refs.feature===S.B.feature},
+{t:'Archiver un état',d:'Sans bouger HEAD, crée une branche <b>archive</b> sur le tout premier commit (A).',h:'git branch archive HEAD~2',s:R,ok:()=>S.B.archive&&S.C[S.B.archive].msg==='A'}]},
+{n:'Équipe',s:'clone, fetch, pull, push refusé',m:[
+{t:'Cloner',d:'Récupère le dépôt distant <code>https://ex.com/p.git</code> dans ton dossier.',h:'git clone https://ex.com/p.git',s:['@team main Init readme.txt'],ok:()=>S.repo&&cid()&&S.rt.main===cid()},
+{t:'Voir sans fusionner',d:'Un collègue a poussé sur origin. Télécharge ses commits <i>sans toucher</i> à ton travail, puis lis-les avec <code>git log --oneline origin/main</code>.',h:'git fetch · git log --oneline origin/main',s:[...A,'git remote add origin https://ex.com/p.git','git push -u origin main','@team main Collegue c.txt'],ok:()=>S.rt.main!==S.B.main&&S.rt.main===S.rem.refs.main},
+{t:'Synchroniser',d:'Récupère et intègre le travail du collègue en une seule commande.',h:'git pull',s:[...A,'git remote add origin https://ex.com/p.git','git push -u origin main','@team main Collegue c.txt'],ok:()=>ms().includes('Collegue')},
+{t:'Pull --rebase',d:'Tu as un commit local « Moi », ton collègue en a poussé un autre. Intègre le sien en gardant un historique <i>linéaire</i>.',h:'git pull --rebase',s:[...A,'git remote add origin https://ex.com/p.git','git push -u origin main',...K('Moi'),'@team main Collegue c.txt'],ok:()=>hist(cid()).length===3&&S.C[cid()].p.length===1&&ms().includes('Collegue')&&ms().includes('Moi')},
+{t:'Push refusé',d:'Ton push est refusé : le collègue a poussé avant toi. Intègre son travail avec un merge (pas de force !) puis publie.',h:'git push (refusé) · git pull · git push',s:[...A,'git remote add origin https://ex.com/p.git','git push -u origin main',...K('Moi'),'@team main Collegue c.txt'],ok:()=>S.rem.refs.main===S.B.main&&S.C[S.B.main].p.length===2&&ms().includes('Collegue')}]},
+{n:'Sécurité Git',s:'Secrets, .gitignore, historique, signature',m:[
+{t:'Ignorer un secret',d:'Le fichier <b>.env</b> contient un secret. Fais-le ignorer par Git (il ne doit plus apparaître dans status) et commit le .gitignore.',h:'echo .env > .gitignore · git add .gitignore · git commit -m "gitignore"',s:[...A,'echo SECRET=abc > .env'],ok:()=>ht()['.gitignore']!==undefined&&ig('.env')&&ht()['.env']===undefined},
+{t:'Arrêter de suivre',d:'<b>.env</b> a été commité par erreur. Arrête de le suivre <i>sans le supprimer du disque</i>, puis commit.',h:'git rm --cached .env · git commit -m "untrack"',s:[...A,'echo SECRET=abc > .env','git add .env','git commit -m oops'],ok:()=>ht()['.env']===undefined&&S.wt['.env']!==undefined},
+{t:'Détecter une fuite',d:'Un mot de passe traîne dans le dépôt. Trouve quel fichier le contient.',h:'git grep password',s:[...A,'echo password=hunter2 > conf.txt','git add .','git commit -m config'],ok:()=>S.f.grep},
+{t:'Purger l’historique',d:'Le secret <b>.env</b> est dans l’ancien commit « config ». Un simple rm ne suffit pas : réécris tout l’historique pour l’effacer partout.',h:'git filter-repo --path .env --invert-paths',s:[...A,'echo KEY=abc > .env','git add .','git commit -m config',...K('Suite')],ok:()=>hist(cid()).length===3&&hist(cid()).every(x=>S.C[x].t['.env']===undefined)},
+{t:'Commit signé',d:'Crée un fichier et fais un commit <b>signé</b> nommé « Release signée ».',h:'git commit -S -m "Release signée"',s:A,ok:()=>S.C[cid()].sig&&S.C[cid()].msg==='Release signée'},
+{t:'Hook anti-secret',d:'Crée un hook <b>pre-commit</b> qui refuse tout commit ajoutant « password », et rends-le exécutable. Teste-le : un commit contenant ce mot doit être refusé. (Le hook lit des lignes <code>deny texte</code> ou <code>deny-file nom</code>.)',h:'echo "deny password" > .git/hooks/pre-commit · chmod +x .git/hooks/pre-commit · echo password=1 > c.txt · git add c.txt · git commit -m t',s:A,ok:()=>S.f.blk&&S.xf['.git/hooks/pre-commit']},
+{t:'Le hook muet',d:'Ce hook devrait bloquer « SECRET », mais le commit de s.txt passe quand même ! Trouve pourquoi, corrige, et prouve que le commit est maintenant refusé.',h:'Un hook doit être exécutable : chmod +x .git/hooks/pre-commit',s:[...A,'echo "deny SECRET" > .git/hooks/pre-commit','echo SECRET=1 > s.txt','git add s.txt'],ok:()=>S.f.blk&&S.xf['.git/hooks/pre-commit']}]},
+{n:'Rebase interactif',s:'Réécrire l’historique comme un pro',m:[
+{t:'Squash',d:'Fusionne C et D en un seul commit (B reste à part). Lance <code>git rebase -i HEAD~3</code>, puis édite le plan : <code>squash 3</code>, et <code>go</code> pour exécuter.',h:'git rebase -i HEAD~3 · squash 3 · go',s:[...R,...K('D')],ok:()=>hist(cid()).length===3&&ms().includes('C')&&!ms().includes('D')&&ht()['d.txt']!==undefined},
+{t:'Supprimer un commit',d:'Le commit C est une erreur. Retire-le de l’historique en gardant B et D.',h:'git rebase -i HEAD~3 · drop 2 · go',s:[...R,...K('D')],ok:()=>hist(cid()).length===3&&!ms().includes('C')&&ht()['c.txt']===undefined&&ht()['d.txt']!==undefined},
+{t:'Renommer un commit',d:'Le message du commit B est « bad ». Renomme-le en « Ajoute B » (<code>reword 1 "Ajoute B"</code>).',h:'git rebase -i HEAD~2 · reword 1 "Ajoute B" · go',s:[...A,...K('bad','b.txt'),...K('C')],ok:()=>ms().includes('Ajoute B')&&!ms().includes('bad')&&hist(cid()).length===3},
+{t:'Nettoyage complet',d:'Transforme wip1, oops et wip2 en un unique commit « Feature » qui garde tous leurs fichiers.',h:'git rebase -i HEAD~3 · squash 2 · squash 3 · reword 1 "Feature" · go',s:[...A,...K('wip1'),...K('oops'),...K('wip2')],ok:()=>hist(cid()).length===2&&S.C[cid()].msg==='Feature'&&ht()['wip1.txt']!==undefined&&ht()['oops.txt']!==undefined&&ht()['wip2.txt']!==undefined},
+{t:'Conflit en plein rebase',d:'Rebase <b>feature</b> sur main : a.txt est en conflit. Résous-le (garde « final »), puis termine le rebase. L’historique final doit être linéaire.',h:'git rebase main · echo final > a.txt · git add a.txt · git rebase --continue',s:[...CF,'git switch feature'],ok:()=>S.head==='feature'&&!S.rq&&S.C[S.B.feature].p[0]===S.B.main&&ht()['a.txt']==='final'},
+{t:'Abandonner proprement',d:'Même situation, mais la résolution est trop risquée. Lance le rebase, puis abandonne et vérifie que feature est revenue intacte.',h:'git rebase main · git rebase --abort',s:[...CF,'git switch feature'],ok:()=>S.f.ab&&!S.rq&&S.head==='feature'&&S.C[S.B.feature].p[0]!==S.B.main}]},
+{n:'Super expert',s:'Défis réels, sans filet',m:[
+{t:'Sauvetage',d:'La branche <b>feature</b> (commit « precious ») vient d’être supprimée de force. Recrée-la sous le nom <b>rescue</b>.',h:'Le reflog garde les ids : git branch rescue <id>',s:[...A,'git switch -c feature',...K('precious'),'git switch main','git branch -D feature'],ok:()=>S.B.rescue&&S.C[S.B.rescue].msg==='precious'},
+{t:'Historique propre',d:'Objectif : main = A, M, puis <i>un seul</i> commit « Feature » contenant wip1 et wip2. Historique linéaire, sans commit de merge.',h:'rebase → squash → fast-forward',s:[...A,'git switch -c feature',...K('wip1'),...K('wip2'),'git switch main',...K('M'),'git switch feature'],ok:()=>{let b=S.B.main,t=T(b);return hist(b).length===3&&S.C[b].msg==='Feature'&&S.C[b].p.length===1&&t['wip1.txt']!==undefined&&t['wip2.txt']!==undefined&&t['m.txt']!==undefined}},
+{t:'Hotfix à chaud',d:'Tu codes sur feature (modif non commitée sur f.txt). Fais un commit « hotfix » sur main, puis reviens sur feature avec ton brouillon intact.',h:'stash → switch → commit → switch → pop',s:[...A,'git switch -c feature',...K('F'),'echo brouillon >> f.txt'],ok:()=>S.head==='feature'&&(S.wt['f.txt']||'').includes('brouillon')&&S.C[S.B.main].msg==='hotfix'&&!S.stash.length},
+{t:'Release',d:'Fusionne feature dans main (conflit sur a.txt : garde « final »), puis pose le tag <b>v2.0</b> sur le résultat.',h:'merge · résoudre · add · commit · tag v2.0',s:CF,ok:()=>S.tags['v2.0']&&S.tags['v2.0']===cid()&&S.C[cid()].p.length===2&&ht()['a.txt']==='final'}]}
+];
+
+const $=i=>document.getElementById(i),key=()=>li+'-'+mi,M=()=>L[li].m[mi],tot=()=>L.reduce((n,l)=>n+l.m.length,0);
+const RK=['Novice','Apprenti','Contributeur','Mainteneur','Architecte','Maître Git','Expert Git','Équipier senior','Gardien de la sécurité','Chirurgien de l’historique','Super expert Git'];
+
+function write(t,c=''){let o=$('out');String(t).split('\n').forEach(l=>{let d=document.createElement('div'),k=c;if(c==='diff')k=l[0]==='+'?'add':l[0]==='-'?'del':l.startsWith('diff')?'info':'';d.className=k;d.textContent=l||' ';o.appendChild(d)});o.scrollTop=o.scrollHeight}
+function save(){try{localStorage.setItem('anatec_gtt',JSON.stringify([...done]))}catch(e){}}
+function side(){let full=L.filter((l,i)=>l.m.every((_,j)=>done.has(i+'-'+j))).length,p=Math.round(done.size/tot()*100);$('rank').textContent='Rang : '+RK[full];$('bar').style.width=p+'%';$('pct').textContent=`${done.size} / ${tot()} missions · ${p} %`;
+$('lvs').innerHTML=L.map((l,i)=>{let n=l.m.filter((_,j)=>done.has(i+'-'+j)).length;return`<button class="lv ${i===li?'on':''} ${i===L.length-1?'max':''}" onclick="pick(${i})">Niveau ${i+1} · ${l.n}<small>${l.s} — ${n}/${l.m.length}</small></button>`}).join('')}
+function load(){S=fresh();let m=M();m.s.forEach(c=>exec(c));S.f={};$('out').innerHTML='';hs=0;$('hint').textContent='';$('ttl').textContent=`Niveau ${li+1} · ${L[li].n} — Mission ${mi+1}/${L[li].m.length} : ${m.t}`;$('desc').innerHTML=m.d;
+write(m.s.length?'Dépôt de départ prêt. Tape git status ou git log --oneline pour t’orienter.':'Dossier vide. Tape help pour la liste des commandes.','info');upd();side();$('cmd').focus()}
+function upd(){$('brn').textContent=(S.repo?(S.det?'HEAD détaché':S.head):'pas de dépôt')+(S.rb||S.rq?' · rebase en cours':'');$('ps').textContent=`user@projet${S.repo?' ('+(S.det?'détaché':S.head)+')':''}:~$`;let d=done.has(key());$('st').innerHTML=d?'<span class="done">✓ Mission validée</span>':'Mission en cours';graph()}
+function graph(){let g=$('g'),ids=Object.keys(S.C).sort((a,b)=>S.C[a].n-S.C[b].n);if(!ids.length){g.innerHTML='<span class="muted">Le graphe des commits apparaît ici dès le premier commit.</span>';return}
+let nm=Object.keys(S.B).sort((a,b)=>(b==='main')-(a==='main')),ln={},co=['#5ee6a8','#75a7ff','#ffc45d','#ff7c8a','#c79bff'],X={},Y={};
+ids.forEach((id,i)=>{let k=nm.findIndex(b=>anc(S.B[b]).has(id));ln[id]=k<0?nm.length:k;X[id]=24+i*54;Y[id]=40+ln[id]*38});
+let w=ids.length*54+60,h=Math.max(...Object.values(Y))+34,s=`<svg width="${w}" height="${h}" role="img" aria-label="Graphe des commits">`;
+ids.forEach(id=>S.C[id].p.forEach(p=>s+=`<line x1="${X[p]}" y1="${Y[p]}" x2="${X[id]}" y2="${Y[id]}" stroke="${co[ln[id]%5]}" stroke-width="2.5"/>`));
+ids.forEach(id=>{let r=Object.keys(S.B).filter(b=>S.B[b]===id).map(b=>b).concat(Object.keys(S.tags).filter(t=>S.tags[t]===id).map(t=>'🏷'+t));if(id===cid())r.unshift('HEAD');
+s+=`<circle cx="${X[id]}" cy="${Y[id]}" r="8" fill="${co[ln[id]%5]}" stroke="${id===cid()?'#fff':'none'}" stroke-width="3"/><text x="${X[id]}" y="${Y[id]+24}" text-anchor="middle">${id.slice(0,4)}</text>`;if(r.length)s+=`<text x="${X[id]}" y="${Y[id]-14}" text-anchor="middle" style="font-weight:700">${r.join(' ')}</text>`});g.innerHTML=s+'</svg>'}
+function run(){let i=$('cmd'),raw=i.value.trim();if(!raw)return;H.push(raw);hi=H.length;i.value='';write((S.repo?'':'')+'$ '+raw);
+if(raw==='clear'){$('out').innerHTML='';return}
+exec(raw).forEach(r=>write(r[0],r[1]));upd();if(!done.has(key())&&M().ok()){done.add(key());save();write('✓ Mission validée ! Passe à la suivante.','ok');upd();side()}}
+function hint(){hs=1;$('hint').textContent='Indice : '+M().h}
+function pick(i){li=i;mi=0;load()}
+function next(){if(mi<L[li].m.length-1)mi++;else if(li<L.length-1){li++;mi=0}else{li=0;mi=0}load()}
+function resetAll(){if(confirm('Réinitialiser toute votre progression Git Trainer ?')){done.clear();save();li=0;mi=0;load()}}
+$('cmd').addEventListener('keydown',e=>{if(e.key==='Enter')run();else if(e.key==='ArrowUp'&&H.length){hi=Math.max(0,hi-1);e.target.value=H[hi]||'';e.preventDefault()}else if(e.key==='ArrowDown'){hi=Math.min(H.length,hi+1);e.target.value=H[hi]||''}});
+try{done=new Set(JSON.parse(localStorage.getItem('anatec_gtt')||'[]'))}catch(e){}
+load();
+</script>
+</body>
+</html>
