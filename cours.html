@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plateforme de Cours & Formations | ANATEC ACADEMY</title>
+<meta name="description" content="Espace d'apprentissage numérique d'Anatec : cours d'informatique clairs, cybersécurité, matériel, systèmes d'exploitation et réseaux sans jargon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<meta property="og:image" content="/logo.svg">
+<style>
+:root{
+  --bg:#06090f;
+  --panel:#0e1520;
+  --panel-card:#121b29;
+  --line:rgba(220,185,110,0.22);
+  --line-strong:rgba(220,185,110,0.45);
+  --text:#f0f4f8;
+  --muted:#8b9bb0;
+  --gold:#dcb96e;
+  --gold-glow:rgba(220,185,110,0.3);
+  --cyan:#00e5ff;
+  --cyan-glow:rgba(0,229,255,0.25);
+  --ok:#00f59b;
+  --bad:#ff4d6d;
+  --font-sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --font-display:'Space Grotesk',system-ui,sans-serif;
+}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.75 var(--font-sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* Cyber grid background overlay */
+body::before{
+  content:"";position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,255,0.02) 1px,transparent 1px);
+  background-size:44px 44px;pointer-events:none;z-index:0;
+}
+.ambient-glow{position:fixed;width:600px;height:600px;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:0;opacity:0.15}
+.glow-1{top:-120px;right:-100px;background:radial-gradient(circle,#dcb96e,#00e5ff)}
+.glow-2{bottom:-150px;left:-100px;background:radial-gradient(circle,#00e5ff,#00f59b)}
+
+/* Header */
+header{position:sticky;top:0;z-index:100;background:rgba(6,9,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);height:70px}
+.nav-wrap{width:min(1400px,94%);height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--gold);background:linear-gradient(135deg,var(--gold),#e8c87e);color:#06090d;padding:8px 18px;border-radius:8px;font:700 13px var(--font-sans);cursor:pointer;transition:all .2s;text-decoration:none}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(220,185,110,0.4);filter:brightness(1.08)}
+.btn.ghost{background:rgba(220,185,110,0.08);color:var(--gold);box-shadow:none}
+.btn.ghost:hover{background:rgba(220,185,110,0.18)}
+.btn.cyan{background:rgba(0,229,255,0.1);color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 14px var(--cyan-glow)}
+.btn.cyan:hover{background:var(--cyan);color:#06090d}
+.btn.sm{padding:6px 14px;font-size:12px}
+
+/* Layout Plateforme */
+.platform-layout{display:grid;grid-template-columns:320px 1fr;min-height:calc(100vh - 70px);position:relative;z-index:1}
+
+/* Sidebar des cours */
+.sidebar{background:rgba(9,14,22,0.92);border-right:1px solid var(--line);padding:24px 18px;overflow-y:auto;max-height:calc(100vh - 70px);position:sticky;top:70px}
+.sidebar-title{font-size:11px;font-family:var(--font-mono);color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.course-nav-list{display:grid;gap:8px}
+.course-nav-item{padding:14px 16px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid transparent;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:12px;text-align:left;color:var(--text)}
+.course-nav-item:hover{background:rgba(220,185,110,0.06);border-color:rgba(220,185,110,0.3);transform:translateX(3px)}
+.course-nav-item.active{background:rgba(220,185,110,0.12);border-color:var(--gold);box-shadow:0 0 20px rgba(220,185,110,0.2)}
+.course-nav-icon{font-size:22px;line-height:1}
+.course-nav-title{font-size:13.5px;font-weight:700;margin-bottom:3px;color:#fff}
+.course-nav-time{font-size:11px;color:var(--gold);font-family:var(--font-mono)}
+
+/* Main Content Area */
+.content-area{padding:36px 48px;max-width:960px;margin:0 auto;width:100%}
+.course-header-banner{background:linear-gradient(145deg,rgba(18,27,40,0.95),rgba(10,15,22,0.98));border:1px solid var(--line-strong);border-radius:18px;padding:32px;margin-bottom:32px;box-shadow:0 16px 48px rgba(0,0,0,0.5)}
+.course-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11.5px;color:var(--gold);background:rgba(220,185,110,0.12);padding:4px 12px;border-radius:6px;border:1px solid rgba(220,185,110,0.3);margin-bottom:14px}
+.course-header-banner h1{font-family:var(--font-display);font-size:clamp(24px,3.5vw,36px);line-height:1.2;margin:0 0 12px;color:#fff}
+.course-header-banner p.lead{font-size:16px;color:var(--muted);margin:0;line-height:1.6}
+
+/* Progress bar */
+.progress-box{display:flex;align-items:center;gap:14px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+.progress-bar{flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--cyan));width:0%;transition:width .4s}
+
+/* Chapter Navigation Chips */
+.chapter-chips{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.ch-chip{background:rgba(255,255,255,0.04);border:1px solid var(--line);color:var(--text);padding:6px 14px;border-radius:8px;font-size:12.5px;cursor:pointer;transition:all .2s}
+.ch-chip:hover{border-color:var(--gold);color:var(--gold);background:rgba(220,185,110,0.1)}
+
+/* Article Body */
+.course-article{font-size:16px;line-height:1.85;color:#e2e8f0}
+.course-article h4{font-family:var(--font-display);font-size:20px;color:var(--gold);margin:36px 0 14px;display:flex;align-items:center;gap:10px}
+.course-article p{margin-bottom:18px}
+.lesson-box{background:rgba(18,27,39,0.7);border-left:4px solid var(--gold);padding:18px 22px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15px;line-height:1.75}
+.lesson-box.tip{border-left-color:var(--ok);background:rgba(0,245,155,0.05)}
+.lesson-box ul,.lesson-box ol{margin:10px 0 0 20px;padding:0}
+.lesson-box li{margin-bottom:6px}
+
+/* Quiz Styling */
+.quiz-section{background:linear-gradient(135deg,rgba(18,27,40,0.9),rgba(8,12,18,0.98));border:1px solid var(--gold);border-radius:16px;padding:32px;margin:40px 0;box-shadow:0 16px 48px rgba(0,0,0,0.6)}
+.quiz-q{margin-bottom:24px}
+.quiz-q b{font-size:16px;color:#fff;display:block;margin-bottom:12px;line-height:1.5}
+.quiz-options{display:grid;gap:10px}
+.quiz-opt{text-align:left;background:rgba(255,255,255,0.03);border:1px solid var(--line);padding:12px 18px;border-radius:10px;color:var(--text);font-size:14px;cursor:pointer;transition:all .2s;font-family:var(--font-sans)}
+.quiz-opt:hover:not(:disabled){border-color:var(--cyan);background:rgba(0,229,255,0.08);transform:translateX(4px)}
+.quiz-feedback{font-size:14px;margin-top:10px}
+
+/* Bottom Course Actions */
+.course-footer-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin:48px 0;padding-top:24px;border-top:1px solid var(--line)}
+
+@media(max-width:960px){
+  .platform-layout{grid-template-columns:1fr}
+  .sidebar{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--line)}
+  .content-area{padding:24px 18px}
+  .course-header-banner{padding:22px}
+}
+</style>
+</head>
+<body>
+
+<div class="ambient-glow glow-1"></div>
+<div class="ambient-glow glow-2"></div>
+
+<header>
+  <div class="nav-wrap">
+    <a class="brand" href="/">
+      <img src="/favicon.svg" alt="Logo Anatec" width="38" height="38" style="filter:drop-shadow(0 0 10px rgba(220,185,110,0.4));border-radius:10px">
+      <div style="display:flex;flex-direction:column;line-height:1.15">
+        <span style="font-family:var(--font-display);font-size:20px;font-weight:800;color:#fff;letter-spacing:0.04em">ANA<span style="color:var(--gold)">TEC</span></span>
+        <span style="font-family:var(--font-mono);font-size:9.5px;color:var(--cyan);letter-spacing:0.12em;text-transform:uppercase">PLATEFORME DE COURS</span>
+      </div>
+    </a>
+
+    <div style="display:flex;align-items:center;gap:12px">
+      <a class="btn sm cyan" href="/simulator.html" target="_blank" rel="noopener">⚡ Ouvrir le Simulateur OS ↗</a>
+      <a class="btn sm ghost" href="/">← Retour au Site Principal</a>
+    </div>
+  </div>
+</header>
+
+<div class="platform-layout">
+  <!-- Sidebar Menu des cours -->
+  <aside class="sidebar">
+    <div class="sidebar-title">
+      <span>📚 Sommaire des Formations</span>
+      <span>6 MODULES</span>
+    </div>
+
+    <div class="course-nav-list" id="sidebar-course-list"></div>
+
+    <div style="margin-top:28px;padding:16px;background:rgba(220,185,110,0.06);border:1px solid var(--line);border-radius:12px">
+      <strong style="color:var(--gold);display:block;font-size:13px;margin-bottom:4px">💼 Missions Rémunérées :</strong>
+      <p style="font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 10px">
+        Inscrivez-vous sur le site pour recevoir des travaux informatiques payés délégués par Anatec.
+      </p>
+      <a class="btn sm" href="/#missions" style="width:100%;font-size:11px;padding:6px">Postuler aux missions ➔</a>
+    </div>
+  </aside>
+
+  <!-- Zone Principale du Cours -->
+  <main class="content-area">
+    <div class="course-header-banner" id="banner-box">
+      <span class="course-tag" id="course-badge">COURS 1 · FONDAMENTAL</span>
+      <h1 id="course-title">Chargement du cours...</h1>
+      <p class="lead" id="course-lead">Explications claires pas-à-pas avec quiz interactif.</p>
+
+      <div class="progress-box">
+        <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">Progression :</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="read-progress"></div>
+        </div>
+        <span style="font-family:var(--font-mono);font-size:11px;color:var(--gold)" id="read-pct">100% de la leçon</span>
+      </div>
+    </div>
+
+    <!-- Navigation rapide par chapitres -->
+    <div class="chapter-chips" id="chapter-chips-row"></div>
+
+    <!-- Contenu du cours -->
+    <article class="course-article" id="course-body"></article>
+
+    <!-- Navigation bas de page -->
+    <div class="course-footer-nav">
+      <button class="btn ghost sm" type="button" id="btn-prev-course" onclick="navigateCourse(-1)">← Cours précédent</button>
+      <button class="btn sm" type="button" id="btn-next-course" onclick="navigateCourse(1)">Cours suivant →</button>
+    </div>
+  </main>
+</div>
+
+<script>
+// Importer les cours complets de haute qualité
+const COURSES = [
+  {
+    id: "hardware",
+    icon: "💻",
+    badge: "COURS 1 · ARCHITECTURE PC",
+    title: "Comprendre son Ordinateur de A à Z (Sans aucun mot compliqué)",
+    lead: "Découvrez le rôle du processeur, de la RAM, du disque SSD, et apprenez les règles d'entretien contre la chaleur et la poussière sahélienne.",
+    time: "10 min",
+    content: `
+      <h4>1. L'anatomie d'un ordinateur : L'analogie du restaurant</h4>
+      <p>Un ordinateur n'est pas un bloc magique. C'est simplement une équipe d'éléments hautement spécialisés qui collaborent, exactement comme dans une cuisine de restaurant :</p>
+
+      <div class="lesson-box">
+        <b>🧠 Le Processeur (CPU) : Le Chef Cuisinier</b><br>
+        Il lit les recettes (instructions des logiciels) et exécute les calculs. Sa vitesse s'exprime en <b>Gigahertz (GHz)</b> : 3.0 GHz signifie qu'il peut exécuter 3 milliards d'opérations de base par seconde. S'il a <b>4, 8 ou 16 cœurs</b>, c'est comme s'il avait plusieurs chefs qui cuisinent en même temps sans se gêner.
+      </div>
+
+      <div class="lesson-box">
+        <b>📋 La Mémoire Vive (RAM) : Le Plan de Travail du Cuisinier</b><br>
+        La RAM contient uniquement ce dont le chef a besoin immédiatement (votre navigateur ouvert, votre vidéo YouTube). Si votre plan de travail est trop petit (ex: 4 Go de RAM), le chef manque de place dès que vous ouvrez plusieurs onglets : il doit sans cesse ranger et sortir des affaires, ce qui fait ramer tout l'ordinateur !<br>
+        <i>Norme recommandée en 2026 : minimum 8 Go, idéalement 16 Go DDR4 ou DDR5.</i>
+      </div>
+
+      <div class="lesson-box">
+        <b>🗄️ Le Disque de Stockage (SSD vs HDD) : Le Placard / La Réserve</b><br>
+        C'est là que vos photos, musiques et logiciels restent enregistrés même ordinateur éteint. Il existe deux grandes technologies :
+        <ul>
+          <li><b>L'ancien HDD mécanique :</b> C'est un disque magnétique qui tourne avec une aiguille mécanique. Il est lent (80 à 120 Mo/s), fragile aux chocs et met plus d'une minute à démarrer Windows.</li>
+          <li><b>Le SSD électronique (SATA ou NVMe) :</b> Aucune pièce mécanique, ce sont des puces flash ultra-rapides (550 Mo/s en SATA, jusqu'à 7000 Mo/s en NVMe M.2). Windows démarre en 8 secondes chrono !</li>
+        </ul>
+      </div>
+
+      <h4>2. La Carte Mère et l'Alimentation : Le squelette et le cœur</h4>
+      <p>La <b>Carte Mère</b> relie tous les composants par des pistes de cuivre appelées « bus de communication ». La <b>Boîte d'Alimentation (PSU)</b> transforme le courant alternatif 220V de votre prise murale en courants continus stables de 12V, 5V et 3.3V.</p>
+
+      <div class="lesson-box tip">
+        <b>☀️ Les Conseils Spéciaux Anatec pour l'Afrique et le Sahel (Chaleur & Poussière) :</b>
+        <ul>
+          <li><b>La poussière tue les ventilateurs :</b> Dans notre région sahélienne, la poussière s'accumule sur le radiateur du processeur. Tous les 6 mois, dépoussiérez l'intérieur avec une bombe à air sec ou un pinceau doux.</li>
+          <li><b>La pâte thermique sèche :</b> La pâte thermique entre le processeur et son ventilateur durcit après 2 ou 3 ans. Si votre ventilateur tourne à fond et fait un bruit d'avion, faites renouveler la pâte thermique.</li>
+          <li><b>Protégez-vous des coupures de courant :</b> Les baisses et coupures brutales de tension endommagent les composants électroniques. Utilisez toujours un <b>régulateur de tension ou un onduleur (UPS)</b> pour votre ordinateur de bureau !</li>
+        </ul>
+      </div>
+
+      <h4>3. Mini-Quiz d'Auto-Évaluation</h4>
+      <div class="quiz-section">
+        <div class="quiz-q" data-correct="1">
+          <b>Question 1 : Votre ordinateur met 2 minutes à démarrer et ralentit dès que vous ouvrez un dossier. Quel composant faut-il remplacer en priorité ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuiz(this, 0)">A) L'écran</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 1)">B) Remplacer l'ancien disque dur (HDD) par un SSD</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 2)">C) Changer la souris</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-q" data-correct="2">
+          <b>Question 2 : Que se passe-t-il avec les données contenues dans la RAM quand vous éteignez votre ordinateur ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuiz(this, 0)">A) Elles restent gravées pour toujours</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 1)">B) Elles sont automatiquement envoyées sur Internet</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 2)">C) Elles sont complètement effacées (mémoire volatile)</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: "cyber_basics",
+    icon: "🛡️",
+    badge: "COURS 2 · SÉCURITÉ DU QUOTIDIEN",
+    title: "Éviter le Piratage, Phishing & Arnaques WhatsApp",
+    lead: "Les hackers ne sont pas des magiciens : ils manipulent l'humain. Découvrez les 4 réflexes simples qui empêchent 99% des piratages de vos comptes.",
+    time: "12 min",
+    content: `
+      <h4>1. La Réalité du Piratage : 95% des attaques ciblent l'humain</h4>
+      <p>Contrairement aux films hollywoodiens, un pirate n'a pas besoin de casser un code secret complexe : <b>il vous piège pour que vous lui donniez vos clés vous-même</b>. C'est l'<b>ingénierie sociale (Social Engineering)</b> et le <b>Phishing (Hameçonnage)</b>.</p>
+
+      <h4>2. Les 4 Grandes Arnaques Réelles Décryptées</h4>
+
+      <div class="lesson-box">
+        <b>🚨 1. L'arnaque au faux code WhatsApp à 6 chiffres (Le vol de compte)</b><br>
+        <i>Le scénario :</i> Vous recevez un message WhatsApp d'un ami ou membre de famille disant : <i>"Salut, j'ai envoyé un code SMS sur ton numéro par erreur, renvoie-le moi vite s'il te plaît !"</i>.<br>
+        <b>La réalité :</b> Le compte de votre ami a déjà été piraté. Le pirate installe WhatsApp sur son téléphone avec VOTRE numéro et demande à WhatsApp de vous envoyer le SMS de confirmation. Si vous lui donnez ce code, <b>votre compte WhatsApp est volé en 3 secondes</b>.<br>
+        <b>👉 Règle d'or :</b> Ne transmettez JAMAIS un code reçu par SMS à qui que ce soit, même à votre frère ou votre patron !
+      </div>
+
+      <div class="lesson-box">
+        <b>🎣 2. Le Phishing par faux lien (Fausse bourse d'études, faux concours)</b><br>
+        <i>Le scénario :</i> Vous recevez un lien : <i>"Le gouvernement offre 50 000 FCFA à tous les étudiants, cliquez ici pour vérifier votre éligibilité"</i>.<br>
+        En cliquant, vous tombez sur une page avec le logo officiel qui vous demande votre e-mail, mot de passe et numéro Mobile Money.<br>
+        <b>👉 Comment détecter le piège :</b> Regardez la barre d'adresse en haut ! Un vrai site gouvernemental termine par <code>.gouv.ne</code> ou <code>.gov</code>. Les pirates utilisent des adresses comme <code>aide-gouvernement-niger.free-bonus.xyz</code>.
+      </div>
+
+      <div class="lesson-box tip">
+        <b>🛡️ Le Protocole de Protection Absolue Anatec :</b>
+        <ol>
+          <li><b>Activez la vérification en 2 étapes (2FA) sur WhatsApp :</b> Allez dans <i>Paramètres > Compte > Vérification en deux étapes</i>. Créez un code PIN secret à 6 chiffres. Même si un pirate vole votre carte SIM, il ne pourra jamais ouvrir votre WhatsApp !</li>
+          <li><b>Utilisez la méthode de la « Phrase de passe » :</b> Au lieu de <code>Niger2026</code>, écrivez : <code>MonPereAcheteDuTheVert!2026</code>. Elle est facile à retenir pour vous, mais impossible à casser pour un supercalculateur.</li>
+          <li><b>Sécurisez votre compte Google/Gmail :</b> Gmail est le cœur de votre smartphone Android. Activez l'application <b>Google Authenticator</b> pour protéger vos accès.</li>
+        </ol>
+      </div>
+
+      <h4>3. Mini-Quiz d'Auto-Évaluation</h4>
+      <div class="quiz-section">
+        <div class="quiz-q" data-correct="1">
+          <b>Question : Un ami Facebook vous écrit en urgence : "Je suis bloqué en voyage, envoie-moi 20 000 FCFA sur ce numéro". Que devez-vous faire ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuiz(this, 0)">A) Envoyer l'argent tout de suite pour l'aider</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 1)">B) L'appeler directement sur son vrai numéro de téléphone pour vérifier sa voix</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 2)">C) Transférer le message à d'autres amis</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: "mobile_security",
+    icon: "📱",
+    badge: "COURS 3 · PAIEMENTS MOBILES",
+    title: "Sécuriser son Smartphone & Comptes Mobile Money",
+    lead: "Verrouiller le code PIN de la carte SIM contre le SIM Swap, déjouer les faux dépôts Orange/Airtel/Moov Money et activer la localisation anti-vol.",
+    time: "10 min",
+    content: `
+      <h4>1. Votre téléphone est désormais votre portefeuille</h4>
+      <p>Au Niger et en Afrique de l'Ouest, nos téléphones contiennent nos économies (Orange Money, Moov Money, Airtel Money, Al Izza, etc.). Si votre téléphone n'est pas sécurisé, un voleur de rue peut vider vos comptes en quelques minutes.</p>
+
+      <h4>2. Les 3 Failles Majeures et Comment les Verrouiller :</h4>
+
+      <div class="lesson-box">
+        <b>🔒 1. Le Code PIN de votre Carte SIM (Le bouclier anti-vol)</b><br>
+        <i>Le danger :</i> Par défaut, la plupart des cartes SIM ont pour code PIN <b>0000</b> ou <b>1234</b>. Si un voleur arrache votre téléphone, il met votre carte SIM dans son propre appareil, reçoit vos SMS de récupération bancaire et vide vos comptes !<br>
+        <b>👉 L'action immédiate :</b> Allez dans <i>Paramètres du téléphone > Sécurité > Verrouillage de la carte SIM</i>. Changez immédiatement le code PIN par défaut pour un code secret à 4 chiffres personnel.
+      </div>
+
+      <div class="lesson-box">
+        <b>💸 2. Le Piège du Faux Dépôt Mobile Money</b><br>
+        <i>Le scénario :</i> Vous recevez un faux SMS imitant votre opérateur : <i>"Dépôt de 25 000 FCFA reçu de Moussa..."</i>. Deux secondes après, un inconnu vous appelle en panique : <i>"Pardonnez-moi grand frère, je me suis trompé de numéro en envoyant l'argent pour soigner ma mère, renvoyez-le moi s'il vous plaît !"</i>.<br>
+        Si vous lui renvoyez 25 000 FCFA sans avoir composé votre solde officiel (*144# ou *155#), vous venez de lui donner votre propre argent !<br>
+        <b>👉 Règle d'or :</b> Vérifiez TOUJOURS votre solde réel via le code USSD officiel avant de croire un SMS.
+      </div>
+
+      <div class="lesson-box tip">
+        <b>🛡️ Les 3 Verrous Essentiels à Activer Aujourd'hui :</b>
+        <ul>
+          <li><b>Activez la localisation à distance :</b> Sur Android, activez <i>Google Localiser mon appareil (Find My Device)</i> pour effacer vos données à distance en cas de vol.</li>
+          <li><b>Mettez une empreinte ou mot de passe sur vos applications bancaires et WhatsApp.</b></li>
+          <li><b>Méfiez-vous des fichiers .APK non officiels téléchargés hors du Play Store.</b></li>
+        </ul>
+      </div>
+
+      <h4>3. Mini-Quiz d'Auto-Évaluation</h4>
+      <div class="quiz-section">
+        <div class="quiz-q" data-correct="2">
+          <b>Question : Quelqu'un vous appelle en affirmant qu'il vous a envoyé 30 000 FCFA par erreur et demande le renvoi. Que faites-vous ?</b>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="checkQuiz(this, 0)">A) Vous le croyez et renvoyez l'argent immédiatement</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 1)">B) Vous l'insultez et raccrochez</button>
+            <button class="quiz-opt" onclick="checkQuiz(this, 2)">C) Vous tapez le code secret officiel de votre opérateur pour vérifier votre solde réel</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: "os_install",
+    icon: "💿",
+    badge: "COURS 4 · INSTALLATION & SYSTÈMES",
+    title: "Installer Windows 11 & Linux sans Perdre ses Données",
+    lead: "Guide pas-à-pas : créer une clé bootable avec Rufus, accéder au BIOS/UEFI et partitionner son disque pour réinstaller sans effacer ses photos.",
+    time: "14 min",
+    content: `
+      <h4>1. La Préparation du Matériel & Logiciels</h4>
+      <p>Pour installer proprement un système d'exploitation, préparez :</p>
+      <ul>
+        <li>Une clé USB vierge de <b>8 Go ou 16 Go</b> minimum.</li>
+        <li>L'image ISO officielle (Windows 11 sur microsoft.com ou Ubuntu sur ubuntu.com).</li>
+        <li>Le logiciel gratuit et fiable <b>Rufus</b> (sur rufus.ie).</li>
+      </ul>
+
+      <h4>2. Les Étapes d'une Installation Réussie</h4>
+
+      <div class="lesson-box">
+        <b>Étape 1 : Graver l'image ISO avec Rufus</b><br>
+        Sélectionnez votre clé USB et le fichier ISO. Choisissez <b>GPT (pour UEFI moderne)</b> pour Windows 11, ou <b>MBR (pour ancien BIOS)</b> sur les machines d'avant 2014. Cliquez sur <i>Démarrer</i>.
+      </div>
+
+      <div class="lesson-box">
+        <b>Étape 2 : Démarrer l'ordinateur sur la clé (Boot Menu)</b><br>
+        Branchez la clé USB. Allumez le PC en tapotant immédiatement la touche du Boot Menu :
+        <ul>
+          <li><b>HP :</b> Touche <code>F9</code></li>
+          <li><b>Dell & Lenovo :</b> Touche <code>F12</code></li>
+          <li><b>Asus & Acer :</b> Touche <code>F12</code> ou <code>Échap</code></li>
+        </ul>
+        Sélectionnez <b>UEFI: Nom de votre clé USB</b>.
+      </div>
+
+      <div class="lesson-box">
+        <b>Étape 3 : Le Partitionnement sans effacer vos fichiers personnels</b><br>
+        Lors de l'installation, choisissez <b>« Personnalisé : installer uniquement Windows (avancé) »</b>.<br>
+        Formatez uniquement la partition système <code>C:</code>. <b>Ne touchez pas à la partition <code>D:</code> (Données)</b> : tous vos dossiers personnels y resteront parfaitement conservés !
+      </div>
+
+      <div class="lesson-box tip">
+        <b>🧪 Entraînez-vous dès maintenant dans notre Simulateur Virtuel :</b><br>
+        Pratiquez sans risque dans notre simulateur interactif pour tester l'écran BIOS et les questions d'installation :
+        <div style="margin-top:10px">
+          <a class="btn sm cyan" href="/simulator.html" target="_blank" rel="noopener">⚡ Ouvrir le Simulateur Virtuel d'Installation ↗</a>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: "networks",
+    icon: "🌐",
+    badge: "COURS 5 · RÉSEAUX & WI-FI",
+    title: "Comprendre Internet, les Adresses IP et le Wi-Fi",
+    lead: "Adresse IP privée vs publique, fonctionnement d'un routeur et comment sécuriser sa box Wi-Fi contre les voisins indiscrets.",
+    time: "11 min",
+    content: `
+      <h4>1. Qu'est-ce qu'une Adresse IP ?</h4>
+      <p>Une adresse IP est l'adresse postale de votre appareil dans le monde numérique. Elle permet aux serveurs de savoir exactement à qui envoyer les données.</p>
+
+      <div class="lesson-box">
+        <b>🏠 IP Privée Locale (192.168.x.x) vs 🌍 IP Publique :</b>
+        <ul>
+          <li><b>Votre IP Privée :</b> Donnée par votre box ou routeur Wi-Fi à chaque smartphone et PC pour communiquer à l'intérieur de la maison.</li>
+          <li><b>Votre IP Publique :</b> Attribuée par votre opérateur (Airtel, Moov, Orange, Niger Télécoms). C'est votre adresse visible sur le réseau mondial Internet.</li>
+        </ul>
+      </div>
+
+      <div class="lesson-box tip">
+        <b>🔒 Sécuriser votre Box Wi-Fi :</b>
+        <ol>
+          <li>Changez le mot de passe d'administration par défaut (souvent accessible sur <code>192.168.1.1</code>).</li>
+          <li>Choisissez le chiffrement <b>WPA2-AES ou WPA3</b> (évitez WEP qui se pirate en 1 minute).</li>
+          <li>Utilisez une application comme <b>Fing</b> pour voir tous les téléphones connectés à votre réseau en temps réel.</li>
+        </ol>
+      </div>
+    `
+  },
+
+  {
+    id: "terminal_basics",
+    icon: "⚡",
+    badge: "COURS 6 · TERMINAL & CMD",
+    title: "Le Terminal sans Peur (Windows & Linux)",
+    lead: "Apprenez à utiliser l'écran noir sans panique : les 5 commandes magiques pour tester sa connexion et dépanner son ordinateur.",
+    time: "10 min",
+    content: `
+      <h4>1. Pourquoi utiliser le terminal ?</h4>
+      <p>Le terminal permet de parler directement au système avec des commandes écrites. C'est 10 fois plus rapide qu'à la souris et indispensable en cas de panne graphique.</p>
+
+      <div class="lesson-box">
+        <table style="width:100%;border-collapse:collapse;font-size:14px">
+          <tr style="border-bottom:1px solid var(--line);color:var(--gold)">
+            <th align="left" style="padding:8px">Action</th>
+            <th align="left" style="padding:8px">Windows (CMD)</th>
+            <th align="left" style="padding:8px">Linux / Mac</th>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+            <td style="padding:8px">Tester la connexion</td>
+            <td style="padding:8px"><code>ping google.com</code></td>
+            <td style="padding:8px"><code>ping google.com</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+            <td style="padding:8px">Voir son adresse IP</td>
+            <td style="padding:8px"><code>ipconfig</code></td>
+            <td style="padding:8px"><code>ip a</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+            <td style="padding:8px">Lister les fichiers</td>
+            <td style="padding:8px"><code>dir</code></td>
+            <td style="padding:8px"><code>ls -la</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+            <td style="padding:8px">Entrer dans un dossier</td>
+            <td style="padding:8px"><code>cd nom_dossier</code></td>
+            <td style="padding:8px"><code>cd nom_dossier</code></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="lesson-box tip">
+        <b>💡 Test de diagnostic réseau en 3 étapes :</b>
+        <ol>
+          <li><code>ping 127.0.0.1</code> : Teste si votre carte réseau interne fonctionne.</li>
+          <li><code>ping 192.168.1.1</code> : Teste la communication avec votre box ou routeur Wi-Fi.</li>
+          <li><code>ping 8.8.8.8</code> : Teste la sortie vers le réseau Internet mondial.</li>
+        </ol>
+      </div>
+    `
+  }
+];
+
+let currentCourseIndex = 0;
+
+function initPlatform() {
+  const sidebar = document.getElementById("sidebar-course-list");
+  if (!sidebar) return;
+
+  sidebar.innerHTML = COURSES.map((c, i) => `
+    <div class="course-nav-item ${i === 0 ? 'active' : ''}" onclick="selectCourse(${i})">
+      <span class="course-nav-icon">${c.icon}</span>
+      <div>
+        <div class="course-nav-title">${c.title}</div>
+        <div class="course-nav-time">⏱ ${c.time} · ${c.badge}</div>
+      </div>
+    </div>
+  `).join("");
+
+  // Lire le paramètre URL ?id=...
+  const urlParams = new URLSearchParams(window.location.search);
+  const requestedId = urlParams.get("id");
+  let targetIndex = 0;
+  if (requestedId) {
+    const found = COURSES.findIndex(c => c.id === requestedId);
+    if (found !== -1) targetIndex = found;
+  }
+
+  selectCourse(targetIndex);
+}
+
+function selectCourse(index) {
+  currentCourseIndex = index;
+  const course = COURSES[index];
+  if (!course) return;
+
+  // Mise à jour de la sidebar
+  document.querySelectorAll(".course-nav-item").forEach((el, i) => {
+    el.classList.toggle("active", i === index);
+  });
+
+  // Mise à jour de la bannière
+  document.getElementById("course-badge").textContent = course.badge;
+  document.getElementById("course-title").textContent = course.title;
+  document.getElementById("course-lead").textContent = course.lead;
+  document.getElementById("read-progress").style.width = "100%";
+  document.getElementById("course-body").innerHTML = course.content;
+
+  // Générer les chips de chapitres
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = course.content;
+  const h4s = Array.from(tempDiv.querySelectorAll("h4"));
+  const chipsRow = document.getElementById("chapter-chips-row");
+
+  if (chipsRow) {
+    if (h4s.length > 0) {
+      chipsRow.innerHTML = '<span style="font-size:12px;color:var(--gold);font-weight:700;display:flex;align-items:center">📑 Chapitres du cours :</span>' +
+        h4s.map((h4, idx) => `
+          <button class="ch-chip" type="button" onclick="scrollToHeading(${idx})">${h4.textContent.replace(/^\\d+\\.\\s*/, '')}</button>
+        `).join("");
+
+      // Assigner des IDs aux H4 dans le corps
+      const realH4s = document.getElementById("course-body").querySelectorAll("h4");
+      realH4s.forEach((h, idx) => {
+        h.id = "ch-head-" + idx;
+        h.style.scrollMarginTop = "100px";
+      });
+    } else {
+      chipsRow.innerHTML = "";
+    }
+  }
+
+  // Mettre à jour les boutons précédent / suivant
+  document.getElementById("btn-prev-course").disabled = (index === 0);
+  const nextBtn = document.getElementById("btn-next-course");
+  if (index === COURSES.length - 1) {
+    nextBtn.textContent = "⚡ Pratiquer sur le Simulateur OS ➔";
+    nextBtn.onclick = () => window.location.href = "/simulator.html";
+  } else {
+    nextBtn.textContent = "Cours suivant →";
+    nextBtn.onclick = () => navigateCourse(1);
+  }
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function scrollToHeading(idx) {
+  const el = document.getElementById("ch-head-" + idx);
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+}
+
+function navigateCourse(direction) {
+  const newIndex = currentCourseIndex + direction;
+  if (newIndex >= 0 && newIndex < COURSES.length) {
+    selectCourse(newIndex);
+  }
+}
+
+function checkQuiz(btn, chosenIdx) {
+  const qBox = btn.closest(".quiz-q");
+  if (!qBox) return;
+  const correctIdx = parseInt(qBox.dataset.correct, 10);
+  const options = qBox.querySelectorAll(".quiz-opt");
+  const fb = qBox.querySelector(".quiz-feedback");
+
+  options.forEach((opt, idx) => {
+    opt.disabled = true;
+    if (idx === correctIdx) {
+      opt.style.background = "rgba(0,245,155,0.2)";
+      opt.style.borderColor = "var(--ok)";
+      opt.style.color = "#fff";
+    } else if (idx === chosenIdx && chosenIdx !== correctIdx) {
+      opt.style.background = "rgba(255,77,109,0.2)";
+      opt.style.borderColor = "var(--bad)";
+      opt.style.color = "#fff";
+    }
+  });
+
+  if (chosenIdx === correctIdx) {
+    fb.innerHTML = '<div style="margin-top:10px;padding:10px 14px;background:rgba(0,245,155,0.1);border-left:3px solid var(--ok);color:var(--ok);font-size:14px">✓ Excellente réponse ! C&apos;est exactement ça.</div>';
+  } else {
+    fb.innerHTML = '<div style="margin-top:10px;padding:10px 14px;background:rgba(255,77,109,0.1);border-left:3px solid var(--bad);color:#ff758f;font-size:14px">✗ Mauvaise réponse. La bonne réponse est mise en surbrillance verte ci-dessus.</div>';
+  }
+}
+
+// Initialisation
+initPlatform();
+</script>
+
+</body>
+</html>

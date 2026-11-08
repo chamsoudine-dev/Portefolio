@@ -812,9 +812,7 @@ dialog#lesson-modal::backdrop{
             <div class="school-meta">
               <span>⏱ 10 min de lecture</span> · <span>Quiz inclus</span>
             </div>
-            <button class="btn sm" type="button" onclick="openSchoolLesson('hardware')" style="width:100%">
-              📖 Ouvrir le cours interactif ➔
-            </button>
+            <a class="btn sm" href="/cours.html?id=hardware" target="_blank" rel="noopener" style="width:100%;text-decoration:none">📖 Ouvrir le cours (Nouvel onglet) ↗</a>
           </div>
         </div>
 
@@ -839,9 +837,7 @@ dialog#lesson-modal::backdrop{
             <div class="school-meta">
               <span>⏱ 12 min de lecture</span> · <span>Cas réels décryptés</span>
             </div>
-            <button class="btn sm" type="button" onclick="openSchoolLesson('cyber_basics')" style="width:100%;background:linear-gradient(135deg,var(--bad),#ff758f);color:#fff;border-color:var(--bad)">
-              📖 Ouvrir le cours interactif ➔
-            </button>
+            <a class="btn sm" href="/cours.html?id=cyber_basics" target="_blank" rel="noopener" style="width:100%;background:linear-gradient(135deg,var(--bad),#ff758f);color:#fff;border-color:var(--bad);text-decoration:none">📖 Ouvrir le cours (Nouvel onglet) ↗</a>
           </div>
         </div>
 
@@ -866,9 +862,7 @@ dialog#lesson-modal::backdrop{
             <div class="school-meta">
               <span>⏱ 10 min de lecture</span> · <span>Finances protégées</span>
             </div>
-            <button class="btn sm" type="button" onclick="openSchoolLesson('mobile_security')" style="width:100%;background:linear-gradient(135deg,var(--ok),#00c47d);color:#06090d;border-color:var(--ok)">
-              📖 Ouvrir le cours interactif ➔
-            </button>
+            <a class="btn sm" href="/cours.html?id=mobile_security" target="_blank" rel="noopener" style="width:100%;background:linear-gradient(135deg,var(--ok),#00c47d);color:#06090d;border-color:var(--ok);text-decoration:none">📖 Ouvrir le cours (Nouvel onglet) ↗</a>
           </div>
         </div>
 
@@ -894,12 +888,8 @@ dialog#lesson-modal::backdrop{
               <span>⏱ 14 min de lecture</span> · <span>Simulateur virtuel lié</span>
             </div>
             <div style="display:flex;gap:8px">
-              <button class="btn sm ghost" type="button" onclick="openSchoolLesson('os_install')" style="flex:1">
-                📖 Leçon & Quiz
-              </button>
-              <button class="btn sm cyan" type="button" onclick="switchToOsSimTab()" style="flex:1">
-                ⚡ TP Simulateur
-              </button>
+              <a class="btn sm ghost" href="/cours.html?id=os_install" target="_blank" rel="noopener" style="flex:1;text-decoration:none">📖 Leçon & Quiz ↗</a>
+              <a class="btn sm cyan" href="/simulator.html" target="_blank" rel="noopener" style="flex:1;text-decoration:none">⚡ TP Simulateur ↗</a>
             </div>
           </div>
         </div>
@@ -925,9 +915,7 @@ dialog#lesson-modal::backdrop{
             <div class="school-meta">
               <span>⏱ 11 min de lecture</span> · <span>Pratique réseaux</span>
             </div>
-            <button class="btn sm" type="button" onclick="openSchoolLesson('networks')" style="width:100%">
-              📖 Ouvrir le cours interactif ➔
-            </button>
+            <a class="btn sm" href="/cours.html?id=networks" target="_blank" rel="noopener" style="width:100%;text-decoration:none">📖 Ouvrir le cours (Nouvel onglet) ↗</a>
           </div>
         </div>
 
@@ -952,9 +940,7 @@ dialog#lesson-modal::backdrop{
             <div class="school-meta">
               <span>⏱ 10 min de lecture</span> · <span>Dépannage réseau</span>
             </div>
-            <button class="btn sm" type="button" onclick="openSchoolLesson('terminal_basics')" style="width:100%">
-              📖 Ouvrir le cours interactif ➔
-            </button>
+            <a class="btn sm" href="/cours.html?id=terminal_basics" target="_blank" rel="noopener" style="width:100%;text-decoration:none">📖 Ouvrir le cours (Nouvel onglet) ↗</a>
           </div>
         </div>
       </div>
@@ -3480,7 +3466,7 @@ const UNIVERSAL_KNOWLEDGE = [
     category: "🎓 Cours Débutant",
     desc: "Découvrez le rôle de chaque pièce de votre ordinateur ou smartphone : processeur (cerveau), RAM (plan de travail), SSD (stockage) sans aucun mot compliqué.",
     keywords: ["materiel", "ordinateur", "pc", "processeur", "cpu", "ram", "memoire", "disque", "ssd", "hdd", "carte mere", "debutant", "ecole", "composant", "smartphone"],
-    action: () => openSchoolLesson("hardware")
+    action: () => window.open("/cours.html?id=hardware", "_blank")
   },
   {
     id: "cyber_basics",
@@ -3489,7 +3475,7 @@ const UNIVERSAL_KNOWLEDGE = [
     category: "🎓 Cours Sécurité",
     desc: "Apprenez les 4 règles d'or pour ne jamais vous faire voler vos comptes WhatsApp, Facebook, bancaires ou e-mails par des faux messages.",
     keywords: ["piratage", "hack", "arnaque", "phishing", "hameconnage", "whatsapp", "facebook", "mot de passe", "fraude", "faux sms", "banque", "securite"],
-    action: () => openSchoolLesson("cyber_basics")
+    action: () => window.open("/cours.html?id=cyber_basics", "_blank")
   },
   {
     id: "os_install",
@@ -3498,7 +3484,7 @@ const UNIVERSAL_KNOWLEDGE = [
     category: "🎓 Cours Pratique",
     desc: "Guide complet pas à pas : préparer une clé USB bootable avec Rufus, accéder au BIOS/UEFI, partitionner son disque sans écraser ses données.",
     keywords: ["installer windows", "windows 11", "linux", "ubuntu", "cle usb", "rufus", "bootable", "bios", "uefi", "partition", "formater", "reparer", "disque"],
-    action: () => openSchoolLesson("os_install")
+    action: () => window.open("/cours.html?id=os_install", "_blank")
   },
   {
     id: "networks",
@@ -3507,7 +3493,7 @@ const UNIVERSAL_KNOWLEDGE = [
     category: "🎓 Cours Réseau",
     desc: "Comprenez ce qu'est une adresse IP, comment voyage un message sur Internet, et comment sécuriser votre box Wi-Fi contre les voisins indiscrets.",
     keywords: ["internet", "reseau", "wifi", "ip", "adresse ip", "routeur", "box", "4g", "5g", "connexion", "debit", "securiser wifi"],
-    action: () => openSchoolLesson("networks")
+    action: () => window.open("/cours.html?id=networks", "_blank")
   },
   {
     id: "terminal_basics",
@@ -3516,7 +3502,7 @@ const UNIVERSAL_KNOWLEDGE = [
     category: "🎓 Cours Pratique",
     desc: "Démystifiez l'écran noir ! Apprenez les 5 commandes universelles (ping, ipconfig, ls, dir) pour vérifier votre connexion et diagnostiquer votre machine.",
     keywords: ["terminal", "ligne de commande", "console", "cmd", "powershell", "bash", "linux", "ping", "ipconfig", "ifconfig", "debutant"],
-    action: () => openSchoolLesson("terminal_basics")
+    action: () => window.open("/cours.html?id=terminal_basics", "_blank")
   },
 
   // --- SIMULATEURS CONCRETS (CYBER LAB) ---
